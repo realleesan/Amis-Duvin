@@ -6,6 +6,34 @@
   <title><?= htmlspecialchars($title ?? 'Amis du Vin') ?></title>
   <meta name="description" content="Amis du Vin — Đơn vị tổ chức tiệc thử rượu vang cá nhân hóa cao cấp & Workshops nếm thử chuyên sâu cùng Chuyên gia Sommelier.">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            border: 'var(--border)',
+            input: 'var(--border)',
+            ring: 'var(--wine)',
+            background: 'var(--background)',
+            foreground: 'var(--foreground)',
+            card: {
+              DEFAULT: 'var(--card)',
+              foreground: 'var(--card-foreground)',
+            },
+            muted: {
+              DEFAULT: 'var(--muted)',
+              foreground: 'var(--muted-foreground)',
+            },
+            popover: {
+              DEFAULT: 'var(--popover)',
+              foreground: 'var(--popover-foreground)',
+            },
+          }
+        }
+      }
+    }
+  </script>
   <link rel="stylesheet" href="/assets/css/global.css">
 </head>
 <body class="bg-[#0f0d0e] text-[#f4ede4] antialiased">

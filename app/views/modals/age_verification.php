@@ -1,17 +1,35 @@
 <div id="ageVerificationModal" class="modal-overlay">
-  <div class="modal-content text-center max-w-md p-8 border border-[#D4AF37]/30 shadow-2xl">
-    <div class="w-16 h-16 rounded-full border border-[#D4AF37] flex items-center justify-center mx-auto mb-6 bg-[#722F37]/30">
-      <span class="font-heading text-2xl text-[#D4AF37] font-bold">18+</span>
+  <div class="relative w-full max-w-lg text-center animate-scale-in bg-card border border-border rounded-sm px-6 py-12 sm:px-12 shadow-[0_40px_80px_-30px_rgba(33,30,25,0.5)]">
+    <div class="flex justify-center mb-7">
+      <div class="w-16 h-16 rounded-full border border-[var(--gold)]/40 flex items-center justify-center bg-[var(--wine)]/5 animate-float-slow">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-grape w-7 h-7 text-[var(--wine)]">
+          <path d="M22 5V2l-5.89 5.89"></path>
+          <circle cx="16.6" cy="15.89" r="3"></circle>
+          <circle cx="8.11" cy="7.4" r="3"></circle>
+          <circle cx="12.35" cy="11.65" r="3"></circle>
+          <circle cx="13.91" cy="5.85" r="3"></circle>
+          <circle cx="18.15" cy="10.09" r="3"></circle>
+          <circle cx="6.56" cy="13.2" r="3"></circle>
+          <circle cx="10.8" cy="17.44" r="3"></circle>
+          <circle cx="5" cy="19" r="3"></circle>
+        </svg>
+      </div>
     </div>
-    <h3 class="font-heading text-2xl text-[#f4ede4] mb-3">Xác Nhận Độ Tuổi</h3>
-    <p class="text-xs text-[#a69c96] mb-8 leading-relaxed">
-      Trang web chứa nội dung về đồ uống có cồn. Vui lòng xác nhận bạn đã đủ 18 tuổi để truy cập.
-    </p>
-    <div class="flex flex-col gap-3">
-      <button id="btnVerifyAge" class="btn-gold w-full text-xs uppercase tracking-widest py-3">
-        Tôi đã đủ 18 tuổi
-      </button>
-      <a href="https://google.com" class="text-xs text-[#a69c96] hover:underline mt-2">Tôi chưa đủ 18 tuổi</a>
+    <p class="text-xs uppercase tracking-[0.35em] text-[var(--gold)] mb-4">Amis du Vin</p>
+    <h2 class="font-heading text-2xl sm:text-3xl text-foreground leading-snug mb-4">Vui lòng xác nhận bạn đủ 18 tuổi<br class="hidden sm:block"> để truy cập không gian Amis du Vin</h2>
+    <p class="text-sm text-muted-foreground max-w-sm mx-auto mb-10">Theo quy định về đồ uống có cồn, chúng tôi cần xác minh độ tuổi của bạn trước khi tiếp tục.</p>
+    <div class="mb-3">
+      <div class="flex items-end justify-center gap-3 mb-6">
+        <span id="ageYearDisplay" class="text-5xl font-heading text-foreground tabular-nums">1995</span>
+        <span class="text-[var(--gold)] text-sm mb-2">Năm sinh</span>
+      </div>
+      <input id="ageSlider" type="range" min="1940" max="2026" class="vintage-slider" aria-label="Chọn năm sinh" value="1995">
+      <div class="flex justify-between text-[10px] uppercase tracking-widest text-muted-foreground mt-3">
+        <span>1940</span>
+        <span>2026</span>
+      </div>
     </div>
+    <p id="ageFeedback" class="text-sm mt-7 mb-7 transition-colors text-[var(--gold)]">Bạn đủ 31 tuổi — đủ điều kiện truy cập</p>
+    <button id="btnVerifyAge" class="btn-wine w-full max-w-xs mx-auto py-4 rounded-sm text-sm uppercase tracking-[0.2em] font-medium min-h-[52px]">Xác nhận &amp; Truy cập</button>
   </div>
 </div>

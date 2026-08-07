@@ -8,4 +8,3 @@ require __DIR__ . '/faq.php';
 require __DIR__ . '/registration.php';
 require __DIR__ . '/workshops.php';
 require __DIR__ . '/map.php';
-?>
