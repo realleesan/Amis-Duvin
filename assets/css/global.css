@@ -283,6 +283,10 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   z-index: 99999 !important;
 }
 
+.workshop-flip-card.is-flipped {
+  transform: rotateY(180deg) !important;
+}
+
 .vintage-slider {
   -webkit-appearance: none;
   appearance: none;

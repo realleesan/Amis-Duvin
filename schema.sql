@@ -65,8 +65,9 @@ CREATE TABLE IF NOT EXISTS `workshops` (
   `max_participants` INT NOT NULL DEFAULT 12,
   `current_participants` INT NOT NULL DEFAULT 0,
   `wines_count` INT NOT NULL DEFAULT 5,
-  `image` VARCHAR(255) NULL,
+  `image` VARCHAR(500) NULL,
   `status` ENUM('active', 'inactive', 'full') DEFAULT 'active',
+  `is_featured` TINYINT(1) NOT NULL DEFAULT 0,
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -100,7 +101,12 @@ INSERT INTO `testimonials` (`pairing_id`, `name`, `avatar`, `avatar_initials`, `
 (4, 'Anh Nguyễn Quốc Bảo', 'https://media.base44.com/images/public/6a623336361c483b3f15558c/c14ed7531_generated_image.png/v1/fill/w_56,h_56,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/c14ed7531_generated_image.webp', NULL, 'Nhà đầu tư', 'Amis du Vin Gala Night', 5, 'Đẳng cấp và tinh tế. Đêm Gala thật sự vượt mong đợi — điểm đến xứng đáng cho giới doanh nhân.', 5);
 
 -- Seed dữ liệu mẫu cho Workshops
-INSERT INTO `workshops` (`slug`, `title`, `level`, `price`, `duration`, `schedule`, `location`, `max_participants`, `current_participants`, `wines_count`, `image`) VALUES
-('nhap-mon-nếm-thử-vang', 'Nhập môn Nếm thử Vang', 'Cơ bản', 1200000.00, '2.5 giờ', 'Thứ 7 hàng tuần, 15:00 - 17:30', 'Amis du Vin Cellar — Q.3, TP.HCM', 12, 8, 5, '/assets/images/workshop-1.jpg'),
-('chieu-sau-vang-bordeaux', 'Chiều sâu Vang Bordeaux & Burgundy', 'Nâng cao', 2500000.00, '3.0 giờ', 'Chủ nhật cuối tháng, 18:00 - 21:00', 'Amis du Vin Private Room — Q.1, TP.HCM', 8, 5, 6, '/assets/images/workshop-2.jpg'),
-('nghe-thuat-pairing', 'Nghệ thuật Phối vị Wine & Cheese', 'Chuyên đề', 1800000.00, '2.5 giờ', 'Thứ 6 hai tuần/lần, 18:30 - 21:00', 'Amis du Vin Cellar — Q.3, TP.HCM', 10, 6, 5, '/assets/images/workshop-3.jpg');
+INSERT INTO `workshops` (`id`, `slug`, `title`, `level`, `price`, `duration`, `schedule`, `location`, `max_participants`, `current_participants`, `wines_count`, `image`, `status`, `is_featured`) VALUES
+(1, 'the-first-sip', 'The First Sip', 'Cơ bản', 1000000.00, '2.0 giờ', 'Thứ 6, 14/08/2026 · 10h – 12h', 'Amis du Vin Cellar — Q.3, TP.HCM', 12, 9, 5, 'https://media.base44.com/images/public/6a623336361c483b3f15558c/2ff99e699_image.png/v1/fill/w_370,h_458,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/2ff99e699_image.webp', 'active', 1),
+(2, 'the-art-of-taste', 'The Art of Taste', 'Nâng cao', 1200000.00, '2.0 giờ', '28/08/2026 · 19h – 21h', 'Amis du Vin Cellar — Q.3, TP.HCM', 12, 7, 5, 'https://media.base44.com/images/public/6a623336361c483b3f15558c/ef11c3040_image.png/v1/fill/w_370,h_458,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/ef11c3040_image.webp', 'active', 1),
+(3, 'wine-food-romance', 'Wine & Food Romance', 'Chuyên đề', 1500000.00, '2.0 giờ', '11/09/2026 · 19h – 21h', 'Amis du Vin Cellar — Q.3, TP.HCM', 12, 10, 5, 'https://media.base44.com/images/public/6a623336361c483b3f15558c/ff4488a83_image.png/v1/fill/w_298,h_160,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/ff4488a83_image.webp', 'active', 0),
+(4, 'around-the-wine-world', 'Around the Wine World', 'Khám phá', 1800000.00, '2.0 giờ', '25/09/2026 · 19h – 21h', 'Amis du Vin Cellar — Q.3, TP.HCM', 12, 12, 6, 'https://media.base44.com/images/public/6a623336361c483b3f15558c/4e47aee24_image.png/v1/fill/w_298,h_160,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/4e47aee24_image.webp', 'full', 0),
+(5, 'wine-art', 'Wine & Art', 'Cảm nhận', 1000000.00, '2.0 giờ', '09/10/2026 · 19h – 21h', 'Amis du Vin Cellar — Q.3, TP.HCM', 12, 6, 5, 'https://media.base44.com/images/public/6a623336361c483b3f15558c/0d495c825_image.png/v1/fill/w_298,h_160,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/0d495c825_image.webp', 'active', 0),
+(6, 'wine-business', 'Wine & Business', 'Ngoại giao', 2000000.00, '2.0 giờ', '23/10/2026 · 19h – 21h', 'Amis du Vin Cellar — Q.3, TP.HCM', 12, 11, 6, 'https://media.base44.com/images/public/6a623336361c483b3f15558c/2a054bd36_image.png/v1/fill/w_298,h_160,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/2a054bd36_image.webp', 'active', 0),
+(7, 'wine-fine-living', 'Wine & Fine Living', 'Thưởng thức', 1500000.00, '2.0 giờ', '06/11/2026 · 19h – 21h', 'Amis du Vin Cellar — Q.3, TP.HCM', 12, 2, 5, 'https://media.base44.com/images/public/6a623336361c483b3f15558c/2a054bd36_image.png/v1/fill/w_298,h_160,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/2a054bd36_image.webp', 'active', 0),
+(8, 'amis-du-vin-gala', 'Amis du Vin Gala', 'Thượng lưu', 2000000.00, '4.0 giờ', '20/11/2026 · 18h – 22h', 'Amis du Vin Cellar — Q.3, TP.HCM', 20, 5, 7, 'https://media.base44.com/images/public/6a623336361c483b3f15558c/f807fd6b1_image.png/v1/fill/w_298,h_160,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/f807fd6b1_image.webp', 'active', 0);

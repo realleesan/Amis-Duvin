@@ -13,6 +13,8 @@ class HomeController extends BaseController
     {
         $workshopModel = new WorkshopModel();
         $workshops = $workshopModel->getActiveWorkshops();
+        $featuredWorkshops = $workshopModel->getFeaturedWorkshops();
+        $topicWorkshops = $workshopModel->getTopicWorkshops();
 
         $pairingModel = new PairingModel();
         $pairings = $pairingModel->getActivePairings();
@@ -23,6 +25,8 @@ class HomeController extends BaseController
         $this->view('home/index', [
             'title' => 'Amis du Vin — Nghệ thuật Thưởng thức Vang & Food Pairing',
             'workshops' => $workshops,
+            'featuredWorkshops' => $featuredWorkshops,
+            'topicWorkshops' => $topicWorkshops,
             'pairings' => $pairings,
             'testimonials' => $testimonials
         ]);

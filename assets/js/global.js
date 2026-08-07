@@ -292,6 +292,106 @@ document.addEventListener('DOMContentLoaded', () => {
     if (modal) modal.classList.remove('active');
   };
 
+  // Workshop 3D Card Flip Handler
+  window.toggleWorkshopCardFlip = function(cardEl, event) {
+    if (!cardEl) return;
+    if (event && event.target && event.target.closest('button, a, input')) {
+      return;
+    }
+    cardEl.classList.toggle('is-flipped');
+  };
+
+  // Workshop Topic 3D Coverflow Stack Carousel Handler
+  let currentTopicIndex = 0;
+  
+  window.updateTopicCoverflow = function() {
+    const cards = document.querySelectorAll('.topic-coverflow-card');
+    const indicator = document.getElementById('topicIndicator');
+    if (!cards.length) return;
+
+    const total = cards.length;
+    if (currentTopicIndex < 0) currentTopicIndex = 0;
+    if (currentTopicIndex >= total) currentTopicIndex = total - 1;
+
+    cards.forEach((card, idx) => {
+      const offset = idx - currentTopicIndex;
+      const innerFlipCard = card.querySelector('.workshop-flip-card');
+      
+      if (offset === 0) {
+        card.style.transform = 'translateX(-50%) translateX(0px) translateZ(0px) rotateY(0deg) scale(1)';
+        card.style.opacity = '1';
+        card.style.zIndex = '10';
+        card.style.pointerEvents = 'auto';
+      } else if (offset === 1) {
+        card.style.transform = 'translateX(-50%) translateX(175px) translateZ(-150px) rotateY(-35deg) scale(0.82)';
+        card.style.opacity = '0.4';
+        card.style.zIndex = '9';
+        card.style.pointerEvents = 'auto';
+        if (innerFlipCard) innerFlipCard.classList.remove('is-flipped');
+      } else if (offset === 2) {
+        card.style.transform = 'translateX(-50%) translateX(350px) translateZ(-300px) rotateY(-70deg) scale(0.82)';
+        card.style.opacity = '0.2';
+        card.style.zIndex = '8';
+        card.style.pointerEvents = 'auto';
+        if (innerFlipCard) innerFlipCard.classList.remove('is-flipped');
+      } else if (offset === -1) {
+        card.style.transform = 'translateX(-50%) translateX(-175px) translateZ(-150px) rotateY(35deg) scale(0.82)';
+        card.style.opacity = '0.4';
+        card.style.zIndex = '9';
+        card.style.pointerEvents = 'auto';
+        if (innerFlipCard) innerFlipCard.classList.remove('is-flipped');
+      } else if (offset === -2) {
+        card.style.transform = 'translateX(-50%) translateX(-350px) translateZ(-300px) rotateY(70deg) scale(0.82)';
+        card.style.opacity = '0.2';
+        card.style.zIndex = '8';
+        card.style.pointerEvents = 'auto';
+        if (innerFlipCard) innerFlipCard.classList.remove('is-flipped');
+      } else {
+        const sign = offset < 0 ? 1 : -1;
+        const posX = offset * 175;
+        card.style.transform = `translateX(-50%) translateX(${posX}px) translateZ(-350px) rotateY(${sign * 70}deg) scale(0.75)`;
+        card.style.opacity = '0';
+        card.style.zIndex = '0';
+        card.style.pointerEvents = 'none';
+        if (innerFlipCard) innerFlipCard.classList.remove('is-flipped');
+      }
+    });
+
+    if (indicator) {
+      indicator.textContent = `${currentTopicIndex + 1} / ${total}`;
+    }
+  };
+
+  window.prevTopicSlide = function() {
+    const cards = document.querySelectorAll('.topic-coverflow-card');
+    if (!cards.length) return;
+    currentTopicIndex = (currentTopicIndex - 1 + cards.length) % cards.length;
+    window.updateTopicCoverflow();
+  };
+
+  window.nextTopicSlide = function() {
+    const cards = document.querySelectorAll('.topic-coverflow-card');
+    if (!cards.length) return;
+    currentTopicIndex = (currentTopicIndex + 1) % cards.length;
+    window.updateTopicCoverflow();
+  };
+
+  window.handleTopicCardClick = function(idx, cardEl, event) {
+    if (event && event.target && event.target.closest('button, a, input')) {
+      return;
+    }
+    if (idx !== currentTopicIndex) {
+      currentTopicIndex = idx;
+      window.updateTopicCoverflow();
+    } else {
+      window.toggleWorkshopCardFlip(cardEl, event);
+    }
+  };
+
+  setTimeout(() => {
+    window.updateTopicCoverflow();
+  }, 100);
+
   document.querySelectorAll('[data-modal-target]').forEach(btn => {
     btn.addEventListener('click', () => {
       const targetId = btn.getAttribute('data-modal-target');

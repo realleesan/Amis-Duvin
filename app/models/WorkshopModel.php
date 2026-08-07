@@ -10,55 +10,23 @@ class WorkshopModel extends BaseModel
 
     public function getActiveWorkshops(): array
     {
-        if (!$this->db) {
-            // Static fallback data if database is not connected
-            return [
-                [
-                    'id' => 1,
-                    'slug' => 'nhap-mon-nem-thu-vang',
-                    'title' => 'Nhập môn Nếm thử Vang',
-                    'level' => 'Cơ bản',
-                    'price' => 1200000,
-                    'duration' => '2.5 giờ',
-                    'schedule' => 'Thứ 7 hàng tuần, 15:00 - 17:30',
-                    'location' => 'Amis du Vin Cellar — Q.3, TP.HCM',
-                    'max_participants' => 12,
-                    'current_participants' => 8,
-                    'wines_count' => 5,
-                    'image' => '/assets/images/workshop-1.jpg',
-                ],
-                [
-                    'id' => 2,
-                    'slug' => 'chieu-sau-vang-bordeaux',
-                    'title' => 'Chiều sâu Vang Bordeaux & Burgundy',
-                    'level' => 'Nâng cao',
-                    'price' => 2500000,
-                    'duration' => '3.0 giờ',
-                    'schedule' => 'Chủ nhật cuối tháng, 18:00 - 21:00',
-                    'location' => 'Amis du Vin Private Room — Q.1, TP.HCM',
-                    'max_participants' => 8,
-                    'current_participants' => 5,
-                    'wines_count' => 6,
-                    'image' => '/assets/images/workshop-2.jpg',
-                ],
-                [
-                    'id' => 3,
-                    'slug' => 'nghe-thuat-pairing',
-                    'title' => 'Nghệ thuật Phối vị Wine & Cheese',
-                    'level' => 'Chuyên đề',
-                    'price' => 1800000,
-                    'duration' => '2.5 giờ',
-                    'schedule' => 'Thứ 6 hai tuần/lần, 18:30 - 21:00',
-                    'location' => 'Amis du Vin Cellar — Q.3, TP.HCM',
-                    'max_participants' => 10,
-                    'current_participants' => 6,
-                    'wines_count' => 5,
-                    'image' => '/assets/images/workshop-3.jpg',
-                ]
-            ];
-        }
+        if (!$this->db) return [];
+        $stmt = $this->db->query("SELECT * FROM workshops WHERE status != 'inactive' ORDER BY id ASC");
+        return $stmt->fetchAll();
+    }
 
-        return $this->all();
+    public function getFeaturedWorkshops(): array
+    {
+        if (!$this->db) return [];
+        $stmt = $this->db->query("SELECT * FROM workshops WHERE is_featured = 1 AND status != 'inactive' ORDER BY id ASC");
+        return $stmt->fetchAll();
+    }
+
+    public function getTopicWorkshops(): array
+    {
+        if (!$this->db) return [];
+        $stmt = $this->db->query("SELECT * FROM workshops WHERE is_featured = 0 AND status != 'inactive' ORDER BY id ASC");
+        return $stmt->fetchAll();
     }
 
     public function registerParticipant(array $data): bool|string
