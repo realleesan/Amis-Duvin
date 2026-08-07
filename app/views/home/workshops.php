@@ -192,12 +192,12 @@ if (empty($topicWorkshops)) {
 
               <!-- Back Face (Identical border border-border & bg-card as front face!) -->
               <div class="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-sm border border-border bg-card p-6 sm:p-7 flex flex-col">
-                <div class="flex items-center justify-between mb-5">
-                  <p class="text-[10px] uppercase tracking-[0.25em] text-[var(--gold)]">Thông tin Workshop</p>
+                <div class="flex items-center justify-between gap-2 mb-5">
+                  <p class="text-[10px] uppercase tracking-[0.15em] text-[var(--gold)] whitespace-nowrap shrink-0">Thông tin Workshop</p>
                   <?php if ($isFull): ?>
-                    <span class="inline-flex items-center text-[10px] uppercase tracking-[0.15em] px-2.5 py-1 rounded-full border text-white/70 border-white/20 bg-white/5">Đã đầy</span>
+                    <span class="inline-flex items-center text-[10px] uppercase tracking-[0.1em] px-2.5 py-1 rounded-full border text-white/70 border-white/20 bg-white/5 shrink-0 whitespace-nowrap">Đã đầy</span>
                   <?php else: ?>
-                    <span class="inline-flex items-center text-[10px] uppercase tracking-[0.15em] px-2.5 py-1 rounded-full border text-emerald-400 border-emerald-500/30 bg-emerald-500/10">Còn nhận đăng ký</span>
+                    <span class="inline-flex items-center text-[10px] uppercase tracking-[0.1em] px-2.5 py-1 rounded-full border text-emerald-400 border-emerald-500/30 bg-emerald-500/10 shrink-0 whitespace-nowrap">Còn nhận đăng ký</span>
                   <?php endif; ?>
                 </div>
 
@@ -238,7 +238,7 @@ if (empty($topicWorkshops)) {
                     Giữ chỗ
                   </button>
                   <button type="button" onclick="event.stopPropagation(); toggleWorkshopCardFlip(this.closest('.workshop-flip-card'), event);" class="btn-ghost w-full flex items-center justify-center gap-2 py-3 rounded-sm text-xs uppercase tracking-[0.15em] font-medium min-h-[44px]">
-                    Xem chi tiết
+                    Xem mặt trước
                   </button>
                 </div>
               </div>
@@ -265,7 +265,7 @@ if (empty($topicWorkshops)) {
               ?>
               <div class="topic-coverflow-card absolute left-1/2 top-0 w-[270px] sm:w-[310px] h-full transition-all duration-500 ease-out [transform-style:preserve-3d]" data-topic-index="<?= $tIdx ?>">
                 
-                <!-- Workshop Flip Card Container without bg-card or overflow-hidden so preserve-3d works -->
+                <!-- Workshop Flip Card Container -->
                 <div class="workshop-flip-card relative w-full h-full transition-transform duration-700 [transform-style:preserve-3d] cursor-pointer" onclick="handleTopicCardClick(<?= $tIdx ?>, this, event)">
                   
                   <!-- Front Face -->
@@ -300,6 +300,12 @@ if (empty($topicWorkshops)) {
 
                       <div class="flex-1"></div>
 
+                      <!-- Added Note: Chạm để xem chi tiết -->
+                      <div class="flex items-center gap-1.5 text-[11px] text-muted-foreground mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-cw w-3 h-3"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path></svg> 
+                        Chạm để xem chi tiết
+                      </div>
+
                       <?php if ($tIsFull): ?>
                         <button type="button" onclick="event.stopPropagation(); scrollToId('register');" class="w-full py-3 rounded-sm text-xs uppercase tracking-[0.18em] font-medium min-h-[44px] btn-ghost text-muted-foreground">Giữ chỗ cho lần tới</button>
                       <?php else: ?>
@@ -308,14 +314,14 @@ if (empty($topicWorkshops)) {
                     </div>
                   </div>
 
-                  <!-- Back Face (Details - Matches border border-border and bg-card!) -->
-                  <div class="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-sm border border-border bg-card p-6 flex flex-col shadow-[0_24px_60px_-25px_rgba(33,30,25,0.4)]">
-                    <div class="flex items-center justify-between mb-4">
-                      <p class="text-[9px] uppercase tracking-[0.25em] text-[var(--gold)]">Thông tin Workshop</p>
+                  <!-- Back Face (Fixed 1-line header: "Thông tin Workshop" with whitespace-nowrap & tracking-[0.12em]) -->
+                  <div class="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-sm border border-border bg-card p-5 sm:p-6 flex flex-col shadow-[0_24px_60px_-25px_rgba(33,30,25,0.4)]">
+                    <div class="flex items-center justify-between gap-2 mb-4">
+                      <p class="text-[9px] sm:text-[10px] uppercase tracking-[0.12em] text-[var(--gold)] whitespace-nowrap shrink-0">Thông tin Workshop</p>
                       <?php if ($tIsFull): ?>
-                        <span class="inline-flex items-center text-[9px] uppercase tracking-[0.15em] px-2 py-0.5 rounded-full border text-white/70 border-white/20 bg-white/5">Đã đầy</span>
+                        <span class="inline-flex items-center text-[9px] uppercase tracking-[0.1em] px-2 py-0.5 rounded-full border text-white/70 border-white/20 bg-white/5 shrink-0 whitespace-nowrap">Đã đầy</span>
                       <?php else: ?>
-                        <span class="inline-flex items-center text-[9px] uppercase tracking-[0.15em] px-2 py-0.5 rounded-full border text-emerald-400 border-emerald-500/30 bg-emerald-500/10">Còn nhận đăng ký</span>
+                        <span class="inline-flex items-center text-[9px] uppercase tracking-[0.1em] px-2 py-0.5 rounded-full border text-emerald-400 border-emerald-500/30 bg-emerald-500/10 shrink-0 whitespace-nowrap">Còn nhận đăng ký</span>
                       <?php endif; ?>
                     </div>
 
@@ -340,7 +346,7 @@ if (empty($topicWorkshops)) {
                       </div>
                     </div>
 
-                    <div class="flex flex-col gap-2 mt-5">
+                    <div class="flex flex-col gap-2 mt-4">
                       <button type="button" onclick="event.stopPropagation(); scrollToId('register');" class="w-full py-3 rounded-sm text-xs uppercase tracking-[0.18em] font-medium min-h-[44px] btn-invert">Giữ chỗ</button>
                       <button type="button" onclick="event.stopPropagation(); toggleWorkshopCardFlip(this.closest('.workshop-flip-card'), event);" class="btn-ghost w-full py-2 rounded-sm text-[11px] uppercase tracking-[0.15em] font-medium min-h-[38px]">Xem chi tiết</button>
                     </div>
