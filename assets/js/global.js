@@ -176,7 +176,76 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 7. Smooth scroll links helper
+  // 7. Dynamic Pairing Modal handlers
+  window.openPairingModal = function(data) {
+    if (!data) return;
+    const modal = document.getElementById('pairingModal');
+    if (!modal) return;
+
+    const img = document.getElementById('pairingModalImg');
+    const level = document.getElementById('pairingModalLevel');
+    const title = document.getElementById('pairingModalTitle');
+    const subtitle = document.getElementById('pairingModalSubtitle');
+    const price = document.getElementById('pairingModalPrice');
+    const duration = document.getElementById('pairingModalDuration');
+    const capacity = document.getElementById('pairingModalCapacity');
+    const menuContainer = document.getElementById('pairingModalMenu');
+
+    if (img) {
+      img.src = data.image || '';
+      img.alt = data.title || '';
+    }
+    if (level) {
+      level.textContent = data.level || 'Standard Level';
+      if (data.level && data.level.toLowerCase().includes('premium')) {
+        level.className = "inline-block text-[10px] uppercase tracking-[0.15em] px-2.5 py-1 rounded-full border backdrop-blur-sm mb-2 text-[var(--gold)] border-[var(--gold)]/40 bg-[var(--gold)]/15";
+      } else {
+        level.className = "inline-block text-[10px] uppercase tracking-[0.15em] px-2.5 py-1 rounded-full border backdrop-blur-sm mb-2 text-white/80 border-white/25 bg-white/10";
+      }
+    }
+    if (title) title.textContent = data.title || '';
+    if (subtitle) subtitle.textContent = data.subtitle || '';
+    if (price) price.textContent = data.price_text || '';
+    if (duration) duration.textContent = data.duration || '';
+    if (capacity) capacity.textContent = data.capacity || '';
+
+    if (menuContainer) {
+      menuContainer.innerHTML = '';
+      let menuItems = data.menu_items;
+      if (typeof menuItems === 'string') {
+        try { menuItems = JSON.parse(menuItems); } catch(e) { menuItems = []; }
+      }
+      if (Array.isArray(menuItems)) {
+        menuItems.forEach(item => {
+          const li = document.createElement('li');
+          li.className = "flex items-start justify-between gap-3 text-sm border-b border-border pb-2.5 last:border-0";
+          li.innerHTML = `
+            <span class="text-foreground/85">${item.course || ''}</span>
+            <span class="text-[var(--wine)] font-medium text-right shrink-0 max-w-[45%]">${item.wine || ''}</span>
+          `;
+          menuContainer.appendChild(li);
+        });
+      }
+    }
+
+    modal.classList.add('active');
+  };
+
+  window.closePairingModal = function() {
+    const modal = document.getElementById('pairingModal');
+    if (modal) modal.classList.remove('active');
+  };
+
+  // Close modal when clicking outside content
+  document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) {
+        overlay.classList.remove('active');
+      }
+    });
+  });
+
+  // 8. Smooth scroll links helper
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
       e.preventDefault();

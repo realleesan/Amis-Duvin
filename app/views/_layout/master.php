@@ -102,6 +102,7 @@
   <!-- Modals -->
   <?php require __DIR__ . '/../modals/age_verification.php'; ?>
   <?php require __DIR__ . '/../modals/sommelier_modal.php'; ?>
+  <?php require __DIR__ . '/../modals/pairing_modal.php'; ?>
   <?php require __DIR__ . '/../modals/workshop_modal.php'; ?>
   <?php require __DIR__ . '/../modals/success_modal.php'; ?>
 

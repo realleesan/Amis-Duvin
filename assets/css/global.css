@@ -233,8 +233,31 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   background: radial-gradient(ellipse at top, rgba(182, 32, 37, 0.12), transparent 60%);
 }
 
-.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-.no-scrollbar::-webkit-scrollbar { display: none; }
+/* Custom luxury scrollbar for modals and scroll containers */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(178, 2, 37, 0.4);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--wine);
+}
+
+.no-scrollbar { 
+  -ms-overflow-style: none !important; 
+  scrollbar-width: none !important; 
+}
+.no-scrollbar::-webkit-scrollbar { 
+  display: none !important; 
+  width: 0 !important; 
+  height: 0 !important; 
+}
 
 .vintage-slider {
   -webkit-appearance: none;
