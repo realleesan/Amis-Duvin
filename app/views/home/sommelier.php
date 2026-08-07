@@ -20,7 +20,7 @@
           <h2 class="font-heading text-4xl sm:text-5xl text-foreground mb-5">Sommelier Alex Thịnh</h2>
           <div class="hairline w-20 mb-7"></div>
           <p class="text-base text-foreground/75 leading-relaxed mb-9 max-w-xl [font-family:'Archivo',_sans-serif]">Người dẫn dắt những câu chuyện tinh hoa trên bàn tiệc. Với nhiều năm kinh nghiệm phục vụ giới doanh nhân và CEO, Alex Thịnh không chỉ mang đến kiến thức uyên thâm về vang, mà còn nâng tầm nghệ thuật giao tiếp và phong cách sống đẳng cấp.</p>
-          <button data-modal-target="sommelierModal" class="btn-invert px-7 py-4 rounded-sm text-sm uppercase tracking-[0.18em] font-medium min-h-[52px] inline-flex items-center gap-2 group">
+          <button onclick="openSommelierModal()" data-modal-target="sommelierModal" class="btn-invert px-7 py-4 rounded-sm text-sm uppercase tracking-[0.18em] font-medium min-h-[52px] inline-flex items-center gap-2 group">
             Khám phá hành trình của Alex Thịnh
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right w-4 h-4 group-hover:translate-x-1 transition-transform"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </button>

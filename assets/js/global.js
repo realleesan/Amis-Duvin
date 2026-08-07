@@ -236,6 +236,70 @@ document.addEventListener('DOMContentLoaded', () => {
     if (modal) modal.classList.remove('active');
   };
 
+  // 8. Sommelier Drawer Modal & Slider
+  let currentSommelierSlide = 0;
+  const totalSommelierSlides = 4;
+
+  window.openSommelierModal = function() {
+    const modal = document.getElementById('sommelierModal');
+    if (modal) modal.classList.add('active');
+  };
+
+  window.closeSommelierModal = function() {
+    const modal = document.getElementById('sommelierModal');
+    if (modal) modal.classList.remove('active');
+  };
+
+  window.goToSommelierSlide = function(index) {
+    currentSommelierSlide = (index + totalSommelierSlides) % totalSommelierSlides;
+    const track = document.getElementById('sommelierSliderTrack');
+    if (track) {
+      track.style.transform = `translateX(-${currentSommelierSlide * 100}%)`;
+    }
+    const dotsContainer = document.getElementById('sommelierSliderDots');
+    if (dotsContainer) {
+      const dots = dotsContainer.querySelectorAll('button');
+      dots.forEach((dot, idx) => {
+        if (idx === currentSommelierSlide) {
+          dot.className = "h-1.5 rounded-full transition-all duration-300 w-6 bg-[var(--wine)]";
+        } else {
+          dot.className = "h-1.5 rounded-full transition-all duration-300 w-1.5 bg-white/50";
+        }
+      });
+    }
+  };
+
+  window.prevSommelierSlide = function() {
+    window.goToSommelierSlide(currentSommelierSlide - 1);
+  };
+
+  window.nextSommelierSlide = function() {
+    window.goToSommelierSlide(currentSommelierSlide + 1);
+  };
+
+  // Certificate Lightbox Zoom Modal Handlers
+  window.openCertLightbox = function(imgSrc) {
+    const modal = document.getElementById('certLightboxModal');
+    const img = document.getElementById('certLightboxImg');
+    if (modal && img) {
+      img.src = imgSrc || '';
+      modal.classList.add('active');
+    }
+  };
+
+  window.closeCertLightbox = function() {
+    const modal = document.getElementById('certLightboxModal');
+    if (modal) modal.classList.remove('active');
+  };
+
+  document.querySelectorAll('[data-modal-target]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.getAttribute('data-modal-target');
+      const modal = document.getElementById(targetId);
+      if (modal) modal.classList.add('active');
+    });
+  });
+
   // Close modal when clicking outside content
   document.querySelectorAll('.modal-overlay').forEach(overlay => {
     overlay.addEventListener('click', (e) => {

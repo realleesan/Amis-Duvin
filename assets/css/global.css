@@ -259,6 +259,30 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   height: 0 !important; 
 }
 
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+.animate-slide-in-right {
+  animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+#sommelierModal .modal-drawer-panel {
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+#sommelierModal.active .modal-drawer-panel {
+  transform: translateX(0);
+}
+
+#certLightboxModal {
+  z-index: 99999 !important;
+}
+
 .vintage-slider {
   -webkit-appearance: none;
   appearance: none;
