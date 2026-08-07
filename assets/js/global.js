@@ -1,5 +1,74 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Age verification check
+  // 1. Header scroll effect (glass & text color)
+  const header = document.getElementById('mainHeader');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const themeToggleBtns = document.querySelectorAll('.theme-toggle-btn');
+
+  function updateHeaderScroll() {
+    const isScrolled = window.scrollY > 40;
+    if (!header) return;
+
+    if (isScrolled) {
+      header.classList.remove('bg-transparent', 'py-5');
+      header.classList.add('glass', 'py-3');
+      navLinks.forEach(link => {
+        link.classList.remove('text-white/80', 'hover:text-white');
+        link.classList.add('text-foreground/70', 'hover:text-foreground');
+      });
+      themeToggleBtns.forEach(btn => {
+        btn.classList.remove('text-white');
+        btn.classList.add('text-foreground');
+      });
+      if (mobileMenuBtn) {
+        mobileMenuBtn.classList.remove('text-white');
+        mobileMenuBtn.classList.add('text-foreground');
+      }
+    } else {
+      header.classList.remove('glass', 'py-3');
+      header.classList.add('bg-transparent', 'py-5');
+      navLinks.forEach(link => {
+        link.classList.remove('text-foreground/70', 'hover:text-foreground');
+        link.classList.add('text-white/80', 'hover:text-white');
+      });
+      themeToggleBtns.forEach(btn => {
+        btn.classList.remove('text-foreground');
+        btn.classList.add('text-white');
+      });
+      if (mobileMenuBtn) {
+        mobileMenuBtn.classList.remove('text-foreground');
+        mobileMenuBtn.classList.add('text-white');
+      }
+    }
+  }
+
+  window.addEventListener('scroll', updateHeaderScroll, { passive: true });
+  updateHeaderScroll();
+
+  // 2. Dark / Light Theme Toggle
+  function syncThemeUI() {
+    const isDark = document.documentElement.classList.contains('dark');
+    document.querySelectorAll('#sunIcon, .sunIconMobile').forEach(el => {
+      el.classList.toggle('hidden', !isDark);
+    });
+    document.querySelectorAll('#moonIcon, .moonIconMobile').forEach(el => {
+      el.classList.toggle('hidden', isDark);
+    });
+  }
+
+  themeToggleBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const isDark = document.documentElement.classList.toggle('dark');
+      try {
+        localStorage.setItem('adv-theme', isDark ? 'dark' : 'light');
+      } catch (e) {}
+      syncThemeUI();
+    });
+  });
+
+  syncThemeUI();
+
+  // 3. Age verification check
   const ageModal = document.getElementById('ageVerificationModal');
   const isVerified = sessionStorage.getItem('adv_verified') === '1';
 
@@ -41,8 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Mobile Menu Toggle
-  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  // 4. Mobile Menu Toggle
   const mobileMenuDropdown = document.getElementById('mobileMenuDropdown');
 
   if (mobileMenuBtn && mobileMenuDropdown) {
@@ -62,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // FAQ Accordion
+  // 5. FAQ Accordion
   document.querySelectorAll('.faq-toggle').forEach(btn => {
     btn.addEventListener('click', () => {
       const item = btn.closest('.faq-item');
@@ -72,7 +140,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const isHidden = content.classList.contains('hidden');
 
-      // Close other accordion items
       document.querySelectorAll('.faq-item').forEach(other => {
         const otherContent = other.querySelector('.faq-content');
         const otherIcon = other.querySelector('.faq-icon');
@@ -95,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Pairing Mobile Carousel Navigation
+  // 6. Pairing Mobile Carousel Navigation
   const pairingCarousel = document.getElementById('pairingCarousel');
   const btnPairingPrev = document.getElementById('btnPairingPrev');
   const btnPairingNext = document.getElementById('btnPairingNext');
@@ -109,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Smooth scroll links helper
+  // 7. Smooth scroll links helper
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
       e.preventDefault();
