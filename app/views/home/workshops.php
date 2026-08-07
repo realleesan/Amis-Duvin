@@ -147,7 +147,7 @@ if (empty($topicWorkshops)) {
             <div class="workshop-flip-card relative w-full h-full transition-transform duration-700 [transform-style:preserve-3d] cursor-pointer" onclick="toggleWorkshopCardFlip(this, event)">
               
               <!-- Front Face -->
-              <div class="absolute inset-0 [backface-visibility:hidden] rounded-sm border border-border overflow-hidden">
+              <div class="absolute inset-0 [backface-visibility:hidden] rounded-sm border border-border overflow-hidden bg-card">
                 <span class="inline-block absolute inset-0 w-full h-full transition-transform duration-[1.2s] group-hover:scale-105">
                   <img src="<?= htmlspecialchars($ws['image']) ?>" loading="lazy" class="w-full h-full inset-0 absolute object-cover" alt="<?= htmlspecialchars($ws['title']) ?>">
                 </span>
@@ -190,14 +190,14 @@ if (empty($topicWorkshops)) {
                 </div>
               </div>
 
-              <!-- Back Face (Details) -->
-              <div class="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-sm border border-[var(--wine)]/30 bg-background p-6 sm:p-7 flex flex-col">
+              <!-- Back Face (Identical border border-border & bg-card as front face!) -->
+              <div class="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-sm border border-border bg-card p-6 sm:p-7 flex flex-col">
                 <div class="flex items-center justify-between mb-5">
                   <p class="text-[10px] uppercase tracking-[0.25em] text-[var(--gold)]">Thông tin Workshop</p>
                   <?php if ($isFull): ?>
                     <span class="inline-flex items-center text-[10px] uppercase tracking-[0.15em] px-2.5 py-1 rounded-full border text-white/70 border-white/20 bg-white/5">Đã đầy</span>
                   <?php else: ?>
-                    <span class="inline-flex items-center text-[10px] uppercase tracking-[0.15em] px-2.5 py-1 rounded-full border text-emerald-600 dark:text-emerald-400 border-emerald-500/30 bg-emerald-500/10">Còn nhận đăng ký</span>
+                    <span class="inline-flex items-center text-[10px] uppercase tracking-[0.15em] px-2.5 py-1 rounded-full border text-emerald-400 border-emerald-500/30 bg-emerald-500/10">Còn nhận đăng ký</span>
                   <?php endif; ?>
                 </div>
 
@@ -249,7 +249,7 @@ if (empty($topicWorkshops)) {
       <?php endforeach; ?>
     </div>
 
-    <!-- 2. Topic Workshops 3D Coverflow Carousel Section ("Các chủ đề tiếp theo") -->
+    <!-- 2. Topic Workshops 3D Coverflow Circular Loop Section ("Các chủ đề tiếp theo") -->
     <div class="reveal is-visible">
       <div class="relative">
         <p class="text-center text-xs uppercase tracking-[0.25em] text-[var(--gold)] mb-8">Các chủ đề tiếp theo</p>
@@ -264,10 +264,12 @@ if (empty($topicWorkshops)) {
                 $tIsFull = ($tWs['status'] === 'full' || $tRem <= 0);
               ?>
               <div class="topic-coverflow-card absolute left-1/2 top-0 w-[270px] sm:w-[310px] h-full transition-all duration-500 ease-out [transform-style:preserve-3d]" data-topic-index="<?= $tIdx ?>">
-                <div class="workshop-flip-card relative w-full h-full rounded-sm border border-border overflow-hidden bg-card flex flex-col shadow-[0_24px_60px_-25px_rgba(33,30,25,0.4)] transition-transform duration-700 [transform-style:preserve-3d] cursor-pointer" onclick="handleTopicCardClick(<?= $tIdx ?>, this, event)">
+                
+                <!-- Workshop Flip Card Container without bg-card or overflow-hidden so preserve-3d works -->
+                <div class="workshop-flip-card relative w-full h-full transition-transform duration-700 [transform-style:preserve-3d] cursor-pointer" onclick="handleTopicCardClick(<?= $tIdx ?>, this, event)">
                   
                   <!-- Front Face -->
-                  <div class="absolute inset-0 [backface-visibility:hidden] flex flex-col">
+                  <div class="absolute inset-0 [backface-visibility:hidden] rounded-sm border border-border overflow-hidden bg-card flex flex-col shadow-[0_24px_60px_-25px_rgba(33,30,25,0.4)]">
                     <div class="relative h-40 overflow-hidden shrink-0">
                       <span class="inline-block relative w-full h-full">
                         <img src="<?= htmlspecialchars($tWs['image']) ?>" loading="lazy" class="w-full h-full inset-0 absolute object-cover" alt="<?= htmlspecialchars($tWs['title']) ?>">
@@ -306,18 +308,18 @@ if (empty($topicWorkshops)) {
                     </div>
                   </div>
 
-                  <!-- Back Face (Details) -->
-                  <div class="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-sm border border-[var(--wine)]/30 bg-background p-5 flex flex-col">
+                  <!-- Back Face (Details - Matches border border-border and bg-card!) -->
+                  <div class="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-sm border border-border bg-card p-6 flex flex-col shadow-[0_24px_60px_-25px_rgba(33,30,25,0.4)]">
                     <div class="flex items-center justify-between mb-4">
                       <p class="text-[9px] uppercase tracking-[0.25em] text-[var(--gold)]">Thông tin Workshop</p>
                       <?php if ($tIsFull): ?>
                         <span class="inline-flex items-center text-[9px] uppercase tracking-[0.15em] px-2 py-0.5 rounded-full border text-white/70 border-white/20 bg-white/5">Đã đầy</span>
                       <?php else: ?>
-                        <span class="inline-flex items-center text-[9px] uppercase tracking-[0.15em] px-2 py-0.5 rounded-full border text-emerald-600 dark:text-emerald-400 border-emerald-500/30 bg-emerald-500/10">Còn nhận đăng ký</span>
+                        <span class="inline-flex items-center text-[9px] uppercase tracking-[0.15em] px-2 py-0.5 rounded-full border text-emerald-400 border-emerald-500/30 bg-emerald-500/10">Còn nhận đăng ký</span>
                       <?php endif; ?>
                     </div>
 
-                    <h3 class="font-heading text-base text-foreground mb-3 leading-tight"><?= htmlspecialchars($tWs['title']) ?></h3>
+                    <h3 class="font-heading text-base text-foreground mb-4 leading-tight"><?= htmlspecialchars($tWs['title']) ?></h3>
 
                     <div class="space-y-3 text-xs flex-1">
                       <div class="flex items-center justify-between">
@@ -328,7 +330,7 @@ if (empty($topicWorkshops)) {
                         <span class="text-foreground/60 uppercase tracking-wide text-[10px]">Sĩ số lớp</span>
                         <span class="text-xs text-foreground font-medium">8 – <?= (int)$tWs['max_participants'] ?> học viên</span>
                       </div>
-                      <div class="flex items-center justify-between border-t border-border pt-2.5">
+                      <div class="flex items-center justify-between border-t border-border pt-3">
                         <span class="text-foreground/60 uppercase tracking-wide text-[10px]">Số chỗ còn nhận</span>
                         <?php if ($tIsFull): ?>
                           <span class="text-xs font-semibold text-muted-foreground">Đã hết chỗ</span>
@@ -338,9 +340,9 @@ if (empty($topicWorkshops)) {
                       </div>
                     </div>
 
-                    <div class="flex flex-col gap-2 mt-4">
-                      <button type="button" onclick="event.stopPropagation(); scrollToId('register');" class="w-full py-2.5 rounded-sm text-xs uppercase tracking-[0.18em] font-medium min-h-[40px] btn-invert">Giữ chỗ</button>
-                      <button type="button" onclick="event.stopPropagation(); toggleWorkshopCardFlip(this.closest('.workshop-flip-card'), event);" class="btn-ghost w-full py-2 rounded-sm text-[11px] uppercase tracking-[0.15em] font-medium min-h-[38px]">Xem mặt trước</button>
+                    <div class="flex flex-col gap-2 mt-5">
+                      <button type="button" onclick="event.stopPropagation(); scrollToId('register');" class="w-full py-3 rounded-sm text-xs uppercase tracking-[0.18em] font-medium min-h-[44px] btn-invert">Giữ chỗ</button>
+                      <button type="button" onclick="event.stopPropagation(); toggleWorkshopCardFlip(this.closest('.workshop-flip-card'), event);" class="btn-ghost w-full py-2 rounded-sm text-[11px] uppercase tracking-[0.15em] font-medium min-h-[38px]">Xem chi tiết</button>
                     </div>
                   </div>
 

@@ -301,7 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
     cardEl.classList.toggle('is-flipped');
   };
 
-  // Workshop Topic 3D Coverflow Stack Carousel Handler
+  // Workshop Topic 3D Coverflow Stack Carousel Handler (Infinite Circular Loop: ... 5 6 1 2 3 ...)
   let currentTopicIndex = 0;
   
   window.updateTopicCoverflow = function() {
@@ -310,11 +310,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!cards.length) return;
 
     const total = cards.length;
-    if (currentTopicIndex < 0) currentTopicIndex = 0;
-    if (currentTopicIndex >= total) currentTopicIndex = total - 1;
+    currentTopicIndex = (currentTopicIndex % total + total) % total;
 
     cards.forEach((card, idx) => {
-      const offset = idx - currentTopicIndex;
+      // Calculate circular shortest offset
+      let offset = idx - currentTopicIndex;
+      if (offset > total / 2) offset -= total;
+      if (offset < -total / 2) offset += total;
+
       const innerFlipCard = card.querySelector('.workshop-flip-card');
       
       if (offset === 0) {
@@ -324,32 +327,32 @@ document.addEventListener('DOMContentLoaded', () => {
         card.style.pointerEvents = 'auto';
       } else if (offset === 1) {
         card.style.transform = 'translateX(-50%) translateX(175px) translateZ(-150px) rotateY(-35deg) scale(0.82)';
-        card.style.opacity = '0.4';
+        card.style.opacity = '0.5';
         card.style.zIndex = '9';
         card.style.pointerEvents = 'auto';
         if (innerFlipCard) innerFlipCard.classList.remove('is-flipped');
       } else if (offset === 2) {
-        card.style.transform = 'translateX(-50%) translateX(350px) translateZ(-300px) rotateY(-70deg) scale(0.82)';
-        card.style.opacity = '0.2';
+        card.style.transform = 'translateX(-50%) translateX(330px) translateZ(-280px) rotateY(-65deg) scale(0.72)';
+        card.style.opacity = '0.25';
         card.style.zIndex = '8';
         card.style.pointerEvents = 'auto';
         if (innerFlipCard) innerFlipCard.classList.remove('is-flipped');
       } else if (offset === -1) {
         card.style.transform = 'translateX(-50%) translateX(-175px) translateZ(-150px) rotateY(35deg) scale(0.82)';
-        card.style.opacity = '0.4';
+        card.style.opacity = '0.5';
         card.style.zIndex = '9';
         card.style.pointerEvents = 'auto';
         if (innerFlipCard) innerFlipCard.classList.remove('is-flipped');
       } else if (offset === -2) {
-        card.style.transform = 'translateX(-50%) translateX(-350px) translateZ(-300px) rotateY(70deg) scale(0.82)';
-        card.style.opacity = '0.2';
+        card.style.transform = 'translateX(-50%) translateX(-330px) translateZ(-280px) rotateY(65deg) scale(0.72)';
+        card.style.opacity = '0.25';
         card.style.zIndex = '8';
         card.style.pointerEvents = 'auto';
         if (innerFlipCard) innerFlipCard.classList.remove('is-flipped');
       } else {
         const sign = offset < 0 ? 1 : -1;
-        const posX = offset * 175;
-        card.style.transform = `translateX(-50%) translateX(${posX}px) translateZ(-350px) rotateY(${sign * 70}deg) scale(0.75)`;
+        const posX = offset * 160;
+        card.style.transform = `translateX(-50%) translateX(${posX}px) translateZ(-350px) rotateY(${sign * 70}deg) scale(0.65)`;
         card.style.opacity = '0';
         card.style.zIndex = '0';
         card.style.pointerEvents = 'none';
