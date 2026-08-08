@@ -379,6 +379,97 @@ document.addEventListener('DOMContentLoaded', () => {
     if (successModal) successModal.classList.add('active');
   };
 
+  // Workshop Details Modal Handlers
+  let currentWorkshopDetailData = null;
+
+  window.openWorkshopDetailsModal = function(wsData, event) {
+    if (event) event.stopPropagation();
+
+    const modal = document.getElementById('workshopDetailsModal');
+    if (!modal) return;
+
+    currentWorkshopDetailData = wsData;
+
+    if (wsData) {
+      const img = document.getElementById('wsDetailImg');
+      const num = document.getElementById('wsDetailNum');
+      const badge = document.getElementById('wsDetailBadge');
+      const title = document.getElementById('wsDetailTitle');
+      const date = document.getElementById('wsDetailDate');
+      const time = document.getElementById('wsDetailTime');
+      const fee = document.getElementById('wsDetailFee');
+      const capacity = document.getElementById('wsDetailCapacity');
+      const remaining = document.getElementById('wsDetailRemaining');
+      const desc = document.getElementById('wsDetailDescription');
+
+      if (img) img.src = wsData.image || '';
+      if (num) {
+        const numVal = wsData.id ? String(wsData.id).padStart(2, '0') : '01';
+        num.textContent = numVal;
+      }
+
+      if (badge) {
+        const isFull = (wsData.status === 'full' || (wsData.remaining_spots !== undefined && wsData.remaining_spots <= 0));
+        if (isFull) {
+          badge.className = 'inline-flex items-center text-[10px] uppercase tracking-[0.15em] px-2.5 py-1 rounded-full border backdrop-blur-sm text-white/70 border-white/25 bg-white/10';
+          badge.textContent = 'Đã đầy';
+        } else {
+          badge.className = 'inline-flex items-center text-[10px] uppercase tracking-[0.15em] px-2.5 py-1 rounded-full border backdrop-blur-sm text-emerald-300 border-emerald-400/40 bg-emerald-500/20';
+          badge.textContent = 'Còn nhận đăng ký';
+        }
+      }
+
+      if (title) title.textContent = wsData.title || '';
+
+      if (date && time) {
+        if (wsData.schedule && wsData.schedule.includes('·')) {
+          const parts = wsData.schedule.split('·');
+          date.textContent = parts[0].trim();
+          time.textContent = parts[1].trim();
+        } else {
+          date.textContent = wsData.schedule || 'Thứ 6, 14/08/2026';
+          time.textContent = '10h – 12h';
+        }
+      }
+
+      if (fee) {
+        fee.textContent = wsData.price_text || (wsData.price ? (Number(wsData.price).toLocaleString('vi-VN') + ' VNĐ') : '1.000.000 VNĐ');
+      }
+
+      if (capacity) {
+        capacity.textContent = `8 – ${wsData.max_participants || 12} HV`;
+      }
+
+      if (remaining) {
+        const rem = wsData.remaining_spots !== undefined ? wsData.remaining_spots : (Math.max(0, (wsData.max_participants || 12) - (wsData.current_participants || 0)));
+        if (rem <= 0 || wsData.status === 'full') {
+          remaining.textContent = 'Đã hết chỗ';
+        } else {
+          remaining.textContent = `Chỉ còn ${rem} chỗ`;
+        }
+      }
+
+      if (desc) {
+        desc.textContent = wsData.description || 'Ly vang đầu tiên — khởi đầu hành trình cảm nhận rượu vang: lịch sử, phân loại và bước thử nếm cơ bản dành cho người mới bắt đầu.';
+      }
+    }
+
+    modal.classList.add('active');
+  };
+
+  window.closeWorkshopDetailsModal = function() {
+    const modal = document.getElementById('workshopDetailsModal');
+    if (modal) modal.classList.remove('active');
+  };
+
+  window.triggerWsDetailRegister = function(event) {
+    if (event) event.stopPropagation();
+    closeWorkshopDetailsModal();
+    if (currentWorkshopDetailData) {
+      openWorkshopReservationModal(currentWorkshopDetailData, event);
+    }
+  };
+
   // Workshop 3D Card Flip Handler
   window.toggleWorkshopCardFlip = function(cardEl, event) {
     if (!cardEl) return;

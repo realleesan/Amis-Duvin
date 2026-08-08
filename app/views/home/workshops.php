@@ -13,6 +13,7 @@ if (empty($featuredWorkshops)) {
             'current_participants' => 9,
             'remaining_spots' => 3,
             'image' => 'https://media.base44.com/images/public/6a623336361c483b3f15558c/2ff99e699_image.png/v1/fill/w_370,h_458,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/2ff99e699_image.webp',
+            'description' => 'Ly vang đầu tiên — khởi đầu hành trình cảm nhận rượu vang: lịch sử, phân loại và bước thử nếm cơ bản dành cho người mới bắt đầu.',
             'status' => 'active'
         ],
         [
@@ -27,6 +28,7 @@ if (empty($featuredWorkshops)) {
             'current_participants' => 7,
             'remaining_spots' => 5,
             'image' => 'https://media.base44.com/images/public/6a623336361c483b3f15558c/ef11c3040_image.png/v1/fill/w_370,h_458,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/ef11c3040_image.webp',
+            'description' => 'Khai phá giác quan: kỹ thuật nhìn, ngửi, nếm và cách diễn giải hương vị rượu vang như một chuyên gia thực thụ.',
             'status' => 'active'
         ]
     ];
@@ -46,6 +48,7 @@ if (empty($topicWorkshops)) {
             'current_participants' => 10,
             'remaining_spots' => 2,
             'image' => 'https://media.base44.com/images/public/6a623336361c483b3f15558c/ff4488a83_image.png/v1/fill/w_298,h_160,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/ff4488a83_image.webp',
+            'description' => 'Nghệ thuật kết đôi ẩm thực và vang tinh tế: khám phá nguyên lý phối vị kinh điển giữa các món ngon và những dòng vang quyến rũ.',
             'status' => 'active'
         ],
         [
@@ -60,6 +63,7 @@ if (empty($topicWorkshops)) {
             'current_participants' => 12,
             'remaining_spots' => 0,
             'image' => 'https://media.base44.com/images/public/6a623336361c483b3f15558c/4e47aee24_image.png/v1/fill/w_298,h_160,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/4e47aee24_image.webp',
+            'description' => 'Hành trình du ngoạn các vùng vang danh tiếng nhất thế giới: từ Bordeaux, Tuscany đến Napa Valley và Nam Bán Cầu.',
             'status' => 'full'
         ],
         [
@@ -74,6 +78,7 @@ if (empty($topicWorkshops)) {
             'current_participants' => 6,
             'remaining_spots' => 6,
             'image' => 'https://media.base44.com/images/public/6a623336361c483b3f15558c/0d495c825_image.png/v1/fill/w_298,h_160,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/0d495c825_image.webp',
+            'description' => 'Sự hòa quyện đỉnh cao giữa nghệ thuật hội họa, âm nhạc cổ điển và cảm xúc thăng hoa bên những ly vang hảo hạng.',
             'status' => 'active'
         ],
         [
@@ -88,6 +93,7 @@ if (empty($topicWorkshops)) {
             'current_participants' => 11,
             'remaining_spots' => 1,
             'image' => 'https://media.base44.com/images/public/6a623336361c483b3f15558c/2a054bd36_image.png/v1/fill/w_298,h_160,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/2a054bd36_image.webp',
+            'description' => 'Văn hóa vang trong giao tế thương gia: quy tắc ứng xử, nghệ thuật chọn vang và làm chủ bàn tiệc ngoại giao đẳng cấp.',
             'status' => 'active'
         ],
         [
@@ -102,6 +108,7 @@ if (empty($topicWorkshops)) {
             'current_participants' => 2,
             'remaining_spots' => 10,
             'image' => 'https://media.base44.com/images/public/6a623336361c483b3f15558c/2a054bd36_image.png/v1/fill/w_298,h_160,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/2a054bd36_image.webp',
+            'description' => 'Phong cách sống nghệ sĩ và nghệ thuật thưởng vang thượng lưu: từ hầm vang cá nhân đến trải nghiệm Fine Dining độc bản.',
             'status' => 'active'
         ],
         [
@@ -116,6 +123,7 @@ if (empty($topicWorkshops)) {
             'current_participants' => 5,
             'remaining_spots' => 15,
             'image' => 'https://media.base44.com/images/public/6a623336361c483b3f15558c/f807fd6b1_image.png/v1/fill/w_298,h_160,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/f807fd6b1_image.webp',
+            'description' => 'Đêm tiệc Gala thượng lưu tráng lệ quy tụ các dòng vang hầm hiếm có cùng thực đơn Sommelier thiết kế riêng.',
             'status' => 'active'
         ]
     ];
@@ -243,8 +251,8 @@ $allWorkshopsForJs = array_merge($featuredWorkshops, $topicWorkshops);
                   <button type="button" onclick="event.stopPropagation(); openWorkshopReservationModal(<?= $wsJson ?>, event);" class="w-full flex items-center justify-center gap-2 py-3.5 rounded-sm text-xs uppercase tracking-[0.18em] font-medium min-h-[48px] btn-invert">
                     Giữ chỗ
                   </button>
-                  <button type="button" onclick="event.stopPropagation(); toggleWorkshopCardFlip(this.closest('.workshop-flip-card'), event);" class="btn-ghost w-full flex items-center justify-center gap-2 py-3 rounded-sm text-xs uppercase tracking-[0.15em] font-medium min-h-[44px]">
-                    Xem mặt trước
+                  <button type="button" onclick="event.stopPropagation(); openWorkshopDetailsModal(<?= $wsJson ?>, event);" class="btn-ghost w-full flex items-center justify-center gap-2 py-3 rounded-sm text-xs uppercase tracking-[0.15em] font-medium min-h-[44px]">
+                    Xem chi tiết
                   </button>
                 </div>
               </div>
@@ -355,7 +363,7 @@ $allWorkshopsForJs = array_merge($featuredWorkshops, $topicWorkshops);
 
                     <div class="flex flex-col gap-2 mt-4">
                       <button type="button" onclick="event.stopPropagation(); openWorkshopReservationModal(<?= $tWsJson ?>, event);" class="w-full py-3 rounded-sm text-xs uppercase tracking-[0.18em] font-medium min-h-[44px] btn-invert">Giữ chỗ</button>
-                      <button type="button" onclick="event.stopPropagation(); toggleWorkshopCardFlip(this.closest('.workshop-flip-card'), event);" class="btn-ghost w-full py-2 rounded-sm text-[11px] uppercase tracking-[0.15em] font-medium min-h-[38px]">Xem mặt trước</button>
+                      <button type="button" onclick="event.stopPropagation(); openWorkshopDetailsModal(<?= $tWsJson ?>, event);" class="btn-ghost w-full py-2 rounded-sm text-[11px] uppercase tracking-[0.15em] font-medium min-h-[38px]">Xem chi tiết</button>
                     </div>
                   </div>
 

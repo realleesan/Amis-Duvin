@@ -19,7 +19,7 @@
       <p class="text-[10px] uppercase tracking-[0.18em] text-foreground/50 mb-3">Workshop bạn chọn</p>
       
       <!-- Selected Workshop Preview Card -->
-      <div class="flex gap-4 rounded-sm border border-[var(--wine)]/30 bg-[var(--wine)]/5 p-4 mb-6">
+      <div class="flex gap-4 rounded-sm border border-border bg-background/50 p-4 mb-6">
         <span class="inline-block relative w-20 h-20 rounded-sm shrink-0 overflow-hidden border border-border">
           <img id="wsModalPreviewImg" src="https://media.base44.com/images/public/6a623336361c483b3f15558c/2ff99e699_image.png/v1/fill/w_80,h_80,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/2ff99e699_image.webp" loading="lazy" class="w-full h-full inset-0 absolute object-cover" alt="Workshop Image">
         </span>

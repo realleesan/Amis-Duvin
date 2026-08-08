@@ -66,6 +66,7 @@ CREATE TABLE IF NOT EXISTS `workshops` (
   `current_participants` INT NOT NULL DEFAULT 0,
   `wines_count` INT NOT NULL DEFAULT 5,
   `image` VARCHAR(500) NULL,
+  `description` TEXT NULL,
   `status` ENUM('active', 'inactive', 'full') DEFAULT 'active',
   `is_featured` TINYINT(1) NOT NULL DEFAULT 0,
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
