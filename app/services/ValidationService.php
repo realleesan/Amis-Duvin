@@ -34,10 +34,12 @@ class ValidationService
         if (empty($date)) {
             $errors['date'] = 'Vui lòng chọn ngày đặt tiệc';
         } else {
-            $minAllowedTimestamp = strtotime(date('Y-m-d', strtotime('+5 days')));
+            $todayTimestamp = strtotime(date('Y-m-d'));
+            $maxAllowedTimestamp = strtotime(date('Y-m-d', strtotime('+5 days')));
             $inputTimestamp = strtotime($date);
-            if (!$inputTimestamp || $inputTimestamp < $minAllowedTimestamp) {
-                $errors['date'] = 'Theo quy định, ngày đặt tiệc phải cách thời điểm hiện tại tối thiểu 05 ngày (' . date('d/m/Y', $minAllowedTimestamp) . ')';
+
+            if (!$inputTimestamp || $inputTimestamp < $todayTimestamp || $inputTimestamp > $maxAllowedTimestamp) {
+                $errors['date'] = 'Theo quy định, Quý khách chỉ có thể đặt tiệc trong vòng 5 ngày tới (từ ' . date('d/m/Y', $todayTimestamp) . ' đến ' . date('d/m/Y', $maxAllowedTimestamp) . ')';
             }
         }
 

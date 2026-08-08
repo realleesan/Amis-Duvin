@@ -313,6 +313,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (modal) modal.classList.remove('active');
   };
 
+  window.closeSuccessModal = function() {
+    const modal = document.getElementById('successModal');
+    if (modal) modal.classList.remove('active');
+  };
+
   // Workshop Reservation Modal Handlers
   window.openWorkshopReservationModal = function(wsData, event) {
     if (event) event.stopPropagation();

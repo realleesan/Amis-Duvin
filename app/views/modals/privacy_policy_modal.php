@@ -25,7 +25,7 @@
 
         <div>
           <h4 class="text-foreground font-heading text-base mb-1">3. Quyền hạn của Khách hàng</h4>
-          <p>Quý khách có quyền yêu cầu kiểm tra, cập nhật hoặc xóa bỏ thông tin cá nhân của mình bất kỳ lúc nào bằng cách liên hệ Hotline: 091 968 65 40 hoặc Zalo OA chính thức của Amis du Vin.</p>
+          <p>Quý khách có quyền yêu cầu kiểm tra, cập nhật hoặc xóa bỏ thông tin cá nhân của mình bất kỳ lúc nào bằng cách liên hệ Hotline: 091 968 65 40 hoặc kênh Zalo chính thức của Amis du Vin.</p>
         </div>
       </div>
     </div>

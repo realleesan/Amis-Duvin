@@ -1,5 +1,6 @@
 <?php
-$minBookingDate = date('Y-m-d', strtotime('+5 days'));
+$todayDate = date('Y-m-d');
+$maxBookingDate = date('Y-m-d', strtotime('+5 days'));
 ?>
 <section id="register" class="scroll-anchor relative py-24 sm:py-32 bg-background overflow-hidden">
   <div class="absolute inset-0 bg-wine-radial opacity-70"></div>
@@ -8,13 +9,15 @@ $minBookingDate = date('Y-m-d', strtotime('+5 days'));
       <div class="text-center mb-12">
         <p class="text-[var(--gold)] text-xs uppercase tracking-[0.35em] mb-4">Đặt tiệc riêng</p>
         <h2 class="font-heading text-3xl sm:text-5xl text-foreground mb-5">Đăng ký đặt tiệc</h2>
-        <p class="text-sm text-muted-foreground">Để lại thông tin, bộ phận CSKH Amis du Vin sẽ liên hệ xác nhận qua Zalo &amp; Điện thoại.</p>
+        <p class="text-sm text-muted-foreground">Để lại thông tin, bộ phận CSKH Amis du Vin sẽ liên hệ xác nhận trực tiếp qua Điện thoại/Zalo.</p>
       </div>
     </div>
     <div class="grid lg:grid-cols-5 gap-8 lg:gap-10 items-start">
       <!-- Left Column: Booking Form -->
       <div class="reveal is-visible lg:col-span-3">
         <form id="bookingForm" class="bg-card border border-border rounded-sm p-7 sm:p-9 shadow-[0_20px_60px_-30px_rgba(33,30,25,0.25)]" novalidate="">
+          <input type="hidden" name="time_slot" id="selectedTimeSlot" value="">
+
           <div class="mb-5">
             <label class="block text-xs uppercase tracking-[0.15em] text-foreground/60 mb-2">Họ và tên <span class="text-rose-500">*</span></label>
             <div class="relative">
@@ -59,30 +62,27 @@ $minBookingDate = date('Y-m-d', strtotime('+5 days'));
             </div>
 
             <div class="mb-5">
-              <label class="block text-xs uppercase tracking-[0.15em] text-foreground/60 mb-2">Ngày đặt tiệc (≥ 5 ngày) <span class="text-rose-500">*</span></label>
+              <label class="block text-xs uppercase tracking-[0.15em] text-foreground/60 mb-2">Ngày đặt tiệc (Trong 5 ngày) <span class="text-rose-500">*</span></label>
               <div class="relative">
                 <span class="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar w-4 h-4"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg>
                 </span>
-                <input type="date" id="bookingDate" name="booking_date" min="<?= $minBookingDate ?>" required class="input-elegant w-full bg-transparent pl-11 pr-4 py-4 rounded-sm text-sm" value="<?= $minBookingDate ?>">
+                <input type="date" id="bookingDate" name="booking_date" min="<?= $todayDate ?>" max="<?= $maxBookingDate ?>" required class="input-elegant w-full bg-card text-foreground pl-11 pr-4 py-4 rounded-sm text-sm" value="<?= $todayDate ?>">
               </div>
             </div>
           </div>
 
-          <div class="mb-5">
+          <div class="mb-6">
             <label class="block text-xs uppercase tracking-[0.15em] text-foreground/60 mb-2">Khung giờ (Lịch Chef/Sommelier) <span class="text-rose-500">*</span></label>
-            <div class="relative">
-              <span class="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock w-4 h-4"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-              </span>
-              <select name="time_slot" id="bookingTimeSlot" required class="input-elegant w-full bg-card text-foreground pl-11 pr-4 py-4 rounded-sm text-sm appearance-none cursor-pointer">
-                <option value="">-- Chọn ca tiệc phù hợp --</option>
-                <option value="Ca 1 (11h00 – 14h00)">Ca 1 (11h00 – 14h00)</option>
-                <option value="Ca 2 (18h00 – 21h00)">Ca 2 (18h00 – 21h00)</option>
-              </select>
-              <span class="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down w-4 h-4"><path d="m6 9 6 6 6-6"></path></svg>
-              </span>
+            <div class="grid grid-cols-2 gap-3" id="slotPickerContainer">
+              <button type="button" onclick="selectBookingSlot('Ca 1 (11h00 – 14h00)', this)" class="slot-pill-btn rounded-sm border border-border bg-card hover:border-[var(--wine)] px-4 py-3.5 text-center transition-all cursor-pointer">
+                <span class="block text-xs font-semibold text-foreground">Ca 1</span>
+                <span class="block text-[11px] text-muted-foreground mt-0.5">11h00 – 14h00</span>
+              </button>
+              <button type="button" onclick="selectBookingSlot('Ca 2 (18h00 – 21h00)', this)" class="slot-pill-btn rounded-sm border border-border bg-card hover:border-[var(--wine)] px-4 py-3.5 text-center transition-all cursor-pointer">
+                <span class="block text-xs font-semibold text-foreground">Ca 2</span>
+                <span class="block text-[11px] text-muted-foreground mt-0.5">18h00 – 21h00</span>
+              </button>
             </div>
           </div>
 
@@ -135,7 +135,7 @@ $minBookingDate = date('Y-m-d', strtotime('+5 days'));
             </span>
             <div>
               <p class="text-sm font-medium text-foreground mb-1">Thời gian CSKH xác nhận</p>
-              <p class="text-xs text-muted-foreground leading-relaxed">Trong vòng 2 giờ làm việc, bộ phận CSKH sẽ liên hệ qua Zalo/SĐT để tư vấn thực đơn và chốt lịch.</p>
+              <p class="text-xs text-muted-foreground leading-relaxed">Trong vòng 2 giờ làm việc, bộ phận CSKH sẽ liên hệ qua Điện thoại/Zalo để tư vấn thực đơn và chốt lịch.</p>
             </div>
           </div>
 
@@ -155,7 +155,7 @@ $minBookingDate = date('Y-m-d', strtotime('+5 days'));
             </span>
             <div>
               <p class="text-sm font-medium text-foreground mb-1">Đặt chỗ &amp; Hoàn hủy cọc</p>
-              <p class="text-xs text-muted-foreground leading-relaxed mb-1.5">Đặt trước tối thiểu 05 ngày. Báo hủy trước 48-72 giờ được hoàn 100% cọc.</p>
+              <p class="text-xs text-muted-foreground leading-relaxed mb-1.5">Đặt tiệc trong vòng 5 ngày tới. Báo hủy trước 48-72 giờ được hoàn 100% cọc.</p>
               <button type="button" onclick="openRefundPolicyModal()" class="text-xs font-semibold text-[var(--wine)] hover:underline">Xem quy định chi tiết &rarr;</button>
             </div>
           </div>

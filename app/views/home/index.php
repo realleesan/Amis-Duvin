@@ -1,6 +1,7 @@
 <?php
 require __DIR__ . '/hero.php';
 require __DIR__ . '/benefits.php';
+require __DIR__ . '/service_intro.php';
 require __DIR__ . '/pairing.php';
 require __DIR__ . '/sommelier.php';
 require __DIR__ . '/testimonials.php';

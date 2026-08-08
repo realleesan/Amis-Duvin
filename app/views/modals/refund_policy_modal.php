@@ -14,25 +14,25 @@
       <p class="text-foreground font-medium">Để đảm bảo chất lượng phục vụ biệt lập và sự chuẩn bị kỹ lưỡng nhất từ Sommelier và Bếp, Amis du Vin áp dụng quy định đặt tiệc như sau:</p>
       <div class="space-y-4">
         <div>
-          <h4 class="text-foreground font-heading text-base mb-1">1. Quy định Thời gian Đặt trước</h4>
-          <p>Quý khách cần đặt tiệc trước <strong class="text-foreground">tối thiểu 05 ngày</strong> so với thời điểm tổ chức để nhà hàng sắp xếp ca phục vụ và chuẩn bị nguồn nguyên liệu hảo hạng.</p>
+          <h4 class="text-foreground font-heading text-base mb-1">1. Quy định Thời gian Đặt tiệc</h4>
+          <p>Quý khách chỉ có thể đặt tiệc <strong class="text-white">trong vòng 05 ngày tới</strong> tính từ ngày hiện tại để nhà hàng sắp xếp ca phục vụ và chuẩn bị nguồn nguyên liệu hảo hạng.</p>
         </div>
         
         <div>
           <h4 class="text-foreground font-heading text-base mb-1">2. Quy định Giới hạn Phục vụ</h4>
-          <p>Mỗi ngày tối đa 02 ca tiệc (Ca 1: 11h00 – 14h00, Ca 2: 18h00 – 21h00). Mỗi ca phục vụ tối đa 02 đoàn khách và tổng số lượng khách không vượt quá <strong class="text-foreground">24 người/ca</strong>.</p>
+          <p>Mỗi ngày tối đa 02 ca tiệc (Ca 1: 11h00 – 14h00, Ca 2: 18h00 – 21h00). Mỗi ca phục vụ tối đa 02 đoàn khách và tổng số lượng khách không vượt quá <strong class="text-white">24 người/ca</strong>.</p>
         </div>
 
         <div>
           <h4 class="text-foreground font-heading text-base mb-1">3. Quy định Đặt cọc Giữ chỗ</h4>
-          <p>Bắt buộc đặt cọc <strong class="text-foreground">30% tổng chi phí dự kiến</strong> sau khi chốt thực đơn với bộ phận CSKH để xác nhận giữ chỗ chính thức.</p>
+          <p>Bắt buộc đặt cọc <strong class="text-white">30% tổng chi phí dự kiến</strong> sau khi chốt thực đơn với bộ phận CSKH để xác nhận giữ chỗ chính thức.</p>
         </div>
 
         <div>
           <h4 class="text-foreground font-heading text-base mb-1">4. Chính sách Hoàn / Hủy cọc</h4>
           <ul class="list-disc pl-5 space-y-2 mt-1">
-            <li><strong class="text-foreground">Báo hủy trước 02 ngày (48 – 72 giờ)</strong>: Quý khách được hoàn lại <span class="text-emerald-400 font-semibold">100% tiền đặt cọc</span>.</li>
-            <li><strong class="text-foreground">Báo hủy trước 01 ngày (dưới 24 – 48 giờ)</strong>: Giữ lại <span class="text-[var(--wine)] font-semibold">100% tiền cọc</span> để bù đắp chi phí chuẩn bị nguyên liệu tươi sống cho bữa tiệc.</li>
+            <li><strong class="text-foreground">Báo hủy trước 02 ngày (48 – 72 giờ)</strong>: Quý khách được hoàn lại <span class="text-white font-semibold">100% tiền đặt cọc</span>.</li>
+            <li><strong class="text-foreground">Báo hủy trước 01 ngày (dưới 24 – 48 giờ)</strong>: Giữ lại <span class="text-white font-semibold">100% tiền cọc</span> để bù đắp chi phí chuẩn bị nguyên liệu tươi sống cho bữa tiệc.</li>
           </ul>
         </div>
       </div>
