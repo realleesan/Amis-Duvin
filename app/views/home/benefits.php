@@ -1,3 +1,27 @@
+<?php
+if (empty($benefits)) {
+    $benefits = [
+        [
+            'id' => 1,
+            'title' => 'Hiểu vang dễ dàng',
+            'description' => 'Kiến thức rượu vang được truyền đạt gần gũi, thực tế — ai cũng tự tin thưởng thức và chọn vang cho mọi dịp.',
+            'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wine w-6 h-6"><path d="M8 22h8"></path><path d="M7 10h10"></path><path d="M12 15v7"></path><path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z"></path></svg>'
+        ],
+        [
+            'id' => 2,
+            'title' => 'Trải nghiệm cùng chuyên gia',
+            'description' => 'Được dẫn dắt trực tiếp bởi Sommelier Alex Thịnh với hơn 24 năm kinh nghiệm tại các nhà hàng, khách sạn 5 sao.',
+            'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users w-6 h-6"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>'
+        ],
+        [
+            'id' => 3,
+            'title' => 'Kết nối trong không gian thân mật',
+            'description' => 'Không gian nhỏ, ấm cúng — nơi mỗi buổi tiệc trở thành câu chuyện kết nối giữa người, vang và ẩm thực.',
+            'icon_svg' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles w-6 h-6"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path><path d="M20 3v4"></path><path d="M22 5h-4"></path><path d="M4 17v2"></path><path d="M5 18H3"></path></svg>'
+        ]
+    ];
+}
+?>
 <section id="about" class="scroll-anchor relative py-24 sm:py-28 bg-background overflow-hidden">
   <div class="absolute inset-0 bg-wine-radial opacity-60"></div>
   <div class="relative max-w-7xl mx-auto px-5 sm:px-8">
@@ -8,33 +32,18 @@
       </div>
     </div>
     <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
-      <div class="reveal is-visible">
-        <div class="card-lift h-full rounded-sm border border-border bg-card p-8 text-center">
-          <div class="w-14 h-14 rounded-full bg-[var(--wine)]/10 border border-[var(--wine)]/25 flex items-center justify-center mx-auto mb-6 text-[var(--wine)]">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wine w-6 h-6"><path d="M8 22h8"></path><path d="M7 10h10"></path><path d="M12 15v7"></path><path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z"></path></svg>
+      <?php foreach ($benefits as $b): ?>
+        <div class="reveal is-visible">
+          <div class="card-lift h-full rounded-sm border border-border bg-card p-8 text-center">
+            <!-- Icon circle synchronized with Booking section border border-border bg-card text-[var(--wine)] -->
+            <div class="w-14 h-14 rounded-full border border-border bg-card flex items-center justify-center mx-auto mb-6 text-[var(--wine)] shadow-sm">
+              <?= $b['icon_svg'] ?>
+            </div>
+            <h3 class="font-heading text-xl text-foreground mb-3"><?= htmlspecialchars($b['title']) ?></h3>
+            <p class="text-sm text-muted-foreground leading-relaxed"><?= htmlspecialchars($b['description']) ?></p>
           </div>
-          <h3 class="font-heading text-xl text-foreground mb-3">Hiểu vang dễ dàng</h3>
-          <p class="text-sm text-muted-foreground leading-relaxed">Kiến thức rượu vang được truyền đạt gần gũi, thực tế — ai cũng tự tin thưởng thức và chọn vang cho mọi dịp.</p>
         </div>
-      </div>
-      <div class="reveal is-visible">
-        <div class="card-lift h-full rounded-sm border border-border bg-card p-8 text-center">
-          <div class="w-14 h-14 rounded-full bg-[var(--wine)]/10 border border-[var(--wine)]/25 flex items-center justify-center mx-auto mb-6 text-[var(--wine)]">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users w-6 h-6"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-          </div>
-          <h3 class="font-heading text-xl text-foreground mb-3">Trải nghiệm cùng chuyên gia</h3>
-          <p class="text-sm text-muted-foreground leading-relaxed">Được dẫn dắt trực tiếp bởi Sommelier Alex Thịnh với hơn 24 năm kinh nghiệm tại các nhà hàng, khách sạn 5 sao.</p>
-        </div>
-      </div>
-      <div class="reveal is-visible">
-        <div class="card-lift h-full rounded-sm border border-border bg-card p-8 text-center">
-          <div class="w-14 h-14 rounded-full bg-[var(--wine)]/10 border border-[var(--wine)]/25 flex items-center justify-center mx-auto mb-6 text-[var(--wine)]">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles w-6 h-6"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path><path d="M20 3v4"></path><path d="M22 5h-4"></path><path d="M4 17v2"></path><path d="M5 18H3"></path></svg>
-          </div>
-          <h3 class="font-heading text-xl text-foreground mb-3">Kết nối trong không gian thân mật</h3>
-          <p class="text-sm text-muted-foreground leading-relaxed">Không gian nhỏ, ấm cúng — nơi mỗi buổi tiệc trở thành câu chuyện kết nối giữa người, vang và ẩm thực.</p>
-        </div>
-      </div>
+      <?php endforeach; ?>
     </div>
     <div class="reveal is-visible">
       <div class="flex items-center justify-center gap-4 mt-12">
