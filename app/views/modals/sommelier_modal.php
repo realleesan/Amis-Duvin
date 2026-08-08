@@ -162,7 +162,7 @@
         </div>
 
         <button onclick="closeSommelierModal(); scrollToId('register');" class="btn-ghost mt-7 px-7 py-4 rounded-sm text-sm uppercase tracking-[0.18em] font-medium min-h-[52px] inline-flex items-center gap-2 group">
-          Đăng ký Workshop với Sommelier
+          Đăng ký Party với Sommelier
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right w-4 h-4 group-hover:translate-x-1 transition-transform"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
         </button>
       </section>
@@ -235,7 +235,7 @@
     <!-- Modal Sticky Footer Button -->
     <div class="shrink-0 border-t border-border bg-card px-5 sm:px-8 py-4">
       <button onclick="closeSommelierModal(); scrollToId('register');" class="btn-wine w-full py-4 rounded-sm text-sm uppercase tracking-[0.2em] font-medium min-h-[52px] flex items-center justify-center gap-2">
-        Đăng ký Workshop cùng Sommelier Alex Thịnh
+        Đăng ký Party cùng Sommelier Alex Thịnh
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right w-4 h-4"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
       </button>
     </div>

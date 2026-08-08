@@ -164,3 +164,33 @@ CREATE TABLE IF NOT EXISTS `hero_settings` (
 INSERT INTO `hero_settings` (`id`, `tagline`, `title_main`, `title_sub`, `description`, `bg_image`) VALUES
 (1, 'Rượu vang & những người bạn', 'Không gian Tiệc riêng tư', '& Tinh hoa ẩm thực Rượu vang', 'Trải nghiệm tiệc riêng tư kết hợp ẩm thực và rượu vang tinh tế, trọn vẹn văn hoá vang tại Hà Nội.', 'https://media.base44.com/images/public/6a623336361c483b3f15558c/1d3f75363_generated_b7d85214.png/v1/fill/w_1171,h_927,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/1d3f75363_generated_b7d85214.webp');
 
+-- Bảng lưu Cấu hình Section Giới thiệu Dịch vụ (Service Intro)
+CREATE TABLE IF NOT EXISTS `service_intro_settings` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `tagline` VARCHAR(255) NOT NULL DEFAULT 'Dịch vụ tiệc riêng Amis du Vin',
+  `title_main` VARCHAR(255) NOT NULL DEFAULT 'Không gian Tiệc riêng tư',
+  `title_sub` VARCHAR(255) NOT NULL DEFAULT '& Tinh hoa ẩm thực Rượu vang',
+  `description` TEXT NOT NULL,
+  `highlight_note` TEXT NOT NULL,
+  `card_tag` VARCHAR(255) NOT NULL DEFAULT 'Private Party Experience',
+  `card_title` VARCHAR(255) NOT NULL DEFAULT 'Không gian Biệt lập & Đẳng cấp',
+  `card_subtitle` VARCHAR(255) NOT NULL DEFAULT 'Thiết kế thực đơn riêng bởi Chef & Sommelier chuyên nghiệp.',
+  `card_image` VARCHAR(500) NOT NULL,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Seed dữ liệu mẫu cho Service Intro
+INSERT INTO `service_intro_settings` 
+(`id`, `tagline`, `title_main`, `title_sub`, `description`, `highlight_note`, `card_tag`, `card_title`, `card_subtitle`, `card_image`) VALUES
+(1, 
+ 'Dịch vụ tiệc riêng Amis du Vin', 
+ 'Không gian Tiệc riêng tư', 
+ '& Tinh hoa ẩm thực Rượu vang', 
+ 'Khái quát về mô hình tiệc riêng tư (Private Party) — sự kết hợp đỉnh cao giữa văn hóa rượu vang hảo hạng và nghệ thuật ẩm thực tinh tế (Food & Wine Pairing), mang đến không gian biệt lập, đẳng cấp cho các buổi tiếp khách, kỷ niệm hay giao lưu doanh nhân.', 
+ 'Bốn trải nghiệm kết hợp ẩm thực và rượu vang, từ tinh hoa tiêu chuẩn đến đỉnh cao thượng lưu.', 
+ 'Private Party Experience', 
+ 'Không gian Biệt lập & Đẳng cấp', 
+ 'Thiết kế thực đơn riêng bởi Chef & Sommelier chuyên nghiệp.', 
+ 'https://media.base44.com/images/public/6a623336361c483b3f15558c/4f229480d_generated_ffd34238.png/v1/fill/w_535,h_402,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/4f229480d_generated_ffd34238.webp'
+);
+
