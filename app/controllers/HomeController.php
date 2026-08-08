@@ -51,4 +51,9 @@ class HomeController extends BaseController
             'serviceIntro' => $serviceIntro
         ]);
     }
+
+    public function under18(): void
+    {
+        require __DIR__ . '/../views/home/under_18.php';
+    }
 }

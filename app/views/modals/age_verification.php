@@ -1,35 +1,28 @@
+<!-- Module 0.1: Age Verification Modal (Fullscreen Overlay) -->
 <div id="ageVerificationModal" class="modal-overlay">
-  <div class="relative w-full max-w-lg text-center animate-scale-in bg-card border border-border rounded-sm px-6 py-12 sm:px-12 shadow-[0_40px_80px_-30px_rgba(33,30,25,0.5)]">
-    <div class="flex justify-center mb-7">
-      <div class="w-16 h-16 rounded-full border border-[var(--gold)]/40 flex items-center justify-center bg-[var(--wine)]/5 animate-float-slow">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-grape w-7 h-7 text-[var(--wine)]">
-          <path d="M22 5V2l-5.89 5.89"></path>
-          <circle cx="16.6" cy="15.89" r="3"></circle>
-          <circle cx="8.11" cy="7.4" r="3"></circle>
-          <circle cx="12.35" cy="11.65" r="3"></circle>
-          <circle cx="13.91" cy="5.85" r="3"></circle>
-          <circle cx="18.15" cy="10.09" r="3"></circle>
-          <circle cx="6.56" cy="13.2" r="3"></circle>
-          <circle cx="10.8" cy="17.44" r="3"></circle>
-          <circle cx="5" cy="19" r="3"></circle>
-        </svg>
-      </div>
+  <div class="relative w-full max-w-lg text-center animate-scale-in bg-card border border-border rounded-sm px-7 py-10 sm:px-12 shadow-[0_40px_80px_-30px_rgba(33,30,25,0.5)] my-auto">
+    <div class="flex justify-center mb-6">
+      <img src="https://media.base44.com/images/public/6a623336361c483b3f15558c/de2b27acb_LogoAmisDuVin.png" alt="Amis du Vin" class="h-16 sm:h-20 w-auto object-contain rounded-sm">
     </div>
-    <p class="text-xs uppercase tracking-[0.35em] text-[var(--gold)] mb-4">Amis du Vin</p>
-    <h2 class="font-heading text-2xl sm:text-3xl text-foreground leading-snug mb-4">Vui lòng xác nhận bạn đủ 18 tuổi<br class="hidden sm:block"> để truy cập không gian Amis du Vin</h2>
-    <p class="text-sm text-muted-foreground max-w-sm mx-auto mb-10">Theo quy định về đồ uống có cồn, chúng tôi cần xác minh độ tuổi của bạn trước khi tiếp tục.</p>
-    <div class="mb-3">
-      <div class="flex items-end justify-center gap-3 mb-6">
-        <span id="ageYearDisplay" class="text-5xl font-heading text-foreground tabular-nums">1995</span>
-        <span class="text-[var(--gold)] text-sm mb-2">Năm sinh</span>
-      </div>
-      <input id="ageSlider" type="range" min="1940" max="2026" class="vintage-slider" aria-label="Chọn năm sinh" value="1995">
-      <div class="flex justify-between text-[10px] uppercase tracking-widest text-muted-foreground mt-3">
-        <span>1940</span>
-        <span>2026</span>
-      </div>
+    
+    <p class="text-[10px] uppercase tracking-[0.35em] text-[var(--gold)] mb-3">Xác minh độ tuổi</p>
+    <h2 class="font-heading text-2xl sm:text-3xl text-foreground leading-snug mb-4">
+      Vui lòng xác nhận bạn đủ 18 tuổi<br class="hidden sm:block"> để tiếp tục truy cập
+    </h2>
+    
+    <p class="text-xs sm:text-sm text-muted-foreground max-w-sm mx-auto mb-8 leading-relaxed">
+      Theo quy định của pháp luật về đồ uống có cồn, Quý khách cần xác nhận độ tuổi trước khi truy cập không gian Amis du Vin.
+    </p>
+
+    <!-- 02 Clear Buttons: YES & NO -->
+    <div class="space-y-3 sm:space-y-0 sm:flex sm:gap-4 justify-center">
+      <button id="btnAgeYes" type="button" class="w-full sm:w-1/2 py-4 rounded-sm text-xs sm:text-sm uppercase tracking-[0.18em] font-medium bg-[#B20225] text-[#F6F5F4] hover:bg-[#8e011d] transition-all min-h-[52px] shadow-lg">
+        YES — Trên 18 tuổi
+      </button>
+      
+      <button id="btnAgeNo" type="button" class="w-full sm:w-1/2 py-4 rounded-sm text-xs sm:text-sm uppercase tracking-[0.18em] font-medium bg-[#171717] text-[#F6F5F4] border border-border hover:bg-black transition-all min-h-[52px]">
+        NO — Dưới 18 tuổi
+      </button>
     </div>
-    <p id="ageFeedback" class="text-sm mt-7 mb-7 transition-colors text-[var(--gold)]">Bạn đủ 31 tuổi — đủ điều kiện truy cập</p>
-    <button id="btnVerifyAge" class="btn-wine w-full max-w-xs mx-auto py-4 rounded-sm text-sm uppercase tracking-[0.2em] font-medium min-h-[52px]">Xác nhận &amp; Truy cập</button>
   </div>
 </div>

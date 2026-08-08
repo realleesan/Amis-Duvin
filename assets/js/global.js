@@ -68,45 +68,83 @@ document.addEventListener('DOMContentLoaded', () => {
 
   syncThemeUI();
 
-  // 3. Age verification check
+  // 3. Module 0.1 & 0.2: Age Verification & Welcome Popup
   const ageModal = document.getElementById('ageVerificationModal');
-  const isVerified = sessionStorage.getItem('adv_verified') === '1';
+  const welcomeModal = document.getElementById('welcomeModal');
+  const btnAgeYes = document.getElementById('btnAgeYes');
+  const btnAgeNo = document.getElementById('btnAgeNo');
 
-  if (!isVerified && ageModal) {
+  function setCookie(name, value, days) {
+    let expires = "";
+    if (days) {
+      const date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/; SameSite=Lax";
+  }
+
+  function getCookie(name) {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+  }
+
+  const isOver18 = getCookie('is_over_18');
+
+  if (isOver18 === 'false' && window.location.pathname !== '/under-18') {
+    window.location.href = '/under-18';
+  } else if (!isOver18 && ageModal && window.location.pathname !== '/under-18') {
     ageModal.classList.add('active');
   }
 
-  const ageSlider = document.getElementById('ageSlider');
-  const ageYearDisplay = document.getElementById('ageYearDisplay');
-  const ageFeedback = document.getElementById('ageFeedback');
-  const btnVerifyAge = document.getElementById('btnVerifyAge');
+  let welcomeInterval = null;
 
-  if (ageSlider && ageYearDisplay && ageFeedback) {
-    const updateAge = () => {
-      const year = parseInt(ageSlider.value, 10);
-      const currentYear = 2026;
-      const age = currentYear - year;
-      ageYearDisplay.textContent = year;
+  window.closeWelcomeModal = function() {
+    if (welcomeInterval) clearInterval(welcomeInterval);
+    if (welcomeModal) {
+      welcomeModal.classList.add('animate-fade-out');
+      setTimeout(() => {
+        welcomeModal.classList.remove('active', 'animate-fade-out');
+      }, 450);
+    }
+  };
 
-      if (age >= 18) {
-        ageFeedback.textContent = `Bạn đủ ${age} tuổi — đủ điều kiện truy cập`;
-        ageFeedback.className = "text-sm mt-7 mb-7 transition-colors text-[var(--gold)]";
-        if (btnVerifyAge) btnVerifyAge.disabled = false;
-      } else {
-        ageFeedback.textContent = `Bạn ${age} tuổi — chưa đủ 18 tuổi để truy cập`;
-        ageFeedback.className = "text-sm mt-7 mb-7 transition-colors text-red-400";
-        if (btnVerifyAge) btnVerifyAge.disabled = true;
+  function startWelcomeCountdown() {
+    if (!welcomeModal) return;
+    welcomeModal.classList.add('active');
+
+    let secondsLeft = 3;
+    const countEl = document.getElementById('welcomeCountdown');
+    if (countEl) countEl.textContent = secondsLeft;
+
+    welcomeInterval = setInterval(() => {
+      secondsLeft--;
+      if (countEl) countEl.textContent = Math.max(0, secondsLeft);
+      if (secondsLeft <= 0) {
+        clearInterval(welcomeInterval);
+        window.closeWelcomeModal();
       }
-    };
-
-    ageSlider.addEventListener('input', updateAge);
-    updateAge();
+    }, 1000);
   }
 
-  if (btnVerifyAge) {
-    btnVerifyAge.addEventListener('click', () => {
-      sessionStorage.setItem('adv_verified', '1');
+  if (btnAgeYes) {
+    btnAgeYes.addEventListener('click', () => {
+      setCookie('is_over_18', 'true', 30);
       if (ageModal) ageModal.classList.remove('active');
+      startWelcomeCountdown();
+    });
+  }
+
+  if (btnAgeNo) {
+    btnAgeNo.addEventListener('click', () => {
+      setCookie('is_over_18', 'false', 30);
+      window.location.href = '/under-18';
     });
   }
 
