@@ -68,8 +68,8 @@ $maxBookingDate = date('Y-m-d', strtotime('+5 days'));
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar w-4 h-4"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg>
                 </span>
                 <input type="date" id="bookingDate" name="booking_date" min="<?= $todayDate ?>" max="<?= $maxBookingDate ?>" required class="input-elegant w-full bg-card text-foreground pl-11 pr-10 py-4 rounded-sm text-sm font-medium cursor-pointer" value="<?= $todayDate ?>">
-                <span class="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--gold)] pointer-events-none flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus w-4 h-4 text-[var(--gold)]"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+                <span class="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus w-4 h-4"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
                 </span>
               </div>
             </div>

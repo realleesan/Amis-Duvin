@@ -85,9 +85,9 @@ if (empty($pairings)) {
         <?php $jsonData = htmlspecialchars(json_encode($pairing), ENT_QUOTES, 'UTF-8'); ?>
         <div class="reveal is-visible">
           <div role="button" tabindex="0" onclick="openPairingModal(<?= $jsonData ?>)" class="card-lift group h-full rounded-sm border border-border bg-card overflow-hidden flex flex-col cursor-pointer">
-            <div class="relative aspect-[4/3] overflow-hidden bg-card border-b border-border/40">
-              <img src="<?= htmlspecialchars($pairing['image']) ?>" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 transform-gpu select-none" alt="<?= htmlspecialchars($pairing['title']) ?>">
-              <div class="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent pointer-events-none"></div>
+            <div class="relative aspect-[4/3] overflow-hidden bg-card">
+              <img src="<?= htmlspecialchars($pairing['image']) ?>" loading="lazy" class="w-full h-full object-cover scale-[1.01] transition-transform duration-700 ease-out group-hover:scale-[1.06] transform-gpu select-none" alt="<?= htmlspecialchars($pairing['title']) ?>">
+              <div class="absolute -bottom-1 -left-1 -right-1 h-20 bg-gradient-to-t from-card via-card/50 to-transparent pointer-events-none"></div>
               <?php if (str_contains(strtolower($pairing['level']), 'premium')): ?>
                 <span class="absolute top-4 left-4 text-[10px] uppercase tracking-[0.18em] px-3 py-1.5 rounded-full backdrop-blur-sm bg-[var(--gold)]/15 text-[var(--gold)] border border-[var(--gold)]/40"><?= htmlspecialchars($pairing['level']) ?></span>
               <?php else: ?>
@@ -128,9 +128,9 @@ if (empty($pairings)) {
           <?php $jsonData = htmlspecialchars(json_encode($pairing), ENT_QUOTES, 'UTF-8'); ?>
           <div class="snap-center shrink-0 w-[85%]">
             <div role="button" tabindex="0" onclick="openPairingModal(<?= $jsonData ?>)" class="card-lift group h-full rounded-sm border border-border bg-card overflow-hidden flex flex-col cursor-pointer">
-              <div class="relative aspect-[4/3] overflow-hidden bg-card border-b border-border/40">
-                <img src="<?= htmlspecialchars($pairing['image']) ?>" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 transform-gpu select-none" alt="<?= htmlspecialchars($pairing['title']) ?>">
-                <div class="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent pointer-events-none"></div>
+              <div class="relative aspect-[4/3] overflow-hidden bg-card">
+                <img src="<?= htmlspecialchars($pairing['image']) ?>" loading="lazy" class="w-full h-full object-cover scale-[1.01] transition-transform duration-700 ease-out group-hover:scale-[1.06] transform-gpu select-none" alt="<?= htmlspecialchars($pairing['title']) ?>">
+                <div class="absolute -bottom-1 -left-1 -right-1 h-20 bg-gradient-to-t from-card via-card/50 to-transparent pointer-events-none"></div>
                 <?php if (str_contains(strtolower($pairing['level']), 'premium')): ?>
                   <span class="absolute top-4 left-4 text-[10px] uppercase tracking-[0.18em] px-3 py-1.5 rounded-full backdrop-blur-sm bg-[var(--gold)]/15 text-[var(--gold)] border border-[var(--gold)]/40"><?= htmlspecialchars($pairing['level']) ?></span>
                 <?php else: ?>
