@@ -194,3 +194,37 @@ INSERT INTO `service_intro_settings`
  'https://media.base44.com/images/public/6a623336361c483b3f15558c/4f229480d_generated_ffd34238.png/v1/fill/w_535,h_402,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/4f229480d_generated_ffd34238.webp'
 );
 
+-- Bảng lưu Tài khoản Người dùng Hệ thống CMS (Admin, CSKH, Marketing)
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `username` VARCHAR(50) NOT NULL UNIQUE,
+  `password_hash` VARCHAR(255) NOT NULL,
+  `full_name` VARCHAR(100) NOT NULL,
+  `role` ENUM('admin', 'cskh', 'marketing') NOT NULL DEFAULT 'admin',
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Bảng Cấu hình Tích hợp Google Sheets API
+CREATE TABLE IF NOT EXISTS `google_sheets_config` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `sheet_id` VARCHAR(255) NOT NULL DEFAULT '',
+  `webhook_url` VARCHAR(500) NOT NULL DEFAULT '',
+  `is_active` TINYINT(1) NOT NULL DEFAULT 1,
+  `auto_sync` TINYINT(1) NOT NULL DEFAULT 1,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Seed dữ liệu người dùng mặc định (Mật khẩu: AmisDuVin@2026!)
+INSERT INTO `users` (`id`, `username`, `password_hash`, `full_name`, `role`) VALUES
+(1, 'admin', '$2y$10$j9xQUFFnaVdInOoiH4oLfOkwLLDHbLziTiG8hI6EImvCrbOIoQGgi', 'Quản trị viên Amis du Vin', 'admin'),
+(2, 'cskh', '$2y$10$j9xQUFFnaVdInOoiH4oLfOkwLLDHbLziTiG8hI6EImvCrbOIoQGgi', 'Chuyên viên CSKH', 'cskh'),
+(3, 'marketing', '$2y$10$j9xQUFFnaVdInOoiH4oLfOkwLLDHbLziTiG8hI6EImvCrbOIoQGgi', 'Chuyên viên Marketing', 'marketing')
+ON DUPLICATE KEY UPDATE `password_hash` = VALUES(`password_hash`);
+
+-- Seed Cấu hình Google Sheets mặc định
+INSERT INTO `google_sheets_config` (`id`, `sheet_id`, `webhook_url`, `is_active`, `auto_sync`) VALUES
+(1, '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms', '', 1, 1)
+ON DUPLICATE KEY UPDATE `id` = `id`;
+
+

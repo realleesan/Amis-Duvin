@@ -57,4 +57,36 @@ class BookingModel extends BaseModel
 
         return ['allowed' => true];
     }
+
+    public function getAllBookings(): array
+    {
+        if (!$this->db) return [];
+        $stmt = $this->db->query("SELECT * FROM {$this->table} ORDER BY id DESC");
+        return $stmt->fetchAll() ?: [];
+    }
+
+    public function getBookingById(int $id): ?array
+    {
+        if (!$this->db) return null;
+        $stmt = $this->db->prepare("SELECT * FROM {$this->table} WHERE id = :id LIMIT 1");
+        $stmt->execute(['id' => $id]);
+        $res = $stmt->fetch();
+        return $res ?: null;
+    }
+
+    public function updateStatus(int $id, string $depositStatus, ?string $notes = null): bool
+    {
+        if (!$this->db) return false;
+        $sql = "UPDATE {$this->table} SET deposit_status = :deposit_status";
+        $params = ['deposit_status' => $depositStatus, 'id' => $id];
+
+        if ($notes !== null) {
+            $sql .= ", notes = :notes";
+            $params['notes'] = $notes;
+        }
+
+        $sql .= " WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute($params);
+    }
 }
