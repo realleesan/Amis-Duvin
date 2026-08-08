@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
       welcomeModal.classList.add('animate-fade-out');
       setTimeout(() => {
         welcomeModal.classList.remove('active', 'animate-fade-out');
-      }, 450);
+      }, 480);
     }
   };
 
@@ -120,12 +120,9 @@ document.addEventListener('DOMContentLoaded', () => {
     welcomeModal.classList.add('active');
 
     let secondsLeft = 3;
-    const countEl = document.getElementById('welcomeCountdown');
-    if (countEl) countEl.textContent = secondsLeft;
 
     welcomeInterval = setInterval(() => {
       secondsLeft--;
-      if (countEl) countEl.textContent = Math.max(0, secondsLeft);
       if (secondsLeft <= 0) {
         clearInterval(welcomeInterval);
         window.closeWelcomeModal();
@@ -143,7 +140,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (btnAgeNo) {
     btnAgeNo.addEventListener('click', () => {
-      setCookie('is_over_18', 'false', 30);
+      // Lock for 15 minutes (15 / 1440 days)
+      setCookie('is_over_18', 'false', 15 / 1440);
       window.location.href = '/under-18';
     });
   }
