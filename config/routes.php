@@ -9,6 +9,7 @@ use App\Controllers\Admin\AdminDashboardController;
 use App\Controllers\Admin\AdminBookingController;
 use App\Controllers\Admin\AdminContentController;
 use App\Controllers\Admin\AdminGoogleSheetsController;
+use App\Controllers\Admin\AdminUserController;
 
 // Web Routes
 Router::get('/', [HomeController::class, 'index']);
@@ -25,8 +26,10 @@ Router::post('/admin/login', [AuthController::class, 'login']);
 Router::get('/admin/logout', [AuthController::class, 'logout']);
 
 Router::get('/admin', [AdminDashboardController::class, 'index']);
+
 Router::get('/admin/bookings', [AdminBookingController::class, 'index']);
 Router::post('/admin/bookings/update', [AdminBookingController::class, 'update']);
+Router::post('/admin/bookings/manual-create', [AdminBookingController::class, 'manualCreate']);
 Router::post('/admin/bookings/sync', [AdminBookingController::class, 'syncSheets']);
 
 Router::get('/admin/content', [AdminContentController::class, 'index']);
@@ -37,3 +40,7 @@ Router::post('/admin/content/pairing', [AdminContentController::class, 'updatePa
 Router::get('/admin/google-sheets', [AdminGoogleSheetsController::class, 'index']);
 Router::post('/admin/google-sheets/update', [AdminGoogleSheetsController::class, 'update']);
 Router::post('/admin/google-sheets/test', [AdminGoogleSheetsController::class, 'testConnection']);
+
+Router::get('/admin/users', [AdminUserController::class, 'index']);
+Router::post('/admin/users/create', [AdminUserController::class, 'create']);
+Router::post('/admin/users/update', [AdminUserController::class, 'update']);

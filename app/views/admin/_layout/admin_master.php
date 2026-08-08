@@ -113,6 +113,11 @@
       <?php endif; ?>
 
       <?php if (($user['role'] ?? '') === 'admin'): ?>
+        <a href="/admin/users" class="flex items-center gap-3 px-4 py-3 rounded-sm transition-colors <?= ($activeNav ?? '') === 'users' ? 'bg-[var(--wine)]/15 text-[var(--gold)] border border-[var(--gold)]/30 font-semibold' : 'text-foreground/75 hover:bg-muted hover:text-foreground' ?>">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users w-4 h-4"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          <span>Quản lý Nhân sự</span>
+        </a>
+
         <a href="/admin/google-sheets" class="flex items-center gap-3 px-4 py-3 rounded-sm transition-colors <?= ($activeNav ?? '') === 'sheets' ? 'bg-[var(--wine)]/15 text-[var(--gold)] border border-[var(--gold)]/30 font-semibold' : 'text-foreground/75 hover:bg-muted hover:text-foreground' ?>">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sheet w-4 h-4"><rect width="18" height="18" x="3" y="3" rx="2"></rect><line x1="3" x2="21" y1="9" y2="9"></line><line x1="3" x2="21" y1="15" y2="15"></line><line x1="9" x2="9" y1="3" y2="21"></line><line x1="15" x2="15" y1="3" y2="21"></line></svg>
           <span>Tích hợp Google Sheets</span>

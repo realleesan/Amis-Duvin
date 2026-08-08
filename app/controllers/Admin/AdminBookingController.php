@@ -69,6 +69,74 @@ class AdminBookingController extends BaseController
         exit;
     }
 
+    public function manualCreate(): void
+    {
+        AuthService::requireRole(['admin', 'cskh']);
+
+        $fullName = trim($_POST['full_name'] ?? '');
+        $phone = trim($_POST['phone'] ?? '');
+        $email = trim($_POST['email'] ?? '');
+        $participants = (int)($_POST['participants'] ?? 0);
+        $bookingDate = trim($_POST['booking_date'] ?? '');
+        $timeSlot = trim($_POST['time_slot'] ?? '');
+        $notes = trim($_POST['notes'] ?? '');
+        $depositStatus = trim($_POST['deposit_status'] ?? 'Chờ xác nhận');
+
+        if (empty($fullName) || empty($phone) || empty($bookingDate) || empty($timeSlot) || $participants <= 0) {
+            header('Location: /admin/bookings?err=' . urlencode('Vui lòng điền đầy đủ các thông tin bắt buộc.'));
+            exit;
+        }
+
+        // 5-day notice check
+        $today = new \DateTime('today');
+        $chosen = new \DateTime($bookingDate);
+        $diff = $today->diff($chosen)->days;
+        if ($chosen < $today || $diff < 5) {
+            header('Location: /admin/bookings?err=' . urlencode('Ngày đặt tiệc phải cách ngày hiện tại tối thiểu 05 ngày.'));
+            exit;
+        }
+
+        // Capacity check
+        $bookingModel = new BookingModel();
+        $capacity = $bookingModel->checkSlotCapacity($bookingDate, $timeSlot, $participants);
+        if (!$capacity['allowed']) {
+            header('Location: /admin/bookings?err=' . urlencode($capacity['message']));
+            exit;
+        }
+
+        $db = $bookingModel->getDb();
+        if ($db) {
+            $stmt = $db->prepare(
+                "INSERT INTO bookings (full_name, phone, email, participants, booking_date, time_slot, notes, deposit_status, status)
+                 VALUES (:full_name, :phone, :email, :participants, :booking_date, :time_slot, :notes, :deposit_status, 'confirmed')"
+            );
+            $stmt->execute([
+                'full_name' => $fullName,
+                'phone' => $phone,
+                'email' => $email,
+                'participants' => $participants,
+                'booking_date' => $bookingDate,
+                'time_slot' => $timeSlot,
+                'notes' => $notes ? "[CSKH Nhập tay] " . $notes : "[CSKH Nhập tay]",
+                'deposit_status' => $depositStatus
+            ]);
+            $leadId = $db->lastInsertId();
+
+            if ($leadId) {
+                $booking = $bookingModel->getBookingById((int)$leadId);
+                if ($booking) {
+                    $sheetsService = new GoogleSheetsService();
+                    $sheetsService->syncBookingLead($booking);
+                }
+                header('Location: /admin/bookings?msg=' . urlencode('Đã tạo đơn nhập tay thành công & đồng bộ Google Sheets!'));
+                exit;
+            }
+        }
+
+        header('Location: /admin/bookings?err=' . urlencode('Lỗi tạo đơn tiệc mới.'));
+        exit;
+    }
+
     public function syncSheets(): void
     {
         AuthService::requireRole(['admin', 'cskh']);
