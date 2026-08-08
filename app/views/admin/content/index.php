@@ -62,7 +62,47 @@ ob_start();
       </form>
     </div>
 
-    <!-- 2. Section Giới thiệu Dịch vụ Settings Form (Module 3.1) -->
+    <!-- 2. Section 3 Lợi ích Cốt lõi (Module 2.1) -->
+    <div class="rounded-sm border border-border/40 bg-card p-6 sm:p-8 space-y-6 shadow-sm">
+      <div class="border-b border-border/40 pb-4 flex items-center justify-between">
+        <div>
+          <span class="text-[10px] uppercase tracking-widest text-[var(--gold)]">Module 2.1</span>
+          <h3 class="font-heading text-xl text-foreground">Cấu hình 03 Lợi ích Cốt lõi (Core Benefits)</h3>
+        </div>
+        <span class="text-xs text-muted-foreground">Dynamic Content</span>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <?php foreach ($benefits as $b): ?>
+          <div class="rounded-sm border border-border/40 bg-card/40 p-5 space-y-4 shadow-sm">
+            <h4 class="font-heading text-base text-foreground font-semibold flex items-center justify-between">
+              <span>Lợi ích #<?= $b['id'] ?></span>
+              <span class="text-xs text-[var(--gold)] font-mono">ID: <?= $b['id'] ?></span>
+            </h4>
+
+            <form action="/admin/content/benefit" method="POST" class="space-y-3">
+              <input type="hidden" name="id" value="<?= $b['id'] ?>">
+
+              <div>
+                <label class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Tiêu đề lợi ích</label>
+                <input type="text" name="title" value="<?= htmlspecialchars($b['title']) ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs font-medium">
+              </div>
+
+              <div>
+                <label class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Nội dung diễn giải</label>
+                <textarea name="description" rows="3" class="input-elegant w-full p-2.5 rounded-sm text-xs leading-relaxed"><?= htmlspecialchars($b['description']) ?></textarea>
+              </div>
+
+              <button type="submit" class="btn-invert w-full py-2.5 rounded-sm text-xs uppercase tracking-widest font-medium mt-2">
+                Cập nhật Lợi ích này
+              </button>
+            </form>
+          </div>
+        <?php endforeach; ?>
+      </div>
+    </div>
+
+    <!-- 3. Section Giới thiệu Dịch vụ Settings Form (Module 3.1) -->
     <div class="rounded-sm border border-border/40 bg-card p-6 sm:p-8 space-y-6 shadow-sm">
       <div class="border-b border-border/40 pb-4 flex items-center justify-between">
         <div>
@@ -128,7 +168,7 @@ ob_start();
       </form>
     </div>
 
-    <!-- 3. Section Các Gói tiệc Pairing Form (Module 3.2) -->
+    <!-- 4. Section Các Gói tiệc Pairing Form (Module 3.2) -->
     <div class="rounded-sm border border-border/40 bg-card p-6 sm:p-8 space-y-6 shadow-sm">
       <div class="border-b border-border/40 pb-4 flex items-center justify-between">
         <div>
@@ -179,6 +219,95 @@ ob_start();
               <button type="submit" class="btn-invert w-full py-2.5 rounded-sm text-xs uppercase tracking-widest font-medium mt-2">
                 Cập nhật gói tiệc này
               </button>
+            </form>
+          </div>
+        <?php endforeach; ?>
+      </div>
+    </div>
+
+    <!-- 5. Section Đánh giá Khách hàng Testimonials (Module 5.2) -->
+    <div class="rounded-sm border border-border/40 bg-card p-6 sm:p-8 space-y-6 shadow-sm">
+      <div class="border-b border-border/40 pb-4 flex items-center justify-between">
+        <div>
+          <span class="text-[10px] uppercase tracking-widest text-[var(--gold)]">Module 5.2</span>
+          <h3 class="font-heading text-xl text-foreground">Quản lý Đánh giá Khách hàng (Testimonials)</h3>
+        </div>
+        <span class="text-xs text-muted-foreground">Dynamic Content</span>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-6">
+        <?php foreach ($testimonials as $t): ?>
+          <div class="rounded-sm border border-border/40 bg-card/40 p-5 space-y-4 shadow-sm">
+            <div class="flex items-center justify-between">
+              <h4 class="font-heading text-base text-foreground font-semibold"><?= htmlspecialchars($t['name']) ?></h4>
+              <span class="text-xs text-[var(--gold)]">★ <?= (int)($t['rating'] ?? 5) ?>/5</span>
+            </div>
+
+            <form action="/admin/content/testimonial" method="POST" class="space-y-3">
+              <input type="hidden" name="id" value="<?= $t['id'] ?>">
+
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Tên khách hàng</label>
+                  <input type="text" name="name" value="<?= htmlspecialchars($t['name']) ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs font-medium">
+                </div>
+
+                <div>
+                  <label class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Chức danh / Công ty</label>
+                  <input type="text" name="role" value="<?= htmlspecialchars($t['role']) ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs">
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Nội dung đánh giá</label>
+                <textarea name="content" rows="3" class="input-elegant w-full p-2.5 rounded-sm text-xs leading-relaxed"><?= htmlspecialchars($t['content'] ?? $t['quote'] ?? '') ?></textarea>
+              </div>
+
+              <div>
+                <label class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">URL Avatar Ảnh đại diện</label>
+                <input type="url" name="avatar" value="<?= htmlspecialchars($t['avatar']) ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs">
+              </div>
+
+              <button type="submit" class="btn-invert w-full py-2.5 rounded-sm text-xs uppercase tracking-widest font-medium mt-2">
+                Cập nhật đánh giá này
+              </button>
+            </form>
+          </div>
+        <?php endforeach; ?>
+      </div>
+    </div>
+
+    <!-- 6. Section Câu hỏi Thường gặp FAQ (Module 5.3) -->
+    <div class="rounded-sm border border-border/40 bg-card p-6 sm:p-8 space-y-6 shadow-sm">
+      <div class="border-b border-border/40 pb-4 flex items-center justify-between">
+        <div>
+          <span class="text-[10px] uppercase tracking-widest text-[var(--gold)]">Module 5.3</span>
+          <h3 class="font-heading text-xl text-foreground">Quản lý Câu hỏi Thường gặp (FAQ Accordion)</h3>
+        </div>
+        <span class="text-xs text-muted-foreground">Dynamic Content</span>
+      </div>
+
+      <div class="space-y-4">
+        <?php foreach ($faqs as $f): ?>
+          <div class="rounded-sm border border-border/40 bg-card/40 p-5 space-y-3 shadow-sm">
+            <form action="/admin/content/faq" method="POST" class="space-y-3">
+              <input type="hidden" name="id" value="<?= $f['id'] ?>">
+
+              <div>
+                <label class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Câu hỏi #<?= $f['id'] ?></label>
+                <input type="text" name="question" value="<?= htmlspecialchars($f['question']) ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs font-semibold">
+              </div>
+
+              <div>
+                <label class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Câu trả lời chi tiết</label>
+                <textarea name="answer" rows="3" class="input-elegant w-full p-2.5 rounded-sm text-xs leading-relaxed"><?= htmlspecialchars($f['answer']) ?></textarea>
+              </div>
+
+              <div class="text-right">
+                <button type="submit" class="btn-invert px-5 py-2 rounded-sm text-xs uppercase tracking-widest font-medium">
+                  Cập nhật câu hỏi này
+                </button>
+              </div>
             </form>
           </div>
         <?php endforeach; ?>

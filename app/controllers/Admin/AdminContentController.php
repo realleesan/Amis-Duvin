@@ -132,4 +132,74 @@ class AdminContentController extends BaseController
         header('Location: /admin/content?msg=' . urlencode('Đã cập nhật Gói tiệc Pairing thành công!'));
         exit;
     }
+
+    public function updateBenefit(): void
+    {
+        AuthService::requireRole(['admin', 'marketing']);
+
+        $id = (int)($_POST['id'] ?? 0);
+        $title = trim($_POST['title'] ?? '');
+        $description = trim($_POST['description'] ?? '');
+
+        $db = (new BenefitModel())->getDb();
+        if ($db && $id > 0) {
+            $stmt = $db->prepare("UPDATE benefits SET title = :title, description = :description WHERE id = :id");
+            $stmt->execute([
+                'title' => $title,
+                'description' => $description,
+                'id' => $id
+            ]);
+        }
+
+        header('Location: /admin/content?msg=' . urlencode('Đã cập nhật Lợi ích cốt lõi thành công!'));
+        exit;
+    }
+
+    public function updateTestimonial(): void
+    {
+        AuthService::requireRole(['admin', 'marketing']);
+
+        $id = (int)($_POST['id'] ?? 0);
+        $name = trim($_POST['name'] ?? '');
+        $role = trim($_POST['role'] ?? '');
+        $content = trim($_POST['content'] ?? $_POST['quote'] ?? '');
+        $avatar = trim($_POST['avatar'] ?? '');
+
+        $db = (new TestimonialModel())->getDb();
+        if ($db && $id > 0) {
+            $stmt = $db->prepare("UPDATE testimonials SET name = :name, role = :role, content = :content, avatar = :avatar WHERE id = :id");
+            $stmt->execute([
+                'name' => $name,
+                'role' => $role,
+                'content' => $content,
+                'avatar' => $avatar,
+                'id' => $id
+            ]);
+        }
+
+        header('Location: /admin/content?msg=' . urlencode('Đã cập nhật Đánh giá khách hàng thành công!'));
+        exit;
+    }
+
+    public function updateFaq(): void
+    {
+        AuthService::requireRole(['admin', 'marketing']);
+
+        $id = (int)($_POST['id'] ?? 0);
+        $question = trim($_POST['question'] ?? '');
+        $answer = trim($_POST['answer'] ?? '');
+
+        $db = (new FaqModel())->getDb();
+        if ($db && $id > 0) {
+            $stmt = $db->prepare("UPDATE faqs SET question = :question, answer = :answer WHERE id = :id");
+            $stmt->execute([
+                'question' => $question,
+                'answer' => $answer,
+                'id' => $id
+            ]);
+        }
+
+        header('Location: /admin/content?msg=' . urlencode('Đã cập nhật câu hỏi FAQ thành công!'));
+        exit;
+    }
 }

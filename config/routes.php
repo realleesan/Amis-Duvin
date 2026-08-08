@@ -56,6 +56,15 @@ Router::post('/admin/content/service-intro', [AdminContentController::class, 'up
 Router::post('/admin/content/pairing', [AdminContentController::class, 'updatePairing'], [
     AuthMiddleware::class => ['admin', 'marketing']
 ]);
+Router::post('/admin/content/benefit', [AdminContentController::class, 'updateBenefit'], [
+    AuthMiddleware::class => ['admin', 'marketing']
+]);
+Router::post('/admin/content/testimonial', [AdminContentController::class, 'updateTestimonial'], [
+    AuthMiddleware::class => ['admin', 'marketing']
+]);
+Router::post('/admin/content/faq', [AdminContentController::class, 'updateFaq'], [
+    AuthMiddleware::class => ['admin', 'marketing']
+]);
 
 Router::get('/admin/google-sheets', [AdminGoogleSheetsController::class, 'index'], [
     AuthMiddleware::class => ['admin']
