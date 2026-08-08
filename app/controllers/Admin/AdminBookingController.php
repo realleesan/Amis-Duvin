@@ -87,12 +87,13 @@ class AdminBookingController extends BaseController
             exit;
         }
 
-        // 5-day notice check
-        $today = new \DateTime('today');
-        $chosen = new \DateTime($bookingDate);
-        $diff = $today->diff($chosen)->days;
-        if ($chosen < $today || $diff < 5) {
-            header('Location: /admin/bookings?err=' . urlencode('Ngày đặt tiệc phải cách ngày hiện tại tối thiểu 05 ngày.'));
+        // 5-day notice check (Within 5 days from today: Today -> Today + 5 days)
+        $todayTimestamp = strtotime(date('Y-m-d'));
+        $maxAllowedTimestamp = strtotime(date('Y-m-d', strtotime('+5 days')));
+        $chosenTimestamp = strtotime($bookingDate);
+
+        if (!$chosenTimestamp || $chosenTimestamp < $todayTimestamp || $chosenTimestamp > $maxAllowedTimestamp) {
+            header('Location: /admin/bookings?err=' . urlencode('Theo quy định, chỉ có thể đặt tiệc trong vòng 05 ngày tới (từ ' . date('d/m/Y', $todayTimestamp) . ' đến ' . date('d/m/Y', $maxAllowedTimestamp) . ').'));
             exit;
         }
 

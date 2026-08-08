@@ -155,8 +155,8 @@ ob_start();
 
       <div class="grid grid-cols-2 gap-4">
         <div>
-          <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Ngày tiệc (≥ 5 ngày) *</label>
-          <input type="date" name="booking_date" required min="<?= date('Y-m-d', strtotime('+5 days')) ?>" value="<?= date('Y-m-d', strtotime('+5 days')) ?>" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm">
+          <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Ngày tiệc (Trong vòng 5 ngày tới) *</label>
+          <input type="date" name="booking_date" required min="<?= date('Y-m-d') ?>" max="<?= date('Y-m-d', strtotime('+5 days')) ?>" value="<?= date('Y-m-d') ?>" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm">
         </div>
 
         <div>
