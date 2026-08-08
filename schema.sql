@@ -111,3 +111,24 @@ INSERT INTO `workshops` (`id`, `slug`, `title`, `level`, `price`, `duration`, `s
 (6, 'wine-business', 'Wine & Business', 'Ngoại giao', 2000000.00, '2.0 giờ', '23/10/2026 · 19h – 21h', 'Amis du Vin Cellar — Q.3, TP.HCM', 12, 11, 6, 'https://media.base44.com/images/public/6a623336361c483b3f15558c/2a054bd36_image.png/v1/fill/w_298,h_160,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/2a054bd36_image.webp', 'active', 0),
 (7, 'wine-fine-living', 'Wine & Fine Living', 'Thưởng thức', 1500000.00, '2.0 giờ', '06/11/2026 · 19h – 21h', 'Amis du Vin Cellar — Q.3, TP.HCM', 12, 2, 5, 'https://media.base44.com/images/public/6a623336361c483b3f15558c/2a054bd36_image.png/v1/fill/w_298,h_160,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/2a054bd36_image.webp', 'active', 0),
 (8, 'amis-du-vin-gala', 'Amis du Vin Gala', 'Thượng lưu', 2000000.00, '4.0 giờ', '20/11/2026 · 18h – 22h', 'Amis du Vin Cellar — Q.3, TP.HCM', 20, 5, 7, 'https://media.base44.com/images/public/6a623336361c483b3f15558c/f807fd6b1_image.png/v1/fill/w_298,h_160,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/f807fd6b1_image.webp', 'active', 0);
+
+-- Bảng lưu Danh sách FAQ (Câu hỏi thường gặp)
+CREATE TABLE IF NOT EXISTS `faqs` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `question` VARCHAR(500) NOT NULL,
+  `answer` TEXT NOT NULL,
+  `sort_order` INT NOT NULL DEFAULT 0,
+  `status` ENUM('active', 'inactive') DEFAULT 'active',
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Seed dữ liệu mẫu cho FAQs
+INSERT INTO `faqs` (`id`, `question`, `answer`, `sort_order`, `status`) VALUES
+(1, 'Amis du Vin có phục vụ tiệc riêng tư theo yêu cầu không?', 'Có. Chúng tôi thiết kế thực đơn và lựa chọn rượu vang riêng cho từng bữa tiệc, phù hợp sở thích, ngân sách và dịp lễ của Quý khách.', 1, 'active'),
+(2, 'Mỗi buổi tiệc phục vụ tối đa bao nhiêu khách?', 'Không gian ấm cúng tối ưu cho nhóm từ 8 đến 30 khách. Với quy mô lớn hơn, vui lòng liên hệ để chúng tôi bố trí riêng.', 2, 'active'),
+(3, 'Tôi cần đặt trước bao lâu?', 'Khuyến nghị đặt trước 3–5 ngày để Sommelier và Bếp chuẩn bị thực đơn tốt nhất. Các gói Premium nên đặt trước 1–2 tuần.', 3, 'active'),
+(4, 'Chưa hiểu về rượu vang, có tham gia được không?', 'Tuyệt đối được. Trải nghiệm dành cho mọi trình độ — Sommelier hướng dẫn từ cơ bản, giúp Quý khách tự tin thưởng thức.', 4, 'active'),
+(5, 'Chi phí bao gồm những gì?', 'Đã bao gồm thực đơn ẩm thực, rượu vang pairing, không gian riêng và sự hướng dẫn trực tiếp của Sommelier trong suốt bữa tiệc.', 5, 'active'),
+(6, 'Có hỗ trợ khách ăn chay hoặc dị ứng không?', 'Có. Vui lòng ghi chú yêu cầu đặc biệt khi đặt tiệc, bếp sẽ chuẩn bị thực đơn thay thế phù hợp.', 6, 'active'),
+(7, 'Chính sách hoàn/hủy đặt tiệc thế nào?', 'Hoàn 100% nếu hủy trước 72 giờ. Trong vòng 72 giờ, giữ 50% chi phí. Chi tiết xem tại mục chính sách cạnh Form đặt tiệc.', 7, 'active');
+
