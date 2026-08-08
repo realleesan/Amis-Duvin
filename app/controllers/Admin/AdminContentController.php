@@ -41,6 +41,7 @@ class AdminContentController extends BaseController
 
         $user = AuthService::user();
         $msg = $_GET['msg'] ?? null;
+        $err = $_GET['err'] ?? null;
 
         require __DIR__ . '/../../views/admin/content/index.php';
     }
@@ -115,16 +116,18 @@ class AdminContentController extends BaseController
         $priceText = trim($_POST['price_text'] ?? '');
         $level = trim($_POST['level'] ?? '');
         $image = trim($_POST['image'] ?? '');
+        $menuItems = trim($_POST['menu_items'] ?? '');
 
         $db = (new PairingModel())->getDb();
         if ($db && $id > 0) {
-            $stmt = $db->prepare("UPDATE pairings SET title = :title, subtitle = :subtitle, price_text = :price_text, level = :level, image = :image WHERE id = :id");
+            $stmt = $db->prepare("UPDATE pairings SET title = :title, subtitle = :subtitle, price_text = :price_text, level = :level, image = :image, menu_items = :menu_items WHERE id = :id");
             $stmt->execute([
                 'title' => $title,
                 'subtitle' => $subtitle,
                 'price_text' => $priceText,
                 'level' => $level,
                 'image' => $image,
+                'menu_items' => $menuItems,
                 'id' => $id
             ]);
         }
@@ -155,6 +158,40 @@ class AdminContentController extends BaseController
         exit;
     }
 
+    // Testimonials CRUD
+    public function createTestimonial(): void
+    {
+        AuthService::requireRole(['admin', 'marketing']);
+
+        $name = trim($_POST['name'] ?? '');
+        $role = trim($_POST['role'] ?? '');
+        $packageTag = trim($_POST['package_tag'] ?? 'Gói Signature Pairing');
+        $rating = (int)($_POST['rating'] ?? 5);
+        $content = trim($_POST['content'] ?? '');
+        $avatar = trim($_POST['avatar'] ?? '');
+
+        if (empty($name) || empty($content)) {
+            header('Location: /admin/content?err=' . urlencode('Vui lòng nhập tên khách hàng và nội dung đánh giá.'));
+            exit;
+        }
+
+        $db = (new TestimonialModel())->getDb();
+        if ($db) {
+            $stmt = $db->prepare("INSERT INTO testimonials (name, role, package_tag, rating, content, avatar) VALUES (:name, :role, :package_tag, :rating, :content, :avatar)");
+            $stmt->execute([
+                'name' => $name,
+                'role' => $role,
+                'package_tag' => $packageTag,
+                'rating' => $rating,
+                'content' => $content,
+                'avatar' => $avatar
+            ]);
+        }
+
+        header('Location: /admin/content?msg=' . urlencode('Đã thêm Đánh giá mới thành công!'));
+        exit;
+    }
+
     public function updateTestimonial(): void
     {
         AuthService::requireRole(['admin', 'marketing']);
@@ -162,15 +199,19 @@ class AdminContentController extends BaseController
         $id = (int)($_POST['id'] ?? 0);
         $name = trim($_POST['name'] ?? '');
         $role = trim($_POST['role'] ?? '');
+        $packageTag = trim($_POST['package_tag'] ?? 'Gói Signature Pairing');
+        $rating = (int)($_POST['rating'] ?? 5);
         $content = trim($_POST['content'] ?? $_POST['quote'] ?? '');
         $avatar = trim($_POST['avatar'] ?? '');
 
         $db = (new TestimonialModel())->getDb();
         if ($db && $id > 0) {
-            $stmt = $db->prepare("UPDATE testimonials SET name = :name, role = :role, content = :content, avatar = :avatar WHERE id = :id");
+            $stmt = $db->prepare("UPDATE testimonials SET name = :name, role = :role, package_tag = :package_tag, rating = :rating, content = :content, avatar = :avatar WHERE id = :id");
             $stmt->execute([
                 'name' => $name,
                 'role' => $role,
+                'package_tag' => $packageTag,
+                'rating' => $rating,
                 'content' => $content,
                 'avatar' => $avatar,
                 'id' => $id
@@ -178,6 +219,47 @@ class AdminContentController extends BaseController
         }
 
         header('Location: /admin/content?msg=' . urlencode('Đã cập nhật Đánh giá khách hàng thành công!'));
+        exit;
+    }
+
+    public function deleteTestimonial(): void
+    {
+        AuthService::requireRole(['admin', 'marketing']);
+
+        $id = (int)($_POST['id'] ?? 0);
+        $db = (new TestimonialModel())->getDb();
+        if ($db && $id > 0) {
+            $stmt = $db->prepare("DELETE FROM testimonials WHERE id = :id");
+            $stmt->execute(['id' => $id]);
+        }
+
+        header('Location: /admin/content?msg=' . urlencode('Đã xóa Đánh giá khách hàng thành công!'));
+        exit;
+    }
+
+    // FAQ CRUD
+    public function createFaq(): void
+    {
+        AuthService::requireRole(['admin', 'marketing']);
+
+        $question = trim($_POST['question'] ?? '');
+        $answer = trim($_POST['answer'] ?? '');
+
+        if (empty($question) || empty($answer)) {
+            header('Location: /admin/content?err=' . urlencode('Vui lòng nhập cả câu hỏi và câu trả lời FAQ.'));
+            exit;
+        }
+
+        $db = (new FaqModel())->getDb();
+        if ($db) {
+            $stmt = $db->prepare("INSERT INTO faqs (question, answer, status) VALUES (:question, :answer, 'active')");
+            $stmt->execute([
+                'question' => $question,
+                'answer' => $answer
+            ]);
+        }
+
+        header('Location: /admin/content?msg=' . urlencode('Đã thêm Câu hỏi FAQ mới thành công!'));
         exit;
     }
 
@@ -200,6 +282,21 @@ class AdminContentController extends BaseController
         }
 
         header('Location: /admin/content?msg=' . urlencode('Đã cập nhật câu hỏi FAQ thành công!'));
+        exit;
+    }
+
+    public function deleteFaq(): void
+    {
+        AuthService::requireRole(['admin', 'marketing']);
+
+        $id = (int)($_POST['id'] ?? 0);
+        $db = (new FaqModel())->getDb();
+        if ($db && $id > 0) {
+            $stmt = $db->prepare("DELETE FROM faqs WHERE id = :id");
+            $stmt->execute(['id' => $id]);
+        }
+
+        header('Location: /admin/content?msg=' . urlencode('Đã xóa câu hỏi FAQ thành công!'));
         exit;
     }
 }

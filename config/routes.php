@@ -62,7 +62,19 @@ Router::post('/admin/content/benefit', [AdminContentController::class, 'updateBe
 Router::post('/admin/content/testimonial', [AdminContentController::class, 'updateTestimonial'], [
     AuthMiddleware::class => ['admin', 'marketing']
 ]);
+Router::post('/admin/content/testimonial/create', [AdminContentController::class, 'createTestimonial'], [
+    AuthMiddleware::class => ['admin', 'marketing']
+]);
+Router::post('/admin/content/testimonial/delete', [AdminContentController::class, 'deleteTestimonial'], [
+    AuthMiddleware::class => ['admin', 'marketing']
+]);
 Router::post('/admin/content/faq', [AdminContentController::class, 'updateFaq'], [
+    AuthMiddleware::class => ['admin', 'marketing']
+]);
+Router::post('/admin/content/faq/create', [AdminContentController::class, 'createFaq'], [
+    AuthMiddleware::class => ['admin', 'marketing']
+]);
+Router::post('/admin/content/faq/delete', [AdminContentController::class, 'deleteFaq'], [
     AuthMiddleware::class => ['admin', 'marketing']
 ]);
 

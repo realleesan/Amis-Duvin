@@ -5,6 +5,7 @@ $activeNav = 'bookings';
 ob_start();
 ?>
 
+
 <div class="space-y-6">
   <!-- Header & Filters -->
   <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border/40 pb-6">
@@ -21,7 +22,7 @@ ob_start();
       </button>
 
       <!-- Filter Form -->
-      <form method="GET" action="/admin/bookings" class="flex flex-wrap items-center gap-3">
+      <form id="bookingFilterForm" method="GET" action="/admin/bookings" class="flex flex-wrap items-center gap-3">
         <select name="status" onchange="this.form.submit()" class="input-elegant px-3.5 py-2.5 rounded-sm text-xs cursor-pointer">
           <option value="" class="bg-card text-foreground">Tất cả trạng thái</option>
           <option value="Chờ xác nhận" <?= ($statusFilter ?? '') === 'Chờ xác nhận' ? 'selected' : '' ?> class="bg-card text-foreground">Chờ xác nhận</option>
@@ -30,12 +31,28 @@ ob_start();
           <option value="Đã hủy" <?= ($statusFilter ?? '') === 'Đã hủy' ? 'selected' : '' ?> class="bg-card text-foreground">Đã hủy</option>
         </select>
 
-        <input type="date" name="date" value="<?= htmlspecialchars($dateFilter ?? '') ?>" onchange="this.form.submit()" class="input-elegant px-3.5 py-2.5 rounded-sm text-xs cursor-pointer">
-
-        <?php if (!empty($statusFilter) || !empty($dateFilter)): ?>
-          <a href="/admin/bookings" class="text-xs text-rose-400 hover:underline">Xóa lọc</a>
-        <?php endif; ?>
+        <?php
+          $formattedDateDisplay = '';
+          if (!empty($dateFilter)) {
+              if (preg_match('/^(\d{4})-(\d{2})-(\d{2})$/', $dateFilter, $m)) {
+                  $formattedDateDisplay = "{$m[3]}/{$m[2]}/{$m[1]}";
+              } else {
+                  $formattedDateDisplay = $dateFilter;
+              }
+          }
+        ?>
+        <div class="relative flex items-center">
+          <input type="text" id="filterDatePicker" name="date" placeholder="dd/mm/yyyy" value="<?= htmlspecialchars($formattedDateDisplay) ?>" class="input-elegant px-3.5 py-2.5 rounded-sm text-xs cursor-pointer w-36 font-mono">
+        </div>
       </form>
+
+      <!-- Clear Filter Button -->
+      <?php if (!empty($statusFilter) || !empty($dateFilter)): ?>
+        <a href="/admin/bookings" class="px-3 py-2 rounded-sm bg-rose-500/15 text-rose-400 border border-rose-500/30 hover:bg-rose-500/25 transition-colors text-xs font-medium inline-flex items-center gap-1.5" title="Xóa tất cả bộ lọc">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x w-3.5 h-3.5"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+          <span>Xóa lọc</span>
+        </a>
+      <?php endif; ?>
     </div>
   </div>
 
@@ -58,7 +75,7 @@ ob_start();
           <?php if (empty($bookings)): ?>
             <tr>
               <td colspan="7" class="p-8 text-center text-muted-foreground text-sm">
-                Chưa có đơn đặt tiệc nào trong hệ thống.
+                Chưa có đơn đặt tiệc nào phù hợp với bộ lọc.
               </td>
             </tr>
           <?php else: ?>
@@ -87,7 +104,7 @@ ob_start();
                 </td>
                 <td class="p-4 font-semibold tabular-nums text-foreground"><?= (int)$b['participants'] ?> người</td>
                 <td class="p-4 text-xs">
-                  <div class="font-medium text-foreground"><?= date('d/m/Y', strtotime($b['booking_date'])) ?></div>
+                  <div class="font-medium text-foreground font-mono"><?= date('d/m/Y', strtotime($b['booking_date'])) ?></div>
                   <div class="text-muted-foreground"><?= htmlspecialchars($b['time_slot']) ?></div>
                 </td>
                 <td class="p-4">
@@ -155,8 +172,8 @@ ob_start();
 
       <div class="grid grid-cols-2 gap-4">
         <div>
-          <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Ngày tiệc (Trong vòng 5 ngày tới) *</label>
-          <input type="date" name="booking_date" required min="<?= date('Y-m-d') ?>" max="<?= date('Y-m-d', strtotime('+5 days')) ?>" value="<?= date('Y-m-d') ?>" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm">
+          <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Ngày tiệc (5 ngày tới) *</label>
+          <input type="text" id="manualBookingDatePicker" name="booking_date" required placeholder="dd/mm/yyyy" value="<?= date('d/m/Y') ?>" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm font-mono cursor-pointer">
         </div>
 
         <div>
@@ -233,7 +250,43 @@ ob_start();
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/vn.js"></script>
+
 <script>
+document.addEventListener('DOMContentLoaded', function() {
+  if (typeof flatpickr !== 'undefined') {
+    if (flatpickr.l10ns && flatpickr.l10ns.vn) {
+      flatpickr.localize(flatpickr.l10ns.vn);
+    }
+
+    // Filter date picker: visual dropdown calendar + strict dd/mm/yyyy display
+    flatpickr('#filterDatePicker', {
+      dateFormat: 'd/m/Y',
+      allowInput: true,
+      monthSelectorType: 'dropdown',
+      onClose: function(selectedDates, dateStr, instance) {
+        if (dateStr) {
+          document.getElementById('bookingFilterForm').submit();
+        }
+      }
+    });
+
+    // Manual Create date picker: 5 days constraint + strict dd/mm/yyyy display
+    var today = new Date();
+    var maxDate = new Date();
+    maxDate.setDate(today.getDate() + 5);
+
+    flatpickr('#manualBookingDatePicker', {
+      dateFormat: 'd/m/Y',
+      minDate: 'today',
+      maxDate: maxDate,
+      allowInput: true,
+      defaultDate: 'today'
+    });
+  }
+});
+
 function openManualCreateModal() {
   document.getElementById('manualCreateBookingModal').classList.add('active');
 }

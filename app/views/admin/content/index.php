@@ -204,6 +204,12 @@ ob_start();
                 <textarea name="subtitle" rows="2" class="input-elegant w-full p-2.5 rounded-sm text-xs leading-relaxed"><?= htmlspecialchars($p['subtitle']) ?></textarea>
               </div>
 
+              <div>
+                <label class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Chi tiết Món ăn &amp; Rượu vang (Thực đơn)</label>
+                <?php $menuStr = is_array($p['menu_items'] ?? null) ? json_encode($p['menu_items'], JSON_UNESCAPED_UNICODE) : ($p['menu_items'] ?? ''); ?>
+                <textarea name="menu_items" rows="3" placeholder="Mô tả danh sách các món ăn và vang đi kèm" class="input-elegant w-full p-2.5 rounded-sm text-xs leading-relaxed"><?= htmlspecialchars($menuStr) ?></textarea>
+              </div>
+
               <div class="grid grid-cols-2 gap-3">
                 <div>
                   <label class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Mức giá khởi điểm</label>
@@ -225,22 +231,36 @@ ob_start();
       </div>
     </div>
 
-    <!-- 5. Section Đánh giá Khách hàng Testimonials (Module 5.2) -->
+    <!-- 5. Section Đánh giá Khách hàng Testimonials (Module 5.2 - Full CRUD) -->
     <div class="rounded-sm border border-border/40 bg-card p-6 sm:p-8 space-y-6 shadow-sm">
       <div class="border-b border-border/40 pb-4 flex items-center justify-between">
         <div>
           <span class="text-[10px] uppercase tracking-widest text-[var(--gold)]">Module 5.2</span>
           <h3 class="font-heading text-xl text-foreground">Quản lý Đánh giá Khách hàng (Testimonials)</h3>
         </div>
-        <span class="text-xs text-muted-foreground">Dynamic Content</span>
+        
+        <button type="button" onclick="openCreateTestimonialModal()" class="btn-wine inline-flex items-center gap-2 px-4 py-2 rounded-sm text-xs uppercase tracking-widest font-medium shadow-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus w-3.5 h-3.5"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+          <span>Thêm Đánh giá mới</span>
+        </button>
       </div>
 
       <div class="grid sm:grid-cols-2 gap-6">
         <?php foreach ($testimonials as $t): ?>
-          <div class="rounded-sm border border-border/40 bg-card/40 p-5 space-y-4 shadow-sm">
+          <div class="rounded-sm border border-border/40 bg-card/40 p-5 space-y-4 shadow-sm relative group">
             <div class="flex items-center justify-between">
               <h4 class="font-heading text-base text-foreground font-semibold"><?= htmlspecialchars($t['name']) ?></h4>
-              <span class="text-xs text-[var(--gold)]">★ <?= (int)($t['rating'] ?? 5) ?>/5</span>
+              <div class="flex items-center gap-3">
+                <span class="text-xs text-[var(--gold)]">★ <?= (int)($t['rating'] ?? 5) ?>/5</span>
+
+                <!-- Delete Testimonial Form -->
+                <form action="/admin/content/testimonial/delete" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa đánh giá này?');" class="inline">
+                  <input type="hidden" name="id" value="<?= $t['id'] ?>">
+                  <button type="submit" class="p-1 rounded text-muted-foreground hover:text-rose-400 hover:bg-muted transition-colors" title="Xóa đánh giá này">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2 w-4 h-4"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
+                  </button>
+                </form>
+              </div>
             </div>
 
             <form action="/admin/content/testimonial" method="POST" class="space-y-3">
@@ -255,6 +275,18 @@ ob_start();
                 <div>
                   <label class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Chức danh / Công ty</label>
                   <input type="text" name="role" value="<?= htmlspecialchars($t['role']) ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Tag Gói dịch vụ</label>
+                  <input type="text" name="package_tag" value="<?= htmlspecialchars($t['package_tag'] ?? 'Gói Signature Pairing') ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs">
+                </div>
+
+                <div>
+                  <label class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Số sao (1 - 5)</label>
+                  <input type="number" name="rating" min="1" max="5" value="<?= (int)($t['rating'] ?? 5) ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs font-mono">
                 </div>
               </div>
 
@@ -277,24 +309,38 @@ ob_start();
       </div>
     </div>
 
-    <!-- 6. Section Câu hỏi Thường gặp FAQ (Module 5.3) -->
+    <!-- 6. Section Câu hỏi Thường gặp FAQ (Module 5.3 - Full CRUD) -->
     <div class="rounded-sm border border-border/40 bg-card p-6 sm:p-8 space-y-6 shadow-sm">
       <div class="border-b border-border/40 pb-4 flex items-center justify-between">
         <div>
           <span class="text-[10px] uppercase tracking-widest text-[var(--gold)]">Module 5.3</span>
           <h3 class="font-heading text-xl text-foreground">Quản lý Câu hỏi Thường gặp (FAQ Accordion)</h3>
         </div>
-        <span class="text-xs text-muted-foreground">Dynamic Content</span>
+
+        <button type="button" onclick="openCreateFaqModal()" class="btn-wine inline-flex items-center gap-2 px-4 py-2 rounded-sm text-xs uppercase tracking-widest font-medium shadow-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus w-3.5 h-3.5"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+          <span>Thêm FAQ mới</span>
+        </button>
       </div>
 
       <div class="space-y-4">
         <?php foreach ($faqs as $f): ?>
           <div class="rounded-sm border border-border/40 bg-card/40 p-5 space-y-3 shadow-sm">
+            <div class="flex items-center justify-between">
+              <span class="text-xs uppercase tracking-widest text-[var(--gold)] font-mono">FAQ #<?= $f['id'] ?></span>
+              <form action="/admin/content/faq/delete" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa câu hỏi FAQ này?');" class="inline">
+                <input type="hidden" name="id" value="<?= $f['id'] ?>">
+                <button type="submit" class="p-1 rounded text-muted-foreground hover:text-rose-400 hover:bg-muted transition-colors" title="Xóa câu hỏi FAQ này">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2 w-4 h-4"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
+                </button>
+              </form>
+            </div>
+
             <form action="/admin/content/faq" method="POST" class="space-y-3">
               <input type="hidden" name="id" value="<?= $f['id'] ?>">
 
               <div>
-                <label class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Câu hỏi #<?= $f['id'] ?></label>
+                <label class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Câu hỏi</label>
                 <input type="text" name="question" value="<?= htmlspecialchars($f['question']) ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs font-semibold">
               </div>
 
@@ -315,6 +361,109 @@ ob_start();
     </div>
   </div>
 </div>
+
+<!-- Modal Thêm Đánh giá Testimonial mới -->
+<div id="createTestimonialModal" class="modal-overlay">
+  <div class="relative w-full max-w-lg bg-card border border-border/40 rounded-sm p-6 sm:p-8 shadow-2xl animate-scale-in my-auto">
+    <button onclick="closeCreateTestimonialModal()" type="button" class="absolute top-4 right-4 text-muted-foreground hover:text-foreground">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x w-5 h-5"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+    </button>
+
+    <h3 class="font-heading text-xl text-foreground mb-4">Thêm Đánh giá Khách hàng mới</h3>
+
+    <form action="/admin/content/testimonial/create" method="POST" class="space-y-4">
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Tên khách hàng *</label>
+          <input type="text" name="name" required placeholder="Anh Nguyễn Văn A" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm font-medium">
+        </div>
+
+        <div>
+          <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Chức danh / Công ty</label>
+          <input type="text" name="role" placeholder="CEO / Doanh nhân" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Tag Gói tiệc</label>
+          <input type="text" name="package_tag" value="Gói Signature Pairing" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm">
+        </div>
+
+        <div>
+          <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Số sao đánh giá (1-5)</label>
+          <input type="number" name="rating" min="1" max="5" value="5" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm font-mono">
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Nội dung đánh giá *</label>
+        <textarea name="content" rows="3" required placeholder="Trải nghiệm tuyệt vời, không gian riêng tư đẳng cấp..." class="input-elegant w-full p-3 rounded-sm text-sm leading-relaxed"></textarea>
+      </div>
+
+      <div>
+        <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">URL Avatar Ảnh đại diện</label>
+        <input type="url" name="avatar" placeholder="https://..." class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm">
+      </div>
+
+      <div class="pt-2 flex gap-3">
+        <button type="submit" class="btn-wine flex-1 py-3 rounded-sm text-xs uppercase tracking-widest font-medium">
+          Thêm đánh giá mới
+        </button>
+        <button type="button" onclick="closeCreateTestimonialModal()" class="px-5 py-3 rounded-sm bg-muted text-xs uppercase tracking-widest text-muted-foreground hover:text-foreground">
+          Hủy
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Thêm FAQ mới -->
+<div id="createFaqModal" class="modal-overlay">
+  <div class="relative w-full max-w-lg bg-card border border-border/40 rounded-sm p-6 sm:p-8 shadow-2xl animate-scale-in my-auto">
+    <button onclick="closeCreateFaqModal()" type="button" class="absolute top-4 right-4 text-muted-foreground hover:text-foreground">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x w-5 h-5"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+    </button>
+
+    <h3 class="font-heading text-xl text-foreground mb-4">Thêm Câu hỏi FAQ mới</h3>
+
+    <form action="/admin/content/faq/create" method="POST" class="space-y-4">
+      <div>
+        <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Câu hỏi *</label>
+        <input type="text" name="question" required placeholder="Nhà hàng có chỗ đỗ xe ô tô không?" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm font-semibold">
+      </div>
+
+      <div>
+        <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Câu trả lời chi tiết *</label>
+        <textarea name="answer" rows="4" required placeholder="Có, Amis du Vin có bãi đỗ xe ô tô miễn phí ngay trước sảnh..." class="input-elegant w-full p-3 rounded-sm text-sm leading-relaxed"></textarea>
+      </div>
+
+      <div class="pt-2 flex gap-3">
+        <button type="submit" class="btn-wine flex-1 py-3 rounded-sm text-xs uppercase tracking-widest font-medium">
+          Thêm câu hỏi FAQ
+        </button>
+        <button type="button" onclick="closeCreateFaqModal()" class="px-5 py-3 rounded-sm bg-muted text-xs uppercase tracking-widest text-muted-foreground hover:text-foreground">
+          Hủy
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+function openCreateTestimonialModal() {
+  document.getElementById('createTestimonialModal').classList.add('active');
+}
+function closeCreateTestimonialModal() {
+  document.getElementById('createTestimonialModal').classList.remove('active');
+}
+function openCreateFaqModal() {
+  document.getElementById('createFaqModal').classList.add('active');
+}
+function closeCreateFaqModal() {
+  document.getElementById('createFaqModal').classList.remove('active');
+}
+</script>
 
 <?php
 $adminContent = ob_get_clean();

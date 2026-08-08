@@ -21,19 +21,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  if (dateInput) {
+  if (dateInput && typeof flatpickr !== 'undefined') {
+    if (flatpickr.l10ns && flatpickr.l10ns.vn) {
+      flatpickr.localize(flatpickr.l10ns.vn);
+    }
     const today = new Date();
-    const todayStr = today.toISOString().split('T')[0];
     const maxDate = new Date();
     maxDate.setDate(today.getDate() + 5);
-    const maxDateStr = maxDate.toISOString().split('T')[0];
 
-    dateInput.min = todayStr;
-    dateInput.max = maxDateStr;
-
-    if (!dateInput.value || dateInput.value < todayStr || dateInput.value > maxDateStr) {
-      dateInput.value = todayStr;
-    }
+    flatpickr(dateInput, {
+      dateFormat: 'd/m/Y',
+      minDate: 'today',
+      maxDate: maxDate,
+      allowInput: true,
+      monthSelectorType: 'dropdown',
+      defaultDate: 'today'
+    });
   }
 
   if (bookingForm) {

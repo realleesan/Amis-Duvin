@@ -97,6 +97,7 @@
       }
     }
   </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <link rel="stylesheet" href="/assets/css/global.css">
 </head>
 <body class="bg-background text-foreground antialiased min-h-screen flex flex-col">
@@ -121,6 +122,8 @@
   <?php require __DIR__ . '/../modals/workshop_success_modal.php'; ?>
 
   <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/vn.js"></script>
   <script src="/assets/js/global.js"></script>
   <script src="/assets/js/booking.js"></script>
   <script src="/assets/js/workshop.js"></script>

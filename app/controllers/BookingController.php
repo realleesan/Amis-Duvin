@@ -38,6 +38,9 @@ class BookingController extends BaseController
         $bookingModel = new BookingModel();
         
         $bookingDate = sanitize($input['date'] ?? $input['booking_date']);
+        if (preg_match('/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/', $bookingDate, $m)) {
+            $bookingDate = sprintf('%04d-%02d-%02d', $m[3], $m[2], $m[1]);
+        }
         $timeSlot = sanitize($input['slot'] ?? $input['time_slot']);
         $participants = (int)$input['participants'];
 

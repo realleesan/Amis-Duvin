@@ -25,7 +25,11 @@ class AdminBookingController extends BaseController
         }
 
         if ($dateFilter !== '') {
-            $bookings = array_filter($bookings, fn($b) => ($b['booking_date'] ?? '') === $dateFilter);
+            $normalizedDate = $dateFilter;
+            if (preg_match('/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/', $dateFilter, $m)) {
+                $normalizedDate = sprintf('%04d-%02d-%02d', $m[3], $m[2], $m[1]);
+            }
+            $bookings = array_filter($bookings, fn($b) => ($b['booking_date'] ?? '') === $normalizedDate);
         }
 
         $user = AuthService::user();
@@ -85,6 +89,10 @@ class AdminBookingController extends BaseController
         if (empty($fullName) || empty($phone) || empty($bookingDate) || empty($timeSlot) || $participants <= 0) {
             header('Location: /admin/bookings?err=' . urlencode('Vui lòng điền đầy đủ các thông tin bắt buộc.'));
             exit;
+        }
+
+        if (preg_match('/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/', $bookingDate, $m)) {
+            $bookingDate = sprintf('%04d-%02d-%02d', $m[3], $m[2], $m[1]);
         }
 
         // 5-day notice check (Within 5 days from today: Today -> Today + 5 days)
