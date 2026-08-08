@@ -4,13 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?= htmlspecialchars($title ?? 'Admin CMS — Amis du Vin') ?></title>
+  <script>
+    (function() {
+      try {
+        const saved = localStorage.getItem('adv-theme');
+        if (saved === 'light') {
+          document.documentElement.classList.remove('dark');
+        } else {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (e) {}
+    })();
+  </script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="/assets/css/global.css">
 </head>
 <body class="bg-background text-foreground antialiased min-h-screen flex">
   <!-- Sidebar -->
-  <aside class="w-64 bg-card border-r border-border flex flex-col shrink-0 min-h-screen">
-    <div class="p-6 border-b border-border flex items-center gap-3">
+  <aside class="w-64 bg-card border-r border-border/40 flex flex-col shrink-0 min-h-screen">
+    <div class="p-6 border-b border-border/40 flex items-center gap-3">
       <img src="https://media.base44.com/images/public/6a623336361c483b3f15558c/de2b27acb_LogoAmisDuVin.png" alt="Amis du Vin" class="h-10 w-auto object-contain">
       <div>
         <h1 class="font-heading text-sm text-foreground">Amis du Vin</h1>
@@ -48,7 +60,7 @@
     </nav>
 
     <!-- User Profile & Logout -->
-    <div class="p-4 border-t border-border bg-muted/20">
+    <div class="p-4 border-t border-border/40 bg-muted/20">
       <div class="flex items-center justify-between">
         <div class="min-w-0">
           <p class="text-xs font-semibold text-foreground truncate"><?= htmlspecialchars($user['full_name'] ?? 'User') ?></p>
@@ -64,9 +76,9 @@
   <!-- Main Content Area -->
   <div class="flex-1 flex flex-col min-w-0">
     <!-- Top Header Bar -->
-    <header class="h-16 border-b border-border bg-card/60 backdrop-blur-md px-6 flex items-center justify-between shrink-0">
+    <header class="h-16 border-b border-border/40 bg-card/60 backdrop-blur-md px-6 flex items-center justify-between shrink-0">
       <div class="flex items-center gap-3">
-        <span class="text-xs uppercase tracking-[0.2em] text-[var(--gold)]">CMS Workspace</span>
+        <span class="text-xs uppercase tracking-[0.2em] text-[var(--gold)] font-medium">CMS Workspace</span>
         <span class="text-muted-foreground/40">•</span>
         <a href="/" target="_blank" class="text-xs text-muted-foreground hover:text-foreground flex items-center gap-1.5 transition-colors">
           <span>Xem Landing Page</span>
@@ -74,8 +86,18 @@
         </a>
       </div>
 
-      <div class="text-xs text-muted-foreground font-mono">
-        <?= date('d/m/Y H:i') ?>
+      <div class="flex items-center gap-4">
+        <!-- Theme Toggle Button -->
+        <button type="button" class="theme-toggle-btn p-2 rounded-full hover:bg-muted transition-colors text-muted-foreground hover:text-foreground" aria-label="Đổi giao diện Sáng/Tối" title="Đổi giao diện Sáng/Tối">
+          <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun w-4 h-4 text-[var(--gold)]"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
+          <svg id="moonIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon w-4 h-4 text-foreground hidden"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+        </button>
+
+        <span class="text-muted-foreground/30">•</span>
+
+        <div class="text-xs text-muted-foreground font-mono">
+          <?= date('d/m/Y H:i') ?>
+        </div>
       </div>
     </header>
 
@@ -98,5 +120,7 @@
       <?= $adminContent ?? '' ?>
     </main>
   </div>
+
+  <script src="/assets/js/global.js"></script>
 </body>
 </html>
