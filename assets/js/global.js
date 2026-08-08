@@ -447,8 +447,8 @@ document.addEventListener('DOMContentLoaded', () => {
   window.handleWorkshopModalSubmit = function(event) {
     if (event) event.preventDefault();
     closeWorkshopModal();
-    const successModal = document.getElementById('successModal');
-    if (successModal) successModal.classList.add('active');
+    const workshopSuccessModal = document.getElementById('workshopSuccessModal');
+    if (workshopSuccessModal) workshopSuccessModal.classList.add('active');
   };
 
   // Workshop Details Modal Handlers
