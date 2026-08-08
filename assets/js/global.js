@@ -292,6 +292,93 @@ document.addEventListener('DOMContentLoaded', () => {
     if (modal) modal.classList.remove('active');
   };
 
+  // Workshop Reservation Modal Handlers
+  window.openWorkshopReservationModal = function(wsData, event) {
+    if (event) event.stopPropagation();
+    
+    const modal = document.getElementById('workshopModal');
+    if (!modal) return;
+
+    if (wsData) {
+      const inputId = document.getElementById('wsModalInputId');
+      const img = document.getElementById('wsModalPreviewImg');
+      const title = document.getElementById('wsModalPreviewTitle');
+      const schedule = document.getElementById('wsModalPreviewSchedule');
+      const price = document.getElementById('wsModalPreviewPrice');
+
+      if (inputId) inputId.value = wsData.id || 1;
+      if (img) img.src = wsData.image || '';
+      if (title) title.textContent = wsData.title || '';
+      
+      if (schedule) {
+        schedule.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar w-3.5 h-3.5 text-[var(--gold)] shrink-0"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg> <span>${wsData.schedule || ''}</span>`;
+      }
+      
+      if (price) {
+        const priceStr = wsData.price_text || (wsData.price ? (Number(wsData.price).toLocaleString('vi-VN') + ' VNĐ') : '');
+        price.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-coins w-3.5 h-3.5 text-[var(--gold)] shrink-0"><circle cx="8" cy="8" r="6"></circle><path d="M18.09 10.37A6 6 0 1 1 10.34 18"></path><path d="M7 6h1v4"></path><path d="m16.71 13.88.7.71-2.82 2.82"></path></svg> <span>${priceStr}</span>`;
+      }
+    }
+
+    // Populate Add-on workshops
+    const addonContainer = document.getElementById('wsAddonContainer');
+    if (addonContainer && window.__ALL_WORKSHOPS__) {
+      const currentId = wsData ? wsData.id : null;
+      const otherWorkshops = window.__ALL_WORKSHOPS__.filter(w => w.id !== currentId);
+      
+      addonContainer.innerHTML = otherWorkshops.map(w => {
+        const pText = w.price_text || (w.price ? (Number(w.price).toLocaleString('vi-VN') + ' VNĐ') : '');
+        const schDate = w.schedule ? w.schedule.split('·')[0].trim() : '';
+        return `
+          <label class="flex items-center gap-3 rounded-sm border px-3.5 py-3 cursor-pointer transition-colors border-border hover:border-[var(--wine)]/40 ws-addon-item" onclick="toggleWsAddonItem(this)">
+            <span class="ws-addon-check w-5 h-5 rounded border flex items-center justify-center shrink-0 transition-colors border-border text-transparent text-xs font-bold">✓</span>
+            <input type="checkbox" name="addons[]" value="${w.id}" class="sr-only">
+            <div class="min-w-0 flex-1">
+              <p class="text-sm text-foreground truncate">${w.title}</p>
+              <p class="text-[11px] text-muted-foreground">${schDate} · ${pText}</p>
+            </div>
+          </label>
+        `;
+      }).join('');
+    }
+
+    modal.classList.add('active');
+  };
+
+  window.closeWorkshopModal = function() {
+    const modal = document.getElementById('workshopModal');
+    if (modal) modal.classList.remove('active');
+  };
+
+  window.toggleWsAddonItem = function(labelEl) {
+    const checkbox = labelEl.querySelector('input[type="checkbox"]');
+    const checkSpan = labelEl.querySelector('.ws-addon-check');
+    if (!checkbox) return;
+    
+    setTimeout(() => {
+      if (checkbox.checked) {
+        labelEl.classList.add('border-[var(--wine)]', 'bg-[var(--wine)]/10');
+        if (checkSpan) {
+          checkSpan.classList.remove('border-border', 'text-transparent');
+          checkSpan.classList.add('border-[var(--wine)]', 'bg-[var(--wine)]', 'text-white');
+        }
+      } else {
+        labelEl.classList.remove('border-[var(--wine)]', 'bg-[var(--wine)]/10');
+        if (checkSpan) {
+          checkSpan.classList.remove('border-[var(--wine)]', 'bg-[var(--wine)]', 'text-white');
+          checkSpan.classList.add('border-border', 'text-transparent');
+        }
+      }
+    }, 10);
+  };
+
+  window.handleWorkshopModalSubmit = function(event) {
+    if (event) event.preventDefault();
+    closeWorkshopModal();
+    const successModal = document.getElementById('successModal');
+    if (successModal) successModal.classList.add('active');
+  };
+
   // Workshop 3D Card Flip Handler
   window.toggleWorkshopCardFlip = function(cardEl, event) {
     if (!cardEl) return;

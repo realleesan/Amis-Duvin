@@ -120,7 +120,12 @@ if (empty($topicWorkshops)) {
         ]
     ];
 }
+$allWorkshopsForJs = array_merge($featuredWorkshops, $topicWorkshops);
 ?>
+<script>
+  window.__ALL_WORKSHOPS__ = <?= json_encode($allWorkshopsForJs, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>;
+</script>
+
 <section id="workshops" class="scroll-anchor relative py-24 sm:py-32 bg-card overflow-hidden">
   <div class="max-w-7xl mx-auto px-5 sm:px-8">
     
@@ -141,6 +146,7 @@ if (empty($topicWorkshops)) {
           $priceText = $ws['price_text'] ?? (number_format($ws['price'], 0, ',', '.') . ' VNĐ');
           $rem = isset($ws['remaining_spots']) ? $ws['remaining_spots'] : (max(0, $ws['max_participants'] - $ws['current_participants']));
           $isFull = ($ws['status'] === 'full' || $rem <= 0);
+          $wsJson = htmlspecialchars(json_encode($ws), ENT_QUOTES, 'UTF-8');
         ?>
         <div class="reveal is-visible">
           <div class="group [perspective:1400px] h-[460px] transition-shadow duration-500 hover:shadow-[0_24px_50px_-22px_rgba(33,30,25,0.3)]">
@@ -179,18 +185,18 @@ if (empty($topicWorkshops)) {
                   </div>
                   
                   <?php if ($isFull): ?>
-                    <button type="button" onclick="event.stopPropagation(); scrollToId('register');" class="w-full flex items-center justify-center gap-2 py-3.5 rounded-sm text-xs uppercase tracking-[0.18em] font-medium min-h-[48px] btn-ghost text-white border-white/30">
+                    <button type="button" onclick="event.stopPropagation(); openWorkshopReservationModal(<?= $wsJson ?>, event);" class="w-full flex items-center justify-center gap-2 py-3.5 rounded-sm text-xs uppercase tracking-[0.18em] font-medium min-h-[48px] btn-ghost text-white border-white/30">
                       Giữ chỗ cho lần tới
                     </button>
                   <?php else: ?>
-                    <button type="button" onclick="event.stopPropagation(); scrollToId('register');" class="w-full flex items-center justify-center gap-2 py-3.5 rounded-sm text-xs uppercase tracking-[0.18em] font-medium min-h-[48px] btn-invert">
+                    <button type="button" onclick="event.stopPropagation(); openWorkshopReservationModal(<?= $wsJson ?>, event);" class="w-full flex items-center justify-center gap-2 py-3.5 rounded-sm text-xs uppercase tracking-[0.18em] font-medium min-h-[48px] btn-invert">
                       Giữ chỗ <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right w-3.5 h-3.5"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
                     </button>
                   <?php endif; ?>
                 </div>
               </div>
 
-              <!-- Back Face (Identical border border-border & bg-card as front face!) -->
+              <!-- Back Face -->
               <div class="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-sm border border-border bg-card p-6 sm:p-7 flex flex-col">
                 <div class="flex items-center justify-between gap-2 mb-5">
                   <p class="text-[10px] uppercase tracking-[0.15em] text-[var(--gold)] whitespace-nowrap shrink-0">Thông tin Workshop</p>
@@ -234,7 +240,7 @@ if (empty($topicWorkshops)) {
                 </div>
 
                 <div class="flex flex-col gap-2.5 mt-5">
-                  <button type="button" onclick="event.stopPropagation(); scrollToId('register');" class="w-full flex items-center justify-center gap-2 py-3.5 rounded-sm text-xs uppercase tracking-[0.18em] font-medium min-h-[48px] btn-invert">
+                  <button type="button" onclick="event.stopPropagation(); openWorkshopReservationModal(<?= $wsJson ?>, event);" class="w-full flex items-center justify-center gap-2 py-3.5 rounded-sm text-xs uppercase tracking-[0.18em] font-medium min-h-[48px] btn-invert">
                     Giữ chỗ
                   </button>
                   <button type="button" onclick="event.stopPropagation(); toggleWorkshopCardFlip(this.closest('.workshop-flip-card'), event);" class="btn-ghost w-full flex items-center justify-center gap-2 py-3 rounded-sm text-xs uppercase tracking-[0.15em] font-medium min-h-[44px]">
@@ -262,6 +268,7 @@ if (empty($topicWorkshops)) {
                 $tPriceText = $tWs['price_text'] ?? (number_format($tWs['price'], 0, ',', '.') . ' VNĐ');
                 $tRem = isset($tWs['remaining_spots']) ? $tWs['remaining_spots'] : (max(0, $tWs['max_participants'] - $tWs['current_participants']));
                 $tIsFull = ($tWs['status'] === 'full' || $tRem <= 0);
+                $tWsJson = htmlspecialchars(json_encode($tWs), ENT_QUOTES, 'UTF-8');
               ?>
               <div class="topic-coverflow-card absolute left-1/2 top-0 w-[270px] sm:w-[310px] h-full transition-all duration-500 ease-out [transform-style:preserve-3d]" data-topic-index="<?= $tIdx ?>">
                 
@@ -300,21 +307,21 @@ if (empty($topicWorkshops)) {
 
                       <div class="flex-1"></div>
 
-                      <!-- Added Note: Chạm để xem chi tiết -->
+                      <!-- Note: Chạm để xem chi tiết -->
                       <div class="flex items-center gap-1.5 text-[11px] text-muted-foreground mb-3">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-cw w-3 h-3"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path></svg> 
                         Chạm để xem chi tiết
                       </div>
 
                       <?php if ($tIsFull): ?>
-                        <button type="button" onclick="event.stopPropagation(); scrollToId('register');" class="w-full py-3 rounded-sm text-xs uppercase tracking-[0.18em] font-medium min-h-[44px] btn-ghost text-muted-foreground">Giữ chỗ cho lần tới</button>
+                        <button type="button" onclick="event.stopPropagation(); openWorkshopReservationModal(<?= $tWsJson ?>, event);" class="w-full py-3 rounded-sm text-xs uppercase tracking-[0.18em] font-medium min-h-[44px] btn-ghost text-muted-foreground">Giữ chỗ cho lần tới</button>
                       <?php else: ?>
-                        <button type="button" onclick="event.stopPropagation(); scrollToId('register');" class="w-full py-3 rounded-sm text-xs uppercase tracking-[0.18em] font-medium min-h-[44px] btn-invert">Giữ chỗ</button>
+                        <button type="button" onclick="event.stopPropagation(); openWorkshopReservationModal(<?= $tWsJson ?>, event);" class="w-full py-3 rounded-sm text-xs uppercase tracking-[0.18em] font-medium min-h-[44px] btn-invert">Giữ chỗ</button>
                       <?php endif; ?>
                     </div>
                   </div>
 
-                  <!-- Back Face (Fixed 1-line header: "Thông tin Workshop" with whitespace-nowrap & tracking-[0.12em]) -->
+                  <!-- Back Face -->
                   <div class="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-sm border border-border bg-card p-5 sm:p-6 flex flex-col shadow-[0_24px_60px_-25px_rgba(33,30,25,0.4)]">
                     <div class="flex items-center justify-between gap-2 mb-4">
                       <p class="text-[9px] sm:text-[10px] uppercase tracking-[0.12em] text-[var(--gold)] whitespace-nowrap shrink-0">Thông tin Workshop</p>
@@ -347,8 +354,8 @@ if (empty($topicWorkshops)) {
                     </div>
 
                     <div class="flex flex-col gap-2 mt-4">
-                      <button type="button" onclick="event.stopPropagation(); scrollToId('register');" class="w-full py-3 rounded-sm text-xs uppercase tracking-[0.18em] font-medium min-h-[44px] btn-invert">Giữ chỗ</button>
-                      <button type="button" onclick="event.stopPropagation(); toggleWorkshopCardFlip(this.closest('.workshop-flip-card'), event);" class="btn-ghost w-full py-2 rounded-sm text-[11px] uppercase tracking-[0.15em] font-medium min-h-[38px]">Xem chi tiết</button>
+                      <button type="button" onclick="event.stopPropagation(); openWorkshopReservationModal(<?= $tWsJson ?>, event);" class="w-full py-3 rounded-sm text-xs uppercase tracking-[0.18em] font-medium min-h-[44px] btn-invert">Giữ chỗ</button>
+                      <button type="button" onclick="event.stopPropagation(); toggleWorkshopCardFlip(this.closest('.workshop-flip-card'), event);" class="btn-ghost w-full py-2 rounded-sm text-[11px] uppercase tracking-[0.15em] font-medium min-h-[38px]">Xem mặt trước</button>
                     </div>
                   </div>
 
