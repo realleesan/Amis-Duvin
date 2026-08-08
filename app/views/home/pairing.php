@@ -72,10 +72,14 @@ if (empty($pairings)) {
   <div class="absolute inset-0 bg-wine-radial opacity-60"></div>
   <div class="relative max-w-7xl mx-auto px-5 sm:px-8">
     <div class="reveal is-visible">
-      <div class="text-center max-w-2xl mx-auto mb-14">
-        <p class="text-[var(--gold)] text-xs uppercase tracking-[0.35em] mb-4">Dịch vụ tiệc riêng</p>
-        <h2 class="font-heading text-3xl sm:text-5xl text-foreground mb-5">Food &amp; Wine Pairing</h2>
-        <p class="text-sm sm:text-base text-muted-foreground">Bốn trải nghiệm kết hợp ẩm thực và rượu vang, từ tinh hoa tiêu chuẩn đến đỉnh cao thượng lưu.</p>
+      <!-- Section 3.1 Service Overview Intro -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <p class="text-[var(--gold)] text-xs uppercase tracking-[0.35em] mb-4">Dịch vụ tiệc riêng Amis du Vin</p>
+        <h2 class="font-heading text-3xl sm:text-5xl text-foreground mb-6">Food &amp; Wine Pairing</h2>
+        <p class="text-sm sm:text-base text-muted-foreground leading-relaxed mb-4">
+          Mô hình tiệc riêng tư (Private Party) — sự kết hợp đỉnh cao giữa văn hóa rượu vang hảo hạng và nghệ thuật ẩm thực tinh tế (Food &amp; Wine Pairing), mang đến không gian biệt lập, đẳng cấp cho các buổi tiếp khách, kỷ niệm hay giao lưu doanh nhân.
+        </p>
+        <p class="text-xs uppercase tracking-[0.2em] text-[var(--gold)]/80">Bốn trải nghiệm kết hợp ẩm thực và rượu vang, từ tinh hoa tiêu chuẩn đến đỉnh cao thượng lưu</p>
       </div>
     </div>
 

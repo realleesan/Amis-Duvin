@@ -1,73 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
   const bookingForm = document.getElementById('bookingForm');
   const dateInput = document.getElementById('bookingDate');
-  const slotsContainer = document.getElementById('slotsContainer');
-  const selectedSlotInput = document.getElementById('selectedSlot');
   const btnBookingSubmit = document.getElementById('btnBookingSubmit');
 
   if (dateInput) {
-    // Set min date to today
-    const today = new Date().toISOString().split('T')[0];
-    dateInput.min = today;
+    // Calculate min date = today + 5 days
+    const minDate = new Date();
+    minDate.setDate(minDate.getDate() + 5);
+    const minDateStr = minDate.toISOString().split('T')[0];
+    dateInput.min = minDateStr;
 
-    dateInput.addEventListener('change', async (e) => {
-      const selectedDate = e.target.value;
-      if (!selectedDate) return;
-
-      slotsContainer.innerHTML = '<p class="text-xs text-muted-foreground italic py-3">Đang tải lịch trống...</p>';
-
-      try {
-        const res = await fetch(`/api/availability?date=${selectedDate}`);
-        const data = await res.json();
-        const busySlots = data.busy || [];
-
-        renderPartySlots(busySlots);
-      } catch (err) {
-        console.error('Error fetching availability:', err);
-        renderPartySlots([]);
-      }
-    });
-  }
-
-  function renderPartySlots(busySlots = []) {
-    const slots = [
-      { id: "11-13", label: "11:00 – 13:00", meal: "Trưa" },
-      { id: "13-15", label: "13:00 – 15:00", meal: "Trưa" },
-      { id: "15-17", label: "15:00 – 17:00", meal: "Chiều" },
-      { id: "17-19", label: "17:00 – 19:00", meal: "Tối" },
-      { id: "19-21", label: "19:00 – 21:00", meal: "Tối" },
-    ];
-
-    slotsContainer.innerHTML = '';
-    const grid = document.createElement('div');
-    grid.className = 'grid grid-cols-2 sm:grid-cols-3 gap-2.5';
-
-    slots.forEach(slot => {
-      const isBusy = busySlots.includes(slot.id);
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.disabled = isBusy;
-      btn.className = `rounded-sm border px-3 py-3 text-center transition-all min-h-[56px] ${
-        isBusy
-          ? 'border-border bg-muted/60 text-muted-foreground cursor-not-allowed line-through'
-          : 'border-border hover:border-[#722F37] text-foreground cursor-pointer'
-      }`;
-
-      btn.innerHTML = `
-        <span class="block text-xs font-medium">${slot.label}</span>
-        <span class="block text-[10px] mt-0.5 text-muted-foreground">${isBusy ? 'Đã có khách' : slot.meal}</span>
-      `;
-
-      btn.addEventListener('click', () => {
-        grid.querySelectorAll('button').forEach(b => b.classList.remove('border-[#722F37]', 'bg-[#722F37]', 'text-white'));
-        btn.classList.add('border-[#722F37]', 'bg-[#722F37]', 'text-white');
-        selectedSlotInput.value = slot.id;
-      });
-
-      grid.appendChild(btn);
-    });
-
-    slotsContainer.appendChild(grid);
+    // Set default value if empty or less than min date
+    if (!dateInput.value || dateInput.value < minDateStr) {
+      dateInput.value = minDateStr;
+    }
   }
 
   if (bookingForm) {
@@ -77,13 +23,33 @@ document.addEventListener('DOMContentLoaded', () => {
       const formData = new FormData(bookingForm);
       const payload = Object.fromEntries(formData.entries());
 
-      if (!payload.slot) {
-        alert('Vui lòng chọn khung giờ tiệc!');
+      // Validate 5-day lead time on client side
+      if (dateInput && dateInput.value) {
+        const minDate = new Date();
+        minDate.setDate(minDate.getDate() + 5);
+        minDate.setHours(0, 0, 0, 0);
+        const selectedDate = new Date(dateInput.value);
+        selectedDate.setHours(0, 0, 0, 0);
+
+        if (selectedDate < minDate) {
+          alert('Theo quy định, ngày đặt tiệc phải cách thời điểm hiện tại tối thiểu 05 ngày!');
+          return;
+        }
+      }
+
+      if (!payload.time_slot && !payload.slot) {
+        alert('Vui lòng chọn khung giờ (Ca 1 hoặc Ca 2)!');
         return;
       }
 
       btnBookingSubmit.disabled = true;
-      btnBookingSubmit.textContent = 'Đang gửi thông tin...';
+      btnBookingSubmit.innerHTML = `
+        <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        Đang gửi thông tin...
+      `;
 
       try {
         const res = await fetch('/api/booking', {
@@ -95,20 +61,27 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = await res.json();
         if (res.ok && data.success) {
           bookingForm.reset();
-          selectedSlotInput.value = '';
-          if (slotsContainer) slotsContainer.innerHTML = '';
+          if (dateInput) {
+            const minDate = new Date();
+            minDate.setDate(minDate.getDate() + 5);
+            dateInput.value = minDate.toISOString().split('T')[0];
+          }
 
           const successModal = document.getElementById('successModal');
           if (successModal) successModal.classList.add('active');
         } else {
-          alert(data.message || 'Vui lòng kiểm tra lại thông tin!');
+          let errorMsg = data.message || 'Vui lòng kiểm tra lại thông tin nhập!';
+          if (data.errors && typeof data.errors === 'object') {
+            errorMsg = Object.values(data.errors).join('\n');
+          }
+          alert(errorMsg);
         }
       } catch (err) {
         console.error('Booking submission error:', err);
         alert('Đã xảy ra lỗi kết nối. Vui lòng thử lại!');
       } finally {
         btnBookingSubmit.disabled = false;
-        btnBookingSubmit.textContent = 'Xác Nhận Đặt Tiệc';
+        btnBookingSubmit.textContent = 'Đặt tiệc ngay';
       }
     });
   }

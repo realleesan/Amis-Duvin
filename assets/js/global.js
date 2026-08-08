@@ -292,6 +292,27 @@ document.addEventListener('DOMContentLoaded', () => {
     if (modal) modal.classList.remove('active');
   };
 
+  // Policy Modal Handlers
+  window.openPrivacyPolicyModal = function() {
+    const modal = document.getElementById('privacyPolicyModal');
+    if (modal) modal.classList.add('active');
+  };
+
+  window.closePrivacyPolicyModal = function() {
+    const modal = document.getElementById('privacyPolicyModal');
+    if (modal) modal.classList.remove('active');
+  };
+
+  window.openRefundPolicyModal = function() {
+    const modal = document.getElementById('refundPolicyModal');
+    if (modal) modal.classList.add('active');
+  };
+
+  window.closeRefundPolicyModal = function() {
+    const modal = document.getElementById('refundPolicyModal');
+    if (modal) modal.classList.remove('active');
+  };
+
   // Workshop Reservation Modal Handlers
   window.openWorkshopReservationModal = function(wsData, event) {
     if (event) event.stopPropagation();

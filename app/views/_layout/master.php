@@ -4,7 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?= htmlspecialchars($title ?? 'Amis du Vin — Rượu vang và những người bạn') ?></title>
-  <meta name="description" content="Amis du Vin — Không gian kết nối văn hóa, nghệ thuật và ẩm thực rượu vang. Workshop rượu vang tinh tế, đầy cảm hứng tại Hà Nội.">
+  <meta name="description" content="Amis du Vin — Không gian Tiệc riêng tư & Tinh hoa ẩm thực Rượu vang tại Hà Nội. Trải nghiệm Food & Wine Pairing và Workshop rượu vang tinh tế.">
+  <meta name="keywords" content="Amis du Vin, Rượu vang Hà Nội, Tiệc riêng tư, Food and Wine Pairing, Sommelier Alex Thịnh, Workshop rượu vang">
+  
+  <!-- Open Graph / Zalo / Facebook Meta Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://amis.duvin.vn/">
+  <meta property="og:title" content="<?= htmlspecialchars($title ?? 'Amis du Vin — Rượu vang và những người bạn') ?>">
+  <meta property="og:description" content="Trải nghiệm tiệc riêng tư kết hợp ẩm thực và rượu vang tinh tế, trọn vẹn văn hoá vang tại Hà Nội.">
+  <meta property="og:image" content="https://media.base44.com/images/public/6a623336361c483b3f15558c/1d3f75363_generated_b7d85214.png/v1/fill/w_1171,h_927,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/1d3f75363_generated_b7d85214.webp">
+
   <link rel="icon" type="image/png" href="https://media.base44.com/images/public/6a623336361c483b3f15558c/de2b27acb_LogoAmisDuVin.png">
   <link rel="apple-touch-icon" href="https://media.base44.com/images/public/6a623336361c483b3f15558c/de2b27acb_LogoAmisDuVin.png">
   
@@ -105,6 +114,8 @@
   <?php require __DIR__ . '/../modals/pairing_modal.php'; ?>
   <?php require __DIR__ . '/../modals/workshop_modal.php'; ?>
   <?php require __DIR__ . '/../modals/workshop_details_modal.php'; ?>
+  <?php require __DIR__ . '/../modals/privacy_policy_modal.php'; ?>
+  <?php require __DIR__ . '/../modals/refund_policy_modal.php'; ?>
   <?php require __DIR__ . '/../modals/success_modal.php'; ?>
 
   <!-- Scripts -->

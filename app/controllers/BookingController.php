@@ -36,19 +36,31 @@ class BookingController extends BaseController
         }
 
         $bookingModel = new BookingModel();
+        
+        $bookingDate = sanitize($input['date'] ?? $input['booking_date']);
+        $timeSlot = sanitize($input['slot'] ?? $input['time_slot']);
+        $participants = (int)$input['participants'];
+
+        // Capacity check
+        $capCheck = $bookingModel->checkSlotCapacity($bookingDate, $timeSlot, $participants);
+        if (!$capCheck['allowed']) {
+            $this->json(['success' => false, 'message' => $capCheck['message']], 422);
+            return;
+        }
+
         $id = $bookingModel->create([
-            'full_name'    => sanitize($input['name']),
+            'full_name'    => sanitize($input['name'] ?? $input['full_name']),
             'phone'        => sanitize($input['phone']),
             'email'        => sanitize($input['email']),
-            'participants' => (int)$input['participants'],
-            'booking_date' => sanitize($input['date']),
-            'time_slot'    => sanitize($input['slot']),
+            'participants' => $participants,
+            'booking_date' => $bookingDate,
+            'time_slot'    => $timeSlot,
             'notes'        => sanitize($input['notes'] ?? ''),
         ]);
 
         $this->json([
             'success' => true,
-            'message' => 'Đăng ký đặt tiệc thành công! CSKH Amis du Vin sẽ liên hệ trong 2 giờ.',
+            'message' => 'Đăng ký đặt tiệc thành công! CSKH Amis du Vin sẽ liên hệ trong vòng 2 giờ làm việc để chốt thực đơn và hướng dẫn cọc.',
             'id'      => $id ?: rand(100, 999)
         ]);
     }
