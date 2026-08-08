@@ -15,15 +15,15 @@ ob_start();
 
     <!-- Filter Form -->
     <form method="GET" action="/admin/bookings" class="flex flex-wrap items-center gap-3">
-      <select name="status" onchange="this.form.submit()" class="bg-card border border-border text-foreground px-3.5 py-2 rounded-sm text-xs focus:outline-none">
-        <option value="">Tất cả trạng thái</option>
-        <option value="Chờ xác nhận" <?= ($statusFilter ?? '') === 'Chờ xác nhận' ? 'selected' : '' ?>>Chờ xác nhận</option>
-        <option value="Đã chốt cọc 30%" <?= ($statusFilter ?? '') === 'Đã chốt cọc 30%' ? 'selected' : '' ?>>Đã chốt cọc 30%</option>
-        <option value="Hoàn thành" <?= ($statusFilter ?? '') === 'Hoàn thành' ? 'selected' : '' ?>>Hoàn thành</option>
-        <option value="Đã hủy" <?= ($statusFilter ?? '') === 'Đã hủy' ? 'selected' : '' ?>>Đã hủy</option>
+      <select name="status" onchange="this.form.submit()" class="input-elegant px-3.5 py-2.5 rounded-sm text-xs cursor-pointer">
+        <option value="" class="bg-card text-foreground">Tất cả trạng thái</option>
+        <option value="Chờ xác nhận" <?= ($statusFilter ?? '') === 'Chờ xác nhận' ? 'selected' : '' ?> class="bg-card text-foreground">Chờ xác nhận</option>
+        <option value="Đã chốt cọc 30%" <?= ($statusFilter ?? '') === 'Đã chốt cọc 30%' ? 'selected' : '' ?> class="bg-card text-foreground">Đã chốt cọc 30%</option>
+        <option value="Hoàn thành" <?= ($statusFilter ?? '') === 'Hoàn thành' ? 'selected' : '' ?> class="bg-card text-foreground">Hoàn thành</option>
+        <option value="Đã hủy" <?= ($statusFilter ?? '') === 'Đã hủy' ? 'selected' : '' ?> class="bg-card text-foreground">Đã hủy</option>
       </select>
 
-      <input type="date" name="date" value="<?= htmlspecialchars($dateFilter ?? '') ?>" onchange="this.form.submit()" class="bg-card border border-border text-foreground px-3.5 py-2 rounded-sm text-xs focus:outline-none">
+      <input type="date" name="date" value="<?= htmlspecialchars($dateFilter ?? '') ?>" onchange="this.form.submit()" class="input-elegant px-3.5 py-2.5 rounded-sm text-xs cursor-pointer">
 
       <?php if (!empty($statusFilter) || !empty($dateFilter)): ?>
         <a href="/admin/bookings" class="text-xs text-rose-400 hover:underline">Xóa lọc</a>
@@ -124,17 +124,17 @@ ob_start();
 
       <div>
         <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Trạng thái tiền cọc (Master Data)</label>
-        <select id="modalStatusSelect" name="deposit_status" class="w-full bg-background border border-border text-foreground px-4 py-3 rounded-sm text-sm">
-          <option value="Chờ xác nhận">Chờ xác nhận</option>
-          <option value="Đã chốt cọc 30%">Đã chốt cọc 30%</option>
-          <option value="Hoàn thành">Hoàn thành</option>
-          <option value="Đã hủy">Đã hủy</option>
+        <select id="modalStatusSelect" name="deposit_status" class="input-elegant w-full px-4 py-3 rounded-sm text-sm">
+          <option value="Chờ xác nhận" class="bg-card text-foreground">Chờ xác nhận</option>
+          <option value="Đã chốt cọc 30%" class="bg-card text-foreground">Đã chốt cọc 30%</option>
+          <option value="Hoàn thành" class="bg-card text-foreground">Hoàn thành</option>
+          <option value="Đã hủy" class="bg-card text-foreground">Đã hủy</option>
         </select>
       </div>
 
       <div>
         <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Ghi chú CSKH</label>
-        <textarea id="modalNotesText" name="notes" rows="3" placeholder="Ví dụ: Đã nhận cọc 30% qua QR VNPay 1.500.000đ" class="w-full bg-background border border-border text-foreground p-3 rounded-sm text-sm"></textarea>
+        <textarea id="modalNotesText" name="notes" rows="3" placeholder="Ví dụ: Đã nhận cọc 30% qua QR VNPay 1.500.000đ" class="input-elegant w-full p-3 rounded-sm text-sm"></textarea>
       </div>
 
       <div class="pt-3 flex gap-3">
