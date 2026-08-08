@@ -15,6 +15,13 @@ class WorkshopModel extends BaseModel
         return $stmt->fetchAll();
     }
 
+    public function getAllWorkshops(): array
+    {
+        if (!$this->db) return [];
+        $stmt = $this->db->query("SELECT * FROM workshops ORDER BY id ASC");
+        return $stmt->fetchAll() ?: [];
+    }
+
     public function getFeaturedWorkshops(): array
     {
         if (!$this->db) return [];
