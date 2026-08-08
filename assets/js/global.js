@@ -354,6 +354,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (modal) modal.classList.remove('active');
   };
 
+  window.closeWorkshopSuccessModal = function() {
+    const modal = document.getElementById('workshopSuccessModal');
+    if (modal) modal.classList.remove('active');
+  };
+
+  window.openWorkshopSuccessModal = function() {
+    const modal = document.getElementById('workshopSuccessModal');
+    if (modal) modal.classList.add('active');
+  };
+
   // Workshop Reservation Modal Handlers
   window.openWorkshopReservationModal = function(wsData, event) {
     if (event) event.stopPropagation();

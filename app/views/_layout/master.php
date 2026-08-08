@@ -118,6 +118,7 @@
   <?php require __DIR__ . '/../modals/privacy_policy_modal.php'; ?>
   <?php require __DIR__ . '/../modals/refund_policy_modal.php'; ?>
   <?php require __DIR__ . '/../modals/success_modal.php'; ?>
+  <?php require __DIR__ . '/../modals/workshop_success_modal.php'; ?>
 
   <!-- Scripts -->
   <script src="/assets/js/global.js"></script>

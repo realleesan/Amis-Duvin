@@ -34,8 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
           workshopForm.reset();
           if (workshopRegisterModal) workshopRegisterModal.classList.remove('active');
 
-          const successModal = document.getElementById('successModal');
-          if (successModal) successModal.classList.add('active');
+          const workshopSuccessModal = document.getElementById('workshopSuccessModal');
+          if (workshopSuccessModal) workshopSuccessModal.classList.add('active');
         } else {
           alert(data.message || 'Đã có lỗi xảy ra. Vui lòng thử lại!');
         }
