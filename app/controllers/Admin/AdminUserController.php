@@ -13,13 +13,7 @@ class AdminUserController extends BaseController
         AuthService::requireRole(['admin']);
 
         $userModel = new UserModel();
-        $db = $userModel->getDb();
-        $users = [];
-
-        if ($db) {
-            $stmt = $db->query("SELECT id, username, full_name, role, created_at FROM users ORDER BY id ASC");
-            $users = $stmt->fetchAll() ?: [];
-        }
+        $users = $userModel->getAllUsers();
 
         $user = AuthService::user();
         $msg = $_GET['msg'] ?? null;
@@ -50,19 +44,13 @@ class AdminUserController extends BaseController
             exit;
         }
 
-        $db = $userModel->getDb();
-        if ($db) {
-            $hash = password_hash($password, PASSWORD_BCRYPT);
-            $stmt = $db->prepare("INSERT INTO users (username, password_hash, full_name, role) VALUES (:username, :hash, :full_name, :role)");
-            $stmt->execute([
-                'username' => $username,
-                'hash' => $hash,
-                'full_name' => $fullName,
-                'role' => $role
-            ]);
-        }
+        $success = $userModel->createUser($username, $password, $fullName, $role);
 
-        header('Location: /admin/users?msg=' . urlencode('Đã tạo tài khoản nhân sự mới thành công!'));
+        if ($success) {
+            header('Location: /admin/users?msg=' . urlencode('Đã tạo tài khoản nhân sự mới thành công!'));
+        } else {
+            header('Location: /admin/users?err=' . urlencode('Lỗi tạo tài khoản mới.'));
+        }
         exit;
     }
 
@@ -81,19 +69,10 @@ class AdminUserController extends BaseController
         }
 
         $userModel = new UserModel();
-        $db = $userModel->getDb();
+        $userModel->updateUser($id, $fullName, $role);
 
-        if ($db) {
-            $stmt = $db->prepare("UPDATE users SET full_name = :full_name, role = :role WHERE id = :id");
-            $stmt->execute([
-                'full_name' => $fullName,
-                'role' => $role,
-                'id' => $id
-            ]);
-
-            if (!empty($newPassword)) {
-                $userModel->updatePassword($id, $newPassword);
-            }
+        if (!empty($newPassword)) {
+            $userModel->updatePassword($id, $newPassword);
         }
 
         header('Location: /admin/users?msg=' . urlencode('Đã cập nhật thông tin tài khoản thành công!'));

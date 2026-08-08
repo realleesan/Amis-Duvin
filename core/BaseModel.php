@@ -14,6 +14,11 @@ abstract class BaseModel
         $this->db = Database::getInstance();
     }
 
+    public function getDb(): ?PDO
+    {
+        return $this->db;
+    }
+
     public function all(): array
     {
         if (!$this->db) return [];
