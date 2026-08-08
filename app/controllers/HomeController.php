@@ -8,6 +8,7 @@ use App\Models\PairingModel;
 use App\Models\TestimonialModel;
 use App\Models\FaqModel;
 use App\Models\BenefitModel;
+use App\Models\HeroModel;
 
 class HomeController extends BaseController
 {
@@ -30,6 +31,9 @@ class HomeController extends BaseController
         $benefitModel = new BenefitModel();
         $benefits = $benefitModel->getActiveBenefits();
 
+        $heroModel = new HeroModel();
+        $hero = $heroModel->getHeroSettings();
+
         $this->view('home/index', [
             'title' => 'Amis du Vin — Nghệ thuật Thưởng thức Vang & Food Pairing',
             'workshops' => $workshops,
@@ -38,7 +42,8 @@ class HomeController extends BaseController
             'pairings' => $pairings,
             'testimonials' => $testimonials,
             'faqs' => $faqs,
-            'benefits' => $benefits
+            'benefits' => $benefits,
+            'hero' => $hero
         ]);
     }
 }

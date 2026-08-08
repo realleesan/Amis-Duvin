@@ -149,3 +149,18 @@ INSERT INTO `benefits` (`id`, `title`, `description`, `icon_svg`, `sort_order`, 
 (2, 'Trải nghiệm cùng chuyên gia', 'Được dẫn dắt trực tiếp bởi Sommelier Alex Thịnh với hơn 24 năm kinh nghiệm tại các nhà hàng, khách sạn 5 sao.', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users w-6 h-6"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>', 2, 'active'),
 (3, 'Kết nối trong không gian thân mật', 'Không gian nhỏ, ấm cúng — nơi mỗi buổi tiệc trở thành câu chuyện kết nối giữa người, vang và ẩm thực.', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles w-6 h-6"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path><path d="M20 3v4"></path><path d="M22 5h-4"></path><path d="M4 17v2"></path><path d="M5 18H3"></path></svg>', 3, 'active');
 
+-- Bảng lưu Cấu hình Section Hero
+CREATE TABLE IF NOT EXISTS `hero_settings` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `tagline` VARCHAR(255) NOT NULL DEFAULT 'Rượu vang & những người bạn',
+  `title_main` VARCHAR(255) NOT NULL DEFAULT 'Không gian Tiệc riêng tư',
+  `title_sub` VARCHAR(255) NOT NULL DEFAULT '& Tinh hoa ẩm thực Rượu vang',
+  `description` TEXT NOT NULL,
+  `bg_image` VARCHAR(500) NOT NULL,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Seed dữ liệu mẫu cho Hero Settings
+INSERT INTO `hero_settings` (`id`, `tagline`, `title_main`, `title_sub`, `description`, `bg_image`) VALUES
+(1, 'Rượu vang & những người bạn', 'Không gian Tiệc riêng tư', '& Tinh hoa ẩm thực Rượu vang', 'Trải nghiệm tiệc riêng tư kết hợp ẩm thực và rượu vang tinh tế, trọn vẹn văn hoá vang tại Hà Nội.', 'https://media.base44.com/images/public/6a623336361c483b3f15558c/1d3f75363_generated_b7d85214.png/v1/fill/w_1171,h_927,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/1d3f75363_generated_b7d85214.webp');
+
