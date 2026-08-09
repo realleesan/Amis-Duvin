@@ -14,7 +14,8 @@ CREATE TABLE IF NOT EXISTS `bookings` (
   `time_slot` VARCHAR(50) NOT NULL,
   `notes` TEXT NULL,
   `status` ENUM('pending', 'confirmed', 'cancelled') DEFAULT 'pending',
-  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `deleted_at` TIMESTAMP NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Bảng lưu danh sách Food & Wine Pairing
@@ -83,6 +84,7 @@ CREATE TABLE IF NOT EXISTS `workshop_registrations` (
   `notes` TEXT NULL,
   `status` ENUM('pending', 'confirmed', 'cancelled') DEFAULT 'pending',
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `deleted_at` TIMESTAMP NULL DEFAULT NULL,
   FOREIGN KEY (`workshop_id`) REFERENCES `workshops`(`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -202,7 +204,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `full_name` VARCHAR(100) NOT NULL,
   `role` ENUM('admin', 'cskh', 'marketing') NOT NULL DEFAULT 'admin',
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `deleted_at` TIMESTAMP NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Bảng Cấu hình Tích hợp Google Sheets API
@@ -259,6 +262,7 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   `action_url` VARCHAR(255) NULL,
   `is_read` TINYINT(1) NOT NULL DEFAULT 0,
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `deleted_at` TIMESTAMP NULL DEFAULT NULL,
   INDEX `idx_notif_read` (`is_read`),
   INDEX `idx_notif_type` (`type`),
   INDEX `idx_notif_created` (`created_at`)

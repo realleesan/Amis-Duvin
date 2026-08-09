@@ -55,6 +55,13 @@ ob_start();
           <span>Xóa lọc</span>
         </a>
       <?php endif; ?>
+
+      <?php if (($user['role'] ?? '') === 'admin'): ?>
+        <a href="<?= admin_url('trash') ?>?type=bookings" class="px-3 py-2.5 rounded-sm bg-rose-500/10 text-rose-400 border border-rose-500/30 hover:bg-rose-500/20 transition-colors text-xs font-medium inline-flex items-center gap-1.5" title="Xem thùng rác đơn đặt tiệc">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
+          <span>Thùng rác</span>
+        </a>
+      <?php endif; ?>
     </div>
   </div>
 
@@ -131,6 +138,16 @@ ob_start();
                       Đồng bộ Sheets
                     </button>
                   </form>
+
+                  <!-- Soft Delete Button (Admin Only) -->
+                  <?php if (($user['role'] ?? '') === 'admin'): ?>
+                    <form action="<?= admin_url('bookings/delete') ?>" method="POST" class="inline-block" onsubmit="return confirm('Bạn có chắc muốn chuyển đơn tiệc này vào Thùng rác?')">
+                      <input type="hidden" name="id" value="<?= $b['id'] ?>">
+                      <button type="submit" class="px-3 py-1.5 rounded-sm bg-rose-500/10 text-xs text-rose-400 border border-rose-500/20 hover:bg-rose-500/20 transition-colors" title="Xóa tạm">
+                        Xóa
+                      </button>
+                    </form>
+                  <?php endif; ?>
                 </td>
               </tr>
             <?php endforeach; ?>

@@ -16,6 +16,7 @@ use App\Middleware\AuthMiddleware;
 
 use App\Controllers\AnalyticsController;
 use App\Controllers\Admin\AdminNotificationController;
+use App\Controllers\Admin\TrashController;
 
 // Public Web Routes
 Router::get('/', [HomeController::class, 'index']);
@@ -142,3 +143,29 @@ Router::post(admin_url('users/create'), [AdminUserController::class, 'create'], 
 Router::post(admin_url('users/update'), [AdminUserController::class, 'update'], [
     AuthMiddleware::class => ['admin']
 ]);
+Router::post(admin_url('users/delete'), [AdminUserController::class, 'delete'], [
+    AuthMiddleware::class => ['admin']
+]);
+
+// Soft Delete Routes for Admin
+Router::post(admin_url('notifications/delete'), [AdminNotificationController::class, 'delete'], [
+    AuthMiddleware::class => ['admin']
+]);
+Router::post(admin_url('bookings/delete'), [AdminBookingController::class, 'delete'], [
+    AuthMiddleware::class => ['admin']
+]);
+Router::post(admin_url('workshops/registration/delete'), [AdminWorkshopController::class, 'deleteRegistration'], [
+    AuthMiddleware::class => ['admin']
+]);
+
+// Unified Admin Trash Routes
+Router::get(admin_url('trash'), [TrashController::class, 'index'], [
+    AuthMiddleware::class => ['admin']
+]);
+Router::post(admin_url('trash/restore'), [TrashController::class, 'restore'], [
+    AuthMiddleware::class => ['admin']
+]);
+Router::post(admin_url('trash/force-delete'), [TrashController::class, 'forceDelete'], [
+    AuthMiddleware::class => ['admin']
+]);
+

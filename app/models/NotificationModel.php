@@ -33,7 +33,7 @@ class NotificationModel extends BaseModel
     public function getRecentNotifications(int $limit = 10): array
     {
         if (!$this->db) return [];
-        $stmt = $this->db->prepare("SELECT * FROM {$this->table} ORDER BY id DESC LIMIT :limit");
+        $stmt = $this->db->prepare("SELECT * FROM {$this->table} WHERE deleted_at IS NULL ORDER BY id DESC LIMIT :limit");
         $stmt->bindValue(':limit', $limit, \PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll();
@@ -42,28 +42,28 @@ class NotificationModel extends BaseModel
     public function getUnreadCount(): int
     {
         if (!$this->db) return 0;
-        $stmt = $this->db->query("SELECT COUNT(*) FROM {$this->table} WHERE is_read = 0");
+        $stmt = $this->db->query("SELECT COUNT(*) FROM {$this->table} WHERE is_read = 0 AND deleted_at IS NULL");
         return (int)$stmt->fetchColumn();
     }
 
     public function markAsRead(int $id): bool
     {
         if (!$this->db) return false;
-        $stmt = $this->db->prepare("UPDATE {$this->table} SET is_read = 1 WHERE id = :id");
+        $stmt = $this->db->prepare("UPDATE {$this->table} SET is_read = 1 WHERE id = :id AND deleted_at IS NULL");
         return $stmt->execute(['id' => $id]);
     }
 
     public function markAllAsRead(): bool
     {
         if (!$this->db) return false;
-        return (bool)$this->db->exec("UPDATE {$this->table} SET is_read = 1 WHERE is_read = 0");
+        return (bool)$this->db->exec("UPDATE {$this->table} SET is_read = 1 WHERE is_read = 0 AND deleted_at IS NULL");
     }
 
     public function getFilteredNotifications(string $type = '', string $readStatus = '', int $limit = 20, int $offset = 0): array
     {
         if (!$this->db) return [];
 
-        $where = [];
+        $where = ["deleted_at IS NULL"];
         $params = [];
 
         if ($type !== '') {
@@ -77,7 +77,7 @@ class NotificationModel extends BaseModel
             $where[] = "is_read = 1";
         }
 
-        $whereClause = !empty($where) ? 'WHERE ' . implode(' AND ', $where) : '';
+        $whereClause = 'WHERE ' . implode(' AND ', $where);
 
         $stmt = $this->db->prepare("SELECT * FROM {$this->table} {$whereClause} ORDER BY id DESC LIMIT :limit OFFSET :offset");
         foreach ($params as $k => $v) {
@@ -94,7 +94,7 @@ class NotificationModel extends BaseModel
     {
         if (!$this->db) return 0;
 
-        $where = [];
+        $where = ["deleted_at IS NULL"];
         $params = [];
 
         if ($type !== '') {
@@ -108,9 +108,44 @@ class NotificationModel extends BaseModel
             $where[] = "is_read = 1";
         }
 
-        $whereClause = !empty($where) ? 'WHERE ' . implode(' AND ', $where) : '';
+        $whereClause = 'WHERE ' . implode(' AND ', $where);
         $stmt = $this->db->prepare("SELECT COUNT(*) FROM {$this->table} {$whereClause}");
         $stmt->execute($params);
+        return (int)$stmt->fetchColumn();
+    }
+
+    public function softDelete(int $id): bool
+    {
+        if (!$this->db) return false;
+        $stmt = $this->db->prepare("UPDATE {$this->table} SET deleted_at = NOW() WHERE id = :id");
+        return $stmt->execute(['id' => $id]);
+    }
+
+    public function restore(int $id): bool
+    {
+        if (!$this->db) return false;
+        $stmt = $this->db->prepare("UPDATE {$this->table} SET deleted_at = NULL WHERE id = :id");
+        return $stmt->execute(['id' => $id]);
+    }
+
+    public function hardDelete(int $id): bool
+    {
+        if (!$this->db) return false;
+        $stmt = $this->db->prepare("DELETE FROM {$this->table} WHERE id = :id");
+        return $stmt->execute(['id' => $id]);
+    }
+
+    public function getTrashNotifications(): array
+    {
+        if (!$this->db) return [];
+        $stmt = $this->db->query("SELECT * FROM {$this->table} WHERE deleted_at IS NOT NULL ORDER BY deleted_at DESC");
+        return $stmt->fetchAll() ?: [];
+    }
+
+    public function getTrashCount(): int
+    {
+        if (!$this->db) return 0;
+        $stmt = $this->db->query("SELECT COUNT(*) FROM {$this->table} WHERE deleted_at IS NOT NULL");
         return (int)$stmt->fetchColumn();
     }
 }

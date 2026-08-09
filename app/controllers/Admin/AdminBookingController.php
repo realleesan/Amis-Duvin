@@ -199,4 +199,25 @@ class AdminBookingController extends BaseController
         }
         exit;
     }
+
+    public function delete(): void
+    {
+        AuthService::requireRole(['admin']);
+
+        $id = (int)($_POST['id'] ?? 0);
+        if ($id > 0) {
+            (new BookingModel())->softDelete($id);
+            $currentUser = AuthService::user();
+            NotificationService::notifySystem(
+                "Xóa tạm đơn đặt tiệc",
+                "Quản trị viên {$currentUser['full_name']} vừa đưa đơn tiệc LEAD-" . str_pad((string)$id, 5, '0', STR_PAD_LEFT) . " vào thùng rác.",
+                admin_url('trash') . "?type=bookings",
+                $currentUser
+            );
+            header('Location: ' . admin_url('bookings') . '?msg=' . urlencode('Đã đưa đơn đặt tiệc vào thùng rác thành công!'));
+            exit;
+        }
+        header('Location: ' . admin_url('bookings') . '?err=' . urlencode('Lỗi khi xóa đơn đặt tiệc.'));
+        exit;
+    }
 }

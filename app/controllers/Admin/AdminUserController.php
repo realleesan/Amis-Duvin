@@ -94,4 +94,42 @@ class AdminUserController extends BaseController
         header('Location: ' . admin_url('users') . '?msg=' . urlencode('Đã cập nhật thông tin tài khoản thành công!'));
         exit;
     }
+
+    public function delete(): void
+    {
+        AuthService::requireRole(['admin']);
+
+        $id = (int)($_POST['id'] ?? 0);
+        $currentUser = AuthService::user();
+
+        if ($id <= 0) {
+            header('Location: ' . admin_url('users') . '?err=' . urlencode('ID tài khoản không hợp lệ.'));
+            exit;
+        }
+
+        if ($id === (int)$currentUser['id']) {
+            header('Location: ' . admin_url('users') . '?err=' . urlencode('Bạn không thể tự xóa tài khoản của chính mình.'));
+            exit;
+        }
+
+        $userModel = new UserModel();
+        $targetUser = $userModel->findById($id);
+
+        if (!$targetUser) {
+            header('Location: ' . admin_url('users') . '?err=' . urlencode('Tài khoản không tồn tại.'));
+            exit;
+        }
+
+        $userModel->softDelete($id);
+
+        NotificationService::notifyUser(
+            "Xóa tạm tài khoản nhân sự",
+            "Quản trị viên {$currentUser['full_name']} vừa đưa tài khoản '{$targetUser['username']}' ({$targetUser['full_name']}) vào thùng rác.",
+            admin_url('trash') . "?type=users",
+            $currentUser
+        );
+
+        header('Location: ' . admin_url('users') . '?msg=' . urlencode("Đã đưa tài khoản '{$targetUser['username']}' vào thùng rác!"));
+        exit;
+    }
 }

@@ -204,4 +204,25 @@ class AdminWorkshopController extends BaseController
         header('Location: ' . admin_url('workshops') . '?tab=packages&err=' . urlencode('Lỗi cập nhật thông tin Workshop.'));
         exit;
     }
+
+    public function deleteRegistration(): void
+    {
+        AuthService::requireRole(['admin']);
+
+        $id = (int)($_POST['id'] ?? 0);
+        if ($id > 0) {
+            (new WorkshopModel())->softDeleteRegistration($id);
+            $currentUser = AuthService::user();
+            NotificationService::notifySystem(
+                "Xóa tạm đăng ký Workshop",
+                "Quản trị viên {$currentUser['full_name']} vừa đưa đăng ký Workshop WS-" . str_pad((string)$id, 4, '0', STR_PAD_LEFT) . " vào thùng rác.",
+                admin_url('trash') . "?type=workshops",
+                $currentUser
+            );
+            header('Location: ' . admin_url('workshops') . '?tab=registrations&msg=' . urlencode('Đã đưa đơn đăng ký Workshop vào thùng rác thành công!'));
+            exit;
+        }
+        header('Location: ' . admin_url('workshops') . '?tab=registrations&err=' . urlencode('Lỗi khi xóa đăng ký Workshop.'));
+        exit;
+    }
 }

@@ -77,7 +77,7 @@ class WorkshopModel extends BaseModel
     {
         if (!$this->db) return [];
 
-        $where = [];
+        $where = ["r.deleted_at IS NULL"];
         $params = [];
 
         if ($statusFilter !== '') {
@@ -90,7 +90,7 @@ class WorkshopModel extends BaseModel
             $params['wid'] = (int)$workshopFilter;
         }
 
-        $whereClause = !empty($where) ? 'WHERE ' . implode(' AND ', $where) : '';
+        $whereClause = 'WHERE ' . implode(' AND ', $where);
 
         $sql = "SELECT r.*, w.title as workshop_title, w.price as workshop_price
                 FROM workshop_registrations r
@@ -103,15 +103,17 @@ class WorkshopModel extends BaseModel
         return $stmt->fetchAll();
     }
 
-    public function getRegistrationById(int $id): ?array
+    public function getRegistrationById(int $id, bool $includeDeleted = false): ?array
     {
         if (!$this->db) return null;
-        $stmt = $this->db->prepare(
-            "SELECT r.*, w.title as workshop_title
+        $sql = "SELECT r.*, w.title as workshop_title
              FROM workshop_registrations r
              LEFT JOIN workshops w ON r.workshop_id = w.id
-             WHERE r.id = :id"
-        );
+             WHERE r.id = :id";
+        if (!$includeDeleted) {
+            $sql .= " AND r.deleted_at IS NULL";
+        }
+        $stmt = $this->db->prepare($sql);
         $stmt->execute(['id' => $id]);
         return $stmt->fetch() ?: null;
     }
@@ -127,8 +129,48 @@ class WorkshopModel extends BaseModel
             $params['notes'] = $notes;
         }
 
-        $stmt = $this->db->prepare("UPDATE workshop_registrations SET status = :status {$setNotes} WHERE id = :id");
+        $stmt = $this->db->prepare("UPDATE workshop_registrations SET status = :status {$setNotes} WHERE id = :id AND deleted_at IS NULL");
         return $stmt->execute($params);
+    }
+
+    public function softDeleteRegistration(int $id): bool
+    {
+        if (!$this->db) return false;
+        $stmt = $this->db->prepare("UPDATE workshop_registrations SET deleted_at = NOW() WHERE id = :id");
+        return $stmt->execute(['id' => $id]);
+    }
+
+    public function restoreRegistration(int $id): bool
+    {
+        if (!$this->db) return false;
+        $stmt = $this->db->prepare("UPDATE workshop_registrations SET deleted_at = NULL WHERE id = :id");
+        return $stmt->execute(['id' => $id]);
+    }
+
+    public function hardDeleteRegistration(int $id): bool
+    {
+        if (!$this->db) return false;
+        $stmt = $this->db->prepare("DELETE FROM workshop_registrations WHERE id = :id");
+        return $stmt->execute(['id' => $id]);
+    }
+
+    public function getTrashRegistrations(): array
+    {
+        if (!$this->db) return [];
+        $sql = "SELECT r.*, w.title as workshop_title, w.price as workshop_price
+                FROM workshop_registrations r
+                LEFT JOIN workshops w ON r.workshop_id = w.id
+                WHERE r.deleted_at IS NOT NULL
+                ORDER BY r.deleted_at DESC";
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchAll() ?: [];
+    }
+
+    public function getTrashRegistrationsCount(): int
+    {
+        if (!$this->db) return 0;
+        $stmt = $this->db->query("SELECT COUNT(*) FROM workshop_registrations WHERE deleted_at IS NOT NULL");
+        return (int)$stmt->fetchColumn();
     }
 
     public function createWorkshopPackage(array $data): bool|string

@@ -15,7 +15,7 @@ class BookingModel extends BaseModel
     {
         if (!$this->db) return [];
         $stmt = $this->db->prepare(
-            "SELECT time_slot FROM {$this->table} WHERE booking_date = :date AND status != 'cancelled'"
+            "SELECT time_slot FROM {$this->table} WHERE booking_date = :date AND status != 'cancelled' AND deleted_at IS NULL"
         );
         $stmt->execute(['date' => $date]);
         return $stmt->fetchAll(\PDO::FETCH_COLUMN);
@@ -32,7 +32,7 @@ class BookingModel extends BaseModel
         $stmt = $this->db->prepare(
             "SELECT COUNT(*) AS total_groups, COALESCE(SUM(participants), 0) AS total_participants 
              FROM {$this->table} 
-             WHERE booking_date = :date AND time_slot = :slot AND status != 'cancelled'"
+             WHERE booking_date = :date AND time_slot = :slot AND status != 'cancelled' AND deleted_at IS NULL"
         );
         $stmt->execute(['date' => $date, 'slot' => $slot]);
         $res = $stmt->fetch();
@@ -61,14 +61,19 @@ class BookingModel extends BaseModel
     public function getAllBookings(): array
     {
         if (!$this->db) return [];
-        $stmt = $this->db->query("SELECT * FROM {$this->table} ORDER BY id DESC");
+        $stmt = $this->db->query("SELECT * FROM {$this->table} WHERE deleted_at IS NULL ORDER BY id DESC");
         return $stmt->fetchAll() ?: [];
     }
 
-    public function getBookingById(int $id): ?array
+    public function getBookingById(int $id, bool $includeDeleted = false): ?array
     {
         if (!$this->db) return null;
-        $stmt = $this->db->prepare("SELECT * FROM {$this->table} WHERE id = :id LIMIT 1");
+        $sql = "SELECT * FROM {$this->table} WHERE id = :id";
+        if (!$includeDeleted) {
+            $sql .= " AND deleted_at IS NULL";
+        }
+        $sql .= " LIMIT 1";
+        $stmt = $this->db->prepare($sql);
         $stmt->execute(['id' => $id]);
         $res = $stmt->fetch();
         return $res ?: null;
@@ -85,8 +90,43 @@ class BookingModel extends BaseModel
             $params['notes'] = $notes;
         }
 
-        $sql .= " WHERE id = :id";
+        $sql .= " WHERE id = :id AND deleted_at IS NULL";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute($params);
+    }
+
+    public function softDelete(int $id): bool
+    {
+        if (!$this->db) return false;
+        $stmt = $this->db->prepare("UPDATE {$this->table} SET deleted_at = NOW() WHERE id = :id");
+        return $stmt->execute(['id' => $id]);
+    }
+
+    public function restore(int $id): bool
+    {
+        if (!$this->db) return false;
+        $stmt = $this->db->prepare("UPDATE {$this->table} SET deleted_at = NULL WHERE id = :id");
+        return $stmt->execute(['id' => $id]);
+    }
+
+    public function hardDelete(int $id): bool
+    {
+        if (!$this->db) return false;
+        $stmt = $this->db->prepare("DELETE FROM {$this->table} WHERE id = :id");
+        return $stmt->execute(['id' => $id]);
+    }
+
+    public function getTrashBookings(): array
+    {
+        if (!$this->db) return [];
+        $stmt = $this->db->query("SELECT * FROM {$this->table} WHERE deleted_at IS NOT NULL ORDER BY deleted_at DESC");
+        return $stmt->fetchAll() ?: [];
+    }
+
+    public function getTrashCount(): int
+    {
+        if (!$this->db) return 0;
+        $stmt = $this->db->query("SELECT COUNT(*) FROM {$this->table} WHERE deleted_at IS NOT NULL");
+        return (int)$stmt->fetchColumn();
     }
 }

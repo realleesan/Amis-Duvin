@@ -79,4 +79,18 @@ class AdminNotificationController extends BaseController
         echo json_encode(['success' => $res, 'unread_count' => 0]);
         exit;
     }
+
+    public function delete(): void
+    {
+        AuthService::requireRole(['admin']);
+
+        $id = (int)($_POST['id'] ?? 0);
+        if ($id > 0) {
+            (new NotificationModel())->softDelete($id);
+            header('Location: ' . admin_url('notifications') . '?msg=' . urlencode('Đã đưa thông báo vào thùng rác thành công!'));
+            exit;
+        }
+        header('Location: ' . admin_url('notifications') . '?err=' . urlencode('Lỗi khi xóa thông báo.'));
+        exit;
+    }
 }

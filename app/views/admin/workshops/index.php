@@ -62,6 +62,13 @@ ob_start();
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-circle w-4 h-4"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v8"></path><path d="M8 12h8"></path></svg>
           <span>Nhập tay đăng ký</span>
         </button>
+
+        <?php if (($user['role'] ?? '') === 'admin'): ?>
+          <a href="<?= admin_url('trash') ?>?type=workshops" class="px-3 py-2 rounded-sm bg-rose-500/10 text-rose-400 border border-rose-500/30 hover:bg-rose-500/20 transition-colors text-xs font-medium inline-flex items-center gap-1.5" title="Xem thùng rác đăng ký workshop">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
+            <span>Thùng rác</span>
+          </a>
+        <?php endif; ?>
       </div>
 
       <!-- Registrations Data Table -->
@@ -130,9 +137,19 @@ ob_start();
                       <?= !empty($r['created_at']) ? date('d/m/Y H:i', strtotime($r['created_at'])) : '—' ?>
                     </td>
                     <td class="p-4 text-right">
-                      <button type="button" onclick='openEditRegModal(<?= json_encode($r, JSON_HEX_APOS | JSON_HEX_QUOT) ?>)' class="px-2.5 py-1 rounded text-xs font-medium bg-muted hover:bg-muted/80 text-foreground transition-colors">
-                        Đổi trạng thái
-                      </button>
+                      <div class="inline-flex items-center gap-1.5 justify-end">
+                        <button type="button" onclick='openEditRegModal(<?= json_encode($r, JSON_HEX_APOS | JSON_HEX_QUOT) ?>)' class="px-2.5 py-1 rounded text-xs font-medium bg-muted hover:bg-muted/80 text-foreground transition-colors">
+                          Đổi trạng thái
+                        </button>
+                        <?php if (($user['role'] ?? '') === 'admin'): ?>
+                          <form action="<?= admin_url('workshops/registration/delete') ?>" method="POST" class="inline-block" onsubmit="return confirm('Bạn có chắc muốn chuyển đăng ký Workshop này vào Thùng rác?')">
+                            <input type="hidden" name="id" value="<?= $r['id'] ?>">
+                            <button type="submit" class="px-2.5 py-1 rounded text-xs font-medium bg-rose-500/10 text-rose-400 border border-rose-500/20 hover:bg-rose-500/20 transition-colors" title="Xóa tạm">
+                              Xóa
+                            </button>
+                          </form>
+                        <?php endif; ?>
+                      </div>
                     </td>
                   </tr>
                 <?php endforeach; ?>

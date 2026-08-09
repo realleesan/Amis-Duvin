@@ -16,6 +16,13 @@ ob_start();
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-check w-3.5 h-3.5"><path d="M18 6 7 17l-5-5"></path><path d="m22 10-7.5 7.5L13 16"></path></svg>
         <span>Đánh dấu đã đọc tất cả</span>
       </button>
+
+      <?php if (($user['role'] ?? '') === 'admin'): ?>
+        <a href="<?= admin_url('trash') ?>?type=notifications" class="px-3 py-1.5 rounded bg-rose-500/10 text-rose-400 border border-rose-500/30 hover:bg-rose-500/20 transition-colors text-xs font-medium inline-flex items-center gap-1.5" title="Xem thùng rác thông báo">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
+          <span>Thùng rác</span>
+        </a>
+      <?php endif; ?>
     </div>
   </div>
 
@@ -106,6 +113,15 @@ ob_start();
                 <button type="button" onclick="markSingleNotificationRead(<?= $n['id'] ?>, this)" class="p-1 rounded text-muted-foreground hover:text-emerald-400 hover:bg-muted transition-colors" title="Đánh dấu đã đọc">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check w-4 h-4"><path d="M20 6 9 17l-5-5"></path></svg>
                 </button>
+              <?php endif; ?>
+
+              <?php if (($user['role'] ?? '') === 'admin'): ?>
+                <form action="<?= admin_url('notifications/delete') ?>" method="POST" class="inline-block" onsubmit="return confirm('Bạn có chắc muốn chuyển thông báo này vào Thùng rác?')">
+                  <input type="hidden" name="id" value="<?= $n['id'] ?>">
+                  <button type="submit" class="p-1 rounded text-muted-foreground hover:text-rose-400 hover:bg-muted transition-colors" title="Xóa tạm (vào thùng rác)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2 w-4 h-4"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
+                  </button>
+                </form>
               <?php endif; ?>
             </div>
           </div>
