@@ -75,25 +75,25 @@ ob_start();
 
     <h3 class="font-heading text-xl text-foreground mb-4">Tạo Tài khoản CMS mới</h3>
 
-    <form action="/admin/users/create" method="POST" class="space-y-4">
+    <form action="<?= admin_url('users/create') ?>" method="POST" class="space-y-4">
       <div>
         <label for="createFullName" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Họ và tên nhân sự</label>
-        <input type="text" id="createFullName" name="full_name" required placeholder="Ví dụ: Nguyễn Văn An" class="input-elegant w-full px-4 py-3 rounded-sm text-sm">
+        <input type="text" id="createFullName" name="full_name" required autocomplete="name" placeholder="Ví dụ: Nguyễn Văn An" class="input-elegant w-full px-4 py-3 rounded-sm text-sm">
       </div>
 
       <div>
         <label for="createUsername" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Tên đăng nhập</label>
-        <input type="text" id="createUsername" name="username" required placeholder="cskh02" class="input-elegant w-full px-4 py-3 rounded-sm text-sm font-mono">
+        <input type="text" id="createUsername" name="username" required autocomplete="username" placeholder="cskh02" class="input-elegant w-full px-4 py-3 rounded-sm text-sm font-mono">
       </div>
 
       <div>
         <label for="createPassword" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Mật khẩu</label>
-        <input type="password" id="createPassword" name="password" required placeholder="••••••••" class="input-elegant w-full px-4 py-3 rounded-sm text-sm">
+        <input type="password" id="createPassword" name="password" required autocomplete="new-password" placeholder="••••••••" class="input-elegant w-full px-4 py-3 rounded-sm text-sm">
       </div>
 
       <div>
         <label for="createRole" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Vai trò (Role)</label>
-        <select id="createRole" name="role" class="input-elegant w-full px-4 py-3 rounded-sm text-sm">
+        <select id="createRole" name="role" autocomplete="off" class="input-elegant w-full px-4 py-3 rounded-sm text-sm">
           <option value="cskh" class="bg-card text-foreground">CSKH (Quản lý Đơn tiệc &amp; Sheets)</option>
           <option value="marketing" class="bg-card text-foreground">Marketing (Quản lý Nội dung CMS)</option>
           <option value="admin" class="bg-card text-foreground">Admin (Toàn quyền)</option>
@@ -121,22 +121,22 @@ ob_start();
 
     <h3 class="font-heading text-xl text-foreground mb-4">Sửa tài khoản <span id="editUserUsername" class="text-[var(--gold)] font-mono"></span></h3>
 
-    <form action="/admin/users/update" method="POST" class="space-y-4">
+    <form action="<?= admin_url('users/update') ?>" method="POST" class="space-y-4">
       <input type="hidden" id="editUserId" name="id" value="">
 
       <div>
         <label for="editUserFullName" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Họ và tên nhân sự</label>
-        <input type="text" id="editUserFullName" name="full_name" required class="input-elegant w-full px-4 py-3 rounded-sm text-sm">
+        <input type="text" id="editUserFullName" name="full_name" required autocomplete="name" class="input-elegant w-full px-4 py-3 rounded-sm text-sm">
       </div>
 
       <div>
         <label for="editUserNewPassword" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Mật khẩu mới (Bỏ trống nếu không đổi)</label>
-        <input type="password" id="editUserNewPassword" name="new_password" placeholder="••••••••" class="input-elegant w-full px-4 py-3 rounded-sm text-sm">
+        <input type="password" id="editUserNewPassword" name="new_password" autocomplete="new-password" placeholder="••••••••" class="input-elegant w-full px-4 py-3 rounded-sm text-sm">
       </div>
 
       <div>
         <label for="editUserRole" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Vai trò (Role)</label>
-        <select id="editUserRole" name="role" class="input-elegant w-full px-4 py-3 rounded-sm text-sm">
+        <select id="editUserRole" name="role" autocomplete="off" class="input-elegant w-full px-4 py-3 rounded-sm text-sm">
           <option value="cskh" class="bg-card text-foreground">CSKH (Quản lý Đơn tiệc &amp; Sheets)</option>
           <option value="marketing" class="bg-card text-foreground">Marketing (Quản lý Nội dung CMS)</option>
           <option value="admin" class="bg-card text-foreground">Admin (Toàn quyền)</option>

@@ -72,7 +72,7 @@ class AdminContentController extends BaseController
             ]);
         }
 
-        header('Location: /admin/content?msg=' . urlencode('Đã cập nhật Section Hero thành công!'));
+        header('Location: ' . admin_url('content') . '?msg=' . urlencode('Đã cập nhật Section Hero thành công!'));
         exit;
     }
 
@@ -106,7 +106,7 @@ class AdminContentController extends BaseController
             ]);
         }
 
-        header('Location: /admin/content?msg=' . urlencode('Đã cập nhật Section Giới thiệu Dịch vụ thành công!'));
+        header('Location: ' . admin_url('content') . '?msg=' . urlencode('Đã cập nhật Section Giới thiệu Dịch vụ thành công!'));
         exit;
     }
 
@@ -136,7 +136,7 @@ class AdminContentController extends BaseController
             ]);
         }
 
-        header('Location: /admin/content?msg=' . urlencode('Đã cập nhật Gói tiệc Pairing thành công!'));
+        header('Location: ' . admin_url('content') . '?msg=' . urlencode('Đã cập nhật Gói tiệc Pairing thành công!'));
         exit;
     }
 
@@ -158,7 +158,7 @@ class AdminContentController extends BaseController
             ]);
         }
 
-        header('Location: /admin/content?msg=' . urlencode('Đã cập nhật Lợi ích cốt lõi thành công!'));
+        header('Location: ' . admin_url('content') . '?msg=' . urlencode('Đã cập nhật Lợi ích cốt lõi thành công!'));
         exit;
     }
 
@@ -175,7 +175,7 @@ class AdminContentController extends BaseController
         $avatar = trim($_POST['avatar'] ?? '');
 
         if (empty($name) || empty($content)) {
-            header('Location: /admin/content?err=' . urlencode('Vui lòng nhập tên khách hàng và nội dung đánh giá.'));
+            header('Location: ' . admin_url('content') . '?err=' . urlencode('Vui lòng nhập tên khách hàng và nội dung đánh giá.'));
             exit;
         }
 
@@ -192,7 +192,7 @@ class AdminContentController extends BaseController
             ]);
         }
 
-        header('Location: /admin/content?msg=' . urlencode('Đã thêm Đánh giá mới thành công!'));
+        header('Location: ' . admin_url('content') . '?msg=' . urlencode('Đã thêm Đánh giá mới thành công!'));
         exit;
     }
 
@@ -222,7 +222,7 @@ class AdminContentController extends BaseController
             ]);
         }
 
-        header('Location: /admin/content?msg=' . urlencode('Đã cập nhật Đánh giá khách hàng thành công!'));
+        header('Location: ' . admin_url('content') . '?msg=' . urlencode('Đã cập nhật Đánh giá khách hàng thành công!'));
         exit;
     }
 
@@ -237,7 +237,7 @@ class AdminContentController extends BaseController
             $stmt->execute(['id' => $id]);
         }
 
-        header('Location: /admin/content?msg=' . urlencode('Đã xóa Đánh giá khách hàng thành công!'));
+        header('Location: ' . admin_url('content') . '?msg=' . urlencode('Đã xóa Đánh giá khách hàng thành công!'));
         exit;
     }
 
@@ -250,7 +250,7 @@ class AdminContentController extends BaseController
         $answer = trim($_POST['answer'] ?? '');
 
         if (empty($question) || empty($answer)) {
-            header('Location: /admin/content?err=' . urlencode('Vui lòng nhập cả câu hỏi và câu trả lời FAQ.'));
+            header('Location: ' . admin_url('content') . '?err=' . urlencode('Vui lòng nhập cả câu hỏi và câu trả lời FAQ.'));
             exit;
         }
 
@@ -263,7 +263,7 @@ class AdminContentController extends BaseController
             ]);
         }
 
-        header('Location: /admin/content?msg=' . urlencode('Đã thêm Câu hỏi FAQ mới thành công!'));
+        header('Location: ' . admin_url('content') . '?msg=' . urlencode('Đã thêm Câu hỏi FAQ mới thành công!'));
         exit;
     }
 
@@ -285,7 +285,7 @@ class AdminContentController extends BaseController
             ]);
         }
 
-        header('Location: /admin/content?msg=' . urlencode('Đã cập nhật câu hỏi FAQ thành công!'));
+        header('Location: ' . admin_url('content') . '?msg=' . urlencode('Đã cập nhật câu hỏi FAQ thành công!'));
         exit;
     }
 
@@ -300,7 +300,7 @@ class AdminContentController extends BaseController
             $stmt->execute(['id' => $id]);
         }
 
-        header('Location: /admin/content?msg=' . urlencode('Đã xóa câu hỏi FAQ thành công!'));
+        header('Location: ' . admin_url('content') . '?msg=' . urlencode('Đã xóa câu hỏi FAQ thành công!'));
         exit;
     }
 
@@ -317,7 +317,7 @@ class AdminContentController extends BaseController
         $seoModel = new SeoModel();
         $seoModel->updateSeoSettings($metaTitle, $metaDescription, $metaKeywords, $ogImage, $canonicalUrl);
 
-        header('Location: /admin/content?msg=' . urlencode('Đã cập nhật cấu hình SEO & Meta Tags thành công!'));
+        header('Location: ' . admin_url('content') . '?msg=' . urlencode('Đã cập nhật cấu hình SEO & Meta Tags thành công!'));
         exit;
     }
 }

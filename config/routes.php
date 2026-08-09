@@ -25,81 +25,81 @@ Router::post('/api/booking', [BookingController::class, 'store']);
 Router::post('/api/workshop-register', [WorkshopController::class, 'store']);
 
 // Admin Auth Routes
-Router::get('/admin/login', [AuthController::class, 'showLogin']);
-Router::post('/admin/login', [AuthController::class, 'login']);
-Router::get('/admin/logout', [AuthController::class, 'logout']);
+Router::get(admin_url('login'), [AuthController::class, 'showLogin']);
+Router::post(admin_url('login'), [AuthController::class, 'login']);
+Router::get(admin_url('logout'), [AuthController::class, 'logout']);
 
 // Admin CMS Protected Routes (with AuthMiddleware RBAC)
-Router::get('/admin', [AdminDashboardController::class, 'index'], [
+Router::get(admin_url(), [AdminDashboardController::class, 'index'], [
     AuthMiddleware::class => []
 ]);
 
-Router::get('/admin/bookings', [AdminBookingController::class, 'index'], [
+Router::get(admin_url('bookings'), [AdminBookingController::class, 'index'], [
     AuthMiddleware::class => ['admin', 'cskh']
 ]);
-Router::post('/admin/bookings/update', [AdminBookingController::class, 'update'], [
+Router::post(admin_url('bookings/update'), [AdminBookingController::class, 'update'], [
     AuthMiddleware::class => ['admin', 'cskh']
 ]);
-Router::post('/admin/bookings/manual-create', [AdminBookingController::class, 'manualCreate'], [
+Router::post(admin_url('bookings/manual-create'), [AdminBookingController::class, 'manualCreate'], [
     AuthMiddleware::class => ['admin', 'cskh']
 ]);
-Router::post('/admin/bookings/sync', [AdminBookingController::class, 'syncSheets'], [
+Router::post(admin_url('bookings/sync'), [AdminBookingController::class, 'syncSheets'], [
     AuthMiddleware::class => ['admin', 'cskh']
 ]);
 
-Router::get('/admin/content', [AdminContentController::class, 'index'], [
+Router::get(admin_url('content'), [AdminContentController::class, 'index'], [
     AuthMiddleware::class => ['admin', 'marketing']
 ]);
-Router::post('/admin/content/hero', [AdminContentController::class, 'updateHero'], [
+Router::post(admin_url('content/hero'), [AdminContentController::class, 'updateHero'], [
     AuthMiddleware::class => ['admin', 'marketing']
 ]);
-Router::post('/admin/content/service-intro', [AdminContentController::class, 'updateServiceIntro'], [
+Router::post(admin_url('content/service-intro'), [AdminContentController::class, 'updateServiceIntro'], [
     AuthMiddleware::class => ['admin', 'marketing']
 ]);
-Router::post('/admin/content/pairing', [AdminContentController::class, 'updatePairing'], [
+Router::post(admin_url('content/pairing'), [AdminContentController::class, 'updatePairing'], [
     AuthMiddleware::class => ['admin', 'marketing']
 ]);
-Router::post('/admin/content/benefit', [AdminContentController::class, 'updateBenefit'], [
+Router::post(admin_url('content/benefit'), [AdminContentController::class, 'updateBenefit'], [
     AuthMiddleware::class => ['admin', 'marketing']
 ]);
-Router::post('/admin/content/testimonial', [AdminContentController::class, 'updateTestimonial'], [
+Router::post(admin_url('content/testimonial'), [AdminContentController::class, 'updateTestimonial'], [
     AuthMiddleware::class => ['admin', 'marketing']
 ]);
-Router::post('/admin/content/testimonial/create', [AdminContentController::class, 'createTestimonial'], [
+Router::post(admin_url('content/testimonial/create'), [AdminContentController::class, 'createTestimonial'], [
     AuthMiddleware::class => ['admin', 'marketing']
 ]);
-Router::post('/admin/content/testimonial/delete', [AdminContentController::class, 'deleteTestimonial'], [
+Router::post(admin_url('content/testimonial/delete'), [AdminContentController::class, 'deleteTestimonial'], [
     AuthMiddleware::class => ['admin', 'marketing']
 ]);
-Router::post('/admin/content/faq', [AdminContentController::class, 'updateFaq'], [
+Router::post(admin_url('content/faq'), [AdminContentController::class, 'updateFaq'], [
     AuthMiddleware::class => ['admin', 'marketing']
 ]);
-Router::post('/admin/content/faq/create', [AdminContentController::class, 'createFaq'], [
+Router::post(admin_url('content/faq/create'), [AdminContentController::class, 'createFaq'], [
     AuthMiddleware::class => ['admin', 'marketing']
 ]);
-Router::post('/admin/content/faq/delete', [AdminContentController::class, 'deleteFaq'], [
+Router::post(admin_url('content/faq/delete'), [AdminContentController::class, 'deleteFaq'], [
     AuthMiddleware::class => ['admin', 'marketing']
 ]);
-Router::post('/admin/content/seo', [AdminContentController::class, 'updateSeo'], [
+Router::post(admin_url('content/seo'), [AdminContentController::class, 'updateSeo'], [
     AuthMiddleware::class => ['admin', 'marketing']
 ]);
 
-Router::get('/admin/google-sheets', [AdminGoogleSheetsController::class, 'index'], [
+Router::get(admin_url('google-sheets'), [AdminGoogleSheetsController::class, 'index'], [
     AuthMiddleware::class => ['admin']
 ]);
-Router::post('/admin/google-sheets/update', [AdminGoogleSheetsController::class, 'update'], [
+Router::post(admin_url('google-sheets/update'), [AdminGoogleSheetsController::class, 'update'], [
     AuthMiddleware::class => ['admin']
 ]);
-Router::post('/admin/google-sheets/test', [AdminGoogleSheetsController::class, 'testConnection'], [
+Router::post(admin_url('google-sheets/test'), [AdminGoogleSheetsController::class, 'testConnection'], [
     AuthMiddleware::class => ['admin']
 ]);
 
-Router::get('/admin/users', [AdminUserController::class, 'index'], [
+Router::get(admin_url('users'), [AdminUserController::class, 'index'], [
     AuthMiddleware::class => ['admin']
 ]);
-Router::post('/admin/users/create', [AdminUserController::class, 'create'], [
+Router::post(admin_url('users/create'), [AdminUserController::class, 'create'], [
     AuthMiddleware::class => ['admin']
 ]);
-Router::post('/admin/users/update', [AdminUserController::class, 'update'], [
+Router::post(admin_url('users/update'), [AdminUserController::class, 'update'], [
     AuthMiddleware::class => ['admin']
 ]);

@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive">
   <title>Đăng nhập Admin CMS — Amis du Vin</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -80,7 +81,7 @@
         </div>
       <?php endif; ?>
 
-      <form action="/admin/login" method="POST" class="space-y-4 text-left pt-2">
+      <form action="<?= admin_url('login') ?>" method="POST" class="space-y-4 text-left pt-2">
         <div>
           <label for="loginUsername" class="block text-xs uppercase tracking-[0.15em] text-foreground/60 mb-2">Tên đăng nhập</label>
           <div class="relative">

@@ -22,16 +22,16 @@ ob_start();
       <span class="text-xs uppercase tracking-widest px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-medium">Master Data: Admin CMS</span>
     </div>
 
-    <form action="/admin/google-sheets/update" method="POST" class="space-y-6">
+    <form action="<?= admin_url('google-sheets/update') ?>" method="POST" class="space-y-6">
       <div>
         <label for="sheetsSpreadsheetId" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Google Spreadsheet ID (Mã trang tính)</label>
-        <input type="text" id="sheetsSpreadsheetId" name="sheet_id" value="<?= htmlspecialchars($config['sheet_id'] ?? '') ?>" required placeholder="Ví dụ: 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms" class="input-elegant w-full px-4 py-3 rounded-sm text-sm font-mono">
+        <input type="text" id="sheetsSpreadsheetId" name="sheet_id" autocomplete="off" value="<?= htmlspecialchars($config['sheet_id'] ?? '') ?>" required placeholder="Ví dụ: 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms" class="input-elegant w-full px-4 py-3 rounded-sm text-sm font-mono">
         <p class="text-xs text-muted-foreground mt-1.5">Mã ID nằm trên đường dẫn URL của Google Sheet (nằm giữa `/d/` và `/edit`).</p>
       </div>
 
       <div>
         <label for="sheetsWebhookUrl" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Webhook URL / Google Apps Script Webhook URL</label>
-        <input type="url" id="sheetsWebhookUrl" name="webhook_url" value="<?= htmlspecialchars($config['webhook_url'] ?? '') ?>" placeholder="https://script.google.com/macros/s/AKfycbx.../exec" class="input-elegant w-full px-4 py-3 rounded-sm text-sm font-mono">
+        <input type="url" id="sheetsWebhookUrl" name="webhook_url" autocomplete="off" value="<?= htmlspecialchars($config['webhook_url'] ?? '') ?>" placeholder="https://script.google.com/macros/s/AKfycbx.../exec" class="input-elegant w-full px-4 py-3 rounded-sm text-sm font-mono">
         <p class="text-xs text-muted-foreground mt-1.5">Đường dẫn Webhook Google Apps Script nhận dữ liệu Lead tự động đẩy sang hàng cuối Google Sheets.</p>
       </div>
 
@@ -58,7 +58,7 @@ ob_start();
           Lưu cấu hình Google Sheets
         </button>
 
-        <form action="/admin/google-sheets/test" method="POST" class="inline-block">
+        <form action="<?= admin_url('google-sheets/test') ?>" method="POST" class="inline-block">
           <button type="submit" class="btn-invert px-6 py-3.5 rounded-sm text-xs uppercase tracking-widest font-medium">
             🧪 Bấm Kiểm tra Kết nối (Test Connection)
           </button>

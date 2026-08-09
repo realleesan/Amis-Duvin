@@ -58,7 +58,7 @@ class AuthService
     public static function requireAuth(): void
     {
         if (!self::check()) {
-            header('Location: /admin/login');
+            header('Location: ' . admin_url('login'));
             exit;
         }
     }
@@ -68,7 +68,7 @@ class AuthService
         self::requireAuth();
         $user = self::user();
         if (!$user || !in_array($user['role'], $allowedRoles, true)) {
-            header('Location: /admin?error=' . urlencode('Bạn không có quyền truy cập chức năng này!'));
+            header('Location: ' . admin_url() . '?error=' . urlencode('Bạn không có quyền truy cập chức năng này!'));
             exit;
         }
     }

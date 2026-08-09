@@ -22,7 +22,7 @@ ob_start();
       </button>
 
       <!-- Filter Form -->
-      <form id="bookingFilterForm" method="GET" action="/admin/bookings" class="flex flex-wrap items-center gap-3">
+      <form id="bookingFilterForm" method="GET" action="<?= admin_url('bookings') ?>" class="flex flex-wrap items-center gap-3">
         <label for="filterStatusSelect" class="sr-only">Lọc theo trạng thái</label>
         <select id="filterStatusSelect" name="status" aria-label="Lọc theo trạng thái" onchange="this.form.submit()" class="input-elegant px-3.5 py-2.5 rounded-sm text-xs cursor-pointer">
           <option value="" class="bg-card text-foreground">Tất cả trạng thái</option>
@@ -50,7 +50,7 @@ ob_start();
 
       <!-- Clear Filter Button -->
       <?php if (!empty($statusFilter) || !empty($dateFilter)): ?>
-        <a href="/admin/bookings" class="px-3 py-2 rounded-sm bg-rose-500/15 text-rose-400 border border-rose-500/30 hover:bg-rose-500/25 transition-colors text-xs font-medium inline-flex items-center gap-1.5" title="Xóa tất cả bộ lọc">
+        <a href="<?= admin_url('bookings') ?>" class="px-3 py-2 rounded-sm bg-rose-500/15 text-rose-400 border border-rose-500/30 hover:bg-rose-500/25 transition-colors text-xs font-medium inline-flex items-center gap-1.5" title="Xóa tất cả bộ lọc">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x w-3.5 h-3.5"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
           <span>Xóa lọc</span>
         </a>
@@ -147,40 +147,40 @@ ob_start();
     <h3 class="font-heading text-xl text-foreground mb-1">Tạo Đơn tiệc Nhập tay (CSKH)</h3>
     <p class="text-xs text-muted-foreground mb-4">Tiếp nhận thông tin khách gọi qua Hotline / Zalo</p>
 
-    <form action="/admin/bookings/manual-create" method="POST" class="space-y-4">
+    <form action="<?= admin_url('bookings/manual-create') ?>" method="POST" class="space-y-4">
       <div class="grid grid-cols-2 gap-4">
         <div>
           <label for="manualFullName" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Họ và tên khách *</label>
-          <input type="text" id="manualFullName" name="full_name" required placeholder="Nguyễn Văn A" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm">
+          <input type="text" id="manualFullName" name="full_name" required autocomplete="name" placeholder="Nguyễn Văn A" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm">
         </div>
 
         <div>
           <label for="manualPhone" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Số điện thoại *</label>
-          <input type="tel" id="manualPhone" name="phone" required placeholder="0912345678" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm font-mono">
+          <input type="tel" id="manualPhone" name="phone" required autocomplete="tel" placeholder="0912345678" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm font-mono">
         </div>
       </div>
 
       <div class="grid grid-cols-2 gap-4">
         <div>
           <label for="manualEmail" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Email liên hệ</label>
-          <input type="email" id="manualEmail" name="email" placeholder="khach@gmail.com" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm">
+          <input type="email" id="manualEmail" name="email" autocomplete="email" placeholder="khach@gmail.com" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm">
         </div>
 
         <div>
           <label for="manualParticipants" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Số khách (Trần 24) *</label>
-          <input type="number" id="manualParticipants" name="participants" min="1" max="24" required value="4" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm font-semibold">
+          <input type="number" id="manualParticipants" name="participants" autocomplete="off" min="1" max="24" required value="4" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm font-semibold">
         </div>
       </div>
 
       <div class="grid grid-cols-2 gap-4">
         <div>
           <label for="manualBookingDatePicker" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Ngày tiệc (5 ngày tới) *</label>
-          <input type="text" id="manualBookingDatePicker" name="booking_date" required placeholder="dd/mm/yyyy" value="<?= date('d/m/Y') ?>" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm font-mono cursor-pointer">
+          <input type="text" id="manualBookingDatePicker" name="booking_date" required autocomplete="off" placeholder="dd/mm/yyyy" value="<?= date('d/m/Y') ?>" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm font-mono cursor-pointer">
         </div>
 
         <div>
           <label for="manualTimeSlot" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Ca tiệc *</label>
-          <select id="manualTimeSlot" name="time_slot" required class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm">
+          <select id="manualTimeSlot" name="time_slot" required autocomplete="off" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm">
             <option value="Ca 1 (11h00 – 14h00)" class="bg-card text-foreground">Ca 1 (11h00 – 14h00)</option>
             <option value="Ca 2 (18h00 – 21h00)" class="bg-card text-foreground">Ca 2 (18h00 – 21h00)</option>
           </select>
@@ -189,7 +189,7 @@ ob_start();
 
       <div>
         <label for="manualDepositStatus" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Trạng thái cọc ban đầu</label>
-        <select id="manualDepositStatus" name="deposit_status" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm">
+        <select id="manualDepositStatus" name="deposit_status" autocomplete="off" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm">
           <option value="Chờ xác nhận" class="bg-card text-foreground">Chờ xác nhận</option>
           <option value="Đã chốt cọc 30%" class="bg-card text-foreground">Đã chốt cọc 30%</option>
           <option value="Hoàn thành" class="bg-card text-foreground">Hoàn thành</option>
@@ -198,7 +198,7 @@ ob_start();
 
       <div>
         <label for="manualNotes" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Ghi chú yêu cầu của khách</label>
-        <textarea id="manualNotes" name="notes" rows="2" placeholder="Ví dụ: Gọi điện lúc 15h chốt thực đơn Signature Pairing" class="input-elegant w-full p-2.5 rounded-sm text-sm"></textarea>
+        <textarea id="manualNotes" name="notes" rows="2" autocomplete="off" placeholder="Ví dụ: Gọi điện lúc 15h chốt thực đơn Signature Pairing" class="input-elegant w-full p-2.5 rounded-sm text-sm"></textarea>
       </div>
 
       <div class="pt-2 flex gap-3">
@@ -222,12 +222,12 @@ ob_start();
 
     <h3 class="font-heading text-xl text-foreground mb-4">Cập nhật đơn <span id="modalLeadCode" class="text-[var(--gold)] font-mono"></span></h3>
 
-    <form action="/admin/bookings/update" method="POST" class="space-y-4">
+    <form action="<?= admin_url('bookings/update') ?>" method="POST" class="space-y-4">
       <input type="hidden" id="modalBookingId" name="id" value="">
 
       <div>
-        <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Trạng thái tiền cọc (Master Data)</label>
-        <select id="modalStatusSelect" name="deposit_status" class="input-elegant w-full px-4 py-3 rounded-sm text-sm">
+        <label for="modalStatusSelect" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Trạng thái tiền cọc (Master Data)</label>
+        <select id="modalStatusSelect" name="deposit_status" autocomplete="off" class="input-elegant w-full px-4 py-3 rounded-sm text-sm">
           <option value="Chờ xác nhận" class="bg-card text-foreground">Chờ xác nhận</option>
           <option value="Đã chốt cọc 30%" class="bg-card text-foreground">Đã chốt cọc 30%</option>
           <option value="Hoàn thành" class="bg-card text-foreground">Hoàn thành</option>
@@ -236,8 +236,8 @@ ob_start();
       </div>
 
       <div>
-        <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Ghi chú CSKH</label>
-        <textarea id="modalNotesText" name="notes" rows="3" placeholder="Ví dụ: Đã nhận cọc 30% qua QR VNPay 1.500.000đ" class="input-elegant w-full p-3 rounded-sm text-sm"></textarea>
+        <label for="modalNotesText" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Ghi chú CSKH</label>
+        <textarea id="modalNotesText" name="notes" rows="3" autocomplete="off" placeholder="Ví dụ: Đã nhận cọc 30% qua QR VNPay 1.500.000đ" class="input-elegant w-full p-3 rounded-sm text-sm"></textarea>
       </div>
 
       <div class="pt-3 flex gap-3">

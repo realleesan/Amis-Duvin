@@ -34,7 +34,7 @@ class AdminGoogleSheetsController extends BaseController
         $sheetsService = new GoogleSheetsService();
         $sheetsService->updateConfig($sheetId, $webhookUrl, $isActive, $autoSync);
 
-        header('Location: /admin/google-sheets?msg=' . urlencode('Đã cập nhật cấu hình Google Sheets thành công!'));
+        header('Location: ' . admin_url('google-sheets') . '?msg=' . urlencode('Đã cập nhật cấu hình Google Sheets thành công!'));
         exit;
     }
 
@@ -55,9 +55,9 @@ class AdminGoogleSheetsController extends BaseController
         ]);
 
         if ($res['success']) {
-            header('Location: /admin/google-sheets?msg=' . urlencode('Kết nối thành công! ' . ($res['message'] ?? '')));
+            header('Location: ' . admin_url('google-sheets') . '?msg=' . urlencode('Kết nối thành công! ' . ($res['message'] ?? '')));
         } else {
-            header('Location: /admin/google-sheets?err=' . urlencode($res['message'] ?? 'Kết nối thất bại.'));
+            header('Location: ' . admin_url('google-sheets') . '?err=' . urlencode($res['message'] ?? 'Kết nối thất bại.'));
         }
         exit;
     }

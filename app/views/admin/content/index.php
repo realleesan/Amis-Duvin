@@ -24,7 +24,7 @@ ob_start();
         <span class="text-xs text-muted-foreground">SEO Optimization</span>
       </div>
 
-      <form action="/admin/content/seo" method="POST" class="space-y-5">
+      <form action="<?= admin_url('content/seo') ?>" method="POST" class="space-y-5">
         <div class="grid sm:grid-cols-2 gap-5">
           <div>
             <label for="seoMetaTitle" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Meta Title (Tiêu đề SEO Trang chủ) *</label>
@@ -71,34 +71,34 @@ ob_start();
         <span class="text-xs text-muted-foreground">Dynamic Content</span>
       </div>
 
-      <form action="/admin/content/hero" method="POST" class="space-y-5">
+      <form action="<?= admin_url('content/hero') ?>" method="POST" class="space-y-5">
         <div class="grid sm:grid-cols-2 gap-5">
           <div>
-            <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Tagline (Khẩu hiệu nhỏ)</label>
-            <input type="text" name="tagline" value="<?= htmlspecialchars($hero['tagline'] ?? '') ?>" class="input-elegant w-full px-4 py-3 rounded-sm text-sm font-medium">
+            <label for="heroTagline" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Tagline (Khẩu hiệu nhỏ)</label>
+            <input type="text" id="heroTagline" name="tagline" autocomplete="off" value="<?= htmlspecialchars($hero['tagline'] ?? '') ?>" class="input-elegant w-full px-4 py-3 rounded-sm text-sm font-medium">
           </div>
 
           <div>
-            <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Tiêu đề chính dòng 1</label>
-            <input type="text" name="title_main" value="<?= htmlspecialchars($hero['title_main'] ?? '') ?>" class="input-elegant w-full px-4 py-3 rounded-sm text-sm font-medium">
+            <label for="heroTitleMain" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Tiêu đề chính dòng 1</label>
+            <input type="text" id="heroTitleMain" name="title_main" autocomplete="off" value="<?= htmlspecialchars($hero['title_main'] ?? '') ?>" class="input-elegant w-full px-4 py-3 rounded-sm text-sm font-medium">
           </div>
         </div>
 
         <div class="grid sm:grid-cols-2 gap-5">
           <div>
-            <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Tiêu đề phụ dòng 2 (Font chữ nghiêng)</label>
-            <input type="text" name="title_sub" value="<?= htmlspecialchars($hero['title_sub'] ?? '') ?>" class="input-elegant w-full px-4 py-3 rounded-sm text-sm font-medium">
+            <label for="heroTitleSub" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Tiêu đề phụ dòng 2 (Font chữ nghiêng)</label>
+            <input type="text" id="heroTitleSub" name="title_sub" autocomplete="off" value="<?= htmlspecialchars($hero['title_sub'] ?? '') ?>" class="input-elegant w-full px-4 py-3 rounded-sm text-sm font-medium">
           </div>
 
           <div>
-            <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Đường dẫn Ảnh nền (Banner URL)</label>
-            <input type="url" name="bg_image" value="<?= htmlspecialchars($hero['bg_image'] ?? '') ?>" class="input-elegant w-full px-4 py-3 rounded-sm text-sm font-medium">
+            <label for="heroBgImage" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Đường dẫn Ảnh nền (Banner URL)</label>
+            <input type="url" id="heroBgImage" name="bg_image" autocomplete="off" value="<?= htmlspecialchars($hero['bg_image'] ?? '') ?>" class="input-elegant w-full px-4 py-3 rounded-sm text-sm font-medium">
           </div>
         </div>
 
         <div>
-          <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Đoạn văn mô tả tóm tắt</label>
-          <textarea name="description" rows="3" class="input-elegant w-full p-3 rounded-sm text-sm leading-relaxed"><?= htmlspecialchars($hero['description'] ?? '') ?></textarea>
+          <label for="heroDescription" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Đoạn văn mô tả tóm tắt</label>
+          <textarea id="heroDescription" name="description" rows="3" autocomplete="off" class="input-elegant w-full p-3 rounded-sm text-sm leading-relaxed"><?= htmlspecialchars($hero['description'] ?? '') ?></textarea>
         </div>
 
         <div class="pt-2">
@@ -127,17 +127,17 @@ ob_start();
               <span class="text-xs text-[var(--gold)] font-mono">ID: <?= $b['id'] ?></span>
             </h4>
 
-            <form action="/admin/content/benefit" method="POST" class="space-y-3">
+            <form action="<?= admin_url('content/benefit') ?>" method="POST" class="space-y-3">
               <input type="hidden" name="id" value="<?= $b['id'] ?>">
 
               <div>
-                <label class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Tiêu đề lợi ích</label>
-                <input type="text" name="title" value="<?= htmlspecialchars($b['title']) ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs font-medium">
+                <label for="benefitTitle_<?= $b['id'] ?>" class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Tiêu đề lợi ích</label>
+                <input type="text" id="benefitTitle_<?= $b['id'] ?>" name="title" autocomplete="off" value="<?= htmlspecialchars($b['title']) ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs font-medium">
               </div>
 
               <div>
-                <label class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Nội dung diễn giải</label>
-                <textarea name="description" rows="3" class="input-elegant w-full p-2.5 rounded-sm text-xs leading-relaxed"><?= htmlspecialchars($b['description']) ?></textarea>
+                <label for="benefitDesc_<?= $b['id'] ?>" class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Nội dung diễn giải</label>
+                <textarea id="benefitDesc_<?= $b['id'] ?>" name="description" rows="3" autocomplete="off" class="input-elegant w-full p-2.5 rounded-sm text-xs leading-relaxed"><?= htmlspecialchars($b['description']) ?></textarea>
               </div>
 
               <button type="submit" class="btn-invert w-full py-2.5 rounded-sm text-xs uppercase tracking-widest font-medium mt-2">
@@ -159,51 +159,51 @@ ob_start();
         <span class="text-xs text-muted-foreground">Dynamic Content</span>
       </div>
 
-      <form action="/admin/content/service-intro" method="POST" class="space-y-5">
+      <form action="<?= admin_url('content/service-intro') ?>" method="POST" class="space-y-5">
         <div class="grid sm:grid-cols-3 gap-5">
           <div>
-            <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Tagline Dịch vụ</label>
-            <input type="text" name="tagline" value="<?= htmlspecialchars($serviceIntro['tagline'] ?? '') ?>" class="input-elegant w-full px-4 py-3 rounded-sm text-sm font-medium">
+            <label for="serviceTagline" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Tagline Dịch vụ</label>
+            <input type="text" id="serviceTagline" name="tagline" autocomplete="off" value="<?= htmlspecialchars($serviceIntro['tagline'] ?? '') ?>" class="input-elegant w-full px-4 py-3 rounded-sm text-sm font-medium">
           </div>
 
           <div>
-            <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Tiêu đề chính</label>
-            <input type="text" name="title_main" value="<?= htmlspecialchars($serviceIntro['title_main'] ?? '') ?>" class="input-elegant w-full px-4 py-3 rounded-sm text-sm font-medium">
+            <label for="serviceTitleMain" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Tiêu đề chính</label>
+            <input type="text" id="serviceTitleMain" name="title_main" autocomplete="off" value="<?= htmlspecialchars($serviceIntro['title_main'] ?? '') ?>" class="input-elegant w-full px-4 py-3 rounded-sm text-sm font-medium">
           </div>
 
           <div>
-            <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Tiêu đề phụ (Chữ nghiêng gold)</label>
-            <input type="text" name="title_sub" value="<?= htmlspecialchars($serviceIntro['title_sub'] ?? '') ?>" class="input-elegant w-full px-4 py-3 rounded-sm text-sm font-medium">
+            <label for="serviceTitleSub" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Tiêu đề phụ (Chữ nghiêng gold)</label>
+            <input type="text" id="serviceTitleSub" name="title_sub" autocomplete="off" value="<?= htmlspecialchars($serviceIntro['title_sub'] ?? '') ?>" class="input-elegant w-full px-4 py-3 rounded-sm text-sm font-medium">
           </div>
         </div>
 
         <div>
-          <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Mô tả tổng quan mô hình tiệc riêng tư</label>
-          <textarea name="description" rows="3" class="input-elegant w-full p-3 rounded-sm text-sm leading-relaxed"><?= htmlspecialchars($serviceIntro['description'] ?? '') ?></textarea>
+          <label for="serviceDescription" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Mô tả tổng quan mô hình tiệc riêng tư</label>
+          <textarea id="serviceDescription" name="description" rows="3" autocomplete="off" class="input-elegant w-full p-3 rounded-sm text-sm leading-relaxed"><?= htmlspecialchars($serviceIntro['description'] ?? '') ?></textarea>
         </div>
 
         <div>
-          <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Ghi chú nhấn mạnh (Trích dẫn viền trái gold)</label>
-          <textarea name="highlight_note" rows="2" class="input-elegant w-full p-3 rounded-sm text-sm leading-relaxed"><?= htmlspecialchars($serviceIntro['highlight_note'] ?? '') ?></textarea>
+          <label for="serviceHighlightNote" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Ghi chú nhấn mạnh (Trích dẫn viền trái gold)</label>
+          <textarea id="serviceHighlightNote" name="highlight_note" rows="2" autocomplete="off" class="input-elegant w-full p-3 rounded-sm text-sm leading-relaxed"><?= htmlspecialchars($serviceIntro['highlight_note'] ?? '') ?></textarea>
         </div>
 
         <div class="border-t border-border/40 pt-5 space-y-4">
           <p class="text-xs uppercase tracking-widest text-[var(--gold)] font-semibold">Cấu hình Card Ảnh bên phải</p>
           <div class="grid sm:grid-cols-2 gap-5">
             <div>
-              <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Tag Card</label>
-              <input type="text" name="card_tag" value="<?= htmlspecialchars($serviceIntro['card_tag'] ?? '') ?>" class="input-elegant w-full px-4 py-3 rounded-sm text-sm">
+              <label for="serviceCardTag" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Tag Card</label>
+              <input type="text" id="serviceCardTag" name="card_tag" autocomplete="off" value="<?= htmlspecialchars($serviceIntro['card_tag'] ?? '') ?>" class="input-elegant w-full px-4 py-3 rounded-sm text-sm">
             </div>
 
             <div>
-              <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Tiêu đề Card</label>
-              <input type="text" name="card_title" value="<?= htmlspecialchars($serviceIntro['card_title'] ?? '') ?>" class="input-elegant w-full px-4 py-3 rounded-sm text-sm">
+              <label for="serviceCardTitle" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Tiêu đề Card</label>
+              <input type="text" id="serviceCardTitle" name="card_title" autocomplete="off" value="<?= htmlspecialchars($serviceIntro['card_title'] ?? '') ?>" class="input-elegant w-full px-4 py-3 rounded-sm text-sm">
             </div>
           </div>
 
           <div>
-            <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Đường dẫn Ảnh Card minh họa (Image URL)</label>
-            <input type="url" name="card_image" value="<?= htmlspecialchars($serviceIntro['card_image'] ?? '') ?>" class="input-elegant w-full px-4 py-3 rounded-sm text-sm">
+            <label for="serviceCardImage" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Đường dẫn Ảnh Card minh họa (Image URL)</label>
+            <input type="url" id="serviceCardImage" name="card_image" autocomplete="off" value="<?= htmlspecialchars($serviceIntro['card_image'] ?? '') ?>" class="input-elegant w-full px-4 py-3 rounded-sm text-sm">
           </div>
         </div>
 
@@ -233,39 +233,39 @@ ob_start();
               <span class="text-xs text-[var(--gold)] font-mono font-normal"><?= htmlspecialchars($p['price_text']) ?></span>
             </h4>
 
-            <form action="/admin/content/pairing" method="POST" class="space-y-3">
+            <form action="<?= admin_url('content/pairing') ?>" method="POST" class="space-y-3">
               <input type="hidden" name="id" value="<?= $p['id'] ?>">
 
               <div>
-                <label class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Tên gói tiệc</label>
-                <input type="text" name="title" value="<?= htmlspecialchars($p['title']) ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs font-medium">
+                <label for="pairingTitle_<?= $p['id'] ?>" class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Tên gói tiệc</label>
+                <input type="text" id="pairingTitle_<?= $p['id'] ?>" name="title" autocomplete="off" value="<?= htmlspecialchars($p['title']) ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs font-medium">
               </div>
 
               <div>
-                <label class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Phân cấp (Standard / Premium Level)</label>
-                <input type="text" name="level" value="<?= htmlspecialchars($p['level']) ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs">
+                <label for="pairingLevel_<?= $p['id'] ?>" class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Phân cấp (Standard / Premium Level)</label>
+                <input type="text" id="pairingLevel_<?= $p['id'] ?>" name="level" autocomplete="off" value="<?= htmlspecialchars($p['level']) ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs">
               </div>
 
               <div>
-                <label class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Mô tả tóm tắt</label>
-                <textarea name="subtitle" rows="2" class="input-elegant w-full p-2.5 rounded-sm text-xs leading-relaxed"><?= htmlspecialchars($p['subtitle']) ?></textarea>
+                <label for="pairingSubtitle_<?= $p['id'] ?>" class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Mô tả tóm tắt</label>
+                <textarea id="pairingSubtitle_<?= $p['id'] ?>" name="subtitle" rows="2" autocomplete="off" class="input-elegant w-full p-2.5 rounded-sm text-xs leading-relaxed"><?= htmlspecialchars($p['subtitle']) ?></textarea>
               </div>
 
               <div>
-                <label class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Chi tiết Món ăn &amp; Rượu vang (Thực đơn)</label>
+                <label for="pairingMenuItems_<?= $p['id'] ?>" class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Chi tiết Món ăn &amp; Rượu vang (Thực đơn)</label>
                 <?php $menuStr = is_array($p['menu_items'] ?? null) ? json_encode($p['menu_items'], JSON_UNESCAPED_UNICODE) : ($p['menu_items'] ?? ''); ?>
-                <textarea name="menu_items" rows="3" placeholder="Mô tả danh sách các món ăn và vang đi kèm" class="input-elegant w-full p-2.5 rounded-sm text-xs leading-relaxed"><?= htmlspecialchars($menuStr) ?></textarea>
+                <textarea id="pairingMenuItems_<?= $p['id'] ?>" name="menu_items" rows="3" autocomplete="off" placeholder="Mô tả danh sách các món ăn và vang đi kèm" class="input-elegant w-full p-2.5 rounded-sm text-xs leading-relaxed"><?= htmlspecialchars($menuStr) ?></textarea>
               </div>
 
               <div class="grid grid-cols-2 gap-3">
                 <div>
-                  <label class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Mức giá khởi điểm</label>
-                  <input type="text" name="price_text" value="<?= htmlspecialchars($p['price_text']) ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs">
+                  <label for="pairingPrice_<?= $p['id'] ?>" class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Mức giá khởi điểm</label>
+                  <input type="text" id="pairingPrice_<?= $p['id'] ?>" name="price_text" autocomplete="off" value="<?= htmlspecialchars($p['price_text']) ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs">
                 </div>
 
                 <div>
-                  <label class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Ảnh đại diện URL</label>
-                  <input type="url" name="image" value="<?= htmlspecialchars($p['image']) ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs">
+                  <label for="pairingImage_<?= $p['id'] ?>" class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Ảnh đại diện URL</label>
+                  <input type="url" id="pairingImage_<?= $p['id'] ?>" name="image" autocomplete="off" value="<?= htmlspecialchars($p['image']) ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs">
                 </div>
               </div>
 
@@ -301,7 +301,7 @@ ob_start();
                 <span class="text-xs text-[var(--gold)]">★ <?= (int)($t['rating'] ?? 5) ?>/5</span>
 
                 <!-- Delete Testimonial Form -->
-                <form action="/admin/content/testimonial/delete" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa đánh giá này?');" class="inline">
+                <form action="<?= admin_url('content/testimonial/delete') ?>" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa đánh giá này?');" class="inline">
                   <input type="hidden" name="id" value="<?= $t['id'] ?>">
                   <button type="submit" class="p-1 rounded text-muted-foreground hover:text-rose-400 hover:bg-muted transition-colors" title="Xóa đánh giá này">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2 w-4 h-4"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
@@ -310,41 +310,41 @@ ob_start();
               </div>
             </div>
 
-            <form action="/admin/content/testimonial" method="POST" class="space-y-3">
+            <form action="<?= admin_url('content/testimonial') ?>" method="POST" class="space-y-3">
               <input type="hidden" name="id" value="<?= $t['id'] ?>">
 
               <div class="grid grid-cols-2 gap-3">
                 <div>
-                  <label class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Tên khách hàng</label>
-                  <input type="text" name="name" value="<?= htmlspecialchars($t['name']) ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs font-medium">
+                  <label for="testimonialName_<?= $t['id'] ?>" class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Tên khách hàng</label>
+                  <input type="text" id="testimonialName_<?= $t['id'] ?>" name="name" autocomplete="off" value="<?= htmlspecialchars($t['name']) ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs font-medium">
                 </div>
 
                 <div>
-                  <label class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Chức danh / Công ty</label>
-                  <input type="text" name="role" value="<?= htmlspecialchars($t['role']) ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs">
+                  <label for="testimonialRole_<?= $t['id'] ?>" class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Chức danh / Công ty</label>
+                  <input type="text" id="testimonialRole_<?= $t['id'] ?>" name="role" autocomplete="off" value="<?= htmlspecialchars($t['role']) ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs">
                 </div>
               </div>
 
               <div class="grid grid-cols-2 gap-3">
                 <div>
-                  <label class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Tag Gói dịch vụ</label>
-                  <input type="text" name="package_tag" value="<?= htmlspecialchars($t['package_tag'] ?? 'Gói Signature Pairing') ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs">
+                  <label for="testimonialTag_<?= $t['id'] ?>" class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Tag Gói dịch vụ</label>
+                  <input type="text" id="testimonialTag_<?= $t['id'] ?>" name="package_tag" autocomplete="off" value="<?= htmlspecialchars($t['package_tag'] ?? 'Gói Signature Pairing') ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs">
                 </div>
 
                 <div>
-                  <label class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Số sao (1 - 5)</label>
-                  <input type="number" name="rating" min="1" max="5" value="<?= (int)($t['rating'] ?? 5) ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs font-mono">
+                  <label for="testimonialRating_<?= $t['id'] ?>" class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Số sao (1 - 5)</label>
+                  <input type="number" id="testimonialRating_<?= $t['id'] ?>" name="rating" autocomplete="off" min="1" max="5" value="<?= (int)($t['rating'] ?? 5) ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs font-mono">
                 </div>
               </div>
 
               <div>
-                <label class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Nội dung đánh giá</label>
-                <textarea name="content" rows="3" class="input-elegant w-full p-2.5 rounded-sm text-xs leading-relaxed"><?= htmlspecialchars($t['content'] ?? $t['quote'] ?? '') ?></textarea>
+                <label for="testimonialContent_<?= $t['id'] ?>" class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Nội dung đánh giá</label>
+                <textarea id="testimonialContent_<?= $t['id'] ?>" name="content" rows="3" autocomplete="off" class="input-elegant w-full p-2.5 rounded-sm text-xs leading-relaxed"><?= htmlspecialchars($t['content'] ?? $t['quote'] ?? '') ?></textarea>
               </div>
 
               <div>
-                <label class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">URL Avatar Ảnh đại diện</label>
-                <input type="url" name="avatar" value="<?= htmlspecialchars($t['avatar']) ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs">
+                <label for="testimonialAvatar_<?= $t['id'] ?>" class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">URL Avatar Ảnh đại diện</label>
+                <input type="url" id="testimonialAvatar_<?= $t['id'] ?>" name="avatar" autocomplete="off" value="<?= htmlspecialchars($t['avatar']) ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs">
               </div>
 
               <button type="submit" class="btn-invert w-full py-2.5 rounded-sm text-xs uppercase tracking-widest font-medium mt-2">
@@ -375,7 +375,7 @@ ob_start();
           <div class="rounded-sm border border-border/40 bg-card/40 p-5 space-y-3 shadow-sm">
             <div class="flex items-center justify-between">
               <span class="text-xs uppercase tracking-widest text-[var(--gold)] font-mono">FAQ #<?= $f['id'] ?></span>
-              <form action="/admin/content/faq/delete" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa câu hỏi FAQ này?');" class="inline">
+              <form action="<?= admin_url('content/faq/delete') ?>" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa câu hỏi FAQ này?');" class="inline">
                 <input type="hidden" name="id" value="<?= $f['id'] ?>">
                 <button type="submit" class="p-1 rounded text-muted-foreground hover:text-rose-400 hover:bg-muted transition-colors" title="Xóa câu hỏi FAQ này">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2 w-4 h-4"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
@@ -383,17 +383,17 @@ ob_start();
               </form>
             </div>
 
-            <form action="/admin/content/faq" method="POST" class="space-y-3">
+            <form action="<?= admin_url('content/faq') ?>" method="POST" class="space-y-3">
               <input type="hidden" name="id" value="<?= $f['id'] ?>">
 
               <div>
-                <label class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Câu hỏi</label>
-                <input type="text" name="question" value="<?= htmlspecialchars($f['question']) ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs font-semibold">
+                <label for="faqQuestion_<?= $f['id'] ?>" class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Câu hỏi</label>
+                <input type="text" id="faqQuestion_<?= $f['id'] ?>" name="question" autocomplete="off" value="<?= htmlspecialchars($f['question']) ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs font-semibold">
               </div>
 
               <div>
-                <label class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Câu trả lời chi tiết</label>
-                <textarea name="answer" rows="3" class="input-elegant w-full p-2.5 rounded-sm text-xs leading-relaxed"><?= htmlspecialchars($f['answer']) ?></textarea>
+                <label for="faqAnswer_<?= $f['id'] ?>" class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Câu trả lời chi tiết</label>
+                <textarea id="faqAnswer_<?= $f['id'] ?>" name="answer" rows="3" autocomplete="off" class="input-elegant w-full p-2.5 rounded-sm text-xs leading-relaxed"><?= htmlspecialchars($f['answer']) ?></textarea>
               </div>
 
               <div class="text-right">
@@ -418,39 +418,39 @@ ob_start();
 
     <h3 class="font-heading text-xl text-foreground mb-4">Thêm Đánh giá Khách hàng mới</h3>
 
-    <form action="/admin/content/testimonial/create" method="POST" class="space-y-4">
+    <form action="<?= admin_url('content/testimonial/create') ?>" method="POST" class="space-y-4">
       <div class="grid grid-cols-2 gap-4">
         <div>
-          <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Tên khách hàng *</label>
-          <input type="text" name="name" required placeholder="Anh Nguyễn Văn A" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm font-medium">
+          <label for="createTestimonialName" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Tên khách hàng *</label>
+          <input type="text" id="createTestimonialName" name="name" required autocomplete="off" placeholder="Anh Nguyễn Văn A" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm font-medium">
         </div>
 
         <div>
-          <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Chức danh / Công ty</label>
-          <input type="text" name="role" placeholder="CEO / Doanh nhân" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm">
+          <label for="createTestimonialRole" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Chức danh / Công ty</label>
+          <input type="text" id="createTestimonialRole" name="role" autocomplete="off" placeholder="CEO / Doanh nhân" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm">
         </div>
       </div>
 
       <div class="grid grid-cols-2 gap-4">
         <div>
-          <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Tag Gói tiệc</label>
-          <input type="text" name="package_tag" value="Gói Signature Pairing" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm">
+          <label for="createTestimonialPackageTag" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Tag Gói tiệc</label>
+          <input type="text" id="createTestimonialPackageTag" name="package_tag" autocomplete="off" value="Gói Signature Pairing" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm">
         </div>
 
         <div>
-          <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Số sao đánh giá (1-5)</label>
-          <input type="number" name="rating" min="1" max="5" value="5" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm font-mono">
+          <label for="createTestimonialRating" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Số sao đánh giá (1-5)</label>
+          <input type="number" id="createTestimonialRating" name="rating" autocomplete="off" min="1" max="5" value="5" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm font-mono">
         </div>
       </div>
 
       <div>
-        <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Nội dung đánh giá *</label>
-        <textarea name="content" rows="3" required placeholder="Trải nghiệm tuyệt vời, không gian riêng tư đẳng cấp..." class="input-elegant w-full p-3 rounded-sm text-sm leading-relaxed"></textarea>
+        <label for="createTestimonialContent" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Nội dung đánh giá *</label>
+        <textarea id="createTestimonialContent" name="content" rows="3" required autocomplete="off" placeholder="Trải nghiệm tuyệt vời, không gian riêng tư đẳng cấp..." class="input-elegant w-full p-3 rounded-sm text-sm leading-relaxed"></textarea>
       </div>
 
       <div>
-        <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">URL Avatar Ảnh đại diện</label>
-        <input type="url" name="avatar" placeholder="https://..." class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm">
+        <label for="createTestimonialAvatar" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">URL Avatar Ảnh đại diện</label>
+        <input type="url" id="createTestimonialAvatar" name="avatar" autocomplete="off" placeholder="https://..." class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm">
       </div>
 
       <div class="pt-2 flex gap-3">
@@ -474,15 +474,15 @@ ob_start();
 
     <h3 class="font-heading text-xl text-foreground mb-4">Thêm Câu hỏi FAQ mới</h3>
 
-    <form action="/admin/content/faq/create" method="POST" class="space-y-4">
+    <form action="<?= admin_url('content/faq/create') ?>" method="POST" class="space-y-4">
       <div>
-        <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Câu hỏi *</label>
-        <input type="text" name="question" required placeholder="Nhà hàng có chỗ đỗ xe ô tô không?" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm font-semibold">
+        <label for="createFaqQuestion" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Câu hỏi *</label>
+        <input type="text" id="createFaqQuestion" name="question" required autocomplete="off" placeholder="Nhà hàng có chỗ đỗ xe ô tô không?" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm font-semibold">
       </div>
 
       <div>
-        <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Câu trả lời chi tiết *</label>
-        <textarea name="answer" rows="4" required placeholder="Có, Amis du Vin có bãi đỗ xe ô tô miễn phí ngay trước sảnh..." class="input-elegant w-full p-3 rounded-sm text-sm leading-relaxed"></textarea>
+        <label for="createFaqAnswer" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Câu trả lời chi tiết *</label>
+        <textarea id="createFaqAnswer" name="answer" rows="4" required autocomplete="off" placeholder="Có, Amis du Vin có bãi đỗ xe ô tô miễn phí ngay trước sảnh..." class="input-elegant w-full p-3 rounded-sm text-sm leading-relaxed"></textarea>
       </div>
 
       <div class="pt-2 flex gap-3">

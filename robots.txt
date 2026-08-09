@@ -2,5 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /admin
 Disallow: /admin/
+Disallow: /adv-cms-*
 
 Sitemap: https://amis.duvin.vn/sitemap.xml

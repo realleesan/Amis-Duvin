@@ -51,7 +51,7 @@ class AdminBookingController extends BaseController
         $booking = $bookingModel->getBookingById($id);
 
         if (!$booking) {
-            header('Location: /admin/bookings?err=' . urlencode('Đơn đặt tiệc không tồn tại!'));
+            header('Location: ' . admin_url('bookings') . '?err=' . urlencode('Đơn đặt tiệc không tồn tại!'));
             exit;
         }
 
@@ -69,7 +69,7 @@ class AdminBookingController extends BaseController
             $msg .= ' và đồng bộ thành công sang Google Sheets.';
         }
 
-        header('Location: /admin/bookings?msg=' . urlencode($msg));
+        header('Location: ' . admin_url('bookings') . '?msg=' . urlencode($msg));
         exit;
     }
 
@@ -87,7 +87,7 @@ class AdminBookingController extends BaseController
         $depositStatus = trim($_POST['deposit_status'] ?? 'Chờ xác nhận');
 
         if (empty($fullName) || empty($phone) || empty($bookingDate) || empty($timeSlot) || $participants <= 0) {
-            header('Location: /admin/bookings?err=' . urlencode('Vui lòng điền đầy đủ các thông tin bắt buộc.'));
+            header('Location: ' . admin_url('bookings') . '?err=' . urlencode('Vui lòng điền đầy đủ các thông tin bắt buộc.'));
             exit;
         }
 
@@ -101,7 +101,7 @@ class AdminBookingController extends BaseController
         $chosenTimestamp = strtotime($bookingDate);
 
         if (!$chosenTimestamp || $chosenTimestamp < $todayTimestamp || $chosenTimestamp > $maxAllowedTimestamp) {
-            header('Location: /admin/bookings?err=' . urlencode('Theo quy định, chỉ có thể đặt tiệc trong vòng 05 ngày tới (từ ' . date('d/m/Y', $todayTimestamp) . ' đến ' . date('d/m/Y', $maxAllowedTimestamp) . ').'));
+            header('Location: ' . admin_url('bookings') . '?err=' . urlencode('Theo quy định, chỉ có thể đặt tiệc trong vòng 05 ngày tới (từ ' . date('d/m/Y', $todayTimestamp) . ' đến ' . date('d/m/Y', $maxAllowedTimestamp) . ').'));
             exit;
         }
 
@@ -109,7 +109,7 @@ class AdminBookingController extends BaseController
         $bookingModel = new BookingModel();
         $capacity = $bookingModel->checkSlotCapacity($bookingDate, $timeSlot, $participants);
         if (!$capacity['allowed']) {
-            header('Location: /admin/bookings?err=' . urlencode($capacity['message']));
+            header('Location: ' . admin_url('bookings') . '?err=' . urlencode($capacity['message']));
             exit;
         }
 
@@ -137,12 +137,12 @@ class AdminBookingController extends BaseController
                     $sheetsService = new GoogleSheetsService();
                     $sheetsService->syncBookingLead($booking);
                 }
-                header('Location: /admin/bookings?msg=' . urlencode('Đã tạo đơn nhập tay thành công & đồng bộ Google Sheets!'));
+                header('Location: ' . admin_url('bookings') . '?msg=' . urlencode('Đã tạo đơn nhập tay thành công & đồng bộ Google Sheets!'));
                 exit;
             }
         }
 
-        header('Location: /admin/bookings?err=' . urlencode('Lỗi tạo đơn tiệc mới.'));
+        header('Location: ' . admin_url('bookings') . '?err=' . urlencode('Lỗi tạo đơn tiệc mới.'));
         exit;
     }
 
@@ -155,7 +155,7 @@ class AdminBookingController extends BaseController
         $booking = $bookingModel->getBookingById($id);
 
         if (!$booking) {
-            header('Location: /admin/bookings?err=' . urlencode('Đơn không tồn tại.'));
+            header('Location: ' . admin_url('bookings') . '?err=' . urlencode('Đơn không tồn tại.'));
             exit;
         }
 
@@ -163,9 +163,9 @@ class AdminBookingController extends BaseController
         $res = $sheetsService->syncBookingLead($booking);
 
         if ($res['success']) {
-            header('Location: /admin/bookings?msg=' . urlencode('Đã đẩy dữ liệu thành công sang Google Sheets.'));
+            header('Location: ' . admin_url('bookings') . '?msg=' . urlencode('Đã đẩy dữ liệu thành công sang Google Sheets.'));
         } else {
-            header('Location: /admin/bookings?err=' . urlencode($res['message'] ?? 'Lỗi đồng bộ Google Sheets.'));
+            header('Location: ' . admin_url('bookings') . '?err=' . urlencode($res['message'] ?? 'Lỗi đồng bộ Google Sheets.'));
         }
         exit;
     }

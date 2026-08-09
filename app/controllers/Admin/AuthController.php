@@ -10,7 +10,7 @@ class AuthController extends BaseController
     public function showLogin(): void
     {
         if (AuthService::check()) {
-            header('Location: /admin');
+            header('Location: ' . admin_url());
             exit;
         }
 
@@ -26,18 +26,18 @@ class AuthController extends BaseController
         $res = AuthService::attempt($username, $password);
 
         if ($res['success']) {
-            header('Location: /admin');
+            header('Location: ' . admin_url());
             exit;
         }
 
-        header('Location: /admin/login?error=' . urlencode($res['message']));
+        header('Location: ' . admin_url('login') . '?error=' . urlencode($res['message']));
         exit;
     }
 
     public function logout(): void
     {
         AuthService::logout();
-        header('Location: /admin/login');
+        header('Location: ' . admin_url('login'));
         exit;
     }
 }

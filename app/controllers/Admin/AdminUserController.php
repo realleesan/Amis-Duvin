@@ -32,7 +32,7 @@ class AdminUserController extends BaseController
         $role = trim($_POST['role'] ?? 'cskh');
 
         if (empty($username) || empty($fullName) || empty($password)) {
-            header('Location: /admin/users?err=' . urlencode('Vui lòng điền đầy đủ các thông tin bắt buộc.'));
+            header('Location: ' . admin_url('users') . '?err=' . urlencode('Vui lòng điền đầy đủ các thông tin bắt buộc.'));
             exit;
         }
 
@@ -40,16 +40,16 @@ class AdminUserController extends BaseController
         $existing = $userModel->findByUsername($username);
 
         if ($existing) {
-            header('Location: /admin/users?err=' . urlencode('Tên đăng nhập đã tồn tại trên hệ thống.'));
+            header('Location: ' . admin_url('users') . '?err=' . urlencode('Tên đăng nhập đã tồn tại trên hệ thống.'));
             exit;
         }
 
         $success = $userModel->createUser($username, $password, $fullName, $role);
 
         if ($success) {
-            header('Location: /admin/users?msg=' . urlencode('Đã tạo tài khoản nhân sự mới thành công!'));
+            header('Location: ' . admin_url('users') . '?msg=' . urlencode('Đã tạo tài khoản nhân sự mới thành công!'));
         } else {
-            header('Location: /admin/users?err=' . urlencode('Lỗi tạo tài khoản mới.'));
+            header('Location: ' . admin_url('users') . '?err=' . urlencode('Lỗi tạo tài khoản mới.'));
         }
         exit;
     }
@@ -64,7 +64,7 @@ class AdminUserController extends BaseController
         $newPassword = $_POST['new_password'] ?? '';
 
         if ($id <= 0 || empty($fullName)) {
-            header('Location: /admin/users?err=' . urlencode('Thông tin không hợp lệ.'));
+            header('Location: ' . admin_url('users') . '?err=' . urlencode('Thông tin không hợp lệ.'));
             exit;
         }
 
@@ -75,7 +75,7 @@ class AdminUserController extends BaseController
             $userModel->updatePassword($id, $newPassword);
         }
 
-        header('Location: /admin/users?msg=' . urlencode('Đã cập nhật thông tin tài khoản thành công!'));
+        header('Location: ' . admin_url('users') . '?msg=' . urlencode('Đã cập nhật thông tin tài khoản thành công!'));
         exit;
     }
 }

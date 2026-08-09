@@ -18,6 +18,13 @@ if (!function_exists('url')) {
     }
 }
 
+if (!function_exists('admin_url')) {
+    function admin_url(string $path = ''): string {
+        $slug = env('ADMIN_SLUG', 'adv-cms-2026-x89k2');
+        return '/' . $slug . ($path ? '/' . ltrim($path, '/') : '');
+    }
+}
+
 if (!function_exists('env')) {
     function env(string $key, $default = null) {
         static $envVars = null;
