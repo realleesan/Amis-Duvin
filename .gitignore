@@ -32,3 +32,5 @@ docs
 .vite
 base44/.app.jsonc
 react-app 
+CLAUDE.md 
+AGENTS.md 

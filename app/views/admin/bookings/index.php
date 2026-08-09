@@ -67,7 +67,7 @@ ob_start();
 
   <!-- Bulk Action Bar -->
   <?php if (($user['role'] ?? '') === 'admin'): ?>
-    <div id="bulkBookingBar" class="hidden items-center justify-between p-3.5 bg-muted/40 border border-[var(--wine)]/30 rounded-sm shadow-md mb-4">
+    <div id="bulkBookingBar" class="hidden items-center justify-between p-3.5 rounded-sm shadow-md mb-4" style="border: 1px solid rgba(178, 2, 37, 0.35);">
       <div class="flex items-center gap-2 text-xs text-foreground font-medium">
         <span class="w-2 h-2 rounded-full bg-[var(--gold)] animate-pulse"></span>
         <span>Đã chọn <strong id="bulkBookingCount" class="text-[var(--gold)] font-mono font-bold">0</strong> đơn tiệc</span>
