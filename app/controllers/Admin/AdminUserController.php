@@ -132,4 +132,29 @@ class AdminUserController extends BaseController
         header('Location: ' . admin_url('users') . '?msg=' . urlencode("Đã đưa tài khoản '{$targetUser['username']}' vào thùng rác!"));
         exit;
     }
+
+    public function bulkDelete(): void
+    {
+        AuthService::requireRole(['admin']);
+
+        $ids = $_POST['ids'] ?? [];
+        if (!is_array($ids) || empty($ids)) {
+            header('Location: ' . admin_url('users') . '?err=' . urlencode('Vui lòng chọn ít nhất 1 tài khoản để xóa.'));
+            exit;
+        }
+
+        $currentUser = AuthService::user();
+        (new UserModel())->bulkSoftDelete($ids, (int)$currentUser['id']);
+
+        $count = count($ids);
+        NotificationService::notifyUser(
+            "Xóa tạm tài khoản nhân sự hàng loạt",
+            "Quản trị viên {$currentUser['full_name']} vừa chuyển {$count} tài khoản nhân sự vào thùng rác.",
+            admin_url('trash') . "?type=users",
+            $currentUser
+        );
+
+        header('Location: ' . admin_url('users') . '?msg=' . urlencode("Đã chuyển {$count} tài khoản được chọn vào thùng rác thành công!"));
+        exit;
+    }
 }

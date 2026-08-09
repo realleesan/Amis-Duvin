@@ -150,4 +150,84 @@ class TrashController extends BaseController
         }
         exit;
     }
+
+    public function bulkRestore(): void
+    {
+        AuthService::requireRole(['admin']);
+
+        $type = $_POST['type'] ?? '';
+        $ids = $_POST['ids'] ?? [];
+        if (!is_array($ids) || empty($ids)) {
+            header('Location: ' . admin_url('trash') . "?type={$type}&err=" . urlencode("Vui lòng chọn ít nhất 1 mục để khôi phục."));
+            exit;
+        }
+
+        $count = count($ids);
+        $currentUser = AuthService::user();
+
+        switch ($type) {
+            case 'bookings':
+                (new BookingModel())->bulkRestore($ids);
+                break;
+            case 'workshops':
+                (new WorkshopModel())->bulkRestoreRegistrations($ids);
+                break;
+            case 'users':
+                (new UserModel())->bulkRestore($ids);
+                break;
+            case 'notifications':
+                (new NotificationModel())->bulkRestore($ids);
+                break;
+        }
+
+        NotificationService::notifySystem(
+            "Khôi phục dữ liệu hàng loạt",
+            "Quản trị viên {$currentUser['full_name']} đã khôi phục hàng loạt ({$count} mục) trong Thùng rác.",
+            admin_url('trash') . "?type={$type}",
+            $currentUser
+        );
+
+        header('Location: ' . admin_url('trash') . "?type={$type}&msg=" . urlencode("Đã khôi phục {$count} mục được chọn thành công!"));
+        exit;
+    }
+
+    public function bulkForceDelete(): void
+    {
+        AuthService::requireRole(['admin']);
+
+        $type = $_POST['type'] ?? '';
+        $ids = $_POST['ids'] ?? [];
+        if (!is_array($ids) || empty($ids)) {
+            header('Location: ' . admin_url('trash') . "?type={$type}&err=" . urlencode("Vui lòng chọn ít nhất 1 mục để xóa vĩnh viễn."));
+            exit;
+        }
+
+        $currentUser = AuthService::user();
+
+        switch ($type) {
+            case 'bookings':
+                (new BookingModel())->bulkHardDelete($ids);
+                break;
+            case 'workshops':
+                (new WorkshopModel())->bulkHardDeleteRegistrations($ids);
+                break;
+            case 'users':
+                (new UserModel())->bulkHardDelete($ids, (int)$currentUser['id']);
+                break;
+            case 'notifications':
+                (new NotificationModel())->bulkHardDelete($ids);
+                break;
+        }
+
+        $count = count($ids);
+        NotificationService::notifySystem(
+            "Xóa vĩnh viễn dữ liệu hàng loạt",
+            "Quản trị viên {$currentUser['full_name']} đã xóa vĩnh viễn hàng loạt ({$count} mục) khỏi hệ thống.",
+            admin_url('trash') . "?type={$type}",
+            $currentUser
+        );
+
+        header('Location: ' . admin_url('trash') . "?type={$type}&msg=" . urlencode("Đã xóa vĩnh viễn {$count} mục được chọn khỏi hệ thống!"));
+        exit;
+    }
 }

@@ -94,16 +94,26 @@
     <!-- Main Content Body -->
     <main class="flex-1 p-6 sm:p-8 overflow-y-auto">
       <?php if (!empty($message)): ?>
-        <div class="mb-6 p-4 rounded-sm bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-sm flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle-2 w-4 h-4"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
-          <span><?= htmlspecialchars($message) ?></span>
+        <div id="adminFlashAlert" class="mb-6 p-4 rounded-sm bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-sm flex items-center justify-between gap-3 shadow-sm transition-all duration-300">
+          <div class="flex items-center gap-2 min-w-0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle-2 w-4 h-4 shrink-0"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
+            <span class="truncate"><?= htmlspecialchars($message) ?></span>
+          </div>
+          <button type="button" onclick="dismissAdminFlashAlert()" class="p-1 rounded text-emerald-400/70 hover:text-emerald-400 hover:bg-emerald-500/15 transition-colors" title="Đóng thông báo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x w-4 h-4"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+          </button>
         </div>
       <?php endif; ?>
 
       <?php if (!empty($error)): ?>
-        <div class="mb-6 p-4 rounded-sm bg-rose-500/10 border border-rose-500/30 text-rose-400 text-sm flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-alert-circle w-4 h-4"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
-          <span><?= htmlspecialchars($error) ?></span>
+        <div id="adminFlashAlert" class="mb-6 p-4 rounded-sm bg-rose-500/10 border border-rose-500/30 text-rose-400 text-sm flex items-center justify-between gap-3 shadow-sm transition-all duration-300">
+          <div class="flex items-center gap-2 min-w-0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-alert-circle w-4 h-4 shrink-0"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
+            <span class="truncate"><?= htmlspecialchars($error) ?></span>
+          </div>
+          <button type="button" onclick="dismissAdminFlashAlert()" class="p-1 rounded text-rose-400/70 hover:text-rose-400 hover:bg-rose-500/15 transition-colors" title="Đóng thông báo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x w-4 h-4"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+          </button>
         </div>
       <?php endif; ?>
 
@@ -112,5 +122,32 @@
   </div>
 
   <script src="/assets/js/global.js"></script>
+  <script>
+    function dismissAdminFlashAlert() {
+      const alertEl = document.getElementById('adminFlashAlert');
+      if (alertEl) {
+        alertEl.style.opacity = '0';
+        alertEl.style.transform = 'translateY(-6px)';
+        setTimeout(() => alertEl.remove(), 300);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const alertEl = document.getElementById('adminFlashAlert');
+      if (alertEl) {
+        setTimeout(dismissAdminFlashAlert, 4000);
+      }
+
+      // Auto clean URL params 'msg' and 'err' for clean URL & prevent duplicate alerts on refresh
+      try {
+        const url = new URL(window.location.href);
+        if (url.searchParams.has('msg') || url.searchParams.has('err')) {
+          url.searchParams.delete('msg');
+          url.searchParams.delete('err');
+          window.history.replaceState({}, document.title, url.toString());
+        }
+      } catch(e) {}
+    });
+  </script>
 </body>
 </html>

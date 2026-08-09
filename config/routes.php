@@ -151,10 +151,25 @@ Router::post(admin_url('users/delete'), [AdminUserController::class, 'delete'], 
 Router::post(admin_url('notifications/delete'), [AdminNotificationController::class, 'delete'], [
     AuthMiddleware::class => ['admin']
 ]);
+Router::post(admin_url('notifications/bulk-delete'), [AdminNotificationController::class, 'bulkDelete'], [
+    AuthMiddleware::class => ['admin']
+]);
+Router::post(admin_url('api/notifications/bulk-mark-read'), [AdminNotificationController::class, 'bulkMarkReadApi'], [
+    AuthMiddleware::class => []
+]);
 Router::post(admin_url('bookings/delete'), [AdminBookingController::class, 'delete'], [
     AuthMiddleware::class => ['admin']
 ]);
+Router::post(admin_url('bookings/bulk-delete'), [AdminBookingController::class, 'bulkDelete'], [
+    AuthMiddleware::class => ['admin']
+]);
 Router::post(admin_url('workshops/registration/delete'), [AdminWorkshopController::class, 'deleteRegistration'], [
+    AuthMiddleware::class => ['admin']
+]);
+Router::post(admin_url('workshops/registration/bulk-delete'), [AdminWorkshopController::class, 'bulkDeleteRegistration'], [
+    AuthMiddleware::class => ['admin']
+]);
+Router::post(admin_url('users/bulk-delete'), [AdminUserController::class, 'bulkDelete'], [
     AuthMiddleware::class => ['admin']
 ]);
 
@@ -166,6 +181,12 @@ Router::post(admin_url('trash/restore'), [TrashController::class, 'restore'], [
     AuthMiddleware::class => ['admin']
 ]);
 Router::post(admin_url('trash/force-delete'), [TrashController::class, 'forceDelete'], [
+    AuthMiddleware::class => ['admin']
+]);
+Router::post(admin_url('trash/bulk-restore'), [TrashController::class, 'bulkRestore'], [
+    AuthMiddleware::class => ['admin']
+]);
+Router::post(admin_url('trash/bulk-force-delete'), [TrashController::class, 'bulkForceDelete'], [
     AuthMiddleware::class => ['admin']
 ]);
 

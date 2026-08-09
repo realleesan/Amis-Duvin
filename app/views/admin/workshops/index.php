@@ -58,60 +58,83 @@ ob_start();
           <?php endif; ?>
         </form>
 
-        <button type="button" onclick="openManualRegModal()" class="btn-wine px-4 py-2 rounded-sm text-xs uppercase tracking-wider font-semibold flex items-center gap-1.5 shadow-sm">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-circle w-4 h-4"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v8"></path><path d="M8 12h8"></path></svg>
-          <span>Nhập tay đăng ký</span>
-        </button>
+        <div class="flex items-center gap-3">
+          <button type="button" onclick="openManualRegModal()" class="btn-wine px-4 py-2 rounded-sm text-xs uppercase tracking-wider font-semibold flex items-center gap-1.5 shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-circle w-4 h-4"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v8"></path><path d="M8 12h8"></path></svg>
+            <span>Nhập tay đăng ký</span>
+          </button>
 
-        <?php if (($user['role'] ?? '') === 'admin'): ?>
-          <a href="<?= admin_url('trash') ?>?type=workshops" class="px-3 py-2 rounded-sm bg-rose-500/10 text-rose-400 border border-rose-500/30 hover:bg-rose-500/20 transition-colors text-xs font-medium inline-flex items-center gap-1.5" title="Xem thùng rác đăng ký workshop">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
-            <span>Thùng rác</span>
-          </a>
-        <?php endif; ?>
+          <?php if (($user['role'] ?? '') === 'admin'): ?>
+            <a href="<?= admin_url('trash') ?>?type=workshops" class="px-3 py-2 rounded-sm bg-rose-500/10 text-rose-400 border border-rose-500/30 hover:bg-rose-500/20 transition-colors text-xs font-medium inline-flex items-center gap-1.5" title="Xem thùng rác đăng ký workshop">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
+              <span>Thùng rác</span>
+            </a>
+          <?php endif; ?>
+        </div>
       </div>
 
-      <!-- Registrations Data Table -->
-      <div class="rounded-sm border border-border/40 bg-card overflow-hidden shadow-sm">
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-sm border-collapse">
-            <thead>
-              <tr class="bg-muted/40 text-[11px] uppercase tracking-wider text-muted-foreground border-b border-border/40">
-                <th class="p-4">Mã Đơn</th>
-                <th class="p-4">Khách hàng</th>
-                <th class="p-4">Số ĐT / Email</th>
-                <th class="p-4">Tên Workshop</th>
-                <th class="p-4">Số vé</th>
-                <th class="p-4">Trạng thái</th>
-                <th class="p-4">Ngày tạo</th>
-                <th class="p-4 text-right">Thao tác</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-border/40">
-              <?php if (empty($registrations)): ?>
-                <tr>
-                  <td colspan="8" class="p-8 text-center text-muted-foreground text-sm">
-                    Chưa có đăng ký Workshop nào phù hợp với bộ lọc.
-                  </td>
+      <!-- Bulk Action Bar -->
+      <?php if (($user['role'] ?? '') === 'admin'): ?>
+        <div id="bulkWsRegBar" class="hidden items-center justify-between p-3.5 bg-muted/40 border border-[var(--wine)]/30 rounded-sm shadow-md mb-4">
+          <div class="flex items-center gap-2 text-xs text-foreground font-medium">
+            <span class="w-2 h-2 rounded-full bg-[var(--gold)] animate-pulse"></span>
+            <span>Đã chọn <strong id="bulkWsRegCount" class="text-[var(--gold)] font-mono font-bold">0</strong> đăng ký</span>
+          </div>
+          <button type="button" onclick="submitBulkWsRegDelete()" class="px-3 py-1.5 rounded text-xs font-medium bg-rose-500/15 text-rose-400 border border-rose-500/30 hover:bg-rose-500/25 transition-colors flex items-center gap-1.5">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
+            <span>Chuyển vào Thùng rác</span>
+          </button>
+        </div>
+      <?php endif; ?>
+
+      <!-- Registrations Data Table Form -->
+      <form id="bulkWsRegForm" method="POST" action="<?= admin_url('workshops/registration/bulk-delete') ?>">
+        <div class="rounded-sm border border-border/40 bg-card overflow-hidden shadow-sm">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm border-collapse">
+              <thead>
+                <tr class="bg-muted/40 text-[11px] uppercase tracking-wider text-muted-foreground border-b border-border/40 whitespace-nowrap">
+                  <th class="p-4 w-10 text-center">
+                    <input type="checkbox" id="selectAllWsReg" onclick="toggleSelectAllWsReg(this)" class="rounded border-border cursor-pointer">
+                  </th>
+                  <th class="p-4 w-28">Mã Đơn</th>
+                  <th class="p-4 min-w-[170px]">Khách hàng</th>
+                  <th class="p-4 min-w-[190px]">Số ĐT / Email</th>
+                  <th class="p-4 min-w-[170px]">Tên Workshop</th>
+                  <th class="p-4 w-24 text-center">Số vé</th>
+                  <th class="p-4 w-36">Trạng thái</th>
+                  <th class="p-4 w-36">Ngày tạo</th>
+                  <th class="p-4 w-36 text-right">Thao tác</th>
                 </tr>
-              <?php else: ?>
-                <?php foreach ($registrations as $r): ?>
-                  <?php
-                    $regCode = 'WS-' . str_pad((string)$r['id'], 4, '0', STR_PAD_LEFT);
-                    $status = $r['status'] ?? 'pending';
-                    $badgeClass = match($status) {
-                      'confirmed' => 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30',
-                      'cancelled' => 'bg-rose-500/15 text-rose-400 border-rose-500/30',
-                      default => 'bg-[var(--gold)]/15 text-[var(--gold)] border-[var(--gold)]/30'
-                    };
-                    $statusText = match($status) {
-                      'confirmed' => 'Đã chốt vé',
-                      'cancelled' => 'Đã hủy',
-                      default => 'Chờ CSKH xác nhận'
-                    };
-                  ?>
-                  <tr class="hover:bg-muted/20 transition-colors">
-                    <td class="p-4 font-mono text-xs font-semibold text-[var(--gold)]"><?= $regCode ?></td>
+              </thead>
+              <tbody class="divide-y divide-border/40">
+                <?php if (empty($registrations)): ?>
+                  <tr>
+                    <td colspan="9" class="p-8 text-center text-muted-foreground text-sm">
+                      Chưa có đăng ký Workshop nào phù hợp với bộ lọc.
+                    </td>
+                  </tr>
+                <?php else: ?>
+                  <?php foreach ($registrations as $r): ?>
+                    <?php
+                      $regCode = 'WS-' . str_pad((string)$r['id'], 4, '0', STR_PAD_LEFT);
+                      $status = $r['status'] ?? 'pending';
+                      $badgeClass = match($status) {
+                        'confirmed' => 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30',
+                        'cancelled' => 'bg-rose-500/15 text-rose-400 border-rose-500/30',
+                        default => 'bg-[var(--gold)]/15 text-[var(--gold)] border-[var(--gold)]/30'
+                      };
+                      $statusText = match($status) {
+                        'confirmed' => 'Đã chốt vé',
+                        'cancelled' => 'Đã hủy',
+                        default => 'Chờ CSKH xác nhận'
+                      };
+                    ?>
+                    <tr class="hover:bg-muted/20 transition-colors">
+                      <td class="p-4 text-center">
+                        <input type="checkbox" name="ids[]" value="<?= $r['id'] ?>" class="ws-reg-cb rounded border-border cursor-pointer" onchange="updateBulkWsRegBar()">
+                      </td>
+                      <td class="p-4 font-mono text-xs font-semibold text-[var(--gold)]"><?= $regCode ?></td>
                     <td class="p-4 font-medium text-foreground">
                       <div><?= htmlspecialchars($r['full_name']) ?></div>
                       <?php if (!empty($r['notes'])): ?>
@@ -125,10 +148,10 @@ ob_start();
                     <td class="p-4 font-medium text-foreground">
                       <?= htmlspecialchars($r['workshop_title'] ?? 'Workshop #' . $r['workshop_id']) ?>
                     </td>
-                    <td class="p-4 font-mono text-xs text-foreground font-semibold">
+                    <td class="p-4 font-mono text-xs text-foreground font-semibold text-center whitespace-nowrap">
                       <?= (int)$r['participants'] ?> vé
                     </td>
-                    <td class="p-4">
+                    <td class="p-4 whitespace-nowrap">
                       <span class="inline-block px-2.5 py-1 rounded-full text-[10px] uppercase font-mono tracking-wider font-semibold border <?= $badgeClass ?>">
                         <?= $statusText ?>
                       </span>
@@ -136,7 +159,7 @@ ob_start();
                     <td class="p-4 text-xs text-muted-foreground font-mono whitespace-nowrap">
                       <?= !empty($r['created_at']) ? date('d/m/Y H:i', strtotime($r['created_at'])) : '—' ?>
                     </td>
-                    <td class="p-4 text-right">
+                    <td class="p-4 text-right whitespace-nowrap">
                       <div class="inline-flex items-center gap-1.5 justify-end">
                         <button type="button" onclick='openEditRegModal(<?= json_encode($r, JSON_HEX_APOS | JSON_HEX_QUOT) ?>)' class="px-2.5 py-1 rounded text-xs font-medium bg-muted hover:bg-muted/80 text-foreground transition-colors">
                           Đổi trạng thái
@@ -158,6 +181,7 @@ ob_start();
           </table>
         </div>
       </div>
+      </form>
     </div>
 
   <?php else: ?>
@@ -462,6 +486,46 @@ function openEditWorkshopModal(w) {
 
 function closeWorkshopPackageModal() {
   document.getElementById('workshopPackageModal').classList.remove('active');
+}
+
+function toggleSelectAllWsReg(master) {
+  const checkboxes = document.querySelectorAll('.ws-reg-cb');
+  checkboxes.forEach(cb => cb.checked = master.checked);
+  updateBulkWsRegBar();
+}
+
+function updateBulkWsRegBar() {
+  const checked = document.querySelectorAll('.ws-reg-cb:checked');
+  const all = document.querySelectorAll('.ws-reg-cb');
+  const bar = document.getElementById('bulkWsRegBar');
+  const countEl = document.getElementById('bulkWsRegCount');
+  const master = document.getElementById('selectAllWsReg');
+
+  if (countEl) countEl.textContent = checked.length;
+  if (bar) {
+    if (checked.length > 0) {
+      bar.classList.remove('hidden');
+      bar.classList.add('flex');
+    } else {
+      bar.classList.add('hidden');
+      bar.classList.remove('flex');
+    }
+  }
+  if (master && all.length > 0) {
+    master.checked = (checked.length === all.length);
+    master.indeterminate = (checked.length > 0 && checked.length < all.length);
+  }
+}
+
+function submitBulkWsRegDelete() {
+  const checked = document.querySelectorAll('.ws-reg-cb:checked');
+  if (checked.length === 0) {
+    alert('Vui lòng chọn ít nhất 1 đăng ký Workshop để xóa.');
+    return;
+  }
+  if (confirm(`Bạn có chắc chắn muốn chuyển ${checked.length} đăng ký Workshop đã chọn vào Thùng rác?`)) {
+    document.getElementById('bulkWsRegForm').submit();
+  }
 }
 </script>
 

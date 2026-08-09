@@ -84,6 +84,7 @@ function fetchHeaderNotifications() {
       data.items.forEach(item => {
         const isUnread = item.is_read == 0;
         let typeBadge = '<span class="text-[10px] uppercase font-mono text-emerald-400 font-semibold">Đặt tiệc</span>';
+        if (item.type === 'workshop') typeBadge = '<span class="text-[10px] uppercase font-mono text-purple-400 font-semibold">Workshop</span>';
         if (item.type === 'content') typeBadge = '<span class="text-[10px] uppercase font-mono text-amber-400 font-semibold">Nội dung</span>';
         if (item.type === 'user') typeBadge = '<span class="text-[10px] uppercase font-mono text-blue-400 font-semibold">Nhân sự</span>';
         if (item.type === 'system') typeBadge = '<span class="text-[10px] uppercase font-mono text-rose-400 font-semibold">Hệ thống</span>';

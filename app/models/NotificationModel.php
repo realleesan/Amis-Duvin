@@ -148,4 +148,32 @@ class NotificationModel extends BaseModel
         $stmt = $this->db->query("SELECT COUNT(*) FROM {$this->table} WHERE deleted_at IS NOT NULL");
         return (int)$stmt->fetchColumn();
     }
+
+    public function bulkSoftDelete(array $ids): bool
+    {
+        if (!$this->db || empty($ids)) return false;
+        $in = implode(',', array_map('intval', $ids));
+        return (bool)$this->db->exec("UPDATE {$this->table} SET deleted_at = NOW() WHERE id IN ({$in})");
+    }
+
+    public function bulkRestore(array $ids): bool
+    {
+        if (!$this->db || empty($ids)) return false;
+        $in = implode(',', array_map('intval', $ids));
+        return (bool)$this->db->exec("UPDATE {$this->table} SET deleted_at = NULL WHERE id IN ({$in})");
+    }
+
+    public function bulkHardDelete(array $ids): bool
+    {
+        if (!$this->db || empty($ids)) return false;
+        $in = implode(',', array_map('intval', $ids));
+        return (bool)$this->db->exec("DELETE FROM {$this->table} WHERE id IN ({$in})");
+    }
+
+    public function bulkMarkAsRead(array $ids): bool
+    {
+        if (!$this->db || empty($ids)) return false;
+        $in = implode(',', array_map('intval', $ids));
+        return (bool)$this->db->exec("UPDATE {$this->table} SET is_read = 1 WHERE id IN ({$in}) AND deleted_at IS NULL");
+    }
 }

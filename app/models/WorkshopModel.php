@@ -57,6 +57,8 @@ class WorkshopModel extends BaseModel
         $success = $stmt->execute($data);
 
         if ($success) {
+            $insertId = $this->db->lastInsertId();
+
             // Increment participant count & update status if full
             $stmtUpdate = $this->db->prepare(
                 "UPDATE workshops SET current_participants = current_participants + :p WHERE id = :wid"
@@ -68,9 +70,11 @@ class WorkshopModel extends BaseModel
             if ($ws && $ws['current_participants'] >= $ws['max_participants'] && $ws['status'] === 'active') {
                 $this->db->prepare("UPDATE workshops SET status = 'full' WHERE id = :wid")->execute(['wid' => $data['workshop_id']]);
             }
+
+            return $insertId ?: true;
         }
 
-        return $success ? $this->db->lastInsertId() : false;
+        return false;
     }
 
     public function getAllRegistrations(string $statusFilter = '', string $workshopFilter = ''): array
@@ -171,6 +175,27 @@ class WorkshopModel extends BaseModel
         if (!$this->db) return 0;
         $stmt = $this->db->query("SELECT COUNT(*) FROM workshop_registrations WHERE deleted_at IS NOT NULL");
         return (int)$stmt->fetchColumn();
+    }
+
+    public function bulkSoftDeleteRegistrations(array $ids): bool
+    {
+        if (!$this->db || empty($ids)) return false;
+        $in = implode(',', array_map('intval', $ids));
+        return (bool)$this->db->exec("UPDATE workshop_registrations SET deleted_at = NOW() WHERE id IN ({$in})");
+    }
+
+    public function bulkRestoreRegistrations(array $ids): bool
+    {
+        if (!$this->db || empty($ids)) return false;
+        $in = implode(',', array_map('intval', $ids));
+        return (bool)$this->db->exec("UPDATE workshop_registrations SET deleted_at = NULL WHERE id IN ({$in})");
+    }
+
+    public function bulkHardDeleteRegistrations(array $ids): bool
+    {
+        if (!$this->db || empty($ids)) return false;
+        $in = implode(',', array_map('intval', $ids));
+        return (bool)$this->db->exec("DELETE FROM workshop_registrations WHERE id IN ({$in})");
     }
 
     public function createWorkshopPackage(array $data): bool|string

@@ -93,4 +93,39 @@ class AdminNotificationController extends BaseController
         header('Location: ' . admin_url('notifications') . '?err=' . urlencode('Lỗi khi xóa thông báo.'));
         exit;
     }
+
+    public function bulkDelete(): void
+    {
+        AuthService::requireRole(['admin']);
+
+        $ids = $_POST['ids'] ?? [];
+        if (!is_array($ids) || empty($ids)) {
+            header('Location: ' . admin_url('notifications') . '?err=' . urlencode('Vui lòng chọn ít nhất 1 thông báo để xóa.'));
+            exit;
+        }
+
+        $count = count($ids);
+        (new NotificationModel())->bulkSoftDelete($ids);
+
+        header('Location: ' . admin_url('notifications') . '?msg=' . urlencode("Đã chuyển {$count} thông báo được chọn vào thùng rác thành công!"));
+        exit;
+    }
+
+    public function bulkMarkReadApi(): void
+    {
+        header('Content-Type: application/json; charset=utf-8');
+        if (!AuthService::check()) {
+            echo json_encode(['success' => false]);
+            exit;
+        }
+
+        $ids = $_POST['ids'] ?? [];
+        if (is_array($ids) && !empty($ids)) {
+            (new NotificationModel())->bulkMarkAsRead($ids);
+        }
+
+        $notifModel = new NotificationModel();
+        echo json_encode(['success' => true, 'unread_count' => $notifModel->getUnreadCount()]);
+        exit;
+    }
 }

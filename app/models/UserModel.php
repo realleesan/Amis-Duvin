@@ -104,4 +104,29 @@ class UserModel extends BaseModel
         $stmt = $this->db->query("SELECT COUNT(*) FROM {$this->table} WHERE deleted_at IS NOT NULL");
         return (int)$stmt->fetchColumn();
     }
+
+    public function bulkSoftDelete(array $ids, int $currentUserId = 0): bool
+    {
+        if (!$this->db || empty($ids)) return false;
+        $filtered = array_filter(array_map('intval', $ids), fn($id) => $id > 0 && $id !== $currentUserId);
+        if (empty($filtered)) return false;
+        $in = implode(',', $filtered);
+        return (bool)$this->db->exec("UPDATE {$this->table} SET deleted_at = NOW() WHERE id IN ({$in})");
+    }
+
+    public function bulkRestore(array $ids): bool
+    {
+        if (!$this->db || empty($ids)) return false;
+        $in = implode(',', array_map('intval', $ids));
+        return (bool)$this->db->exec("UPDATE {$this->table} SET deleted_at = NULL WHERE id IN ({$in})");
+    }
+
+    public function bulkHardDelete(array $ids, int $currentUserId = 0): bool
+    {
+        if (!$this->db || empty($ids)) return false;
+        $filtered = array_filter(array_map('intval', $ids), fn($id) => $id > 0 && $id !== $currentUserId);
+        if (empty($filtered)) return false;
+        $in = implode(',', $filtered);
+        return (bool)$this->db->exec("DELETE FROM {$this->table} WHERE id IN ({$in})");
+    }
 }

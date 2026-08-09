@@ -220,4 +220,29 @@ class AdminBookingController extends BaseController
         header('Location: ' . admin_url('bookings') . '?err=' . urlencode('Lỗi khi xóa đơn đặt tiệc.'));
         exit;
     }
+
+    public function bulkDelete(): void
+    {
+        AuthService::requireRole(['admin']);
+
+        $ids = $_POST['ids'] ?? [];
+        if (!is_array($ids) || empty($ids)) {
+            header('Location: ' . admin_url('bookings') . '?err=' . urlencode('Vui lòng chọn ít nhất 1 đơn tiệc để xóa.'));
+            exit;
+        }
+
+        $count = count($ids);
+        (new BookingModel())->bulkSoftDelete($ids);
+
+        $currentUser = AuthService::user();
+        NotificationService::notifySystem(
+            "Xóa tạm đơn tiệc hàng loạt",
+            "Quản trị viên {$currentUser['full_name']} vừa chuyển {$count} đơn tiệc vào thùng rác.",
+            admin_url('trash') . "?type=bookings",
+            $currentUser
+        );
+
+        header('Location: ' . admin_url('bookings') . '?msg=' . urlencode("Đã chuyển {$count} đơn tiệc được chọn vào thùng rác thành công!"));
+        exit;
+    }
 }

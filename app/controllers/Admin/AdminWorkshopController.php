@@ -225,4 +225,29 @@ class AdminWorkshopController extends BaseController
         header('Location: ' . admin_url('workshops') . '?tab=registrations&err=' . urlencode('Lỗi khi xóa đăng ký Workshop.'));
         exit;
     }
+
+    public function bulkDeleteRegistration(): void
+    {
+        AuthService::requireRole(['admin']);
+
+        $ids = $_POST['ids'] ?? [];
+        if (!is_array($ids) || empty($ids)) {
+            header('Location: ' . admin_url('workshops') . '?tab=registrations&err=' . urlencode('Vui lòng chọn ít nhất 1 đăng ký Workshop để xóa.'));
+            exit;
+        }
+
+        $count = count($ids);
+        (new WorkshopModel())->bulkSoftDeleteRegistrations($ids);
+
+        $currentUser = AuthService::user();
+        NotificationService::notifySystem(
+            "Xóa tạm đăng ký Workshop hàng loạt",
+            "Quản trị viên {$currentUser['full_name']} vừa chuyển {$count} đăng ký Workshop vào thùng rác.",
+            admin_url('trash') . "?type=workshops",
+            $currentUser
+        );
+
+        header('Location: ' . admin_url('workshops') . '?tab=registrations&msg=' . urlencode("Đã chuyển {$count} đăng ký Workshop được chọn vào thùng rác thành công!"));
+        exit;
+    }
 }
