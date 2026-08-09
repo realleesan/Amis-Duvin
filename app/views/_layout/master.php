@@ -3,16 +3,101 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><?= htmlspecialchars($title ?? 'Amis du Vin — Rượu vang và những người bạn') ?></title>
-  <meta name="description" content="Amis du Vin — Không gian Tiệc riêng tư & Tinh hoa ẩm thực Rượu vang tại Hà Nội. Trải nghiệm Food & Wine Pairing và Workshop rượu vang tinh tế.">
-  <meta name="keywords" content="Amis du Vin, Rượu vang Hà Nội, Tiệc riêng tư, Food and Wine Pairing, Sommelier Alex Thịnh, Workshop rượu vang">
+  <?php
+    $metaTitle = htmlspecialchars($seo['meta_title'] ?? $title ?? 'Amis du Vin — Rượu vang và những người bạn');
+    $metaDesc = htmlspecialchars($seo['meta_description'] ?? 'Amis du Vin — Không gian Tiệc riêng tư & Tinh hoa ẩm thực Rượu vang tại Hà Nội.');
+    $metaKey = htmlspecialchars($seo['meta_keywords'] ?? 'Amis du Vin, Rượu vang Hà Nội, Tiệc riêng tư, Food and Wine Pairing');
+    $ogImg = htmlspecialchars($seo['og_image'] ?? 'https://media.base44.com/images/public/6a623336361c483b3f15558c/1d3f75363_generated_b7d85214.png/v1/fill/w_1171,h_927,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/1d3f75363_generated_b7d85214.webp');
+    $canonicalUrl = htmlspecialchars($seo['canonical_url'] ?? 'https://amis.duvin.vn/');
+  ?>
+  <title><?= $metaTitle ?></title>
+  <meta name="description" content="<?= $metaDesc ?>">
+  <meta name="keywords" content="<?= $metaKey ?>">
+  <link rel="canonical" href="<?= $canonicalUrl ?>">
   
   <!-- Open Graph / Zalo / Facebook Meta Tags -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://amis.duvin.vn/">
-  <meta property="og:title" content="<?= htmlspecialchars($title ?? 'Amis du Vin — Rượu vang và những người bạn') ?>">
-  <meta property="og:description" content="Trải nghiệm tiệc riêng tư kết hợp ẩm thực và rượu vang tinh tế, trọn vẹn văn hoá vang tại Hà Nội.">
-  <meta property="og:image" content="https://media.base44.com/images/public/6a623336361c483b3f15558c/1d3f75363_generated_b7d85214.png/v1/fill/w_1171,h_927,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/1d3f75363_generated_b7d85214.webp">
+  <meta property="og:url" content="<?= $canonicalUrl ?>">
+  <meta property="og:title" content="<?= $metaTitle ?>">
+  <meta property="og:description" content="<?= $metaDesc ?>">
+  <meta property="og:image" content="<?= $ogImg ?>">
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="<?= $metaTitle ?>">
+  <meta name="twitter:description" content="<?= $metaDesc ?>">
+  <meta name="twitter:image" content="<?= $ogImg ?>">
+
+  <!-- JSON-LD Structured Data Schemas (Google Rich Snippets) -->
+  <?php
+    $schemaGraph = [
+      '@context' => 'https://schema.org',
+      '@graph' => [
+        [
+          '@type' => 'Restaurant',
+          '@id' => 'https://amis.duvin.vn/#restaurant',
+          'name' => 'Amis du Vin',
+          'image' => $seo['og_image'] ?? $ogImg,
+          'url' => 'https://amis.duvin.vn/',
+          'telephone' => '091 968 65 40',
+          'priceRange' => '1.500.000đ - 5.000.000đ',
+          'servesCuisine' => ['Wine Pairing', 'Fine Dining', 'European Cuisine'],
+          'address' => [
+            '@type' => 'PostalAddress',
+            'streetAddress' => '58B Võ Văn Dũng, Phường Ô Chợ Dừa',
+            'addressLocality' => 'Quận Đống Đa',
+            'addressRegion' => 'Hà Nội',
+            'postalCode' => '100000',
+            'addressCountry' => 'VN'
+          ],
+          'geo' => [
+            '@type' => 'GeoCoordinates',
+            'latitude' => 21.0167,
+            'longitude' => 105.8239
+          ],
+          'openingHoursSpecification' => [
+            '@type' => 'OpeningHoursSpecification',
+            'dayOfWeek' => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+            'opens' => '10:00',
+            'closes' => '23:00'
+          ]
+        ],
+        [
+          '@type' => 'Organization',
+          '@id' => 'https://amis.duvin.vn/#organization',
+          'name' => 'Amis du Vin',
+          'url' => 'https://amis.duvin.vn/',
+          'logo' => 'https://media.base44.com/images/public/6a623336361c483b3f15558c/de2b27acb_LogoAmisDuVin.png',
+          'parentOrganization' => [
+            '@type' => 'Organization',
+            'name' => 'Hệ sinh thái Vang Huy Phong'
+          ]
+        ]
+      ]
+    ];
+
+    if (!empty($faqs) && is_array($faqs)) {
+      $faqSchemaItems = [];
+      foreach ($faqs as $f) {
+        $faqSchemaItems[] = [
+          '@type' => 'Question',
+          'name' => $f['question'],
+          'acceptedAnswer' => [
+            '@type' => 'Answer',
+            'text' => $f['answer']
+          ]
+        ];
+      }
+      $schemaGraph['@graph'][] = [
+        '@type' => 'FAQPage',
+        '@id' => 'https://amis.duvin.vn/#faqpage',
+        'mainEntity' => $faqSchemaItems
+      ];
+    }
+
+    $jsonLdString = json_encode($schemaGraph, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+    echo '<script type="application/ld+json">' . "\n" . $jsonLdString . "\n" . '</script>' . "\n";
+  ?>
 
   <link rel="icon" type="image/png" href="https://media.base44.com/images/public/6a623336361c483b3f15558c/de2b27acb_LogoAmisDuVin.png">
   <link rel="apple-touch-icon" href="https://media.base44.com/images/public/6a623336361c483b3f15558c/de2b27acb_LogoAmisDuVin.png">

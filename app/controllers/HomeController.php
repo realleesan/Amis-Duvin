@@ -10,6 +10,7 @@ use App\Models\FaqModel;
 use App\Models\BenefitModel;
 use App\Models\HeroModel;
 use App\Models\ServiceIntroModel;
+use App\Models\SeoModel;
 
 class HomeController extends BaseController
 {
@@ -38,8 +39,12 @@ class HomeController extends BaseController
         $serviceIntroModel = new ServiceIntroModel();
         $serviceIntro = $serviceIntroModel->getServiceIntroSettings();
 
+        $seoModel = new SeoModel();
+        $seo = $seoModel->getSeoSettings();
+
         $this->view('home/index', [
-            'title' => 'Amis du Vin — Nghệ thuật Thưởng thức Vang & Food Pairing',
+            'title' => $seo['meta_title'] ?? 'Amis du Vin — Nghệ thuật Thưởng thức Vang & Food Pairing',
+            'seo' => $seo,
             'workshops' => $workshops,
             'featuredWorkshops' => $featuredWorkshops,
             'topicWorkshops' => $topicWorkshops,

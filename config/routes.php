@@ -10,11 +10,14 @@ use App\Controllers\Admin\AdminBookingController;
 use App\Controllers\Admin\AdminContentController;
 use App\Controllers\Admin\AdminGoogleSheetsController;
 use App\Controllers\Admin\AdminUserController;
+use App\Controllers\SeoController;
 use App\Middleware\AuthMiddleware;
 
 // Public Web Routes
 Router::get('/', [HomeController::class, 'index']);
 Router::get('/under-18', [HomeController::class, 'under18']);
+Router::get('/robots.txt', [SeoController::class, 'robots']);
+Router::get('/sitemap.xml', [SeoController::class, 'sitemap']);
 
 // API & Form Submissions
 Router::get('/api/availability', [BookingController::class, 'getAvailability']);
@@ -75,6 +78,9 @@ Router::post('/admin/content/faq/create', [AdminContentController::class, 'creat
     AuthMiddleware::class => ['admin', 'marketing']
 ]);
 Router::post('/admin/content/faq/delete', [AdminContentController::class, 'deleteFaq'], [
+    AuthMiddleware::class => ['admin', 'marketing']
+]);
+Router::post('/admin/content/seo', [AdminContentController::class, 'updateSeo'], [
     AuthMiddleware::class => ['admin', 'marketing']
 ]);
 

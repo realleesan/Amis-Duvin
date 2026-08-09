@@ -14,6 +14,53 @@ ob_start();
 
   <!-- Section Tabs / Forms Container -->
   <div class="space-y-8">
+    <!-- 0. SEO & Meta Tags Settings Form (Module 2.3 & 9.1) -->
+    <div class="rounded-sm border border-border/40 bg-card p-6 sm:p-8 space-y-6 shadow-sm">
+      <div class="border-b border-border/40 pb-4 flex items-center justify-between">
+        <div>
+          <span class="text-[10px] uppercase tracking-widest text-[var(--gold)]">Module 2.3 &amp; 9.1</span>
+          <h3 class="font-heading text-xl text-foreground">Cấu hình SEO Meta Tags &amp; Open Graph (Zalo/FB Sharing)</h3>
+        </div>
+        <span class="text-xs text-muted-foreground">SEO Optimization</span>
+      </div>
+
+      <form action="/admin/content/seo" method="POST" class="space-y-5">
+        <div class="grid sm:grid-cols-2 gap-5">
+          <div>
+            <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Meta Title (Tiêu đề SEO Trang chủ) *</label>
+            <input type="text" name="meta_title" required value="<?= htmlspecialchars($seo['meta_title'] ?? '') ?>" class="input-elegant w-full px-4 py-3 rounded-sm text-sm font-medium">
+          </div>
+
+          <div>
+            <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Canonical URL (Đường dẫn chuẩn)</label>
+            <input type="url" name="canonical_url" required value="<?= htmlspecialchars($seo['canonical_url'] ?? 'https://amis.duvin.vn/') ?>" class="input-elegant w-full px-4 py-3 rounded-sm text-sm font-medium">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Meta Description (Mô tả SEO khi tìm kiếm) *</label>
+          <textarea name="meta_description" rows="3" required class="input-elegant w-full p-3 rounded-sm text-sm leading-relaxed"><?= htmlspecialchars($seo['meta_description'] ?? '') ?></textarea>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-5">
+          <div>
+            <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Meta Keywords (Từ khóa SEO cách nhau bởi dấu phẩy)</label>
+            <input type="text" name="meta_keywords" value="<?= htmlspecialchars($seo['meta_keywords'] ?? '') ?>" class="input-elegant w-full px-4 py-3 rounded-sm text-sm font-medium">
+          </div>
+
+          <div>
+            <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Open Graph Image URL (Ảnh xem trước khi gửi Zalo/FB) *</label>
+            <input type="url" name="og_image" required value="<?= htmlspecialchars($seo['og_image'] ?? '') ?>" class="input-elegant w-full px-4 py-3 rounded-sm text-sm font-medium">
+          </div>
+        </div>
+
+        <div class="pt-2">
+          <button type="submit" class="btn-wine px-6 py-3 rounded-sm text-xs uppercase tracking-widest font-medium shadow-md">
+            Lưu thay đổi Cấu hình SEO
+          </button>
+        </div>
+      </form>
+    </div>
     <!-- 1. Section Hero Settings Form -->
     <div class="rounded-sm border border-border/40 bg-card p-6 sm:p-8 space-y-6 shadow-sm">
       <div class="border-b border-border/40 pb-4 flex items-center justify-between">

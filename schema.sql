@@ -227,4 +227,26 @@ INSERT INTO `google_sheets_config` (`id`, `sheet_id`, `webhook_url`, `is_active`
 (1, '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms', '', 1, 1)
 ON DUPLICATE KEY UPDATE `id` = `id`;
 
+-- Bảng Cấu hình SEO & Meta Tags
+CREATE TABLE IF NOT EXISTS `seo_settings` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `meta_title` VARCHAR(255) NOT NULL DEFAULT 'Amis du Vin — Rượu vang và những người bạn',
+  `meta_description` TEXT NOT NULL,
+  `meta_keywords` TEXT NOT NULL,
+  `og_image` VARCHAR(500) NOT NULL,
+  `canonical_url` VARCHAR(255) NOT NULL DEFAULT 'https://amis.duvin.vn/',
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `seo_settings` (`id`, `meta_title`, `meta_description`, `meta_keywords`, `og_image`, `canonical_url`) VALUES
+(1, 
+ 'Amis du Vin — Không gian Tiệc riêng tư & Tinh hoa ẩm thực Rượu vang', 
+ 'Amis du Vin — Không gian Tiệc riêng tư & Tinh hoa ẩm thực Rượu vang tại Hà Nội. Trải nghiệm Food & Wine Pairing và Workshop rượu vang tinh tế dưới sự dẫn dắt của Sommelier Alex Thịnh.', 
+ 'Amis du Vin, Rượu vang Hà Nội, Tiệc riêng tư, Food and Wine Pairing, Sommelier Alex Thịnh, Workshop rượu vang', 
+ 'https://media.base44.com/images/public/6a623336361c483b3f15558c/1d3f75363_generated_b7d85214.png/v1/fill/w_1171,h_927,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/1d3f75363_generated_b7d85214.webp', 
+ 'https://amis.duvin.vn/'
+)
+ON DUPLICATE KEY UPDATE `id` = `id`;
+
+
 

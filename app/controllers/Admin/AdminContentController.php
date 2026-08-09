@@ -11,6 +11,7 @@ use App\Models\TestimonialModel;
 use App\Models\FaqModel;
 use App\Models\BenefitModel;
 use App\Models\WorkshopModel;
+use App\Models\SeoModel;
 
 class AdminContentController extends BaseController
 {
@@ -38,6 +39,9 @@ class AdminContentController extends BaseController
 
         $workshopModel = new WorkshopModel();
         $workshops = $workshopModel->getAllWorkshops();
+
+        $seoModel = new SeoModel();
+        $seo = $seoModel->getSeoSettings();
 
         $user = AuthService::user();
         $msg = $_GET['msg'] ?? null;
@@ -297,6 +301,23 @@ class AdminContentController extends BaseController
         }
 
         header('Location: /admin/content?msg=' . urlencode('Đã xóa câu hỏi FAQ thành công!'));
+        exit;
+    }
+
+    public function updateSeo(): void
+    {
+        AuthService::requireRole(['admin', 'marketing']);
+
+        $metaTitle = trim($_POST['meta_title'] ?? '');
+        $metaDescription = trim($_POST['meta_description'] ?? '');
+        $metaKeywords = trim($_POST['meta_keywords'] ?? '');
+        $ogImage = trim($_POST['og_image'] ?? '');
+        $canonicalUrl = trim($_POST['canonical_url'] ?? '');
+
+        $seoModel = new SeoModel();
+        $seoModel->updateSeoSettings($metaTitle, $metaDescription, $metaKeywords, $ogImage, $canonicalUrl);
+
+        header('Location: /admin/content?msg=' . urlencode('Đã cập nhật cấu hình SEO & Meta Tags thành công!'));
         exit;
     }
 }
