@@ -45,6 +45,7 @@ class AdminContentController extends BaseController
         $seo = $seoModel->getSeoSettings();
 
         $user = AuthService::user();
+        $activeSection = $_GET['sec'] ?? 'all';
         $msg = $_GET['msg'] ?? null;
         $err = $_GET['err'] ?? null;
 
@@ -351,6 +352,53 @@ class AdminContentController extends BaseController
         $seoModel->updateSeoSettings($metaTitle, $metaDescription, $metaKeywords, $ogImage, $canonicalUrl);
 
         header('Location: ' . admin_url('content') . '?msg=' . urlencode('Đã cập nhật cấu hình SEO & Meta Tags thành công!'));
+        exit;
+    }
+
+    public function updateWorkshop(): void
+    {
+        AuthService::requireRole(['admin', 'marketing']);
+
+        $id = (int)($_POST['id'] ?? 0);
+        $title = trim($_POST['title'] ?? '');
+        $price = (float)($_POST['price'] ?? 0);
+
+        if ($id <= 0 || empty($title) || $price <= 0) {
+            header('Location: ' . admin_url('content') . '?err=' . urlencode('Vui lòng nhập thông tin Workshop hợp lệ.'));
+            exit;
+        }
+
+        $data = [
+            'title' => $title,
+            'level' => trim($_POST['level'] ?? 'Standard Level'),
+            'price' => $price,
+            'duration' => trim($_POST['duration'] ?? '2.5 giờ'),
+            'schedule' => trim($_POST['schedule'] ?? ''),
+            'location' => trim($_POST['location'] ?? 'Hầm rượu Amis du Vin'),
+            'max_participants' => max(1, (int)($_POST['max_participants'] ?? 12)),
+            'wines_count' => (int)($_POST['wines_count'] ?? 5),
+            'image' => trim($_POST['image'] ?? ''),
+            'description' => trim($_POST['description'] ?? ''),
+            'status' => trim($_POST['status'] ?? 'active'),
+            'is_featured' => isset($_POST['is_featured']) ? 1 : 0
+        ];
+
+        $workshopModel = new WorkshopModel();
+        $success = $workshopModel->updateWorkshopPackage($id, $data);
+
+        if ($success) {
+            $currentUser = AuthService::user();
+            NotificationService::notifyContent(
+                "Cập nhật Gói Workshop #{$id}",
+                "Nhân sự {$currentUser['full_name']} vừa chỉnh sửa thông tin gói Workshop '{$title}' từ trang Quản lý Nội dung.",
+                admin_url('content'),
+                $currentUser
+            );
+            header('Location: ' . admin_url('content') . '?msg=' . urlencode('Đã cập nhật thông tin Workshop thành công!'));
+            exit;
+        }
+
+        header('Location: ' . admin_url('content') . '?err=' . urlencode('Lỗi cập nhật Workshop.'));
         exit;
     }
 }

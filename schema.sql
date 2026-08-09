@@ -253,7 +253,7 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `user_id` INT NULL,
   `user_name` VARCHAR(100) NOT NULL DEFAULT 'Hệ thống',
-  `type` ENUM('booking', 'content', 'user', 'system') NOT NULL DEFAULT 'booking',
+  `type` ENUM('booking', 'workshop', 'content', 'user', 'system') NOT NULL DEFAULT 'booking',
   `title` VARCHAR(255) NOT NULL,
   `content` TEXT NOT NULL,
   `action_url` VARCHAR(255) NULL,

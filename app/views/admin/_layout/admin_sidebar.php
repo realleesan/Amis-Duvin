@@ -13,7 +13,7 @@ $userFullName = (is_array($user ?? null) && isset($user['full_name'])) ? $user['
   </div>
 
   <!-- Navigation Links -->
-  <nav class="flex-1 p-4 space-y-1 text-sm font-medium">
+  <nav class="flex-1 p-4 space-y-1 text-sm font-medium overflow-y-auto min-h-0">
     <a href="<?= admin_url() ?>" class="flex items-center gap-3 px-4 py-3 rounded-sm transition-colors <?= ($activeNav ?? '') === 'dashboard' ? 'admin-active-nav' : 'text-foreground/75 hover:bg-muted hover:text-foreground' ?>">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-dashboard w-4 h-4"><rect width="7" height="9" x="3" y="3" rx="1"></rect><rect width="7" height="5" x="14" y="3" rx="1"></rect><rect width="7" height="9" x="14" y="12" rx="1"></rect><rect width="7" height="5" x="3" y="16" rx="1"></rect></svg>
       <span>Tổng quan (Dashboard)</span>
@@ -34,13 +34,39 @@ $userFullName = (is_array($user ?? null) && isset($user['full_name'])) ? $user['
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar-check w-4 h-4"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path><path d="m9 16 2 2 4-4"></path></svg>
         <span>Quản lý Đặt tiệc (CSKH)</span>
       </a>
+
+      <a href="<?= admin_url('workshops') ?>" class="flex items-center gap-3 px-4 py-3 rounded-sm transition-colors <?= ($activeNav ?? '') === 'workshops' ? 'admin-active-nav' : 'text-foreground/75 hover:bg-muted hover:text-foreground' ?>">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-graduation-cap w-4 h-4"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"></path><path d="M22 10v6"></path><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path></svg>
+        <span>Quản lý Workshop</span>
+      </a>
     <?php endif; ?>
 
     <?php if (empty($userRole) || in_array($userRole, ['admin', 'marketing'], true)): ?>
-      <a href="<?= admin_url('content') ?>" class="flex items-center gap-3 px-4 py-3 rounded-sm transition-colors <?= ($activeNav ?? '') === 'content' ? 'admin-active-nav' : 'text-foreground/75 hover:bg-muted hover:text-foreground' ?>">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text w-4 h-4"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
-        <span>Nội dung Landing Page</span>
-      </a>
+      <?php 
+        $isContentActive = ($activeNav ?? '') === 'content';
+        $currSec = $_GET['sec'] ?? 'all';
+      ?>
+      <div class="space-y-0.5">
+        <button type="button" onclick="toggleContentSubmenu(event)" class="w-full flex items-center justify-between px-4 py-3 rounded-sm transition-colors <?= $isContentActive ? 'admin-active-nav' : 'text-foreground/75 hover:bg-muted hover:text-foreground' ?>">
+          <div class="flex items-center gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text w-4 h-4"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
+            <span>Nội dung Landing Page</span>
+          </div>
+          <svg id="contentSubmenuChevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down w-3.5 h-3.5 transition-transform duration-200 <?= $isContentActive ? 'rotate-180 text-[var(--gold)]' : '' ?>"><path d="m6 9 6 6 6-6"></path></svg>
+        </button>
+
+        <div id="contentSubmenu" class="pl-9 pr-2 py-1 space-y-1 text-[11px] font-normal <?= $isContentActive ? '' : 'hidden' ?>">
+          <a href="<?= admin_url('content') ?>?sec=all" class="block py-1.5 px-2 rounded font-medium transition-colors <?= $currSec === 'all' ? 'text-[var(--gold)] bg-muted/60 font-semibold' : 'text-muted-foreground hover:text-foreground hover:bg-muted/30' ?>">Tất cả các phần</a>
+          <a href="<?= admin_url('content') ?>?sec=seo" class="block py-1.5 px-2 rounded font-medium transition-colors <?= $currSec === 'seo' ? 'text-[var(--gold)] bg-muted/60 font-semibold' : 'text-muted-foreground hover:text-foreground hover:bg-muted/30' ?>">1. SEO &amp; Meta Tags</a>
+          <a href="<?= admin_url('content') ?>?sec=hero" class="block py-1.5 px-2 rounded font-medium transition-colors <?= $currSec === 'hero' ? 'text-[var(--gold)] bg-muted/60 font-semibold' : 'text-muted-foreground hover:text-foreground hover:bg-muted/30' ?>">2. Banner Hero</a>
+          <a href="<?= admin_url('content') ?>?sec=service-intro" class="block py-1.5 px-2 rounded font-medium transition-colors <?= $currSec === 'service-intro' ? 'text-[var(--gold)] bg-muted/60 font-semibold' : 'text-muted-foreground hover:text-foreground hover:bg-muted/30' ?>">3. Giới thiệu Dịch vụ</a>
+          <a href="<?= admin_url('content') ?>?sec=pairings" class="block py-1.5 px-2 rounded font-medium transition-colors <?= $currSec === 'pairings' ? 'text-[var(--gold)] bg-muted/60 font-semibold' : 'text-muted-foreground hover:text-foreground hover:bg-muted/30' ?>">4. Gói tiệc Pairing</a>
+          <a href="<?= admin_url('content') ?>?sec=workshops" class="block py-1.5 px-2 rounded font-medium transition-colors <?= $currSec === 'workshops' ? 'text-[var(--gold)] bg-muted/60 font-semibold' : 'text-muted-foreground hover:text-foreground hover:bg-muted/30' ?>">5. Gói Workshop</a>
+          <a href="<?= admin_url('content') ?>?sec=benefits" class="block py-1.5 px-2 rounded font-medium transition-colors <?= $currSec === 'benefits' ? 'text-[var(--gold)] bg-muted/60 font-semibold' : 'text-muted-foreground hover:text-foreground hover:bg-muted/30' ?>">6. Lợi ích cốt lõi</a>
+          <a href="<?= admin_url('content') ?>?sec=testimonials" class="block py-1.5 px-2 rounded font-medium transition-colors <?= $currSec === 'testimonials' ? 'text-[var(--gold)] bg-muted/60 font-semibold' : 'text-muted-foreground hover:text-foreground hover:bg-muted/30' ?>">7. Đánh giá khách hàng</a>
+          <a href="<?= admin_url('content') ?>?sec=faq" class="block py-1.5 px-2 rounded font-medium transition-colors <?= $currSec === 'faq' ? 'text-[var(--gold)] bg-muted/60 font-semibold' : 'text-muted-foreground hover:text-foreground hover:bg-muted/30' ?>">8. Câu hỏi FAQ</a>
+        </div>
+      </div>
     <?php endif; ?>
 
     <?php if (empty($userRole) || $userRole === 'admin'): ?>
@@ -69,3 +95,15 @@ $userFullName = (is_array($user ?? null) && isset($user['full_name'])) ? $user['
     </div>
   </div>
 </aside>
+
+<script>
+function toggleContentSubmenu(e) {
+  e.preventDefault();
+  const menu = document.getElementById('contentSubmenu');
+  const chevron = document.getElementById('contentSubmenuChevron');
+  if (menu) {
+    menu.classList.toggle('hidden');
+    if (chevron) chevron.classList.toggle('rotate-180');
+  }
+}
+</script>

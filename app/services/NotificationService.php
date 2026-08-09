@@ -11,6 +11,11 @@ class NotificationService
         return (new NotificationModel())->createNotification('booking', $title, $content, $actionUrl, $user);
     }
 
+    public static function notifyWorkshop(string $title, string $content, ?string $actionUrl = null, ?array $user = null): bool
+    {
+        return (new NotificationModel())->createNotification('workshop', $title, $content, $actionUrl, $user);
+    }
+
     public static function notifyContent(string $title, string $content, ?string $actionUrl = null, ?array $user = null): bool
     {
         return (new NotificationModel())->createNotification('content', $title, $content, $actionUrl, $user);

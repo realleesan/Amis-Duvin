@@ -70,13 +70,14 @@ ob_start();
             <th class="p-4">Số khách</th>
             <th class="p-4">Ngày tiệc / Ca</th>
             <th class="p-4">Trạng thái cọc</th>
+            <th class="p-4">Ngày tạo</th>
             <th class="p-4 text-right">Thao tác</th>
           </tr>
         </thead>
         <tbody class="divide-y divide-border/40">
           <?php if (empty($bookings)): ?>
             <tr>
-              <td colspan="7" class="p-8 text-center text-muted-foreground text-sm">
+              <td colspan="8" class="p-8 text-center text-muted-foreground text-sm">
                 Chưa có đơn đặt tiệc nào phù hợp với bộ lọc.
               </td>
             </tr>
@@ -113,6 +114,9 @@ ob_start();
                   <span class="inline-block text-[11px] font-medium px-2.5 py-1 rounded-full border <?= $badgeClass ?>">
                     <?= htmlspecialchars($status) ?>
                   </span>
+                </td>
+                <td class="p-4 text-xs text-muted-foreground font-mono whitespace-nowrap">
+                  <?= !empty($b['created_at']) ? date('d/m/Y H:i', strtotime($b['created_at'])) : '—' ?>
                 </td>
                 <td class="p-4 text-right space-x-2">
                   <!-- Quick Edit Status Modal Trigger -->

@@ -444,11 +444,46 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 10);
   };
 
-  window.handleWorkshopModalSubmit = function(event) {
+  window.handleWorkshopModalSubmit = async function(event) {
     if (event) event.preventDefault();
-    closeWorkshopModal();
-    const workshopSuccessModal = document.getElementById('workshopSuccessModal');
-    if (workshopSuccessModal) workshopSuccessModal.classList.add('active');
+    const form = document.getElementById('workshopModalForm');
+    if (!form) return;
+
+    const btnSubmit = document.getElementById('btnWsModalSubmit');
+    if (btnSubmit) {
+      btnSubmit.disabled = true;
+      btnSubmit.textContent = 'Đang gửi đăng ký...';
+    }
+
+    const formData = new FormData(form);
+    const payload = Object.fromEntries(formData.entries());
+    payload.addons = formData.getAll('addons[]');
+
+    try {
+      const res = await fetch('/api/workshop-register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await res.json();
+      if (res.ok && data.success) {
+        form.reset();
+        closeWorkshopModal();
+        const workshopSuccessModal = document.getElementById('workshopSuccessModal');
+        if (workshopSuccessModal) workshopSuccessModal.classList.add('active');
+      } else {
+        alert(data.message || 'Vui lòng kiểm tra lại họ tên và số điện thoại.');
+      }
+    } catch (err) {
+      console.error('Workshop register error:', err);
+      alert('Đã xảy ra lỗi kết nối. Vui lòng thử lại!');
+    } finally {
+      if (btnSubmit) {
+        btnSubmit.disabled = false;
+        btnSubmit.textContent = 'Giữ chỗ';
+      }
+    }
   };
 
   // Workshop Details Modal Handlers

@@ -10,6 +10,7 @@ use App\Controllers\Admin\AdminBookingController;
 use App\Controllers\Admin\AdminContentController;
 use App\Controllers\Admin\AdminGoogleSheetsController;
 use App\Controllers\Admin\AdminUserController;
+use App\Controllers\Admin\AdminWorkshopController;
 use App\Controllers\SeoController;
 use App\Middleware\AuthMiddleware;
 
@@ -65,6 +66,23 @@ Router::post(admin_url('bookings/sync'), [AdminBookingController::class, 'syncSh
     AuthMiddleware::class => ['admin', 'cskh']
 ]);
 
+// Workshop Protected Routes
+Router::get(admin_url('workshops'), [AdminWorkshopController::class, 'index'], [
+    AuthMiddleware::class => ['admin', 'cskh']
+]);
+Router::post(admin_url('workshops/registration/update'), [AdminWorkshopController::class, 'updateRegistration'], [
+    AuthMiddleware::class => ['admin', 'cskh']
+]);
+Router::post(admin_url('workshops/registration/manual-create'), [AdminWorkshopController::class, 'manualCreateRegistration'], [
+    AuthMiddleware::class => ['admin', 'cskh']
+]);
+Router::post(admin_url('workshops/create'), [AdminWorkshopController::class, 'createWorkshop'], [
+    AuthMiddleware::class => ['admin']
+]);
+Router::post(admin_url('workshops/update'), [AdminWorkshopController::class, 'updateWorkshop'], [
+    AuthMiddleware::class => ['admin']
+]);
+
 Router::get(admin_url('content'), [AdminContentController::class, 'index'], [
     AuthMiddleware::class => ['admin', 'marketing']
 ]);
@@ -75,6 +93,9 @@ Router::post(admin_url('content/service-intro'), [AdminContentController::class,
     AuthMiddleware::class => ['admin', 'marketing']
 ]);
 Router::post(admin_url('content/pairing'), [AdminContentController::class, 'updatePairing'], [
+    AuthMiddleware::class => ['admin', 'marketing']
+]);
+Router::post(admin_url('content/workshop'), [AdminContentController::class, 'updateWorkshop'], [
     AuthMiddleware::class => ['admin', 'marketing']
 ]);
 Router::post(admin_url('content/benefit'), [AdminContentController::class, 'updateBenefit'], [

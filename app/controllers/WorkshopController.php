@@ -12,32 +12,58 @@ class WorkshopController extends BaseController
     {
         $input = json_decode(file_get_contents('php://input'), true) ?? $_POST;
 
-        $name = trim($input['name'] ?? '');
+        $name = trim($input['full_name'] ?? $input['name'] ?? '');
         $phone = trim($input['phone'] ?? '');
         $email = trim($input['email'] ?? '');
-        $workshopId = (int)($input['workshop_id'] ?? 0);
-        $participants = (int)($input['participants'] ?? 1);
+        $workshopId = (int)($input['workshop_id'] ?? 1);
+        $participants = max(1, (int)($input['participants'] ?? $input['guests'] ?? 1));
 
-        if (mb_strlen($name) < 2 || !preg_match('/^0\d{9}$/', $phone) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $this->json(['success' => false, 'message' => 'Vui lòng kiểm tra lại thông tin nhập'], 422);
+        if (mb_strlen($name) < 2 || !preg_match('/^0\d{9,10}$/', $phone)) {
+            $this->json(['success' => false, 'message' => 'Vui lòng kiểm tra lại họ tên và số điện thoại (10 số).'], 422);
             return;
         }
 
         $workshopModel = new WorkshopModel();
-        $res = $workshopModel->registerParticipant([
-            'workshop_id'  => $workshopId,
-            'full_name'    => sanitize($name),
-            'phone'        => sanitize($phone),
-            'email'        => sanitize($email),
-            'participants' => $participants,
-            'notes'        => sanitize($input['notes'] ?? ''),
-        ]);
 
-        if ($res['success']) {
-            NotificationService::notifyBooking(
+        $selectedWorkshops = [$workshopId > 0 ? $workshopId : 1];
+        if (!empty($input['addons']) && is_array($input['addons'])) {
+            foreach ($input['addons'] as $addonId) {
+                $aId = (int)$addonId;
+                if ($aId > 0 && !in_array($aId, $selectedWorkshops, true)) {
+                    $selectedWorkshops[] = $aId;
+                }
+            }
+        }
+
+        $registeredCount = 0;
+        $registeredTitles = [];
+
+        foreach ($selectedWorkshops as $wId) {
+            $wsDetail = $workshopModel->getWorkshopById($wId);
+            $wsTitle = $wsDetail['title'] ?? "Workshop #{$wId}";
+
+            $resId = $workshopModel->registerParticipant([
+                'workshop_id'  => $wId,
+                'full_name'    => sanitize($name),
+                'phone'        => sanitize($phone),
+                'email'        => sanitize($email),
+                'participants' => $participants,
+                'notes'        => sanitize($input['notes'] ?? ''),
+                'status'       => 'pending'
+            ]);
+
+            if ($resId) {
+                $registeredCount++;
+                $registeredTitles[] = $wsTitle;
+            }
+        }
+
+        if ($registeredCount > 0) {
+            $titlesStr = implode(', ', $registeredTitles);
+            NotificationService::notifyWorkshop(
                 "Đăng ký Workshop mới: {$name}",
-                "Khách hàng {$name} ({$phone}) vừa đăng ký Workshop ({$participants} vé).",
-                admin_url('bookings')
+                "Khách hàng {$name} ({$phone}) vừa đăng ký các Workshop: [{$titlesStr}] ({$participants} vé/lớp).",
+                admin_url('workshops')
             );
         }
 

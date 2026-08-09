@@ -6,14 +6,40 @@ ob_start();
 ?>
 
 <div class="space-y-8">
-  <!-- Header -->
-  <div class="border-b border-border/40 pb-6">
-    <h2 class="font-heading text-2xl sm:text-3xl text-foreground">Quản lý Nội dung Landing Page</h2>
-    <p class="text-sm text-muted-foreground mt-1">Cấu hình linh hoạt văn bản, khẩu hiệu và hình ảnh các section trên trang web</p>
+  <!-- Header & Quick Section Filter -->
+  <div class="border-b border-border/40 pb-6 space-y-4">
+    <div>
+      <h2 class="font-heading text-2xl sm:text-3xl text-foreground">Quản lý Nội dung Landing Page</h2>
+      <p class="text-sm text-muted-foreground mt-1">Cấu hình linh hoạt văn bản, khẩu hiệu và hình ảnh các section trên trang web</p>
+    </div>
+
+    <!-- Top Section Quick Selector Bar -->
+    <div class="flex flex-wrap items-center gap-1.5 p-1.5 rounded-sm bg-muted/30 border border-border/40 text-xs overflow-x-auto">
+      <?php
+        $secs = [
+          'all' => 'Tất cả các phần',
+          'seo' => '1. SEO & Meta Tags',
+          'hero' => '2. Banner Hero',
+          'service-intro' => '3. Giới thiệu Dịch vụ',
+          'pairings' => '4. Gói tiệc Pairing',
+          'workshops' => '5. Gói Workshop',
+          'benefits' => '6. Lợi ích cốt lõi',
+          'testimonials' => '7. Đánh giá khách hàng',
+          'faq' => '8. Câu hỏi FAQ'
+        ];
+        foreach ($secs as $secKey => $secLabel):
+          $isActive = ($activeSection ?? 'all') === $secKey;
+      ?>
+        <a href="<?= admin_url('content') ?>?sec=<?= $secKey ?>" class="px-3 py-1.5 rounded-sm font-semibold whitespace-nowrap transition-colors <?= $isActive ? 'bg-card text-[var(--gold)] border border-border/40 shadow-sm' : 'text-muted-foreground hover:text-foreground hover:bg-muted/50' ?>">
+          <?= $secLabel ?>
+        </a>
+      <?php endforeach; ?>
+    </div>
   </div>
 
-  <!-- Section Tabs / Forms Container -->
+  <!-- Section Forms Container -->
   <div class="space-y-8">
+    <?php if (in_array($activeSection ?? 'all', ['all', 'seo'], true)): ?>
     <!-- 0. SEO & Meta Tags Settings Form (Module 2.3 & 9.1) -->
     <div class="rounded-sm border border-border/40 bg-card p-6 sm:p-8 space-y-6 shadow-sm">
       <div class="border-b border-border/40 pb-4 flex items-center justify-between">
@@ -61,6 +87,9 @@ ob_start();
         </div>
       </form>
     </div>
+    <?php endif; ?>
+
+    <?php if (in_array($activeSection ?? 'all', ['all', 'hero'], true)): ?>
     <!-- 1. Section Hero Settings Form -->
     <div class="rounded-sm border border-border/40 bg-card p-6 sm:p-8 space-y-6 shadow-sm">
       <div class="border-b border-border/40 pb-4 flex items-center justify-between">
@@ -108,7 +137,9 @@ ob_start();
         </div>
       </form>
     </div>
+    <?php endif; ?>
 
+    <?php if (in_array($activeSection ?? 'all', ['all', 'benefits'], true)): ?>
     <!-- 2. Section 3 Lợi ích Cốt lõi (Module 2.1) -->
     <div class="rounded-sm border border-border/40 bg-card p-6 sm:p-8 space-y-6 shadow-sm">
       <div class="border-b border-border/40 pb-4 flex items-center justify-between">
@@ -148,7 +179,9 @@ ob_start();
         <?php endforeach; ?>
       </div>
     </div>
+    <?php endif; ?>
 
+    <?php if (in_array($activeSection ?? 'all', ['all', 'service-intro'], true)): ?>
     <!-- 3. Section Giới thiệu Dịch vụ Settings Form (Module 3.1) -->
     <div class="rounded-sm border border-border/40 bg-card p-6 sm:p-8 space-y-6 shadow-sm">
       <div class="border-b border-border/40 pb-4 flex items-center justify-between">
@@ -214,7 +247,9 @@ ob_start();
         </div>
       </form>
     </div>
+    <?php endif; ?>
 
+    <?php if (in_array($activeSection ?? 'all', ['all', 'pairings'], true)): ?>
     <!-- 4. Section Các Gói tiệc Pairing Form (Module 3.2) -->
     <div class="rounded-sm border border-border/40 bg-card p-6 sm:p-8 space-y-6 shadow-sm">
       <div class="border-b border-border/40 pb-4 flex items-center justify-between">
@@ -322,8 +357,109 @@ ob_start();
         <?php endforeach; ?>
       </div>
     </div>
+    <?php endif; ?>
 
-    <!-- 5. Section Đánh giá Khách hàng Testimonials (Module 5.2 - Full CRUD) -->
+    <?php if (in_array($activeSection ?? 'all', ['all', 'workshops'], true)): ?>
+    <!-- 5. Section Các Gói Workshop & Khóa học (Module 3.3) -->
+    <div class="rounded-sm border border-border/40 bg-card p-6 sm:p-8 space-y-6 shadow-sm">
+      <div class="border-b border-border/40 pb-4 flex items-center justify-between">
+        <div>
+          <span class="text-[10px] uppercase tracking-widest text-[var(--gold)]">Module 3.3</span>
+          <h3 class="font-heading text-xl text-foreground">Danh sách Các Gói Workshop &amp; Khóa học Trải nghiệm</h3>
+        </div>
+        <span class="text-xs text-muted-foreground">Dynamic Workshop CMS</span>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-6">
+        <?php foreach ($workshops as $ws): ?>
+          <div class="rounded-sm border border-border/40 bg-card/40 p-5 space-y-4 shadow-sm">
+            <h4 class="font-heading text-lg text-foreground flex items-center justify-between">
+              <span><?= htmlspecialchars($ws['title']) ?></span>
+              <span class="text-xs text-[var(--gold)] font-mono font-normal"><?= number_format($ws['price']) ?>đ/khách</span>
+            </h4>
+
+            <form action="<?= admin_url('content/workshop') ?>" method="POST" class="space-y-3">
+              <input type="hidden" name="id" value="<?= $ws['id'] ?>">
+
+              <div>
+                <label for="wsTitle_<?= $ws['id'] ?>" class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Tên Workshop *</label>
+                <input type="text" id="wsTitle_<?= $ws['id'] ?>" name="title" autocomplete="off" value="<?= htmlspecialchars($ws['title']) ?>" required class="input-elegant w-full px-3 py-2 rounded-sm text-xs font-medium">
+              </div>
+
+              <div class="grid grid-cols-2 gap-2">
+                <div>
+                  <label for="wsLevel_<?= $ws['id'] ?>" class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Phân cấp (Level)</label>
+                  <input type="text" id="wsLevel_<?= $ws['id'] ?>" name="level" autocomplete="off" value="<?= htmlspecialchars($ws['level']) ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs">
+                </div>
+                <div>
+                  <label for="wsPrice_<?= $ws['id'] ?>" class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Giá vé (VNĐ) *</label>
+                  <input type="number" id="wsPrice_<?= $ws['id'] ?>" name="price" autocomplete="off" value="<?= (float)$ws['price'] ?>" required step="10000" class="input-elegant w-full px-3 py-2 rounded-sm text-xs font-mono text-[var(--gold)] font-semibold">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-3 gap-2">
+                <div>
+                  <label for="wsDuration_<?= $ws['id'] ?>" class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Thời lượng</label>
+                  <input type="text" id="wsDuration_<?= $ws['id'] ?>" name="duration" autocomplete="off" value="<?= htmlspecialchars($ws['duration']) ?>" class="input-elegant w-full px-2.5 py-1.5 rounded-sm text-xs">
+                </div>
+                <div>
+                  <label for="wsWines_<?= $ws['id'] ?>" class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Số dòng vang</label>
+                  <input type="number" id="wsWines_<?= $ws['id'] ?>" name="wines_count" autocomplete="off" value="<?= (int)$ws['wines_count'] ?>" class="input-elegant w-full px-2.5 py-1.5 rounded-sm text-xs">
+                </div>
+                <div>
+                  <label for="wsMax_<?= $ws['id'] ?>" class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Chỗ tối đa</label>
+                  <input type="number" id="wsMax_<?= $ws['id'] ?>" name="max_participants" autocomplete="off" value="<?= (int)$ws['max_participants'] ?>" class="input-elegant w-full px-2.5 py-1.5 rounded-sm text-xs">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-2">
+                <div>
+                  <label for="wsSchedule_<?= $ws['id'] ?>" class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Lịch học</label>
+                  <input type="text" id="wsSchedule_<?= $ws['id'] ?>" name="schedule" autocomplete="off" value="<?= htmlspecialchars($ws['schedule']) ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs">
+                </div>
+                <div>
+                  <label for="wsLocation_<?= $ws['id'] ?>" class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Địa điểm</label>
+                  <input type="text" id="wsLocation_<?= $ws['id'] ?>" name="location" autocomplete="off" value="<?= htmlspecialchars($ws['location']) ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs">
+                </div>
+              </div>
+
+              <div>
+                <label for="wsImage_<?= $ws['id'] ?>" class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Link Ảnh bìa Workshop</label>
+                <input type="url" id="wsImage_<?= $ws['id'] ?>" name="image" autocomplete="off" value="<?= htmlspecialchars($ws['image']) ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs font-mono">
+              </div>
+
+              <div>
+                <label for="wsDesc_<?= $ws['id'] ?>" class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Mô tả tóm tắt</label>
+                <textarea id="wsDesc_<?= $ws['id'] ?>" name="description" rows="2" autocomplete="off" class="input-elegant w-full p-2.5 rounded-sm text-xs leading-relaxed"><?= htmlspecialchars($ws['description']) ?></textarea>
+              </div>
+
+              <div class="flex items-center justify-between pt-1">
+                <div class="flex items-center gap-3">
+                  <select name="status" class="input-elegant px-2.5 py-1 rounded text-xs">
+                    <option value="active" <?= $ws['status'] === 'active' ? 'selected' : '' ?> class="bg-card text-foreground">Đang mở (Active)</option>
+                    <option value="full" <?= $ws['status'] === 'full' ? 'selected' : '' ?> class="bg-card text-foreground">Đã hết chỗ (Full)</option>
+                    <option value="inactive" <?= $ws['status'] === 'inactive' ? 'selected' : '' ?> class="bg-card text-foreground">Tạm ẩn (Inactive)</option>
+                  </select>
+
+                  <label class="flex items-center gap-1.5 text-xs text-muted-foreground cursor-pointer">
+                    <input type="checkbox" name="is_featured" value="1" <?= $ws['is_featured'] ? 'checked' : '' ?> class="rounded text-[var(--wine)]">
+                    <span>Nổi bật</span>
+                  </label>
+                </div>
+
+                <button type="submit" class="btn-wine px-4 py-2 rounded-sm text-xs uppercase tracking-widest font-medium shadow-sm">
+                  Lưu Workshop
+                </button>
+              </div>
+            </form>
+          </div>
+        <?php endforeach; ?>
+      </div>
+    </div>
+    <?php endif; ?>
+
+    <?php if (in_array($activeSection ?? 'all', ['all', 'testimonials'], true)): ?>
+    <!-- 6. Section Đánh giá Khách hàng Testimonials (Module 5.2 - Full CRUD) -->
     <div class="rounded-sm border border-border/40 bg-card p-6 sm:p-8 space-y-6 shadow-sm">
       <div class="border-b border-border/40 pb-4 flex items-center justify-between">
         <div>
@@ -400,7 +536,9 @@ ob_start();
         <?php endforeach; ?>
       </div>
     </div>
+    <?php endif; ?>
 
+    <?php if (in_array($activeSection ?? 'all', ['all', 'faq'], true)): ?>
     <!-- 6. Section Câu hỏi Thường gặp FAQ (Module 5.3 - Full CRUD) -->
     <div class="rounded-sm border border-border/40 bg-card p-6 sm:p-8 space-y-6 shadow-sm">
       <div class="border-b border-border/40 pb-4 flex items-center justify-between">
@@ -451,6 +589,7 @@ ob_start();
         <?php endforeach; ?>
       </div>
     </div>
+    <?php endif; ?>
   </div>
 </div>
 

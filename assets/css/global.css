@@ -189,6 +189,21 @@ select option {
   color: #f3f3f3 !important;
 }
 
+/* Sidebar Scrollbar Styling */
+aside nav::-webkit-scrollbar {
+  width: 4px;
+}
+aside nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+aside nav::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+}
+aside nav::-webkit-scrollbar-thumb:hover {
+  background: rgba(194, 165, 101, 0.5);
+}
+
 .admin-active-nav {
   background-color: rgba(255, 255, 255, 0.06) !important;
   color: #c2a565 !important;

@@ -27,6 +27,7 @@ ob_start();
         <select name="type" onchange="this.form.submit()" class="input-elegant px-3 py-1.5 rounded text-xs font-medium bg-background cursor-pointer">
           <option value="" class="bg-card text-foreground">Tất cả các loại</option>
           <option value="booking" <?= $typeFilter === 'booking' ? 'selected' : '' ?> class="bg-card text-foreground">Đặt tiệc &amp; Leads</option>
+          <option value="workshop" <?= $typeFilter === 'workshop' ? 'selected' : '' ?> class="bg-card text-foreground">Khóa học &amp; Workshop</option>
           <option value="content" <?= $typeFilter === 'content' ? 'selected' : '' ?> class="bg-card text-foreground">Nội dung CMS</option>
           <option value="user" <?= $typeFilter === 'user' ? 'selected' : '' ?> class="bg-card text-foreground">Nhân sự &amp; Auth</option>
           <option value="system" <?= $typeFilter === 'system' ? 'selected' : '' ?> class="bg-card text-foreground">Hệ thống &amp; Sheets</option>
@@ -63,6 +64,7 @@ ob_start();
           <?php
           $typeBadge = match($n['type']) {
             'booking' => ['bg' => 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30', 'label' => 'Đặt tiệc'],
+            'workshop' => ['bg' => 'bg-purple-500/10 text-purple-400 border-purple-500/30', 'label' => 'Workshop'],
             'content' => ['bg' => 'bg-amber-500/10 text-amber-400 border-amber-500/30', 'label' => 'Nội dung CMS'],
             'user' => ['bg' => 'bg-blue-500/10 text-blue-400 border-blue-500/30', 'label' => 'Nhân sự'],
             default => ['bg' => 'bg-rose-500/10 text-rose-400 border-rose-500/30', 'label' => 'Hệ thống']
