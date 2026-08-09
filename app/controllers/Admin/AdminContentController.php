@@ -401,4 +401,163 @@ class AdminContentController extends BaseController
         header('Location: ' . admin_url('content') . '?err=' . urlencode('Lỗi cập nhật Workshop.'));
         exit;
     }
+
+    public function createBenefit(): void
+    {
+        AuthService::requireRole(['admin', 'marketing']);
+
+        $title = trim($_POST['title'] ?? '');
+        $description = trim($_POST['description'] ?? '');
+
+        if (empty($title) || empty($description)) {
+            header('Location: ' . admin_url('content') . '?sec=benefits&err=' . urlencode('Vui lòng nhập cả tiêu đề và nội dung diễn giải lợi ích.'));
+            exit;
+        }
+
+        $benefitModel = new BenefitModel();
+        $benefitModel->createBenefit([
+            'title' => $title,
+            'description' => $description
+        ]);
+
+        header('Location: ' . admin_url('content') . '?sec=benefits&msg=' . urlencode('Đã thêm Lợi ích cốt lõi mới thành công!'));
+        exit;
+    }
+
+    public function deleteBenefit(): void
+    {
+        AuthService::requireRole(['admin', 'marketing']);
+
+        $id = (int)($_POST['id'] ?? 0);
+        if ($id > 0) {
+            (new BenefitModel())->deleteBenefit($id);
+        }
+
+        header('Location: ' . admin_url('content') . '?sec=benefits&msg=' . urlencode('Đã xóa Lợi ích cốt lõi thành công!'));
+        exit;
+    }
+
+    public function createPairing(): void
+    {
+        AuthService::requireRole(['admin', 'marketing']);
+
+        $title = trim($_POST['title'] ?? '');
+        $level = trim($_POST['level'] ?? 'Standard Level');
+        $subtitle = trim($_POST['subtitle'] ?? '');
+        $priceText = trim($_POST['price_text'] ?? 'Từ 1.500.000đ/khách');
+        $image = trim($_POST['image'] ?? '');
+
+        $courses = $_POST['courses'] ?? null;
+        $wines = $_POST['wines'] ?? null;
+        $menuItemsArr = [];
+        if (is_array($courses)) {
+            foreach ($courses as $idx => $course) {
+                $c = trim($course);
+                $w = trim($wines[$idx] ?? '');
+                if ($c !== '' || $w !== '') {
+                    $menuItemsArr[] = ['course' => $c, 'wine' => $w];
+                }
+            }
+        }
+
+        if (empty($title) || empty($subtitle)) {
+            header('Location: ' . admin_url('content') . '?sec=pairings&err=' . urlencode('Vui lòng nhập tên gói tiệc và mô tả tóm tắt.'));
+            exit;
+        }
+
+        $pairingModel = new PairingModel();
+        $pairingModel->createPairing([
+            'title' => $title,
+            'level' => $level,
+            'subtitle' => $subtitle,
+            'price_text' => $priceText,
+            'image' => $image,
+            'menu_items' => $menuItemsArr
+        ]);
+
+        $currentUser = AuthService::user();
+        NotificationService::notifyContent(
+            "Tạo Gói tiệc Pairing mới: {$title}",
+            "Nhân sự {$currentUser['full_name']} vừa tạo mới gói tiệc Food & Wine Pairing '{$title}'.",
+            admin_url('content') . '?sec=pairings',
+            $currentUser
+        );
+
+        header('Location: ' . admin_url('content') . '?sec=pairings&msg=' . urlencode('Đã thêm Gói tiệc Pairing mới thành công!'));
+        exit;
+    }
+
+    public function deletePairing(): void
+    {
+        AuthService::requireRole(['admin', 'marketing']);
+
+        $id = (int)($_POST['id'] ?? 0);
+        if ($id > 0) {
+            (new PairingModel())->deletePairing($id);
+        }
+
+        header('Location: ' . admin_url('content') . '?sec=pairings&msg=' . urlencode('Đã xóa Gói tiệc Pairing thành công!'));
+        exit;
+    }
+
+    public function createWorkshop(): void
+    {
+        AuthService::requireRole(['admin', 'marketing']);
+
+        $title = trim($_POST['title'] ?? '');
+        $price = (float)($_POST['price'] ?? 0);
+
+        if (empty($title) || $price <= 0) {
+            header('Location: ' . admin_url('content') . '?sec=workshops&err=' . urlencode('Vui lòng nhập tên Workshop và giá vé hợp lệ.'));
+            exit;
+        }
+
+        $slug = trim($_POST['slug'] ?? '');
+        if (empty($slug)) {
+            $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $title), '-'));
+        }
+
+        $data = [
+            'slug' => $slug,
+            'title' => $title,
+            'level' => trim($_POST['level'] ?? 'Standard Level'),
+            'price' => $price,
+            'duration' => trim($_POST['duration'] ?? '2.5 giờ'),
+            'schedule' => trim($_POST['schedule'] ?? 'Thứ 7 hàng tuần (15:00 - 17:30)'),
+            'location' => trim($_POST['location'] ?? 'Hầm rượu riêng Amis du Vin'),
+            'max_participants' => max(1, (int)($_POST['max_participants'] ?? 12)),
+            'wines_count' => (int)($_POST['wines_count'] ?? 5),
+            'image' => trim($_POST['image'] ?? ''),
+            'description' => trim($_POST['description'] ?? ''),
+            'status' => trim($_POST['status'] ?? 'active'),
+            'is_featured' => isset($_POST['is_featured']) ? 1 : 0
+        ];
+
+        $workshopModel = new WorkshopModel();
+        $workshopModel->createWorkshopPackage($data);
+
+        $currentUser = AuthService::user();
+        NotificationService::notifyContent(
+            "Tạo Gói Workshop mới: {$title}",
+            "Nhân sự {$currentUser['full_name']} vừa tạo thêm gói Workshop mới '{$title}'.",
+            admin_url('content') . '?sec=workshops',
+            $currentUser
+        );
+
+        header('Location: ' . admin_url('content') . '?sec=workshops&msg=' . urlencode('Đã tạo Gói Workshop mới thành công!'));
+        exit;
+    }
+
+    public function deleteWorkshop(): void
+    {
+        AuthService::requireRole(['admin', 'marketing']);
+
+        $id = (int)($_POST['id'] ?? 0);
+        if ($id > 0) {
+            (new WorkshopModel())->deleteWorkshopPackage($id);
+        }
+
+        header('Location: ' . admin_url('content') . '?sec=workshops&msg=' . urlencode('Đã xóa Gói Workshop thành công!'));
+        exit;
+    }
 }

@@ -31,7 +31,7 @@ if (empty($benefits)) {
         <h2 class="font-heading text-3xl sm:text-5xl text-foreground mb-5">Lợi ích cốt lõi</h2>
       </div>
     </div>
-    <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6 lg:gap-8">
       <?php foreach ($benefits as $b): ?>
         <div class="reveal is-visible">
           <div class="card-lift h-full rounded-sm border border-border bg-card p-8 text-center">

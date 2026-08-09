@@ -96,10 +96,28 @@ Router::post(admin_url('content/service-intro'), [AdminContentController::class,
 Router::post(admin_url('content/pairing'), [AdminContentController::class, 'updatePairing'], [
     AuthMiddleware::class => ['admin', 'marketing']
 ]);
+Router::post(admin_url('content/pairing/create'), [AdminContentController::class, 'createPairing'], [
+    AuthMiddleware::class => ['admin', 'marketing']
+]);
+Router::post(admin_url('content/pairing/delete'), [AdminContentController::class, 'deletePairing'], [
+    AuthMiddleware::class => ['admin', 'marketing']
+]);
 Router::post(admin_url('content/workshop'), [AdminContentController::class, 'updateWorkshop'], [
     AuthMiddleware::class => ['admin', 'marketing']
 ]);
+Router::post(admin_url('content/workshop/create'), [AdminContentController::class, 'createWorkshop'], [
+    AuthMiddleware::class => ['admin', 'marketing']
+]);
+Router::post(admin_url('content/workshop/delete'), [AdminContentController::class, 'deleteWorkshop'], [
+    AuthMiddleware::class => ['admin', 'marketing']
+]);
 Router::post(admin_url('content/benefit'), [AdminContentController::class, 'updateBenefit'], [
+    AuthMiddleware::class => ['admin', 'marketing']
+]);
+Router::post(admin_url('content/benefit/create'), [AdminContentController::class, 'createBenefit'], [
+    AuthMiddleware::class => ['admin', 'marketing']
+]);
+Router::post(admin_url('content/benefit/delete'), [AdminContentController::class, 'deleteBenefit'], [
     AuthMiddleware::class => ['admin', 'marketing']
 ]);
 Router::post(admin_url('content/testimonial'), [AdminContentController::class, 'updateTestimonial'], [

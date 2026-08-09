@@ -33,4 +33,42 @@ class PairingModel extends BaseModel
         }
         return $result ?: null;
     }
+
+    public function createPairing(array $data): bool|string
+    {
+        if (!$this->db) return false;
+
+        $slug = $data['slug'] ?? '';
+        if (empty($slug)) {
+            $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $data['title'] ?? ''), '-'));
+        }
+
+        $stmt = $this->db->prepare(
+            "INSERT INTO pairings (slug, title, level, subtitle, price, price_text, duration, capacity, image, menu_items, sort_order, status)
+             VALUES (:slug, :title, :level, :subtitle, :price, :price_text, :duration, :capacity, :image, :menu_items, :sort_order, 'active')"
+        );
+
+        $success = $stmt->execute([
+            'slug' => $slug,
+            'title' => $data['title'],
+            'level' => $data['level'] ?? 'Standard Level',
+            'subtitle' => $data['subtitle'] ?? '',
+            'price' => $data['price'] ?? 1500000,
+            'price_text' => $data['price_text'] ?? 'Từ 1.500.000đ/khách',
+            'duration' => $data['duration'] ?? '2.5 giờ',
+            'capacity' => $data['capacity'] ?? '8–20 khách',
+            'image' => $data['image'] ?? '',
+            'menu_items' => is_array($data['menu_items'] ?? null) ? json_encode($data['menu_items'], JSON_UNESCAPED_UNICODE) : ($data['menu_items'] ?? '[]'),
+            'sort_order' => (int)($data['sort_order'] ?? 0)
+        ]);
+
+        return $success ? $this->db->lastInsertId() : false;
+    }
+
+    public function deletePairing(int $id): bool
+    {
+        if (!$this->db) return false;
+        $stmt = $this->db->prepare("DELETE FROM pairings WHERE id = :id");
+        return $stmt->execute(['id' => $id]);
+    }
 }

@@ -172,23 +172,31 @@ ob_start();
     <?php endif; ?>
 
     <?php if (in_array($activeSection ?? 'all', ['all', 'benefits'], true)): ?>
-    <!-- 2. Section 3 Lợi ích Cốt lõi (Module 2.1) -->
+    <!-- 2. Section Lợi ích Cốt lõi (Module 2.1 - Full CRUD) -->
     <div class="rounded-sm border border-border/40 bg-card p-6 sm:p-8 space-y-6 shadow-sm">
       <div class="border-b border-border/40 pb-4 flex items-center justify-between">
         <div>
           <span class="text-[10px] uppercase tracking-widest text-[var(--gold)]">Module 2.1</span>
-          <h3 class="font-heading text-xl text-foreground">Cấu hình 03 Lợi ích Cốt lõi (Core Benefits)</h3>
+          <h3 class="font-heading text-xl text-foreground">Cấu hình Lợi ích Cốt lõi (Core Benefits)</h3>
         </div>
-        <span class="text-xs text-muted-foreground">Dynamic Content</span>
+        <button type="button" onclick="openCreateBenefitModal()" class="btn-wine inline-flex items-center gap-2 px-4 py-2 rounded-sm text-xs uppercase tracking-widest font-medium shadow-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus w-3.5 h-3.5"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+          <span>Thêm Lợi ích mới</span>
+        </button>
       </div>
 
       <div class="grid md:grid-cols-3 gap-6">
         <?php foreach ($benefits as $b): ?>
-          <div class="rounded-sm border border-border/40 bg-card/40 p-5 space-y-4 shadow-sm">
-            <h4 class="font-heading text-base text-foreground font-semibold flex items-center justify-between">
-              <span>Lợi ích #<?= $b['id'] ?></span>
-              <span class="text-xs text-[var(--gold)] font-mono">ID: <?= $b['id'] ?></span>
-            </h4>
+          <div class="rounded-sm border border-border/40 bg-card/40 p-5 space-y-4 shadow-sm relative group">
+            <div class="flex items-center justify-between">
+              <h4 class="font-heading text-base text-foreground font-semibold"><?= htmlspecialchars($b['title']) ?></h4>
+              <form action="<?= admin_url('content/benefit/delete') ?>" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa Lợi ích này?');" class="inline">
+                <input type="hidden" name="id" value="<?= $b['id'] ?>">
+                <button type="submit" class="p-1 rounded text-muted-foreground hover:text-rose-400 hover:bg-muted transition-colors" title="Xóa Lợi ích này">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2 w-4 h-4"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
+                </button>
+              </form>
+            </div>
 
             <form action="<?= admin_url('content/benefit') ?>" method="POST" class="space-y-3">
               <input type="hidden" name="id" value="<?= $b['id'] ?>">
@@ -298,22 +306,33 @@ ob_start();
     <?php endif; ?>
 
     <?php if (in_array($activeSection ?? 'all', ['all', 'pairings'], true)): ?>
-    <!-- 4. Section Các Gói tiệc Pairing Form (Module 3.2) -->
+    <!-- 4. Section Các Gói tiệc Pairing Form (Module 3.2 - Full CRUD) -->
     <div class="rounded-sm border border-border/40 bg-card p-6 sm:p-8 space-y-6 shadow-sm">
       <div class="border-b border-border/40 pb-4 flex items-center justify-between">
         <div>
           <span class="text-[10px] uppercase tracking-widest text-[var(--gold)]">Module 3.2</span>
-          <h3 class="font-heading text-xl text-foreground">Danh sách 04 Gói tiệc Food &amp; Wine Pairing</h3>
+          <h3 class="font-heading text-xl text-foreground">Danh sách Gói tiệc Food &amp; Wine Pairing</h3>
         </div>
-        <span class="text-xs text-muted-foreground">Dynamic Content</span>
+        <button type="button" onclick="openCreatePairingModal()" class="btn-wine inline-flex items-center gap-2 px-4 py-2 rounded-sm text-xs uppercase tracking-widest font-medium shadow-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus w-3.5 h-3.5"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+          <span>Thêm Gói tiệc Pairing mới</span>
+        </button>
       </div>
 
       <div class="grid sm:grid-cols-2 gap-6">
         <?php foreach ($pairings as $p): ?>
-          <div class="rounded-sm border border-border/40 bg-card/40 p-5 space-y-4 shadow-sm">
+          <div class="rounded-sm border border-border/40 bg-card/40 p-5 space-y-4 shadow-sm relative group">
             <h4 class="font-heading text-lg text-foreground flex items-center justify-between">
               <span><?= htmlspecialchars($p['title']) ?></span>
-              <span class="text-xs text-[var(--gold)] font-mono font-normal"><?= htmlspecialchars($p['price_text']) ?></span>
+              <div class="flex items-center gap-2">
+                <span class="text-xs text-[var(--gold)] font-mono font-normal"><?= htmlspecialchars($p['price_text']) ?></span>
+                <form action="<?= admin_url('content/pairing/delete') ?>" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa Gói tiệc Pairing này?');" class="inline">
+                  <input type="hidden" name="id" value="<?= $p['id'] ?>">
+                  <button type="submit" class="p-1 rounded text-muted-foreground hover:text-rose-400 hover:bg-muted transition-colors" title="Xóa gói tiệc này">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2 w-4 h-4"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
+                  </button>
+                </form>
+              </div>
             </h4>
 
             <form action="<?= admin_url('content/pairing') ?>" method="POST" class="space-y-3">
@@ -424,22 +443,33 @@ ob_start();
     <?php endif; ?>
 
     <?php if (in_array($activeSection ?? 'all', ['all', 'workshops'], true)): ?>
-    <!-- 5. Section Các Gói Workshop & Khóa học (Module 3.3) -->
+    <!-- 5. Section Các Gói Workshop & Khóa học (Module 3.3 - Full CRUD) -->
     <div class="rounded-sm border border-border/40 bg-card p-6 sm:p-8 space-y-6 shadow-sm">
       <div class="border-b border-border/40 pb-4 flex items-center justify-between">
         <div>
           <span class="text-[10px] uppercase tracking-widest text-[var(--gold)]">Module 3.3</span>
           <h3 class="font-heading text-xl text-foreground">Danh sách Các Gói Workshop &amp; Khóa học Trải nghiệm</h3>
         </div>
-        <span class="text-xs text-muted-foreground">Dynamic Workshop CMS</span>
+        <button type="button" onclick="openCreateWorkshopCmsModal()" class="btn-wine inline-flex items-center gap-2 px-4 py-2 rounded-sm text-xs uppercase tracking-widest font-medium shadow-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus w-3.5 h-3.5"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+          <span>Thêm Gói Workshop mới</span>
+        </button>
       </div>
 
       <div class="grid sm:grid-cols-2 gap-6">
         <?php foreach ($workshops as $ws): ?>
-          <div class="rounded-sm border border-border/40 bg-card/40 p-5 space-y-4 shadow-sm">
+          <div class="rounded-sm border border-border/40 bg-card/40 p-5 space-y-4 shadow-sm relative group">
             <h4 class="font-heading text-lg text-foreground flex items-center justify-between">
               <span><?= htmlspecialchars($ws['title']) ?></span>
-              <span class="text-xs text-[var(--gold)] font-mono font-normal"><?= number_format($ws['price']) ?>đ/khách</span>
+              <div class="flex items-center gap-2">
+                <span class="text-xs text-[var(--gold)] font-mono font-normal"><?= number_format($ws['price']) ?>đ/khách</span>
+                <form action="<?= admin_url('content/workshop/delete') ?>" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa Gói Workshop này?');" class="inline">
+                  <input type="hidden" name="id" value="<?= $ws['id'] ?>">
+                  <button type="submit" class="p-1 rounded text-muted-foreground hover:text-rose-400 hover:bg-muted transition-colors" title="Xóa gói Workshop này">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2 w-4 h-4"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
+                  </button>
+                </form>
+              </div>
             </h4>
 
             <form action="<?= admin_url('content/workshop') ?>" method="POST" class="space-y-3">
@@ -793,7 +823,211 @@ ob_start();
   </div>
 </div>
 
+<!-- Modal Thêm Lợi ích mới -->
+<div id="createBenefitModal" class="modal-overlay">
+  <div class="relative w-full max-w-lg bg-card border border-border/40 rounded-sm p-6 sm:p-8 shadow-2xl animate-scale-in my-auto">
+    <button onclick="closeCreateBenefitModal()" type="button" class="absolute top-4 right-4 text-muted-foreground hover:text-foreground">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x w-5 h-5"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+    </button>
+
+    <h3 class="font-heading text-xl text-foreground mb-4">Thêm Lợi ích Cốt lõi mới</h3>
+
+    <form action="<?= admin_url('content/benefit/create') ?>" method="POST" class="space-y-4">
+      <div>
+        <label for="createBenefitTitle" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Tiêu đề Lợi ích *</label>
+        <input type="text" id="createBenefitTitle" name="title" required autocomplete="off" placeholder="VD: Hiểu vang dễ dàng" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm font-medium">
+      </div>
+
+      <div>
+        <label for="createBenefitDescription" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Nội dung diễn giải *</label>
+        <textarea id="createBenefitDescription" name="description" rows="3" required autocomplete="off" placeholder="Kiến thức rượu vang được truyền đạt gần gũi, thực tế..." class="input-elegant w-full p-3 rounded-sm text-sm leading-relaxed"></textarea>
+      </div>
+
+      <div class="pt-2 flex gap-3">
+        <button type="submit" class="btn-wine flex-1 py-3 rounded-sm text-xs uppercase tracking-widest font-medium">
+          Thêm Lợi ích
+        </button>
+        <button type="button" onclick="closeCreateBenefitModal()" class="px-5 py-3 rounded-sm bg-muted text-xs uppercase tracking-widest text-muted-foreground hover:text-foreground">
+          Hủy
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Thêm Gói tiệc Pairing mới -->
+<div id="createPairingModal" class="modal-overlay">
+  <div class="relative w-full max-w-lg bg-card border border-border/40 rounded-sm p-6 sm:p-8 shadow-2xl animate-scale-in my-auto max-h-[90vh] overflow-y-auto">
+    <button onclick="closeCreatePairingModal()" type="button" class="absolute top-4 right-4 text-muted-foreground hover:text-foreground">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x w-5 h-5"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+    </button>
+
+    <h3 class="font-heading text-xl text-foreground mb-4">Thêm Gói tiệc Pairing mới</h3>
+
+    <form action="<?= admin_url('content/pairing/create') ?>" method="POST" class="space-y-4">
+      <div>
+        <label for="createPairingTitle" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Tên Gói tiệc *</label>
+        <input type="text" id="createPairingTitle" name="title" required autocomplete="off" placeholder="VD: Private Cellar Pairing" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm font-medium">
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label for="createPairingLevel" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Phân cấp (Level)</label>
+          <input type="text" id="createPairingLevel" name="level" autocomplete="off" value="Standard Level" class="input-elegant w-full px-3 py-2.5 rounded-sm text-xs">
+        </div>
+        <div>
+          <label for="createPairingPriceText" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Mức giá hiển thị</label>
+          <input type="text" id="createPairingPriceText" name="price_text" autocomplete="off" value="Từ 1.500.000đ/khách" class="input-elegant w-full px-3 py-2.5 rounded-sm text-xs">
+        </div>
+      </div>
+
+      <div>
+        <label for="createPairingSubtitle" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Mô tả tóm tắt *</label>
+        <textarea id="createPairingSubtitle" name="subtitle" rows="2" required autocomplete="off" placeholder="Mô tả tóm tắt trải nghiệm gói tiệc..." class="input-elegant w-full p-2.5 rounded-sm text-xs leading-relaxed"></textarea>
+      </div>
+
+      <div>
+        <label for="createPairingImage" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Ảnh đại diện Gói tiệc</label>
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded border border-border/60 bg-muted/30 overflow-hidden shrink-0 flex items-center justify-center relative">
+            <img id="preview_createPairingImage" src="" onclick="openAdminImageLightbox(this.src)" title="Bấm để xem ảnh phóng to" class="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity hidden" alt="Preview">
+            <span class="preview-placeholder text-[9px] text-muted-foreground font-mono uppercase text-center px-1">No img</span>
+          </div>
+          <div class="flex-1 space-y-1.5">
+            <input type="text" id="createPairingImage" name="image" autocomplete="off" placeholder="URL hoặc chọn từ máy..." class="input-elegant w-full px-3.5 py-2 rounded-sm text-xs font-medium" oninput="updateImagePreview(this, 'preview_createPairingImage')">
+            <div class="flex items-center gap-2">
+              <label class="px-2.5 py-1 rounded bg-muted hover:bg-muted/80 border border-border/50 text-[11px] text-foreground font-medium cursor-pointer inline-flex items-center gap-1.5 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>
+                <span>Tải ảnh từ máy</span>
+                <input type="file" accept="image/*" class="sr-only" onchange="handleAdminImageUpload(this, 'createPairingImage', 'preview_createPairingImage')">
+              </label>
+              <span class="upload-status text-[11px] text-muted-foreground italic"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-2 flex gap-3">
+        <button type="submit" class="btn-wine flex-1 py-3 rounded-sm text-xs uppercase tracking-widest font-medium">
+          Thêm Gói tiệc
+        </button>
+        <button type="button" onclick="closeCreatePairingModal()" class="px-5 py-3 rounded-sm bg-muted text-xs uppercase tracking-widest text-muted-foreground hover:text-foreground">
+          Hủy
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Thêm Gói Workshop mới trong CMS -->
+<div id="createWorkshopCmsModal" class="modal-overlay">
+  <div class="relative w-full max-w-lg bg-card border border-border/40 rounded-sm p-6 sm:p-8 shadow-2xl animate-scale-in my-auto max-h-[90vh] overflow-y-auto">
+    <button onclick="closeCreateWorkshopCmsModal()" type="button" class="absolute top-4 right-4 text-muted-foreground hover:text-foreground">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x w-5 h-5"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+    </button>
+
+    <h3 class="font-heading text-xl text-foreground mb-4">Thêm Gói Workshop mới</h3>
+
+    <form action="<?= admin_url('content/workshop/create') ?>" method="POST" class="space-y-4">
+      <div>
+        <label for="createWsTitle" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Tên Workshop *</label>
+        <input type="text" id="createWsTitle" name="title" required autocomplete="off" placeholder="VD: Workshop Vang Pháp & Phô mai" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm font-medium">
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label for="createWsLevel" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Cấp độ (Level)</label>
+          <input type="text" id="createWsLevel" name="level" autocomplete="off" value="Standard Level" class="input-elegant w-full px-3 py-2.5 rounded-sm text-xs">
+        </div>
+        <div>
+          <label for="createWsPrice" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Giá vé (VNĐ) *</label>
+          <input type="number" id="createWsPrice" name="price" required step="10000" value="1500000" class="input-elegant w-full px-3 py-2.5 rounded-sm text-xs font-mono text-[var(--gold)] font-semibold">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-3 gap-2">
+        <div>
+          <label for="createWsDuration" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Thời lượng</label>
+          <input type="text" id="createWsDuration" name="duration" autocomplete="off" value="2.5 giờ" class="input-elegant w-full px-2.5 py-1.5 rounded-sm text-xs">
+        </div>
+        <div>
+          <label for="createWsWines" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Số dòng vang</label>
+          <input type="number" id="createWsWines" name="wines_count" autocomplete="off" value="5" class="input-elegant w-full px-2.5 py-1.5 rounded-sm text-xs">
+        </div>
+        <div>
+          <label for="createWsMax" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Chỗ tối đa</label>
+          <input type="number" id="createWsMax" name="max_participants" autocomplete="off" value="12" class="input-elegant w-full px-2.5 py-1.5 rounded-sm text-xs">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label for="createWsSchedule" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Lịch học</label>
+          <input type="text" id="createWsSchedule" name="schedule" autocomplete="off" value="Thứ 7 hàng tuần (15:00 - 17:30)" class="input-elegant w-full px-3 py-2.5 rounded-sm text-xs">
+        </div>
+        <div>
+          <label for="createWsLocation" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Địa điểm</label>
+          <input type="text" id="createWsLocation" name="location" autocomplete="off" value="Hầm rượu riêng Amis du Vin" class="input-elegant w-full px-3 py-2.5 rounded-sm text-xs">
+        </div>
+      </div>
+
+      <div>
+        <label for="createWsImage" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Ảnh bìa Workshop</label>
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded border border-border/60 bg-muted/30 overflow-hidden shrink-0 flex items-center justify-center relative">
+            <img id="preview_createWsImage" src="" onclick="openAdminImageLightbox(this.src)" title="Bấm để xem ảnh phóng to" class="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity hidden" alt="Preview">
+            <span class="preview-placeholder text-[9px] text-muted-foreground font-mono uppercase text-center px-1">No img</span>
+          </div>
+          <div class="flex-1 space-y-1.5">
+            <input type="text" id="createWsImage" name="image" autocomplete="off" placeholder="URL hoặc chọn từ máy..." class="input-elegant w-full px-3.5 py-2 rounded-sm text-xs font-medium" oninput="updateImagePreview(this, 'preview_createWsImage')">
+            <div class="flex items-center gap-2">
+              <label class="px-2.5 py-1 rounded bg-muted hover:bg-muted/80 border border-border/50 text-[11px] text-foreground font-medium cursor-pointer inline-flex items-center gap-1.5 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>
+                <span>Tải ảnh từ máy</span>
+                <input type="file" accept="image/*" class="sr-only" onchange="handleAdminImageUpload(this, 'createWsImage', 'preview_createWsImage')">
+              </label>
+              <span class="upload-status text-[11px] text-muted-foreground italic"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label for="createWsDesc" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Mô tả tóm tắt</label>
+        <textarea id="createWsDesc" name="description" rows="2" autocomplete="off" placeholder="Mô tả tóm tắt nội dung workshop..." class="input-elegant w-full p-2.5 rounded-sm text-xs leading-relaxed"></textarea>
+      </div>
+
+      <div class="pt-2 flex gap-3">
+        <button type="submit" class="btn-wine flex-1 py-3 rounded-sm text-xs uppercase tracking-widest font-medium">
+          Tạo Workshop mới
+        </button>
+        <button type="button" onclick="closeCreateWorkshopCmsModal()" class="px-5 py-3 rounded-sm bg-muted text-xs uppercase tracking-widest text-muted-foreground hover:text-foreground">
+          Hủy
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <script>
+function openCreateBenefitModal() {
+  document.getElementById('createBenefitModal').classList.add('active');
+}
+function closeCreateBenefitModal() {
+  document.getElementById('createBenefitModal').classList.remove('active');
+}
+function openCreatePairingModal() {
+  document.getElementById('createPairingModal').classList.add('active');
+}
+function closeCreatePairingModal() {
+  document.getElementById('createPairingModal').classList.remove('active');
+}
+function openCreateWorkshopCmsModal() {
+  document.getElementById('createWorkshopCmsModal').classList.add('active');
+}
+function closeCreateWorkshopCmsModal() {
+  document.getElementById('createWorkshopCmsModal').classList.remove('active');
+}
 function openCreateTestimonialModal() {
   document.getElementById('createTestimonialModal').classList.add('active');
 }

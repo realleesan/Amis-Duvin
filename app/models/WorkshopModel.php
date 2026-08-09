@@ -255,4 +255,11 @@ class WorkshopModel extends BaseModel
             'is_featured' => $data['is_featured']
         ]);
     }
+
+    public function deleteWorkshopPackage(int $id): bool
+    {
+        if (!$this->db) return false;
+        $stmt = $this->db->prepare("DELETE FROM workshops WHERE id = :id");
+        return $stmt->execute(['id' => $id]);
+    }
 }
