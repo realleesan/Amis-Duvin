@@ -66,6 +66,12 @@ Router::post(admin_url('bookings/manual-create'), [AdminBookingController::class
 Router::post(admin_url('bookings/sync'), [AdminBookingController::class, 'syncSheets'], [
     AuthMiddleware::class => ['admin', 'cskh']
 ]);
+Router::post(admin_url('bookings/bulk-sync-sheets'), [AdminBookingController::class, 'bulkSyncSheets'], [
+    AuthMiddleware::class => ['admin', 'cskh']
+]);
+Router::post(admin_url('bookings/resync-all-sheets'), [AdminBookingController::class, 'resyncAllSheets'], [
+    AuthMiddleware::class => ['admin', 'cskh']
+]);
 
 // Workshop Protected Routes
 Router::get(admin_url('workshops'), [AdminWorkshopController::class, 'index'], [
@@ -75,6 +81,15 @@ Router::post(admin_url('workshops/registration/update'), [AdminWorkshopControlle
     AuthMiddleware::class => ['admin', 'cskh']
 ]);
 Router::post(admin_url('workshops/registration/manual-create'), [AdminWorkshopController::class, 'manualCreateRegistration'], [
+    AuthMiddleware::class => ['admin', 'cskh']
+]);
+Router::post(admin_url('workshops/registration/sync'), [AdminWorkshopController::class, 'syncSheets'], [
+    AuthMiddleware::class => ['admin', 'cskh']
+]);
+Router::post(admin_url('workshops/registration/bulk-sync-sheets'), [AdminWorkshopController::class, 'bulkSyncSheets'], [
+    AuthMiddleware::class => ['admin', 'cskh']
+]);
+Router::post(admin_url('workshops/registration/resync-all-sheets'), [AdminWorkshopController::class, 'resyncAllSheets'], [
     AuthMiddleware::class => ['admin', 'cskh']
 ]);
 Router::post(admin_url('workshops/create'), [AdminWorkshopController::class, 'createWorkshop'], [

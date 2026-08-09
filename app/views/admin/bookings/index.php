@@ -7,24 +7,19 @@ ob_start();
 
 
 <div class="space-y-6">
-  <!-- Header & Filters -->
-  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border/40 pb-6">
-    <div>
-      <h2 class="font-heading text-2xl sm:text-3xl text-foreground">Danh sách Đơn Đặt tiệc</h2>
-      <p class="text-sm text-muted-foreground mt-1">Quản lý lead khách hàng, chốt cọc 30% và đồng bộ Google Sheets</p>
-    </div>
+  <!-- Header Title Section -->
+  <div class="border-b border-border/40 pb-5">
+    <h2 class="font-heading text-2xl sm:text-3xl text-foreground">Danh sách Đơn Đặt tiệc</h2>
+    <p class="text-sm text-muted-foreground mt-1">Quản lý lead khách hàng, chốt cọc 30% và đồng bộ Google Sheets</p>
+  </div>
 
+  <!-- Toolbar Controls Bar: Filters on Left, Actions on Right -->
+  <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <!-- Left: Filter Controls -->
     <div class="flex flex-wrap items-center gap-3">
-      <!-- CSKH Manual Entry Button -->
-      <button type="button" onclick="openManualCreateModal()" class="btn-wine inline-flex items-center gap-2 px-4 py-2.5 rounded-sm text-xs uppercase tracking-widest font-medium shadow-md">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-circle w-4 h-4"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v8"></path><path d="M8 12h8"></path></svg>
-        <span>Thêm đơn nhập tay</span>
-      </button>
-
-      <!-- Filter Form -->
       <form id="bookingFilterForm" method="GET" action="<?= admin_url('bookings') ?>" class="flex flex-wrap items-center gap-3">
         <label for="filterStatusSelect" class="sr-only">Lọc theo trạng thái</label>
-        <select id="filterStatusSelect" name="status" aria-label="Lọc theo trạng thái" onchange="this.form.submit()" class="input-elegant px-3.5 py-2.5 rounded-sm text-xs cursor-pointer">
+        <select id="filterStatusSelect" name="status" aria-label="Lọc theo trạng thái" onchange="this.form.submit()" class="input-elegant px-3.5 py-2 rounded-sm text-xs cursor-pointer">
           <option value="" class="bg-card text-foreground">Tất cả trạng thái</option>
           <option value="Chờ xác nhận" <?= ($statusFilter ?? '') === 'Chờ xác nhận' ? 'selected' : '' ?> class="bg-card text-foreground">Chờ xác nhận</option>
           <option value="Đã chốt cọc 30%" <?= ($statusFilter ?? '') === 'Đã chốt cọc 30%' ? 'selected' : '' ?> class="bg-card text-foreground">Đã chốt cọc 30%</option>
@@ -44,21 +39,37 @@ ob_start();
         ?>
         <div class="relative flex items-center">
           <label for="filterDatePicker" class="sr-only">Lọc theo ngày tiệc</label>
-          <input type="text" id="filterDatePicker" name="date" aria-label="Lọc theo ngày tiệc" placeholder="dd/mm/yyyy" value="<?= htmlspecialchars($formattedDateDisplay) ?>" class="input-elegant px-3.5 py-2.5 rounded-sm text-xs cursor-pointer w-36 font-mono">
+          <input type="text" id="filterDatePicker" name="date" aria-label="Lọc theo ngày tiệc" placeholder="dd/mm/yyyy" value="<?= htmlspecialchars($formattedDateDisplay) ?>" class="input-elegant px-3.5 py-2 rounded-sm text-xs cursor-pointer w-36 font-mono">
         </div>
       </form>
 
-      <!-- Clear Filter Button -->
       <?php if (!empty($statusFilter) || !empty($dateFilter)): ?>
         <a href="<?= admin_url('bookings') ?>" class="px-3 py-2 rounded-sm bg-rose-500/15 text-rose-400 border border-rose-500/30 hover:bg-rose-500/25 transition-colors text-xs font-medium inline-flex items-center gap-1.5" title="Xóa tất cả bộ lọc">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x w-3.5 h-3.5"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x w-3.5 h-3.5"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
           <span>Xóa lọc</span>
         </a>
       <?php endif; ?>
+    </div>
+
+    <!-- Right: Action Buttons -->
+    <div class="flex flex-wrap items-center gap-3">
+      <!-- Full Resync to Google Sheets Button -->
+      <form action="<?= admin_url('bookings/resync-all-sheets') ?>" method="POST" class="inline" onsubmit="return confirm('Bạn có chắc muốn làm sạch dữ liệu cũ trên Google Sheets và tống toàn bộ dữ liệu Đặt tiệc hiện tại sang?');">
+        <button type="submit" class="px-3.5 py-2 rounded-sm bg-amber-500/15 text-[var(--gold)] hover:bg-amber-500/25 transition-colors text-xs font-medium inline-flex items-center gap-1.5 shadow-sm" style="border: 1px solid rgba(212, 175, 55, 0.4);" title="Làm sạch dữ liệu cũ & tống toàn bộ đơn tiệc sang Google Sheets">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sheet"><rect width="18" height="18" x="3" y="3" rx="2"></rect><line x1="3" x2="21" y1="9" y2="9"></line><line x1="3" x2="21" y1="15" y2="15"></line><line x1="9" x2="9" y1="3" y2="21"></line><line x1="15" x2="15" y1="3" y2="21"></line></svg>
+          <span>Đồng bộ toàn bộ sang Google Sheets</span>
+        </button>
+      </form>
+
+      <!-- CSKH Manual Entry Button -->
+      <button type="button" onclick="openManualCreateModal()" class="btn-wine inline-flex items-center gap-2 px-3.5 py-2 rounded-sm text-xs uppercase tracking-wider font-semibold shadow-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-circle w-4 h-4"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v8"></path><path d="M8 12h8"></path></svg>
+        <span>Thêm đơn nhập tay</span>
+      </button>
 
       <?php if (($user['role'] ?? '') === 'admin'): ?>
-        <a href="<?= admin_url('trash') ?>?type=bookings" class="px-3 py-2.5 rounded-sm bg-rose-500/10 text-rose-400 border border-rose-500/30 hover:bg-rose-500/20 transition-colors text-xs font-medium inline-flex items-center gap-1.5" title="Xem thùng rác đơn đặt tiệc">
-          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
+        <a href="<?= admin_url('trash') ?>?type=bookings" class="px-3 py-2 rounded-sm bg-rose-500/10 text-rose-400 border border-rose-500/30 hover:bg-rose-500/20 transition-colors text-xs font-medium inline-flex items-center gap-1.5" title="Xem thùng rác đơn đặt tiệc">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2 w-3.5 h-3.5"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
           <span>Thùng rác</span>
         </a>
       <?php endif; ?>
@@ -66,18 +77,18 @@ ob_start();
   </div>
 
   <!-- Bulk Action Bar -->
-  <?php if (($user['role'] ?? '') === 'admin'): ?>
-    <div id="bulkBookingBar" class="hidden items-center justify-between p-3.5 rounded-sm shadow-md mb-4" style="border: 1px solid rgba(178, 2, 37, 0.35);">
-      <div class="flex items-center gap-2 text-xs text-foreground font-medium">
-        <span class="w-2 h-2 rounded-full bg-[var(--gold)] animate-pulse"></span>
-        <span>Đã chọn <strong id="bulkBookingCount" class="text-[var(--gold)] font-mono font-bold">0</strong> đơn tiệc</span>
-      </div>
+  <div id="bulkBookingBar" class="hidden items-center justify-between p-3.5 rounded-sm shadow-md mb-4" style="border: 1px solid rgba(178, 2, 37, 0.35);">
+    <div class="flex items-center gap-2 text-xs text-foreground font-medium">
+      <span class="w-2 h-2 rounded-full bg-[var(--gold)] animate-pulse"></span>
+      <span>Đã chọn <strong id="bulkBookingCount" class="text-[var(--gold)] font-mono font-bold">0</strong> đơn tiệc</span>
+    </div>
+    <?php if (($user['role'] ?? '') === 'admin'): ?>
       <button type="button" onclick="submitBulkBookingDelete()" class="px-3 py-1.5 rounded text-xs font-medium bg-rose-500/15 text-rose-400 border border-rose-500/30 hover:bg-rose-500/25 transition-colors flex items-center gap-1.5">
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
         <span>Chuyển vào Thùng rác</span>
       </button>
-    </div>
-  <?php endif; ?>
+    <?php endif; ?>
+  </div>
 
   <!-- Bookings Data Table Form -->
   <form id="bulkBookingForm" method="POST" action="<?= admin_url('bookings/bulk-delete') ?>">
@@ -87,7 +98,7 @@ ob_start();
           <thead>
             <tr class="bg-muted/40 text-[11px] uppercase tracking-wider text-muted-foreground border-b border-border/40 whitespace-nowrap">
               <th class="p-4 w-10 text-center">
-                <input type="checkbox" id="selectAllBookings" onclick="toggleSelectAllBookings(this)" class="rounded border-border cursor-pointer">
+                <input type="checkbox" id="selectAllBookings" onchange="toggleSelectAllBookings(this)" class="rounded border-border cursor-pointer">
               </th>
               <th class="p-4 w-28">Mã Lead</th>
               <th class="p-4 min-w-[170px]">Khách hàng</th>
@@ -152,22 +163,11 @@ ob_start();
                     Cập nhật
                   </button>
 
-                  <!-- Manual Sync Button -->
-                  <form action="/admin/bookings/sync" method="POST" class="inline-block">
-                    <input type="hidden" name="id" value="<?= $b['id'] ?>">
-                    <button type="submit" class="px-3 py-1.5 rounded-sm bg-muted text-xs text-muted-foreground hover:text-[var(--gold)] hover:bg-muted/80 transition-colors" title="Đẩy sang Google Sheets">
-                      Đồng bộ Sheets
-                    </button>
-                  </form>
-
                   <!-- Soft Delete Button (Admin Only) -->
                   <?php if (($user['role'] ?? '') === 'admin'): ?>
-                    <form action="<?= admin_url('bookings/delete') ?>" method="POST" class="inline-block" onsubmit="return confirm('Bạn có chắc muốn chuyển đơn tiệc này vào Thùng rác?')">
-                      <input type="hidden" name="id" value="<?= $b['id'] ?>">
-                      <button type="submit" class="px-3 py-1.5 rounded-sm bg-rose-500/10 text-xs text-rose-400 border border-rose-500/20 hover:bg-rose-500/20 transition-colors" title="Xóa tạm">
-                        Xóa
-                      </button>
-                    </form>
+                    <button type="button" onclick="submitSingleBookingDelete(<?= $b['id'] ?>)" class="px-3 py-1.5 rounded-sm bg-rose-500/10 text-xs text-rose-400 border border-rose-500/20 hover:bg-rose-500/20 transition-colors" title="Xóa tạm">
+                      Xóa
+                    </button>
                   <?php endif; ?>
                 </td>
               </tr>
@@ -395,9 +395,11 @@ function updateBulkBookingBar() {
   const all = document.querySelectorAll('.booking-cb');
   const bar = document.getElementById('bulkBookingBar');
   const countEl = document.getElementById('bulkBookingCount');
+  const syncCountEl = document.getElementById('bulkBookingSyncCount');
   const master = document.getElementById('selectAllBookings');
 
   if (countEl) countEl.textContent = checked.length;
+  if (syncCountEl) syncCountEl.textContent = checked.length;
   if (bar) {
     if (checked.length > 0) {
       bar.classList.remove('hidden');
@@ -420,8 +422,48 @@ function submitBulkBookingDelete() {
     return;
   }
   if (confirm(`Bạn có chắc chắn muốn chuyển ${checked.length} đơn tiệc đã chọn vào Thùng rác?`)) {
-    document.getElementById('bulkBookingForm').submit();
+    const form = document.getElementById('bulkBookingForm');
+    form.action = '<?= admin_url('bookings/bulk-delete') ?>';
+    form.submit();
   }
+}
+
+function submitBulkBookingSync() {
+  const checked = document.querySelectorAll('.booking-cb:checked');
+  if (checked.length === 0) {
+    alert('Vui lòng chọn ít nhất 1 đơn tiệc để đồng bộ Google Sheets.');
+    return;
+  }
+  const form = document.getElementById('bulkBookingForm');
+  form.action = '<?= admin_url('bookings/bulk-sync-sheets') ?>';
+  form.submit();
+}
+
+function submitSingleBookingSync(id) {
+  const form = document.createElement('form');
+  form.method = 'POST';
+  form.action = '<?= admin_url('bookings/sync') ?>';
+  const input = document.createElement('input');
+  input.type = 'hidden';
+  input.name = 'id';
+  input.value = id;
+  form.appendChild(input);
+  document.body.appendChild(form);
+  form.submit();
+}
+
+function submitSingleBookingDelete(id) {
+  if (!confirm('Bạn có chắc muốn chuyển đơn tiệc này vào Thùng rác?')) return;
+  const form = document.createElement('form');
+  form.method = 'POST';
+  form.action = '<?= admin_url('bookings/delete') ?>';
+  const input = document.createElement('input');
+  input.type = 'hidden';
+  input.name = 'id';
+  input.value = id;
+  form.appendChild(input);
+  document.body.appendChild(form);
+  form.submit();
 }
 </script>
 

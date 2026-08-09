@@ -55,6 +55,19 @@ class WorkshopController extends BaseController
             if ($resId) {
                 $registeredCount++;
                 $registeredTitles[] = $wsTitle;
+
+                // Auto-sync to Google Sheets
+                (new \App\Services\GoogleSheetsService())->syncWorkshopRegistration([
+                    'id' => is_numeric($resId) ? (int)$resId : 0,
+                    'workshop_title' => $wsTitle,
+                    'full_name' => sanitize($name),
+                    'phone' => sanitize($phone),
+                    'email' => sanitize($email),
+                    'participants' => $participants,
+                    'notes' => sanitize($input['notes'] ?? ''),
+                    'status' => 'pending',
+                    'created_at' => date('Y-m-d H:i:s')
+                ]);
             }
         }
 

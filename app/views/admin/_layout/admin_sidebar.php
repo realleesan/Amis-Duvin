@@ -75,10 +75,12 @@ $userFullName = (is_array($user ?? null) && isset($user['full_name'])) ? $user['
         <span>Quản lý Nhân sự</span>
       </a>
 
+      <?php /* Ẩn mục cấu hình Google Sheets khỏi Sidebar để bảo mật (Truy cập trực tiếp /admin/google-sheets khi cần)
       <a href="<?= admin_url('google-sheets') ?>" class="flex items-center gap-3 px-4 py-3 rounded-sm transition-colors <?= ($activeNav ?? '') === 'sheets' ? 'admin-active-nav' : 'text-foreground/75 hover:bg-muted hover:text-foreground' ?>">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sheet w-4 h-4"><rect width="18" height="18" x="3" y="3" rx="2"></rect><line x1="3" x2="21" y1="9" y2="9"></line><line x1="3" x2="21" y1="15" y2="15"></line><line x1="9" x2="9" y1="3" y2="21"></line><line x1="15" x2="15" y1="3" y2="21"></line></svg>
         <span>Tích hợp Google Sheets</span>
       </a>
+      */ ?>
 
       <a href="<?= admin_url('trash') ?>" class="flex items-center gap-3 px-4 py-3 rounded-sm transition-colors <?= ($activeNav ?? '') === 'trash' ? 'admin-active-nav' : 'text-rose-400/90 hover:bg-muted hover:text-rose-400' ?>">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2 w-4 h-4"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path><line x1="10" x2="10" y1="11" y2="17"></line><line x1="14" x2="14" y1="11" y2="17"></line></svg>

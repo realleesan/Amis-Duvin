@@ -15,10 +15,23 @@ class AdminWorkshopController extends BaseController
 
         $statusFilter = $_GET['status'] ?? '';
         $workshopFilter = $_GET['workshop_id'] ?? '';
+        $dateFilter = $_GET['date'] ?? '';
         $activeTab = $_GET['tab'] ?? 'registrations';
 
         $workshopModel = new WorkshopModel();
         $registrations = $workshopModel->getAllRegistrations($statusFilter, $workshopFilter);
+
+        if ($dateFilter !== '') {
+            $normalizedDate = $dateFilter;
+            if (preg_match('/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/', $dateFilter, $m)) {
+                $normalizedDate = sprintf('%04d-%02d-%02d', $m[3], $m[2], $m[1]);
+            }
+            $registrations = array_filter($registrations, function($r) use ($normalizedDate) {
+                $createdAt = !empty($r['created_at']) ? date('Y-m-d', strtotime($r['created_at'])) : '';
+                return $createdAt === $normalizedDate;
+            });
+        }
+
         $workshops = $workshopModel->getAllWorkshops();
 
         $user = AuthService::user();
@@ -248,6 +261,104 @@ class AdminWorkshopController extends BaseController
         );
 
         header('Location: ' . admin_url('workshops') . '?tab=registrations&msg=' . urlencode("Đã chuyển {$count} đăng ký Workshop được chọn vào thùng rác thành công!"));
+        exit;
+    }
+
+    public function syncSheets(): void
+    {
+        AuthService::requireRole(['admin', 'cskh']);
+
+        $id = (int)($_POST['id'] ?? 0);
+        $workshopModel = new WorkshopModel();
+        $reg = $workshopModel->getRegistrationById($id);
+
+        if (!$reg) {
+            header('Location: ' . admin_url('workshops') . '?tab=registrations&err=' . urlencode('Đơn đăng ký Workshop không tồn tại.'));
+            exit;
+        }
+
+        $currentUser = AuthService::user();
+        $sheetsService = new \App\Services\GoogleSheetsService();
+        $res = $sheetsService->syncWorkshopRegistration($reg);
+
+        if ($res['success']) {
+            NotificationService::notifySystem(
+                "Đồng bộ Google Sheets Workshop",
+                "Nhân sự {$currentUser['full_name']} vừa đẩy đăng ký Workshop WS-" . str_pad((string)$id, 4, '0', STR_PAD_LEFT) . " ({$reg['full_name']}) sang Sheets.",
+                admin_url('workshops'),
+                $currentUser
+            );
+            header('Location: ' . admin_url('workshops') . '?tab=registrations&msg=' . urlencode('Đã đẩy dữ liệu đăng ký Workshop thành công sang Google Sheets!'));
+        } else {
+            NotificationService::notifySystem(
+                "Lỗi đồng bộ Google Sheets",
+                "Thất bại khi đẩy đăng ký Workshop WS-{$id} sang Sheets: " . ($res['message'] ?? ''),
+                admin_url('workshops'),
+                $currentUser
+            );
+            header('Location: ' . admin_url('workshops') . '?tab=registrations&err=' . urlencode($res['message'] ?? 'Lỗi đồng bộ Google Sheets.'));
+        }
+        exit;
+    }
+
+    public function bulkSyncSheets(): void
+    {
+        AuthService::requireRole(['admin', 'cskh']);
+
+        $ids = $_POST['ids'] ?? [];
+        if (!is_array($ids) || empty($ids)) {
+            header('Location: ' . admin_url('workshops') . '?tab=registrations&err=' . urlencode('Vui lòng chọn ít nhất 1 đăng ký Workshop để đồng bộ Google Sheets.'));
+            exit;
+        }
+
+        $workshopModel = new WorkshopModel();
+        $sheetsService = new \App\Services\GoogleSheetsService();
+        $successCount = 0;
+
+        foreach ($ids as $id) {
+            $reg = $workshopModel->getRegistrationById((int)$id);
+            if ($reg) {
+                $res = $sheetsService->syncWorkshopRegistration($reg);
+                if ($res['success']) {
+                    $successCount++;
+                }
+            }
+        }
+
+        $currentUser = AuthService::user();
+        NotificationService::notifySystem(
+            "Đồng bộ Google Sheets Workshop hàng loạt",
+            "Nhân sự {$currentUser['full_name']} vừa đồng bộ {$successCount}/" . count($ids) . " đăng ký Workshop sang Google Sheets.",
+            admin_url('workshops'),
+            $currentUser
+        );
+
+        header('Location: ' . admin_url('workshops') . '?tab=registrations&msg=' . urlencode("Đã đồng bộ thành công {$successCount}/" . count($ids) . " đăng ký Workshop sang Google Sheets!"));
+        exit;
+    }
+
+    public function resyncAllSheets(): void
+    {
+        AuthService::requireRole(['admin', 'cskh']);
+
+        $workshopModel = new WorkshopModel();
+        $registrations = $workshopModel->getAllRegistrations();
+
+        $sheetsService = new \App\Services\GoogleSheetsService();
+        $res = $sheetsService->resyncAllWorkshops($registrations);
+
+        $currentUser = AuthService::user();
+        if ($res['success']) {
+            NotificationService::notifySystem(
+                "Đồng bộ lại toàn bộ Google Sheets Workshop",
+                "Nhân sự {$currentUser['full_name']} vừa làm sạch & tống toàn bộ " . count($registrations) . " đăng ký Workshop sang Google Sheets.",
+                admin_url('workshops'),
+                $currentUser
+            );
+            header('Location: ' . admin_url('workshops') . '?tab=registrations&msg=' . urlencode("Đã xóa dữ liệu cũ & làm mới toàn bộ " . count($registrations) . " đăng ký Workshop trên Google Sheets thành công!"));
+        } else {
+            header('Location: ' . admin_url('workshops') . '?tab=registrations&err=' . urlencode($res['message'] ?? 'Lỗi đồng bộ Google Sheets.'));
+        }
         exit;
     }
 }

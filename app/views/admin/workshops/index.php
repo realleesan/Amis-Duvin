@@ -5,87 +5,100 @@ ob_start();
 ?>
 
 <div class="space-y-6">
-  <!-- Top Navigation & Tabs Header -->
-  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border/40 pb-4">
-    <div>
-      <h2 class="font-heading text-2xl sm:text-3xl text-foreground">Quản lý Workshop &amp; Lịch Trải nghiệm</h2>
-      <p class="text-sm text-muted-foreground mt-1">Quản lý danh sách khách hàng đăng ký và biên tập thông tin các gói Workshop.</p>
-    </div>
-
-    <!-- Tab Buttons -->
-    <div class="flex items-center gap-2 bg-muted/40 p-1 rounded-sm border border-border/40">
-      <a href="<?= admin_url('workshops') ?>?tab=registrations" class="px-4 py-2 rounded-sm text-xs font-semibold transition-colors <?= $activeTab === 'registrations' ? 'bg-card text-[var(--gold)] border border-border/40 shadow-sm' : 'text-muted-foreground hover:text-foreground' ?>">
-        <span>Khách đăng ký (<?= count($registrations) ?>)</span>
-      </a>
-      <a href="<?= admin_url('workshops') ?>?tab=packages" class="px-4 py-2 rounded-sm text-xs font-semibold transition-colors <?= $activeTab === 'packages' ? 'bg-card text-[var(--gold)] border border-border/40 shadow-sm' : 'text-muted-foreground hover:text-foreground' ?>">
-        <span>Danh mục Workshop (<?= count($workshops) ?>)</span>
-      </a>
-    </div>
+  <!-- Top Navigation Header -->
+  <div class="border-b border-border/40 pb-4">
+    <h2 class="font-heading text-2xl sm:text-3xl text-foreground">Quản lý Workshop &amp; Lịch Trải nghiệm</h2>
+    <p class="text-sm text-muted-foreground mt-1">Quản lý danh sách khách hàng đăng ký trải nghiệm Workshop.</p>
   </div>
 
-  <?php if ($activeTab === 'registrations'): ?>
-    <!-- TAB 1: REGISTRATIONS MANAGEMENT -->
-    <div class="space-y-4">
-      <div class="flex flex-wrap items-center justify-between gap-3">
-        <!-- Filters Bar -->
-        <form method="GET" action="<?= admin_url('workshops') ?>" class="flex flex-wrap items-center gap-3">
-          <input type="hidden" name="tab" value="registrations">
+  <!-- REGISTRATIONS MANAGEMENT -->
+  <div class="space-y-4">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <!-- Filters Bar -->
+      <form id="wsRegFilterForm" method="GET" action="<?= admin_url('workshops') ?>" class="flex flex-wrap items-center gap-3">
+        <input type="hidden" name="tab" value="registrations">
 
-          <div>
-            <label class="sr-only">Lọc Workshop</label>
-            <select name="workshop_id" onchange="this.form.submit()" class="input-elegant px-3.5 py-2 rounded-sm text-xs cursor-pointer">
-              <option value="" class="bg-card text-foreground">Tất cả các Workshop</option>
-              <?php foreach ($workshops as $w): ?>
-                <option value="<?= $w['id'] ?>" <?= (string)$workshopFilter === (string)$w['id'] ? 'selected' : '' ?> class="bg-card text-foreground">
-                  <?= htmlspecialchars($w['title']) ?>
-                </option>
-              <?php endforeach; ?>
-            </select>
-          </div>
+        <div>
+          <label class="sr-only">Lọc Workshop</label>
+          <select name="workshop_id" onchange="this.form.submit()" class="input-elegant px-3.5 py-2 rounded-sm text-xs cursor-pointer">
+            <option value="" class="bg-card text-foreground">Tất cả các Workshop</option>
+            <?php foreach ($workshops as $w): ?>
+              <option value="<?= $w['id'] ?>" <?= (string)$workshopFilter === (string)$w['id'] ? 'selected' : '' ?> class="bg-card text-foreground">
+                <?= htmlspecialchars($w['title']) ?>
+              </option>
+            <?php endforeach; ?>
+          </select>
+        </div>
 
-          <div>
-            <label class="sr-only">Lọc Trạng thái</label>
-            <select name="status" onchange="this.form.submit()" class="input-elegant px-3.5 py-2 rounded-sm text-xs cursor-pointer">
-              <option value="" class="bg-card text-foreground">Tất cả trạng thái</option>
-              <option value="pending" <?= $statusFilter === 'pending' ? 'selected' : '' ?> class="bg-card text-foreground">Chờ xác nhận</option>
-              <option value="confirmed" <?= $statusFilter === 'confirmed' ? 'selected' : '' ?> class="bg-card text-foreground">Đã chốt vé / Đã cọc</option>
-              <option value="cancelled" <?= $statusFilter === 'cancelled' ? 'selected' : '' ?> class="bg-card text-foreground">Đã hủy</option>
-            </select>
-          </div>
+        <div>
+          <label class="sr-only">Lọc Trạng thái</label>
+          <select name="status" onchange="this.form.submit()" class="input-elegant px-3.5 py-2 rounded-sm text-xs cursor-pointer">
+            <option value="" class="bg-card text-foreground">Tất cả trạng thái</option>
+            <option value="pending" <?= $statusFilter === 'pending' ? 'selected' : '' ?> class="bg-card text-foreground">Chờ xác nhận</option>
+            <option value="confirmed" <?= $statusFilter === 'confirmed' ? 'selected' : '' ?> class="bg-card text-foreground">Đã chốt vé / Đã cọc</option>
+            <option value="cancelled" <?= $statusFilter === 'cancelled' ? 'selected' : '' ?> class="bg-card text-foreground">Đã hủy</option>
+          </select>
+        </div>
 
-          <?php if ($statusFilter || $workshopFilter): ?>
-            <a href="<?= admin_url('workshops') ?>?tab=registrations" class="text-xs text-rose-400 hover:underline">Xóa lọc</a>
-          <?php endif; ?>
+        <?php
+          $formattedWsDateDisplay = '';
+          if (!empty($dateFilter)) {
+              if (preg_match('/^(\d{4})-(\d{2})-(\d{2})$/', $dateFilter, $m)) {
+                  $formattedWsDateDisplay = "{$m[3]}/{$m[2]}/{$m[1]}";
+              } else {
+                  $formattedWsDateDisplay = $dateFilter;
+              }
+          }
+        ?>
+        <div class="relative flex items-center">
+          <label for="filterWsDatePicker" class="sr-only">Lọc theo ngày tạo</label>
+          <input type="text" id="filterWsDatePicker" name="date" aria-label="Lọc theo ngày tạo" placeholder="dd/mm/yyyy" value="<?= htmlspecialchars($formattedWsDateDisplay) ?>" class="input-elegant px-3.5 py-2 rounded-sm text-xs cursor-pointer w-36 font-mono">
+        </div>
+
+        <?php if ($statusFilter || $workshopFilter || !empty($dateFilter)): ?>
+          <a href="<?= admin_url('workshops') ?>?tab=registrations" class="px-3 py-2 rounded-sm bg-rose-500/15 text-rose-400 border border-rose-500/30 hover:bg-rose-500/25 transition-colors text-xs font-medium inline-flex items-center gap-1.5" title="Xóa tất cả bộ lọc">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x w-3.5 h-3.5"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+            <span>Xóa lọc</span>
+          </a>
+        <?php endif; ?>
+      </form>
+
+      <div class="flex flex-wrap items-center gap-3">
+        <!-- Full Resync to Google Sheets Button -->
+        <form action="<?= admin_url('workshops/registration/resync-all-sheets') ?>" method="POST" class="inline" onsubmit="return confirm('Bạn có chắc muốn làm sạch dữ liệu cũ trên Google Sheets và tống toàn bộ dữ liệu Đăng ký Workshop hiện tại sang?');">
+          <button type="submit" class="px-3.5 py-2 rounded-sm bg-amber-500/15 text-[var(--gold)] hover:bg-amber-500/25 transition-colors text-xs font-medium inline-flex items-center gap-1.5 shadow-sm" style="border: 1px solid rgba(212, 175, 55, 0.4);" title="Làm sạch dữ liệu cũ & tống toàn bộ đăng ký Workshop sang Google Sheets">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sheet"><rect width="18" height="18" x="3" y="3" rx="2"></rect><line x1="3" x2="21" y1="9" y2="9"></line><line x1="3" x2="21" y1="15" y2="15"></line><line x1="9" x2="9" y1="3" y2="21"></line><line x1="15" x2="15" y1="3" y2="21"></line></svg>
+            <span>Đồng bộ toàn bộ sang Google Sheets</span>
+          </button>
         </form>
 
-        <div class="flex items-center gap-3">
-          <button type="button" onclick="openManualRegModal()" class="btn-wine px-4 py-2 rounded-sm text-xs uppercase tracking-wider font-semibold flex items-center gap-1.5 shadow-sm">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-circle w-4 h-4"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v8"></path><path d="M8 12h8"></path></svg>
-            <span>Nhập tay đăng ký</span>
-          </button>
+        <button type="button" onclick="openManualRegModal()" class="btn-wine px-3.5 py-2 rounded-sm text-xs uppercase tracking-wider font-semibold flex items-center gap-1.5 shadow-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-circle w-4 h-4"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v8"></path><path d="M8 12h8"></path></svg>
+          <span>Nhập tay đăng ký</span>
+        </button>
 
-          <?php if (($user['role'] ?? '') === 'admin'): ?>
-            <a href="<?= admin_url('trash') ?>?type=workshops" class="px-3 py-2 rounded-sm bg-rose-500/10 text-rose-400 border border-rose-500/30 hover:bg-rose-500/20 transition-colors text-xs font-medium inline-flex items-center gap-1.5" title="Xem thùng rác đăng ký workshop">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
-              <span>Thùng rác</span>
-            </a>
-          <?php endif; ?>
-        </div>
+        <?php if (($user['role'] ?? '') === 'admin'): ?>
+          <a href="<?= admin_url('trash') ?>?type=workshops" class="px-3 py-2 rounded-sm bg-rose-500/10 text-rose-400 border border-rose-500/30 hover:bg-rose-500/20 transition-colors text-xs font-medium inline-flex items-center gap-1.5" title="Xem thùng rác đăng ký workshop">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2 w-3.5 h-3.5"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
+            <span>Thùng rác</span>
+          </a>
+        <?php endif; ?>
       </div>
+    </div>
 
-      <!-- Bulk Action Bar -->
+    <!-- Bulk Action Bar -->
+    <div id="bulkWsRegBar" class="hidden items-center justify-between p-3.5 rounded-sm shadow-md mb-4" style="border: 1px solid rgba(178, 2, 37, 0.35);">
+      <div class="flex items-center gap-2 text-xs text-foreground font-medium">
+        <span class="w-2 h-2 rounded-full bg-[var(--gold)] animate-pulse"></span>
+        <span>Đã chọn <strong id="bulkWsRegCount" class="text-[var(--gold)] font-mono font-bold">0</strong> đăng ký</span>
+      </div>
       <?php if (($user['role'] ?? '') === 'admin'): ?>
-        <div id="bulkWsRegBar" class="hidden items-center justify-between p-3.5 rounded-sm shadow-md mb-4" style="border: 1px solid rgba(178, 2, 37, 0.35);">
-          <div class="flex items-center gap-2 text-xs text-foreground font-medium">
-            <span class="w-2 h-2 rounded-full bg-[var(--gold)] animate-pulse"></span>
-            <span>Đã chọn <strong id="bulkWsRegCount" class="text-[var(--gold)] font-mono font-bold">0</strong> đăng ký</span>
-          </div>
-          <button type="button" onclick="submitBulkWsRegDelete()" class="px-3 py-1.5 rounded text-xs font-medium bg-rose-500/15 text-rose-400 border border-rose-500/30 hover:bg-rose-500/25 transition-colors flex items-center gap-1.5">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
-            <span>Chuyển vào Thùng rác</span>
-          </button>
-        </div>
+        <button type="button" onclick="submitBulkWsRegDelete()" class="px-3 py-1.5 rounded text-xs font-medium bg-rose-500/15 text-rose-400 border border-rose-500/30 hover:bg-rose-500/25 transition-colors flex items-center gap-1.5">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
+          <span>Chuyển vào Thùng rác</span>
+        </button>
       <?php endif; ?>
+    </div>
 
       <!-- Registrations Data Table Form -->
       <form id="bulkWsRegForm" method="POST" action="<?= admin_url('workshops/registration/bulk-delete') ?>">
@@ -95,7 +108,7 @@ ob_start();
               <thead>
                 <tr class="bg-muted/40 text-[11px] uppercase tracking-wider text-muted-foreground border-b border-border/40 whitespace-nowrap">
                   <th class="p-4 w-10 text-center">
-                    <input type="checkbox" id="selectAllWsReg" onclick="toggleSelectAllWsReg(this)" class="rounded border-border cursor-pointer">
+                    <input type="checkbox" id="selectAllWsReg" onchange="toggleSelectAllWsReg(this)" class="rounded border-border cursor-pointer">
                   </th>
                   <th class="p-4 w-28">Mã Đơn</th>
                   <th class="p-4 min-w-[170px]">Khách hàng</th>
@@ -165,12 +178,9 @@ ob_start();
                           Đổi trạng thái
                         </button>
                         <?php if (($user['role'] ?? '') === 'admin'): ?>
-                          <form action="<?= admin_url('workshops/registration/delete') ?>" method="POST" class="inline-block" onsubmit="return confirm('Bạn có chắc muốn chuyển đăng ký Workshop này vào Thùng rác?')">
-                            <input type="hidden" name="id" value="<?= $r['id'] ?>">
-                            <button type="submit" class="px-2.5 py-1 rounded text-xs font-medium bg-rose-500/10 text-rose-400 border border-rose-500/20 hover:bg-rose-500/20 transition-colors" title="Xóa tạm">
-                              Xóa
-                            </button>
-                          </form>
+                          <button type="button" onclick="submitSingleWsRegDelete(<?= $r['id'] ?>)" class="px-2.5 py-1 rounded text-xs font-medium bg-rose-500/10 text-rose-400 border border-rose-500/20 hover:bg-rose-500/20 transition-colors" title="Xóa tạm">
+                            Xóa
+                          </button>
                         <?php endif; ?>
                       </div>
                     </td>
@@ -183,74 +193,6 @@ ob_start();
       </div>
       </form>
     </div>
-
-  <?php else: ?>
-    <!-- TAB 2: WORKSHOP PACKAGES CMS -->
-    <div class="space-y-4">
-      <div class="flex items-center justify-between">
-        <h3 class="text-xs uppercase tracking-widest text-[var(--gold)] font-mono font-semibold">Danh sách Gói Workshop &amp; Lịch trải nghiệm</h3>
-        <?php if ($user['role'] === 'admin'): ?>
-          <button type="button" onclick="openCreateWorkshopModal()" class="btn-wine px-4 py-2 rounded-sm text-xs uppercase tracking-wider font-semibold flex items-center gap-1.5 shadow-sm">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus w-4 h-4"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
-            <span>Tạo Gói Workshop mới</span>
-          </button>
-        <?php endif; ?>
-      </div>
-
-      <div class="grid md:grid-cols-2 gap-5">
-        <?php foreach ($workshops as $w): ?>
-          <?php
-            $statusBadge = match($w['status']) {
-              'active' => 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30',
-              'full' => 'bg-amber-500/15 text-amber-400 border-amber-500/30',
-              default => 'bg-rose-500/15 text-rose-400 border-rose-500/30'
-            };
-            $statusLabel = match($w['status']) {
-              'active' => 'Đang mở đăng ký',
-              'full' => 'Đã hết chỗ (Full)',
-              default => 'Tạm ẩn'
-            };
-          ?>
-          <div class="rounded-sm border border-border/40 bg-card p-5 space-y-3">
-            <div class="flex items-start justify-between gap-3">
-              <div>
-                <div class="flex items-center gap-2">
-                  <h3 class="font-heading text-lg text-foreground font-semibold"><?= htmlspecialchars($w['title']) ?></h3>
-                  <?php if ($w['is_featured']): ?>
-                    <span class="px-2 py-0.5 rounded text-[10px] uppercase font-mono font-bold bg-[var(--gold)]/20 text-[var(--gold)] border border-[var(--gold)]/40">Nổi bật</span>
-                  <?php endif; ?>
-                </div>
-                <span class="text-xs text-muted-foreground font-mono"><?= htmlspecialchars($w['level']) ?> • <?= (int)$w['wines_count'] ?> dòng vang</span>
-              </div>
-              <span class="px-2.5 py-1 rounded-full text-[10px] uppercase font-mono tracking-wider font-semibold border shrink-0 <?= $statusBadge ?>">
-                <?= $statusLabel ?>
-              </span>
-            </div>
-
-            <p class="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
-              <?= htmlspecialchars($w['description']) ?>
-            </p>
-
-            <div class="grid grid-cols-2 gap-2 text-xs font-mono pt-2 border-t border-border/30">
-              <div>Giá vé: <strong class="text-[var(--gold)]"><?= number_format($w['price']) ?>đ/khách</strong></div>
-              <div>Thời lượng: <strong class="text-foreground"><?= htmlspecialchars($w['duration']) ?></strong></div>
-              <div>Lịch học: <strong class="text-foreground"><?= htmlspecialchars($w['schedule']) ?></strong></div>
-              <div>Đã đăng ký: <strong class="text-emerald-400"><?= (int)$w['current_participants'] ?> / <?= (int)$w['max_participants'] ?> chỗ</strong></div>
-            </div>
-
-            <?php if ($user['role'] === 'admin'): ?>
-              <div class="pt-2 border-t border-border/30 flex justify-end">
-                <button type="button" onclick='openEditWorkshopModal(<?= json_encode($w, JSON_HEX_APOS | JSON_HEX_QUOT) ?>)' class="px-3 py-1.5 rounded text-xs font-semibold bg-muted hover:bg-muted/80 text-foreground transition-colors flex items-center gap-1">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-edit w-3.5 h-3.5"><path d="M12 20h9"></path><path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z"></path></svg>
-                  <span>Chỉnh sửa thông tin</span>
-                </button>
-              </div>
-            <?php endif; ?>
-          </div>
-        <?php endforeach; ?>
-      </div>
-    </div>
-  <?php endif; ?>
 </div>
 
 <!-- Modal 1: Nhập tay Đăng ký Workshop (CSKH) -->
@@ -517,9 +459,11 @@ function updateBulkWsRegBar() {
   const all = document.querySelectorAll('.ws-reg-cb');
   const bar = document.getElementById('bulkWsRegBar');
   const countEl = document.getElementById('bulkWsRegCount');
+  const syncCountEl = document.getElementById('bulkWsRegSyncCount');
   const master = document.getElementById('selectAllWsReg');
 
   if (countEl) countEl.textContent = checked.length;
+  if (syncCountEl) syncCountEl.textContent = checked.length;
   if (bar) {
     if (checked.length > 0) {
       bar.classList.remove('hidden');
@@ -542,9 +486,87 @@ function submitBulkWsRegDelete() {
     return;
   }
   if (confirm(`Bạn có chắc chắn muốn chuyển ${checked.length} đăng ký Workshop đã chọn vào Thùng rác?`)) {
-    document.getElementById('bulkWsRegForm').submit();
+    const form = document.getElementById('bulkWsRegForm');
+    form.action = '<?= admin_url('workshops/registration/bulk-delete') ?>';
+    form.submit();
   }
 }
+
+function submitBulkWsRegSync() {
+  const checked = document.querySelectorAll('.ws-reg-cb:checked');
+  if (checked.length === 0) {
+    alert('Vui lòng chọn ít nhất 1 đăng ký Workshop để đồng bộ Google Sheets.');
+    return;
+  }
+  const form = document.getElementById('bulkWsRegForm');
+  form.action = '<?= admin_url('workshops/registration/bulk-sync-sheets') ?>';
+  form.submit();
+}
+
+function submitSingleWsRegSync(id) {
+  const form = document.createElement('form');
+  form.method = 'POST';
+  form.action = '<?= admin_url('workshops/registration/sync') ?>';
+  const input = document.createElement('input');
+  input.type = 'hidden';
+  input.name = 'id';
+  input.value = id;
+  form.appendChild(input);
+  document.body.appendChild(form);
+  form.submit();
+}
+
+function submitSingleWsRegDelete(id) {
+  if (!confirm('Bạn có chắc muốn chuyển đăng ký Workshop này vào Thùng rác?')) return;
+  const form = document.createElement('form');
+  form.method = 'POST';
+  form.action = '<?= admin_url('workshops/registration/delete') ?>';
+  const input = document.createElement('input');
+  input.type = 'hidden';
+  input.name = 'id';
+  input.value = id;
+  form.appendChild(input);
+  document.body.appendChild(form);
+  form.submit();
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  if (typeof flatpickr !== 'undefined') {
+    if (flatpickr.l10ns && flatpickr.l10ns.vn) {
+      flatpickr.localize(flatpickr.l10ns.vn);
+    }
+    const filterInput = document.getElementById('filterWsDatePicker');
+    if (filterInput) {
+      flatpickr(filterInput, {
+        dateFormat: 'd/m/Y',
+        allowInput: true,
+        monthSelectorType: 'dropdown',
+        onReady: function(selectedDates, dateStr, instance) {
+          var container = instance.calendarContainer;
+          if (container) {
+            var yearInput = container.querySelector('.numInput.cur-year');
+            if (yearInput) {
+              if (!yearInput.getAttribute('id')) yearInput.setAttribute('id', 'adminFpWsYearFilter_' + Math.random().toString(36).substr(2, 5));
+              if (!yearInput.getAttribute('name')) yearInput.setAttribute('name', 'admin_flatpickr_ws_year_filter');
+              yearInput.setAttribute('aria-label', 'Chọn năm');
+            }
+            var monthSelect = container.querySelector('.flatpickr-monthDropdown-months');
+            if (monthSelect) {
+              if (!monthSelect.getAttribute('id')) monthSelect.setAttribute('id', 'adminFpWsMonthFilter_' + Math.random().toString(36).substr(2, 5));
+              if (!monthSelect.getAttribute('name')) monthSelect.setAttribute('name', 'admin_flatpickr_ws_month_filter');
+              monthSelect.setAttribute('aria-label', 'Chọn tháng');
+            }
+          }
+        },
+        onClose: function(selectedDates, dateStr, instance) {
+          if (dateStr) {
+            document.getElementById('wsRegFilterForm').submit();
+          }
+        }
+      });
+    }
+  }
+});
 </script>
 
 <?php

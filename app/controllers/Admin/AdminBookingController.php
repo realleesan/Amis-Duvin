@@ -245,4 +245,65 @@ class AdminBookingController extends BaseController
         header('Location: ' . admin_url('bookings') . '?msg=' . urlencode("Đã chuyển {$count} đơn tiệc được chọn vào thùng rác thành công!"));
         exit;
     }
+
+    public function bulkSyncSheets(): void
+    {
+        AuthService::requireRole(['admin', 'cskh']);
+
+        $ids = $_POST['ids'] ?? [];
+        if (!is_array($ids) || empty($ids)) {
+            header('Location: ' . admin_url('bookings') . '?err=' . urlencode('Vui lòng chọn ít nhất 1 đơn tiệc để đồng bộ Google Sheets.'));
+            exit;
+        }
+
+        $bookingModel = new BookingModel();
+        $sheetsService = new GoogleSheetsService();
+        $successCount = 0;
+
+        foreach ($ids as $id) {
+            $booking = $bookingModel->getBookingById((int)$id);
+            if ($booking) {
+                $res = $sheetsService->syncBookingLead($booking);
+                if ($res['success']) {
+                    $successCount++;
+                }
+            }
+        }
+
+        $currentUser = AuthService::user();
+        NotificationService::notifySystem(
+            "Đồng bộ Google Sheets hàng loạt",
+            "Nhân sự {$currentUser['full_name']} vừa đồng bộ {$successCount}/" . count($ids) . " đơn tiệc sang Google Sheets.",
+            admin_url('bookings'),
+            $currentUser
+        );
+
+        header('Location: ' . admin_url('bookings') . '?msg=' . urlencode("Đã đồng bộ thành công {$successCount}/" . count($ids) . " đơn tiệc sang Google Sheets!"));
+        exit;
+    }
+
+    public function resyncAllSheets(): void
+    {
+        AuthService::requireRole(['admin', 'cskh']);
+
+        $bookingModel = new BookingModel();
+        $bookings = $bookingModel->getAllBookings();
+
+        $sheetsService = new GoogleSheetsService();
+        $res = $sheetsService->resyncAllBookings($bookings);
+
+        $currentUser = AuthService::user();
+        if ($res['success']) {
+            NotificationService::notifySystem(
+                "Đồng bộ lại toàn bộ Google Sheets Đặt tiệc",
+                "Nhân sự {$currentUser['full_name']} vừa làm sạch & tống toàn bộ " . count($bookings) . " đơn tiệc sang Google Sheets.",
+                admin_url('bookings'),
+                $currentUser
+            );
+            header('Location: ' . admin_url('bookings') . '?msg=' . urlencode("Đã xóa dữ liệu cũ & làm mới toàn bộ " . count($bookings) . " đơn tiệc trên Google Sheets thành công!"));
+        } else {
+            header('Location: ' . admin_url('bookings') . '?err=' . urlencode($res['message'] ?? 'Lỗi đồng bộ Google Sheets.'));
+        }
+        exit;
+    }
 }
