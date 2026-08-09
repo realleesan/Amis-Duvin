@@ -12,6 +12,7 @@ use App\Models\FaqModel;
 use App\Models\BenefitModel;
 use App\Models\WorkshopModel;
 use App\Models\SeoModel;
+use App\Services\NotificationService;
 
 class AdminContentController extends BaseController
 {
@@ -72,6 +73,14 @@ class AdminContentController extends BaseController
             ]);
         }
 
+        $currentUser = AuthService::user();
+        NotificationService::notifyContent(
+            "Cập nhật Section Hero",
+            "Nhân sự {$currentUser['full_name']} vừa cập nhật tiêu đề/slogan của Banner Hero.",
+            admin_url('content'),
+            $currentUser
+        );
+
         header('Location: ' . admin_url('content') . '?msg=' . urlencode('Đã cập nhật Section Hero thành công!'));
         exit;
     }
@@ -120,7 +129,23 @@ class AdminContentController extends BaseController
         $priceText = trim($_POST['price_text'] ?? '');
         $level = trim($_POST['level'] ?? '');
         $image = trim($_POST['image'] ?? '');
-        $menuItems = trim($_POST['menu_items'] ?? '');
+
+        // Support structured courses and wines array inputs
+        $courses = $_POST['courses'] ?? null;
+        $wines = $_POST['wines'] ?? null;
+        if (is_array($courses)) {
+            $menuItemsArr = [];
+            foreach ($courses as $idx => $course) {
+                $c = trim($course);
+                $w = trim($wines[$idx] ?? '');
+                if ($c !== '' || $w !== '') {
+                    $menuItemsArr[] = ['course' => $c, 'wine' => $w];
+                }
+            }
+            $menuItems = json_encode($menuItemsArr, JSON_UNESCAPED_UNICODE);
+        } else {
+            $menuItems = trim($_POST['menu_items'] ?? '');
+        }
 
         $db = (new PairingModel())->getDb();
         if ($db && $id > 0) {
@@ -135,6 +160,14 @@ class AdminContentController extends BaseController
                 'id' => $id
             ]);
         }
+
+        $currentUser = AuthService::user();
+        NotificationService::notifyContent(
+            "Cập nhật Gói tiệc Pairing #{$id}",
+            "Nhân sự {$currentUser['full_name']} vừa cập nhật thông tin/thực đơn gói tiệc '{$title}'.",
+            admin_url('content'),
+            $currentUser
+        );
 
         header('Location: ' . admin_url('content') . '?msg=' . urlencode('Đã cập nhật Gói tiệc Pairing thành công!'));
         exit;

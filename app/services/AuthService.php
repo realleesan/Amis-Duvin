@@ -6,6 +6,18 @@ use App\Models\UserModel;
 
 class AuthService
 {
+    private static function startSecureSession(): void
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_set_cookie_params([
+                'path' => '/',
+                'httponly' => true,
+                'samesite' => 'Lax'
+            ]);
+            session_start();
+        }
+    }
+
     public static function attempt(string $username, string $password): array
     {
         $userModel = new UserModel();
@@ -15,33 +27,45 @@ class AuthService
             return ['success' => false, 'message' => 'Tên đăng nhập hoặc mật khẩu không chính xác!'];
         }
 
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+        self::startSecureSession();
+
+        // Regenerate Session ID to prevent Session Fixation attacks
+        session_regenerate_id(true);
 
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
         $_SESSION['user_role'] = $user['role'];
         $_SESSION['full_name'] = $user['full_name'];
+        $_SESSION['last_activity'] = time();
 
         return ['success' => true, 'user' => $user];
     }
 
     public static function logout(): void
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-        unset($_SESSION['user_id'], $_SESSION['username'], $_SESSION['user_role'], $_SESSION['full_name']);
+        self::startSecureSession();
+        unset($_SESSION['user_id'], $_SESSION['username'], $_SESSION['user_role'], $_SESSION['full_name'], $_SESSION['last_activity']);
         session_destroy();
     }
 
     public static function check(): bool
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
+        self::startSecureSession();
+
+        if (empty($_SESSION['user_id'])) {
+            return false;
         }
-        return !empty($_SESSION['user_id']);
+
+        // Idle Session Timeout Check (Default 2 hours = 7200 seconds)
+        $timeout = (int)env('SESSION_LIFETIME', 7200);
+        if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > $timeout)) {
+            self::logout();
+            return false;
+        }
+
+        // Update last activity timestamp on active requests
+        $_SESSION['last_activity'] = time();
+        return true;
     }
 
     public static function user(): ?array
@@ -58,7 +82,7 @@ class AuthService
     public static function requireAuth(): void
     {
         if (!self::check()) {
-            header('Location: ' . admin_url('login'));
+            header('Location: ' . admin_url('login') . '?error=' . urlencode('Phiên đăng nhập đã hết hạn hoặc không hợp lệ. Vui lòng đăng nhập lại.'));
             exit;
         }
     }

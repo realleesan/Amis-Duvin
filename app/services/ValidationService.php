@@ -34,9 +34,14 @@ class ValidationService
         if (empty($date)) {
             $errors['date'] = 'Vui lòng chọn ngày đặt tiệc';
         } else {
+            $dateStr = $date;
+            if (preg_match('/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/', $date, $m)) {
+                $dateStr = sprintf('%04d-%02d-%02d', $m[3], $m[2], $m[1]);
+            }
+
             $todayTimestamp = strtotime(date('Y-m-d'));
             $maxAllowedTimestamp = strtotime(date('Y-m-d', strtotime('+5 days')));
-            $inputTimestamp = strtotime($date);
+            $inputTimestamp = strtotime($dateStr);
 
             if (!$inputTimestamp || $inputTimestamp < $todayTimestamp || $inputTimestamp > $maxAllowedTimestamp) {
                 $errors['date'] = 'Theo quy định, Quý khách chỉ có thể đặt tiệc trong vòng 5 ngày tới (từ ' . date('d/m/Y', $todayTimestamp) . ' đến ' . date('d/m/Y', $maxAllowedTimestamp) . ')';

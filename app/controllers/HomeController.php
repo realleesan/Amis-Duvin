@@ -11,11 +11,23 @@ use App\Models\BenefitModel;
 use App\Models\HeroModel;
 use App\Models\ServiceIntroModel;
 use App\Models\SeoModel;
+use App\Models\AnalyticsModel;
 
 class HomeController extends BaseController
 {
     public function index(): void
     {
+        // Record Traffic Pageview
+        try {
+            $ip = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
+            $ua = $_SERVER['HTTP_USER_AGENT'] ?? '';
+            $deviceType = 'desktop';
+            if (preg_match('/(android|bb\d+|meego).+mobile|avail|blackberry|iemobile|mobi|opera mini|phone|tablet|ipad/i', $ua)) {
+                $deviceType = preg_match('/tablet|ipad/i', $ua) ? 'tablet' : 'mobile';
+            }
+            (new AnalyticsModel())->recordPageview($ip, $ua, $deviceType, '/');
+        } catch (\Throwable $e) {}
+
         $workshopModel = new WorkshopModel();
         $workshops = $workshopModel->getActiveWorkshops();
         $featuredWorkshops = $workshopModel->getFeaturedWorkshops();

@@ -6,6 +6,8 @@ use Core\BaseController;
 use App\Services\AuthService;
 use App\Models\BookingModel;
 use App\Models\WorkshopModel;
+use App\Models\AnalyticsModel;
+use App\Models\NotificationModel;
 
 class AdminDashboardController extends BaseController
 {
@@ -18,6 +20,14 @@ class AdminDashboardController extends BaseController
 
         $workshopModel = new WorkshopModel();
         $allWorkshops = $workshopModel->getAllWorkshops();
+
+        $analyticsModel = new AnalyticsModel();
+        $trafficStats = $analyticsModel->getPageviewSummary();
+        $dailyTrend = $analyticsModel->getDailyTrend(7);
+        $topClicks = $analyticsModel->getTopClickedElements(8);
+
+        $notifModel = new NotificationModel();
+        $unreadCount = $notifModel->getUnreadCount();
 
         $totalBookings = count($allBookings);
         $pendingBookings = count(array_filter($allBookings, fn($b) => ($b['deposit_status'] ?? '') === 'Chờ xác nhận'));

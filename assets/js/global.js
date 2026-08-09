@@ -662,13 +662,48 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 8. Smooth scroll links helper
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      e.preventDefault();
-      const targetId = this.getAttribute('href').substring(1);
-      scrollToId(targetId);
-    });
+  // 9. Analytics Click Tracking Beacon
+  window.trackClickBeacon = function(key, label) {
+    try {
+      const payload = new FormData();
+      payload.append('element_key', key);
+      payload.append('element_label', label);
+      payload.append('path', window.location.pathname);
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon('/api/track-click', payload);
+      } else {
+        fetch('/api/track-click', { method: 'POST', body: payload });
+      }
+    } catch(e){}
+  };
+
+  document.addEventListener('click', (e) => {
+    const trackTarget = e.target.closest('[data-track-key]');
+    if (trackTarget) {
+      const key = trackTarget.getAttribute('data-track-key');
+      const label = trackTarget.getAttribute('data-track-label') || trackTarget.innerText.trim();
+      window.trackClickBeacon(key, label);
+      return;
+    }
+
+    const btn = e.target.closest('button, a');
+    if (!btn) return;
+    const txt = (btn.innerText || '').trim();
+    const href = btn.getAttribute('href') || '';
+
+    if (txt.includes('Đặt tiệc ngay') || txt.includes('Gửi thông tin đặt tiệc')) {
+      window.trackClickBeacon('btn_booking_cta', txt || 'Đặt tiệc ngay');
+    } else if (txt.includes('Đăng ký Workshop') || txt.includes('Tham gia Workshop')) {
+      window.trackClickBeacon('btn_workshop_cta', txt || 'Đăng ký Workshop');
+    } else if (href.includes('tel:') || txt.includes('090') || txt.includes('Hotline')) {
+      window.trackClickBeacon('btn_hotline', txt || 'Gọi Hotline CSKH');
+    } else if (href.includes('zalo.me') || txt.includes('Zalo')) {
+      window.trackClickBeacon('btn_zalo', txt || 'Liên hệ Zalo');
+    } else if (txt.includes('Xem thực đơn') || txt.includes('Gói tiệc')) {
+      window.trackClickBeacon('btn_pairing_card', txt || 'Xem thực đơn gói tiệc');
+    } else if (txt.includes('Bằng chứng nhận Sommelier') || btn.closest('#certLightboxModal')) {
+      window.trackClickBeacon('btn_sommelier_cert', 'Xem Chứng nhận Sommelier');
+    }
   });
 });
 

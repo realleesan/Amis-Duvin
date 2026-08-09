@@ -13,6 +13,9 @@ use App\Controllers\Admin\AdminUserController;
 use App\Controllers\SeoController;
 use App\Middleware\AuthMiddleware;
 
+use App\Controllers\AnalyticsController;
+use App\Controllers\Admin\AdminNotificationController;
+
 // Public Web Routes
 Router::get('/', [HomeController::class, 'index']);
 Router::get('/under-18', [HomeController::class, 'under18']);
@@ -23,6 +26,8 @@ Router::get('/sitemap.xml', [SeoController::class, 'sitemap']);
 Router::get('/api/availability', [BookingController::class, 'getAvailability']);
 Router::post('/api/booking', [BookingController::class, 'store']);
 Router::post('/api/workshop-register', [WorkshopController::class, 'store']);
+Router::post('/api/track-pageview', [AnalyticsController::class, 'trackPageview']);
+Router::post('/api/track-click', [AnalyticsController::class, 'trackClick']);
 
 // Admin Auth Routes
 Router::get(admin_url('login'), [AuthController::class, 'showLogin']);
@@ -31,6 +36,19 @@ Router::get(admin_url('logout'), [AuthController::class, 'logout']);
 
 // Admin CMS Protected Routes (with AuthMiddleware RBAC)
 Router::get(admin_url(), [AdminDashboardController::class, 'index'], [
+    AuthMiddleware::class => []
+]);
+
+Router::get(admin_url('api/notifications/unread'), [AdminNotificationController::class, 'getUnreadApi'], [
+    AuthMiddleware::class => []
+]);
+Router::post(admin_url('api/notifications/mark-read'), [AdminNotificationController::class, 'markAsReadApi'], [
+    AuthMiddleware::class => []
+]);
+Router::post(admin_url('api/notifications/mark-all-read'), [AdminNotificationController::class, 'markAllAsReadApi'], [
+    AuthMiddleware::class => []
+]);
+Router::get(admin_url('notifications'), [AdminNotificationController::class, 'index'], [
     AuthMiddleware::class => []
 ]);
 

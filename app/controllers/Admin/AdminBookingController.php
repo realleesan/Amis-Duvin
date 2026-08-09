@@ -6,6 +6,7 @@ use Core\BaseController;
 use App\Services\AuthService;
 use App\Models\BookingModel;
 use App\Services\GoogleSheetsService;
+use App\Services\NotificationService;
 
 class AdminBookingController extends BaseController
 {
@@ -56,6 +57,14 @@ class AdminBookingController extends BaseController
         }
 
         $bookingModel->updateStatus($id, $depositStatus, $notes);
+
+        $currentUser = AuthService::user();
+        NotificationService::notifyBooking(
+            "Cập nhật đơn tiệc #{$id}",
+            "Nhân sự {$currentUser['full_name']} vừa cập nhật trạng thái cọc thành: '{$depositStatus}'.",
+            admin_url('bookings') . "?date={$booking['booking_date']}",
+            $currentUser
+        );
 
         // Auto-sync updated lead status to Google Sheets (Option 1)
         $booking['deposit_status'] = $depositStatus;
@@ -132,6 +141,14 @@ class AdminBookingController extends BaseController
             $leadId = $db->lastInsertId();
 
             if ($leadId) {
+                $currentUser = AuthService::user();
+                NotificationService::notifyBooking(
+                    "Đơn tiệc nhập tay mới (Hotline)",
+                    "Nhân sự {$currentUser['full_name']} vừa nhập tay đơn tiệc cho khách {$fullName} ({$phone}) ngày {$bookingDate}.",
+                    admin_url('bookings') . "?date={$bookingDate}",
+                    $currentUser
+                );
+
                 $booking = $bookingModel->getBookingById((int)$leadId);
                 if ($booking) {
                     $sheetsService = new GoogleSheetsService();
@@ -159,12 +176,25 @@ class AdminBookingController extends BaseController
             exit;
         }
 
+        $currentUser = AuthService::user();
         $sheetsService = new GoogleSheetsService();
         $res = $sheetsService->syncBookingLead($booking);
 
         if ($res['success']) {
+            NotificationService::notifySystem(
+                "Đồng bộ Google Sheets",
+                "Nhân sự {$currentUser['full_name']} vừa đẩy dữ liệu đơn #{$id} ({$booking['full_name']}) sang Sheets.",
+                admin_url('bookings'),
+                $currentUser
+            );
             header('Location: ' . admin_url('bookings') . '?msg=' . urlencode('Đã đẩy dữ liệu thành công sang Google Sheets.'));
         } else {
+            NotificationService::notifySystem(
+                "Lỗi đồng bộ Google Sheets",
+                "Thất bại khi đẩy đơn #{$id} sang Sheets: " . ($res['message'] ?? ''),
+                admin_url('bookings'),
+                $currentUser
+            );
             header('Location: ' . admin_url('bookings') . '?err=' . urlencode($res['message'] ?? 'Lỗi đồng bộ Google Sheets.'));
         }
         exit;

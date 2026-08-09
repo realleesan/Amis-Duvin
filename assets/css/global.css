@@ -174,18 +174,59 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   background: var(--wine);
 }
 
+/* Remove harsh default browser focus outlines */
+*:focus, *:focus-visible {
+  outline: none !important;
+}
+
+/* Fix Native Select Option Contrast on Windows / macOS */
+select option {
+  background-color: #ffffff !important;
+  color: #121212 !important;
+}
+.dark select option {
+  background-color: #1a1a1a !important;
+  color: #f3f3f3 !important;
+}
+
+.admin-active-nav {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  color: #c2a565 !important;
+  border-left: 3px solid #c2a565 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+  font-weight: 600 !important;
+}
+
+.admin-btn-gold {
+  background-color: rgba(194, 165, 101, 0.12);
+  color: #c2a565;
+  border: 1px solid rgba(194, 165, 101, 0.3);
+  transition: all 0.2s ease;
+}
+.admin-btn-gold:hover {
+  background-color: rgba(194, 165, 101, 0.22);
+  border-color: rgba(194, 165, 101, 0.5);
+  color: #e8d5a8;
+}
+
 .input-elegant {
   background: var(--input-bg);
-  border: 1px solid var(--input-border);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   color: hsl(var(--foreground));
   transition: all 0.3s ease;
 }
+.dark .input-elegant {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
 .input-elegant::placeholder { color: hsl(var(--muted-foreground)); opacity: 0.6; }
 .input-elegant:focus {
-  border-color: var(--wine);
-  background: var(--input-bg);
-  box-shadow: 0 0 0 3px var(--wine-glow);
-  outline: none;
+  border-color: var(--wine) !important;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 0 2px var(--wine-glow) !important;
+  outline: none !important;
 }
 
 .hairline {

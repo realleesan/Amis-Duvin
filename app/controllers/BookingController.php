@@ -5,6 +5,7 @@ namespace App\Controllers;
 use Core\BaseController;
 use App\Models\BookingModel;
 use App\Services\ValidationService;
+use App\Services\NotificationService;
 
 class BookingController extends BaseController
 {
@@ -51,20 +52,38 @@ class BookingController extends BaseController
             return;
         }
 
+        $fullName = sanitize($input['name'] ?? $input['full_name']);
+        $phone = sanitize($input['phone']);
+        $email = sanitize($input['email']);
+        $notes = sanitize($input['notes'] ?? '');
+
         $id = $bookingModel->create([
-            'full_name'    => sanitize($input['name'] ?? $input['full_name']),
-            'phone'        => sanitize($input['phone']),
-            'email'        => sanitize($input['email']),
+            'full_name'    => $fullName,
+            'phone'        => $phone,
+            'email'        => $email,
             'participants' => $participants,
             'booking_date' => $bookingDate,
             'time_slot'    => $timeSlot,
-            'notes'        => sanitize($input['notes'] ?? ''),
+            'notes'        => $notes
         ]);
 
-        $this->json([
-            'success' => true,
-            'message' => 'Đăng ký đặt tiệc thành công! CSKH Amis du Vin sẽ liên hệ trong vòng 2 giờ làm việc để chốt thực đơn và hướng dẫn cọc.',
-            'id'      => $id ?: rand(100, 999)
-        ]);
+        if ($id) {
+            // Trigger Notification & Audit Log
+            $formattedDate = date('d/m/Y', strtotime($bookingDate));
+            NotificationService::notifyBooking(
+                "Đơn tiệc mới từ Khách hàng: {$fullName}",
+                "Khách hàng {$fullName} ({$phone}) vừa đặt tiệc ngày {$formattedDate} - {$timeSlot} ({$participants} khách).",
+                admin_url('bookings') . "?date={$bookingDate}"
+            );
+
+            $this->json([
+                'success' => true,
+                'message' => 'Đặt tiệc thành công! Bộ phận CSKH Amis du Vin sẽ liên hệ xác nhận trong thời gian sớm nhất.',
+                'booking_id' => $id
+            ]);
+            return;
+        }
+
+        $this->json(['success' => false, 'message' => 'Có lỗi xảy ra, vui lòng thử lại.'], 500);
     }
 }

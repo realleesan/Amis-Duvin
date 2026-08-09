@@ -248,5 +248,45 @@ INSERT INTO `seo_settings` (`id`, `meta_title`, `meta_description`, `meta_keywor
 )
 ON DUPLICATE KEY UPDATE `id` = `id`;
 
+-- Bảng lưu Thông báo & Nhật ký Biến động Dữ liệu (Audit Log & Notifications)
+CREATE TABLE IF NOT EXISTS `notifications` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `user_id` INT NULL,
+  `user_name` VARCHAR(100) NOT NULL DEFAULT 'Hệ thống',
+  `type` ENUM('booking', 'content', 'user', 'system') NOT NULL DEFAULT 'booking',
+  `title` VARCHAR(255) NOT NULL,
+  `content` TEXT NOT NULL,
+  `action_url` VARCHAR(255) NULL,
+  `is_read` TINYINT(1) NOT NULL DEFAULT 0,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  INDEX `idx_notif_read` (`is_read`),
+  INDEX `idx_notif_type` (`type`),
+  INDEX `idx_notif_created` (`created_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Bảng lưu Lượt truy cập Landing Page (Traffic Pageviews)
+CREATE TABLE IF NOT EXISTS `analytics_pageviews` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `ip_address` VARCHAR(45) NOT NULL,
+  `user_agent` VARCHAR(255) NULL,
+  `device_type` ENUM('desktop', 'mobile', 'tablet') NOT NULL DEFAULT 'desktop',
+  `page_path` VARCHAR(255) NOT NULL DEFAULT '/',
+  `viewed_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  INDEX `idx_pv_viewed` (`viewed_at`),
+  INDEX `idx_pv_device` (`device_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Bảng lưu Lượt Click nút / tương tác Marketing (Click Analytics)
+CREATE TABLE IF NOT EXISTS `analytics_clicks` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `element_key` VARCHAR(100) NOT NULL,
+  `element_label` VARCHAR(255) NOT NULL,
+  `page_path` VARCHAR(255) NOT NULL DEFAULT '/',
+  `clicked_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  INDEX `idx_click_key` (`element_key`),
+  INDEX `idx_click_time` (`clicked_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
 
 

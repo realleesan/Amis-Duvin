@@ -89,7 +89,13 @@ document.addEventListener('DOMContentLoaded', () => {
         maxDate.setDate(today.getDate() + 5);
         maxDate.setHours(23, 59, 59, 999);
 
-        const selectedDate = new Date(dateInput.value);
+        let selectedDate;
+        const parts = dateInput.value.split('/');
+        if (parts.length === 3) {
+          selectedDate = new Date(parseInt(parts[2], 10), parseInt(parts[1], 10) - 1, parseInt(parts[0], 10));
+        } else {
+          selectedDate = new Date(dateInput.value);
+        }
         selectedDate.setHours(12, 0, 0, 0);
 
         if (selectedDate < today || selectedDate > maxDate) {

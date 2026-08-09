@@ -5,6 +5,7 @@ namespace App\Controllers\Admin;
 use Core\BaseController;
 use App\Services\AuthService;
 use App\Models\UserModel;
+use App\Services\NotificationService;
 
 class AdminUserController extends BaseController
 {
@@ -47,6 +48,13 @@ class AdminUserController extends BaseController
         $success = $userModel->createUser($username, $password, $fullName, $role);
 
         if ($success) {
+            $currentUser = AuthService::user();
+            NotificationService::notifyUser(
+                "Tạo tài khoản nhân sự mới: {$fullName}",
+                "Admin {$currentUser['full_name']} vừa tạo tài khoản '{$username}' (Vai trò: {$role}).",
+                admin_url('users'),
+                $currentUser
+            );
             header('Location: ' . admin_url('users') . '?msg=' . urlencode('Đã tạo tài khoản nhân sự mới thành công!'));
         } else {
             header('Location: ' . admin_url('users') . '?err=' . urlencode('Lỗi tạo tài khoản mới.'));
@@ -74,6 +82,14 @@ class AdminUserController extends BaseController
         if (!empty($newPassword)) {
             $userModel->updatePassword($id, $newPassword);
         }
+
+        $currentUser = AuthService::user();
+        NotificationService::notifyUser(
+            "Cập nhật tài khoản #{$id} ({$fullName})",
+            "Admin {$currentUser['full_name']} vừa cập nhật thông tin/mật khẩu cho nhân sự {$fullName}.",
+            admin_url('users'),
+            $currentUser
+        );
 
         header('Location: ' . admin_url('users') . '?msg=' . urlencode('Đã cập nhật thông tin tài khoản thành công!'));
         exit;
