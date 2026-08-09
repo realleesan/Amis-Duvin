@@ -157,6 +157,9 @@ Router::post(admin_url('notifications/bulk-delete'), [AdminNotificationControlle
 Router::post(admin_url('api/notifications/bulk-mark-read'), [AdminNotificationController::class, 'bulkMarkReadApi'], [
     AuthMiddleware::class => []
 ]);
+Router::post(admin_url('api/upload-image'), [\App\Controllers\Admin\AdminUploadController::class, 'uploadImage'], [
+    AuthMiddleware::class => []
+]);
 Router::post(admin_url('bookings/delete'), [AdminBookingController::class, 'delete'], [
     AuthMiddleware::class => ['admin']
 ]);

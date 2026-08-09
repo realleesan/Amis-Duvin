@@ -393,8 +393,24 @@ ob_start();
       </div>
 
       <div>
-        <label class="block text-xs font-medium mb-1">Link Ảnh bìa</label>
-        <input type="url" id="wpImage" name="image" placeholder="https://..." class="input-elegant w-full px-3 py-2 rounded text-xs">
+        <label for="wpImage" class="block text-xs font-medium mb-1">Ảnh bìa Workshop</label>
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded border border-border/60 bg-muted/30 overflow-hidden shrink-0 flex items-center justify-center relative">
+            <img id="preview_wpImage" src="" onclick="openAdminImageLightbox(this.src)" title="Bấm để xem ảnh phóng to" class="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity hidden" alt="Preview">
+            <span class="preview-placeholder text-[9px] text-muted-foreground font-mono uppercase text-center px-1">No img</span>
+          </div>
+          <div class="flex-1 space-y-1.5">
+            <input type="text" id="wpImage" name="image" autocomplete="off" placeholder="URL hoặc chọn từ máy..." class="input-elegant w-full px-3.5 py-2 rounded-sm text-xs font-medium" oninput="updateImagePreview(this, 'preview_wpImage')">
+            <div class="flex items-center gap-2">
+              <label class="px-2.5 py-1 rounded bg-muted hover:bg-muted/80 border border-border/50 text-[11px] text-foreground font-medium cursor-pointer inline-flex items-center gap-1.5 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>
+                <span>Tải ảnh từ máy</span>
+                <input type="file" accept="image/*" class="sr-only" onchange="handleAdminImageUpload(this, 'wpImage', 'preview_wpImage')">
+              </label>
+              <span class="upload-status text-[11px] text-muted-foreground italic"></span>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div>
@@ -462,6 +478,7 @@ function openCreateWorkshopModal() {
   document.getElementById('wpDescription').value = '';
   document.getElementById('wpStatus').value = 'active';
   document.getElementById('wpIsFeatured').checked = false;
+  updateImagePreview(document.getElementById('wpImage'), 'preview_wpImage');
   document.getElementById('workshopPackageModal').classList.add('active');
 }
 
@@ -481,6 +498,7 @@ function openEditWorkshopModal(w) {
   document.getElementById('wpDescription').value = w.description || '';
   document.getElementById('wpStatus').value = w.status || 'active';
   document.getElementById('wpIsFeatured').checked = w.is_featured == 1;
+  updateImagePreview(document.getElementById('wpImage'), 'preview_wpImage');
   document.getElementById('workshopPackageModal').classList.add('active');
 }
 

@@ -76,7 +76,23 @@ ob_start();
 
           <div>
             <label for="seoOgImage" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Open Graph Image URL (Ảnh xem trước khi gửi Zalo/FB) *</label>
-            <input type="url" id="seoOgImage" name="og_image" required value="<?= htmlspecialchars($seo['og_image'] ?? '') ?>" class="input-elegant w-full px-4 py-3 rounded-sm text-sm font-medium">
+            <div class="flex items-center gap-3">
+              <div class="w-12 h-12 rounded border border-border/60 bg-muted/30 overflow-hidden shrink-0 flex items-center justify-center relative">
+                <img id="preview_seoOgImage" src="<?= htmlspecialchars($seo['og_image'] ?? '') ?>" onclick="openAdminImageLightbox(this.src)" title="Bấm để xem ảnh phóng to" class="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity <?= empty($seo['og_image']) ? 'hidden' : '' ?>" alt="Preview">
+                <span class="preview-placeholder text-[9px] text-muted-foreground font-mono uppercase text-center px-1 <?= !empty($seo['og_image']) ? 'hidden' : '' ?>">No img</span>
+              </div>
+              <div class="flex-1 space-y-1.5">
+                <input type="text" id="seoOgImage" name="og_image" required value="<?= htmlspecialchars($seo['og_image'] ?? '') ?>" placeholder="URL ảnh hoặc chọn từ máy..." class="input-elegant w-full px-3.5 py-2 rounded-sm text-xs font-medium" oninput="updateImagePreview(this, 'preview_seoOgImage')">
+                <div class="flex items-center gap-2">
+                  <label class="px-2.5 py-1 rounded bg-muted hover:bg-muted/80 border border-border/50 text-[11px] text-foreground font-medium cursor-pointer inline-flex items-center gap-1.5 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>
+                    <span>Tải ảnh từ máy</span>
+                    <input type="file" accept="image/*" class="sr-only" onchange="handleAdminImageUpload(this, 'seoOgImage', 'preview_seoOgImage')">
+                  </label>
+                  <span class="upload-status text-[11px] text-muted-foreground italic"></span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -121,7 +137,23 @@ ob_start();
 
           <div>
             <label for="heroBgImage" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Đường dẫn Ảnh nền (Banner URL)</label>
-            <input type="url" id="heroBgImage" name="bg_image" autocomplete="off" value="<?= htmlspecialchars($hero['bg_image'] ?? '') ?>" class="input-elegant w-full px-4 py-3 rounded-sm text-sm font-medium">
+            <div class="flex items-center gap-3">
+              <div class="w-12 h-12 rounded border border-border/60 bg-muted/30 overflow-hidden shrink-0 flex items-center justify-center relative">
+                <img id="preview_heroBgImage" src="<?= htmlspecialchars($hero['bg_image'] ?? '') ?>" onclick="openAdminImageLightbox(this.src)" title="Bấm để xem ảnh phóng to" class="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity <?= empty($hero['bg_image']) ? 'hidden' : '' ?>" alt="Preview">
+                <span class="preview-placeholder text-[9px] text-muted-foreground font-mono uppercase text-center px-1 <?= !empty($hero['bg_image']) ? 'hidden' : '' ?>">No img</span>
+              </div>
+              <div class="flex-1 space-y-1.5">
+                <input type="text" id="heroBgImage" name="bg_image" autocomplete="off" value="<?= htmlspecialchars($hero['bg_image'] ?? '') ?>" placeholder="URL ảnh hoặc chọn từ máy..." class="input-elegant w-full px-3.5 py-2 rounded-sm text-xs font-medium" oninput="updateImagePreview(this, 'preview_heroBgImage')">
+                <div class="flex items-center gap-2">
+                  <label class="px-2.5 py-1 rounded bg-muted hover:bg-muted/80 border border-border/50 text-[11px] text-foreground font-medium cursor-pointer inline-flex items-center gap-1.5 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>
+                    <span>Tải ảnh từ máy</span>
+                    <input type="file" accept="image/*" class="sr-only" onchange="handleAdminImageUpload(this, 'heroBgImage', 'preview_heroBgImage')">
+                  </label>
+                  <span class="upload-status text-[11px] text-muted-foreground italic"></span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -236,7 +268,23 @@ ob_start();
 
           <div>
             <label for="serviceCardImage" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Đường dẫn Ảnh Card minh họa (Image URL)</label>
-            <input type="url" id="serviceCardImage" name="card_image" autocomplete="off" value="<?= htmlspecialchars($serviceIntro['card_image'] ?? '') ?>" class="input-elegant w-full px-4 py-3 rounded-sm text-sm">
+            <div class="flex items-center gap-3">
+              <div class="w-12 h-12 rounded border border-border/60 bg-muted/30 overflow-hidden shrink-0 flex items-center justify-center relative">
+                <img id="preview_serviceCardImage" src="<?= htmlspecialchars($serviceIntro['card_image'] ?? '') ?>" onclick="openAdminImageLightbox(this.src)" title="Bấm để xem ảnh phóng to" class="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity <?= empty($serviceIntro['card_image']) ? 'hidden' : '' ?>" alt="Preview">
+                <span class="preview-placeholder text-[9px] text-muted-foreground font-mono uppercase text-center px-1 <?= !empty($serviceIntro['card_image']) ? 'hidden' : '' ?>">No img</span>
+              </div>
+              <div class="flex-1 space-y-1.5">
+                <input type="text" id="serviceCardImage" name="card_image" autocomplete="off" value="<?= htmlspecialchars($serviceIntro['card_image'] ?? '') ?>" placeholder="URL ảnh hoặc chọn từ máy..." class="input-elegant w-full px-3.5 py-2 rounded-sm text-xs font-medium" oninput="updateImagePreview(this, 'preview_serviceCardImage')">
+                <div class="flex items-center gap-2">
+                  <label class="px-2.5 py-1 rounded bg-muted hover:bg-muted/80 border border-border/50 text-[11px] text-foreground font-medium cursor-pointer inline-flex items-center gap-1.5 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>
+                    <span>Tải ảnh từ máy</span>
+                    <input type="file" accept="image/*" class="sr-only" onchange="handleAdminImageUpload(this, 'serviceCardImage', 'preview_serviceCardImage')">
+                  </label>
+                  <span class="upload-status text-[11px] text-muted-foreground italic"></span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -344,8 +392,24 @@ ob_start();
                 </div>
 
                 <div>
-                  <label for="pairingImage_<?= $p['id'] ?>" class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Ảnh đại diện URL</label>
-                  <input type="url" id="pairingImage_<?= $p['id'] ?>" name="image" autocomplete="off" value="<?= htmlspecialchars($p['image']) ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs">
+                  <label for="pairingImage_<?= $p['id'] ?>" class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Ảnh đại diện Gói tiệc</label>
+                  <div class="flex items-center gap-2">
+                    <div class="w-10 h-10 rounded border border-border/60 bg-muted/30 overflow-hidden shrink-0 flex items-center justify-center relative">
+                      <img id="preview_pairingImage_<?= $p['id'] ?>" src="<?= htmlspecialchars($p['image']) ?>" onclick="openAdminImageLightbox(this.src)" title="Bấm để xem ảnh phóng to" class="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity <?= empty($p['image']) ? 'hidden' : '' ?>" alt="Preview">
+                      <span class="preview-placeholder text-[8px] text-muted-foreground font-mono uppercase text-center px-0.5 <?= !empty($p['image']) ? 'hidden' : '' ?>">No img</span>
+                    </div>
+                    <div class="flex-1 space-y-1">
+                      <input type="text" id="pairingImage_<?= $p['id'] ?>" name="image" autocomplete="off" value="<?= htmlspecialchars($p['image']) ?>" placeholder="URL hoặc tải từ máy" class="input-elegant w-full px-2.5 py-1.5 rounded-sm text-xs font-mono" oninput="updateImagePreview(this, 'preview_pairingImage_<?= $p['id'] ?>')">
+                      <div class="flex items-center gap-1.5">
+                        <label class="px-2 py-0.5 rounded bg-muted hover:bg-muted/80 border border-border/50 text-[10px] text-foreground font-medium cursor-pointer inline-flex items-center gap-1 transition-colors">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>
+                          <span>Tải ảnh</span>
+                          <input type="file" accept="image/*" class="sr-only" onchange="handleAdminImageUpload(this, 'pairingImage_<?= $p['id'] ?>', 'preview_pairingImage_<?= $p['id'] ?>')">
+                        </label>
+                        <span class="upload-status text-[10px] text-muted-foreground italic"></span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -424,8 +488,24 @@ ob_start();
               </div>
 
               <div>
-                <label for="wsImage_<?= $ws['id'] ?>" class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Link Ảnh bìa Workshop</label>
-                <input type="url" id="wsImage_<?= $ws['id'] ?>" name="image" autocomplete="off" value="<?= htmlspecialchars($ws['image']) ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs font-mono">
+                <label for="wsImage_<?= $ws['id'] ?>" class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Ảnh bìa Workshop</label>
+                <div class="flex items-center gap-2">
+                  <div class="w-10 h-10 rounded border border-border/60 bg-muted/30 overflow-hidden shrink-0 flex items-center justify-center relative">
+                    <img id="preview_wsImage_<?= $ws['id'] ?>" src="<?= htmlspecialchars($ws['image']) ?>" onclick="openAdminImageLightbox(this.src)" title="Bấm để xem ảnh phóng to" class="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity <?= empty($ws['image']) ? 'hidden' : '' ?>" alt="Preview">
+                    <span class="preview-placeholder text-[8px] text-muted-foreground font-mono uppercase text-center px-0.5 <?= !empty($ws['image']) ? 'hidden' : '' ?>">No img</span>
+                  </div>
+                  <div class="flex-1 space-y-1">
+                    <input type="text" id="wsImage_<?= $ws['id'] ?>" name="image" autocomplete="off" value="<?= htmlspecialchars($ws['image']) ?>" placeholder="URL hoặc tải từ máy" class="input-elegant w-full px-2.5 py-1.5 rounded-sm text-xs font-mono" oninput="updateImagePreview(this, 'preview_wsImage_<?= $ws['id'] ?>')">
+                    <div class="flex items-center gap-1.5">
+                      <label class="px-2 py-0.5 rounded bg-muted hover:bg-muted/80 border border-border/50 text-[10px] text-foreground font-medium cursor-pointer inline-flex items-center gap-1 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>
+                        <span>Tải ảnh</span>
+                        <input type="file" accept="image/*" class="sr-only" onchange="handleAdminImageUpload(this, 'wsImage_<?= $ws['id'] ?>', 'preview_wsImage_<?= $ws['id'] ?>')">
+                      </label>
+                      <span class="upload-status text-[10px] text-muted-foreground italic"></span>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div>
@@ -524,8 +604,24 @@ ob_start();
               </div>
 
               <div>
-                <label for="testimonialAvatar_<?= $t['id'] ?>" class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">URL Avatar Ảnh đại diện</label>
-                <input type="url" id="testimonialAvatar_<?= $t['id'] ?>" name="avatar" autocomplete="off" value="<?= htmlspecialchars($t['avatar']) ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs">
+                <label for="testimonialAvatar_<?= $t['id'] ?>" class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Avatar Ảnh đại diện</label>
+                <div class="flex items-center gap-2">
+                  <div class="w-10 h-10 rounded border border-border/60 bg-muted/30 overflow-hidden shrink-0 flex items-center justify-center relative">
+                    <img id="preview_testimonialAvatar_<?= $t['id'] ?>" src="<?= htmlspecialchars($t['avatar']) ?>" onclick="openAdminImageLightbox(this.src)" title="Bấm để xem ảnh phóng to" class="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity <?= empty($t['avatar']) ? 'hidden' : '' ?>" alt="Preview">
+                    <span class="preview-placeholder text-[8px] text-muted-foreground font-mono uppercase text-center px-0.5 <?= !empty($t['avatar']) ? 'hidden' : '' ?>">No img</span>
+                  </div>
+                  <div class="flex-1 space-y-1">
+                    <input type="text" id="testimonialAvatar_<?= $t['id'] ?>" name="avatar" autocomplete="off" value="<?= htmlspecialchars($t['avatar']) ?>" placeholder="URL hoặc tải từ máy" class="input-elegant w-full px-2.5 py-1.5 rounded-sm text-xs font-mono" oninput="updateImagePreview(this, 'preview_testimonialAvatar_<?= $t['id'] ?>')">
+                    <div class="flex items-center gap-1.5">
+                      <label class="px-2 py-0.5 rounded bg-muted hover:bg-muted/80 border border-border/50 text-[10px] text-foreground font-medium cursor-pointer inline-flex items-center gap-1 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>
+                        <span>Tải ảnh</span>
+                        <input type="file" accept="image/*" class="sr-only" onchange="handleAdminImageUpload(this, 'testimonialAvatar_<?= $t['id'] ?>', 'preview_testimonialAvatar_<?= $t['id'] ?>')">
+                      </label>
+                      <span class="upload-status text-[10px] text-muted-foreground italic"></span>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <button type="submit" class="btn-invert w-full py-2.5 rounded-sm text-xs uppercase tracking-widest font-medium mt-2">
@@ -633,8 +729,24 @@ ob_start();
       </div>
 
       <div>
-        <label for="createTestimonialAvatar" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">URL Avatar Ảnh đại diện</label>
-        <input type="url" id="createTestimonialAvatar" name="avatar" autocomplete="off" placeholder="https://..." class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm">
+        <label for="createTestimonialAvatar" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Avatar Ảnh đại diện</label>
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded border border-border/60 bg-muted/30 overflow-hidden shrink-0 flex items-center justify-center relative">
+            <img id="preview_createTestimonialAvatar" src="" onclick="openAdminImageLightbox(this.src)" title="Bấm để xem ảnh phóng to" class="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity hidden" alt="Preview">
+            <span class="preview-placeholder text-[9px] text-muted-foreground font-mono uppercase text-center px-1">No img</span>
+          </div>
+          <div class="flex-1 space-y-1.5">
+            <input type="text" id="createTestimonialAvatar" name="avatar" autocomplete="off" placeholder="URL hoặc chọn từ máy..." class="input-elegant w-full px-3.5 py-2 rounded-sm text-xs font-medium" oninput="updateImagePreview(this, 'preview_createTestimonialAvatar')">
+            <div class="flex items-center gap-2">
+              <label class="px-2.5 py-1 rounded bg-muted hover:bg-muted/80 border border-border/50 text-[11px] text-foreground font-medium cursor-pointer inline-flex items-center gap-1.5 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>
+                <span>Tải ảnh từ máy</span>
+                <input type="file" accept="image/*" class="sr-only" onchange="handleAdminImageUpload(this, 'createTestimonialAvatar', 'preview_createTestimonialAvatar')">
+              </label>
+              <span class="upload-status text-[11px] text-muted-foreground italic"></span>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="pt-2 flex gap-3">
