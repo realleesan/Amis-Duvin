@@ -27,30 +27,30 @@ ob_start();
       <form action="/admin/content/seo" method="POST" class="space-y-5">
         <div class="grid sm:grid-cols-2 gap-5">
           <div>
-            <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Meta Title (Tiêu đề SEO Trang chủ) *</label>
-            <input type="text" name="meta_title" required value="<?= htmlspecialchars($seo['meta_title'] ?? '') ?>" class="input-elegant w-full px-4 py-3 rounded-sm text-sm font-medium">
+            <label for="seoMetaTitle" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Meta Title (Tiêu đề SEO Trang chủ) *</label>
+            <input type="text" id="seoMetaTitle" name="meta_title" required value="<?= htmlspecialchars($seo['meta_title'] ?? '') ?>" class="input-elegant w-full px-4 py-3 rounded-sm text-sm font-medium">
           </div>
 
           <div>
-            <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Canonical URL (Đường dẫn chuẩn)</label>
-            <input type="url" name="canonical_url" required value="<?= htmlspecialchars($seo['canonical_url'] ?? 'https://amis.duvin.vn/') ?>" class="input-elegant w-full px-4 py-3 rounded-sm text-sm font-medium">
+            <label for="seoCanonicalUrl" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Canonical URL (Đường dẫn chuẩn)</label>
+            <input type="url" id="seoCanonicalUrl" name="canonical_url" required value="<?= htmlspecialchars($seo['canonical_url'] ?? 'https://amis.duvin.vn/') ?>" class="input-elegant w-full px-4 py-3 rounded-sm text-sm font-medium">
           </div>
         </div>
 
         <div>
-          <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Meta Description (Mô tả SEO khi tìm kiếm) *</label>
-          <textarea name="meta_description" rows="3" required class="input-elegant w-full p-3 rounded-sm text-sm leading-relaxed"><?= htmlspecialchars($seo['meta_description'] ?? '') ?></textarea>
+          <label for="seoMetaDescription" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Meta Description (Mô tả SEO khi tìm kiếm) *</label>
+          <textarea id="seoMetaDescription" name="meta_description" rows="3" required class="input-elegant w-full p-3 rounded-sm text-sm leading-relaxed"><?= htmlspecialchars($seo['meta_description'] ?? '') ?></textarea>
         </div>
 
         <div class="grid sm:grid-cols-2 gap-5">
           <div>
-            <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Meta Keywords (Từ khóa SEO cách nhau bởi dấu phẩy)</label>
-            <input type="text" name="meta_keywords" value="<?= htmlspecialchars($seo['meta_keywords'] ?? '') ?>" class="input-elegant w-full px-4 py-3 rounded-sm text-sm font-medium">
+            <label for="seoMetaKeywords" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Meta Keywords (Từ khóa SEO cách nhau bởi dấu phẩy)</label>
+            <input type="text" id="seoMetaKeywords" name="meta_keywords" value="<?= htmlspecialchars($seo['meta_keywords'] ?? '') ?>" class="input-elegant w-full px-4 py-3 rounded-sm text-sm font-medium">
           </div>
 
           <div>
-            <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Open Graph Image URL (Ảnh xem trước khi gửi Zalo/FB) *</label>
-            <input type="url" name="og_image" required value="<?= htmlspecialchars($seo['og_image'] ?? '') ?>" class="input-elegant w-full px-4 py-3 rounded-sm text-sm font-medium">
+            <label for="seoOgImage" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Open Graph Image URL (Ảnh xem trước khi gửi Zalo/FB) *</label>
+            <input type="url" id="seoOgImage" name="og_image" required value="<?= htmlspecialchars($seo['og_image'] ?? '') ?>" class="input-elegant w-full px-4 py-3 rounded-sm text-sm font-medium">
           </div>
         </div>
 

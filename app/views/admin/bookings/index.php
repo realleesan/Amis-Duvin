@@ -23,7 +23,8 @@ ob_start();
 
       <!-- Filter Form -->
       <form id="bookingFilterForm" method="GET" action="/admin/bookings" class="flex flex-wrap items-center gap-3">
-        <select name="status" onchange="this.form.submit()" class="input-elegant px-3.5 py-2.5 rounded-sm text-xs cursor-pointer">
+        <label for="filterStatusSelect" class="sr-only">Lọc theo trạng thái</label>
+        <select id="filterStatusSelect" name="status" aria-label="Lọc theo trạng thái" onchange="this.form.submit()" class="input-elegant px-3.5 py-2.5 rounded-sm text-xs cursor-pointer">
           <option value="" class="bg-card text-foreground">Tất cả trạng thái</option>
           <option value="Chờ xác nhận" <?= ($statusFilter ?? '') === 'Chờ xác nhận' ? 'selected' : '' ?> class="bg-card text-foreground">Chờ xác nhận</option>
           <option value="Đã chốt cọc 30%" <?= ($statusFilter ?? '') === 'Đã chốt cọc 30%' ? 'selected' : '' ?> class="bg-card text-foreground">Đã chốt cọc 30%</option>
@@ -42,7 +43,8 @@ ob_start();
           }
         ?>
         <div class="relative flex items-center">
-          <input type="text" id="filterDatePicker" name="date" placeholder="dd/mm/yyyy" value="<?= htmlspecialchars($formattedDateDisplay) ?>" class="input-elegant px-3.5 py-2.5 rounded-sm text-xs cursor-pointer w-36 font-mono">
+          <label for="filterDatePicker" class="sr-only">Lọc theo ngày tiệc</label>
+          <input type="text" id="filterDatePicker" name="date" aria-label="Lọc theo ngày tiệc" placeholder="dd/mm/yyyy" value="<?= htmlspecialchars($formattedDateDisplay) ?>" class="input-elegant px-3.5 py-2.5 rounded-sm text-xs cursor-pointer w-36 font-mono">
         </div>
       </form>
 
@@ -148,37 +150,37 @@ ob_start();
     <form action="/admin/bookings/manual-create" method="POST" class="space-y-4">
       <div class="grid grid-cols-2 gap-4">
         <div>
-          <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Họ và tên khách *</label>
-          <input type="text" name="full_name" required placeholder="Nguyễn Văn A" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm">
+          <label for="manualFullName" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Họ và tên khách *</label>
+          <input type="text" id="manualFullName" name="full_name" required placeholder="Nguyễn Văn A" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm">
         </div>
 
         <div>
-          <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Số điện thoại *</label>
-          <input type="tel" name="phone" required placeholder="0912345678" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm font-mono">
-        </div>
-      </div>
-
-      <div class="grid grid-cols-2 gap-4">
-        <div>
-          <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Email liên hệ</label>
-          <input type="email" name="email" placeholder="khach@gmail.com" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm">
-        </div>
-
-        <div>
-          <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Số khách (Trần 24) *</label>
-          <input type="number" name="participants" min="1" max="24" required value="4" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm font-semibold">
+          <label for="manualPhone" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Số điện thoại *</label>
+          <input type="tel" id="manualPhone" name="phone" required placeholder="0912345678" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm font-mono">
         </div>
       </div>
 
       <div class="grid grid-cols-2 gap-4">
         <div>
-          <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Ngày tiệc (5 ngày tới) *</label>
+          <label for="manualEmail" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Email liên hệ</label>
+          <input type="email" id="manualEmail" name="email" placeholder="khach@gmail.com" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm">
+        </div>
+
+        <div>
+          <label for="manualParticipants" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Số khách (Trần 24) *</label>
+          <input type="number" id="manualParticipants" name="participants" min="1" max="24" required value="4" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm font-semibold">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label for="manualBookingDatePicker" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Ngày tiệc (5 ngày tới) *</label>
           <input type="text" id="manualBookingDatePicker" name="booking_date" required placeholder="dd/mm/yyyy" value="<?= date('d/m/Y') ?>" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm font-mono cursor-pointer">
         </div>
 
         <div>
-          <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Ca tiệc *</label>
-          <select name="time_slot" required class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm">
+          <label for="manualTimeSlot" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Ca tiệc *</label>
+          <select id="manualTimeSlot" name="time_slot" required class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm">
             <option value="Ca 1 (11h00 – 14h00)" class="bg-card text-foreground">Ca 1 (11h00 – 14h00)</option>
             <option value="Ca 2 (18h00 – 21h00)" class="bg-card text-foreground">Ca 2 (18h00 – 21h00)</option>
           </select>
@@ -186,8 +188,8 @@ ob_start();
       </div>
 
       <div>
-        <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Trạng thái cọc ban đầu</label>
-        <select name="deposit_status" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm">
+        <label for="manualDepositStatus" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Trạng thái cọc ban đầu</label>
+        <select id="manualDepositStatus" name="deposit_status" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm">
           <option value="Chờ xác nhận" class="bg-card text-foreground">Chờ xác nhận</option>
           <option value="Đã chốt cọc 30%" class="bg-card text-foreground">Đã chốt cọc 30%</option>
           <option value="Hoàn thành" class="bg-card text-foreground">Hoàn thành</option>
@@ -195,8 +197,8 @@ ob_start();
       </div>
 
       <div>
-        <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Ghi chú yêu cầu của khách</label>
-        <textarea name="notes" rows="2" placeholder="Ví dụ: Gọi điện lúc 15h chốt thực đơn Signature Pairing" class="input-elegant w-full p-2.5 rounded-sm text-sm"></textarea>
+        <label for="manualNotes" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Ghi chú yêu cầu của khách</label>
+        <textarea id="manualNotes" name="notes" rows="2" placeholder="Ví dụ: Gọi điện lúc 15h chốt thực đơn Signature Pairing" class="input-elegant w-full p-2.5 rounded-sm text-sm"></textarea>
       </div>
 
       <div class="pt-2 flex gap-3">
@@ -265,6 +267,23 @@ document.addEventListener('DOMContentLoaded', function() {
       dateFormat: 'd/m/Y',
       allowInput: true,
       monthSelectorType: 'dropdown',
+      onReady: function(selectedDates, dateStr, instance) {
+        var container = instance.calendarContainer;
+        if (container) {
+          var yearInput = container.querySelector('.numInput.cur-year');
+          if (yearInput) {
+            if (!yearInput.getAttribute('id')) yearInput.setAttribute('id', 'adminFpYearFilter_' + Math.random().toString(36).substr(2, 5));
+            if (!yearInput.getAttribute('name')) yearInput.setAttribute('name', 'admin_flatpickr_year_filter');
+            yearInput.setAttribute('aria-label', 'Chọn năm');
+          }
+          var monthSelect = container.querySelector('.flatpickr-monthDropdown-months');
+          if (monthSelect) {
+            if (!monthSelect.getAttribute('id')) monthSelect.setAttribute('id', 'adminFpMonthFilter_' + Math.random().toString(36).substr(2, 5));
+            if (!monthSelect.getAttribute('name')) monthSelect.setAttribute('name', 'admin_flatpickr_month_filter');
+            monthSelect.setAttribute('aria-label', 'Chọn tháng');
+          }
+        }
+      },
       onClose: function(selectedDates, dateStr, instance) {
         if (dateStr) {
           document.getElementById('bookingFilterForm').submit();
@@ -282,7 +301,25 @@ document.addEventListener('DOMContentLoaded', function() {
       minDate: 'today',
       maxDate: maxDate,
       allowInput: true,
-      defaultDate: 'today'
+      monthSelectorType: 'dropdown',
+      defaultDate: 'today',
+      onReady: function(selectedDates, dateStr, instance) {
+        var container = instance.calendarContainer;
+        if (container) {
+          var yearInput = container.querySelector('.numInput.cur-year');
+          if (yearInput) {
+            if (!yearInput.getAttribute('id')) yearInput.setAttribute('id', 'adminFpYearManual_' + Math.random().toString(36).substr(2, 5));
+            if (!yearInput.getAttribute('name')) yearInput.setAttribute('name', 'admin_flatpickr_year_manual');
+            yearInput.setAttribute('aria-label', 'Chọn năm');
+          }
+          var monthSelect = container.querySelector('.flatpickr-monthDropdown-months');
+          if (monthSelect) {
+            if (!monthSelect.getAttribute('id')) monthSelect.setAttribute('id', 'adminFpMonthManual_' + Math.random().toString(36).substr(2, 5));
+            if (!monthSelect.getAttribute('name')) monthSelect.setAttribute('name', 'admin_flatpickr_month_manual');
+            monthSelect.setAttribute('aria-label', 'Chọn tháng');
+          }
+        }
+      }
     });
   }
 });

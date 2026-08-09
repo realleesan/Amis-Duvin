@@ -35,7 +35,41 @@ document.addEventListener('DOMContentLoaded', () => {
       maxDate: maxDate,
       allowInput: true,
       monthSelectorType: 'dropdown',
-      defaultDate: 'today'
+      defaultDate: 'today',
+      onReady: function(selectedDates, dateStr, instance) {
+        var container = instance.calendarContainer;
+        if (container) {
+          var yearInput = container.querySelector('.numInput.cur-year');
+          if (yearInput) {
+            if (!yearInput.getAttribute('id')) yearInput.setAttribute('id', 'fpYear_' + Math.random().toString(36).substr(2, 5));
+            if (!yearInput.getAttribute('name')) yearInput.setAttribute('name', 'flatpickr_year');
+            yearInput.setAttribute('aria-label', 'Chọn năm');
+          }
+          var monthSelect = container.querySelector('.flatpickr-monthDropdown-months');
+          if (monthSelect) {
+            if (!monthSelect.getAttribute('id')) monthSelect.setAttribute('id', 'fpMonth_' + Math.random().toString(36).substr(2, 5));
+            if (!monthSelect.getAttribute('name')) monthSelect.setAttribute('name', 'flatpickr_month');
+            monthSelect.setAttribute('aria-label', 'Chọn tháng');
+          }
+        }
+      },
+      onOpen: function(selectedDates, dateStr, instance) {
+        var container = instance.calendarContainer;
+        if (container) {
+          var yearInput = container.querySelector('.numInput.cur-year');
+          if (yearInput) {
+            if (!yearInput.getAttribute('id')) yearInput.setAttribute('id', 'fpYear_' + Math.random().toString(36).substr(2, 5));
+            if (!yearInput.getAttribute('name')) yearInput.setAttribute('name', 'flatpickr_year');
+            yearInput.setAttribute('aria-label', 'Chọn năm');
+          }
+          var monthSelect = container.querySelector('.flatpickr-monthDropdown-months');
+          if (monthSelect) {
+            if (!monthSelect.getAttribute('id')) monthSelect.setAttribute('id', 'fpMonth_' + Math.random().toString(36).substr(2, 5));
+            if (!monthSelect.getAttribute('name')) monthSelect.setAttribute('name', 'flatpickr_month');
+            monthSelect.setAttribute('aria-label', 'Chọn tháng');
+          }
+        }
+      }
     });
   }
 

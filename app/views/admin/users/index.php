@@ -77,23 +77,23 @@ ob_start();
 
     <form action="/admin/users/create" method="POST" class="space-y-4">
       <div>
-        <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Họ và tên nhân sự</label>
-        <input type="text" name="full_name" required placeholder="Ví dụ: Nguyễn Văn An" class="input-elegant w-full px-4 py-3 rounded-sm text-sm">
+        <label for="createFullName" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Họ và tên nhân sự</label>
+        <input type="text" id="createFullName" name="full_name" required placeholder="Ví dụ: Nguyễn Văn An" class="input-elegant w-full px-4 py-3 rounded-sm text-sm">
       </div>
 
       <div>
-        <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Tên đăng nhập</label>
-        <input type="text" name="username" required placeholder="cskh02" class="input-elegant w-full px-4 py-3 rounded-sm text-sm font-mono">
+        <label for="createUsername" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Tên đăng nhập</label>
+        <input type="text" id="createUsername" name="username" required placeholder="cskh02" class="input-elegant w-full px-4 py-3 rounded-sm text-sm font-mono">
       </div>
 
       <div>
-        <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Mật khẩu</label>
-        <input type="password" name="password" required placeholder="••••••••" class="input-elegant w-full px-4 py-3 rounded-sm text-sm">
+        <label for="createPassword" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Mật khẩu</label>
+        <input type="password" id="createPassword" name="password" required placeholder="••••••••" class="input-elegant w-full px-4 py-3 rounded-sm text-sm">
       </div>
 
       <div>
-        <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Vai trò (Role)</label>
-        <select name="role" class="input-elegant w-full px-4 py-3 rounded-sm text-sm">
+        <label for="createRole" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Vai trò (Role)</label>
+        <select id="createRole" name="role" class="input-elegant w-full px-4 py-3 rounded-sm text-sm">
           <option value="cskh" class="bg-card text-foreground">CSKH (Quản lý Đơn tiệc &amp; Sheets)</option>
           <option value="marketing" class="bg-card text-foreground">Marketing (Quản lý Nội dung CMS)</option>
           <option value="admin" class="bg-card text-foreground">Admin (Toàn quyền)</option>
@@ -125,17 +125,17 @@ ob_start();
       <input type="hidden" id="editUserId" name="id" value="">
 
       <div>
-        <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Họ và tên nhân sự</label>
+        <label for="editUserFullName" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Họ và tên nhân sự</label>
         <input type="text" id="editUserFullName" name="full_name" required class="input-elegant w-full px-4 py-3 rounded-sm text-sm">
       </div>
 
       <div>
-        <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Mật khẩu mới (Bỏ trống nếu không đổi)</label>
-        <input type="password" name="new_password" placeholder="••••••••" class="input-elegant w-full px-4 py-3 rounded-sm text-sm">
+        <label for="editUserNewPassword" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Mật khẩu mới (Bỏ trống nếu không đổi)</label>
+        <input type="password" id="editUserNewPassword" name="new_password" placeholder="••••••••" class="input-elegant w-full px-4 py-3 rounded-sm text-sm">
       </div>
 
       <div>
-        <label class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Vai trò (Role)</label>
+        <label for="editUserRole" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Vai trò (Role)</label>
         <select id="editUserRole" name="role" class="input-elegant w-full px-4 py-3 rounded-sm text-sm">
           <option value="cskh" class="bg-card text-foreground">CSKH (Quản lý Đơn tiệc &amp; Sheets)</option>
           <option value="marketing" class="bg-card text-foreground">Marketing (Quản lý Nội dung CMS)</option>

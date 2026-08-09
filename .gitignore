@@ -31,3 +31,4 @@ docs
 .env
 .vite
 base44/.app.jsonc
+react-app 
