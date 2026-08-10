@@ -560,4 +560,26 @@ class AdminContentController extends BaseController
         header('Location: ' . admin_url('content') . '?sec=workshops&msg=' . urlencode('Đã xóa Gói Workshop thành công!'));
         exit;
     }
+
+    public function resetSection(): void
+    {
+        AuthService::requireRole(['admin', 'marketing']);
+
+        $section = trim($_POST['section'] ?? 'all');
+        $res = \App\Services\DefaultContentSeeder::reset($section);
+
+        $currentUser = AuthService::user();
+        if ($res['success']) {
+            NotificationService::notifyContent(
+                "Khôi phục dữ liệu gốc",
+                "Nhân sự {$currentUser['full_name']} vừa khôi phục lại dữ liệu mẫu ban đầu cho phần: '{$section}'.",
+                admin_url('content') . "?sec={$section}",
+                $currentUser
+            );
+            header('Location: ' . admin_url('content') . '?sec=' . urlencode($section) . '&msg=' . urlencode($res['message']));
+        } else {
+            header('Location: ' . admin_url('content') . '?sec=' . urlencode($section) . '&err=' . urlencode($res['message']));
+        }
+        exit;
+    }
 }

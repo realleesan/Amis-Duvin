@@ -83,6 +83,75 @@
   </script>
 </head>
 <body class="bg-background text-foreground antialiased h-screen flex overflow-hidden">
+  <!-- Mobile Environment Unsupported Overlay (Blocks Admin access on mobile screens & landscape orientation) -->
+  <style>
+    @media (max-width: 900px), (max-width: 1024px) and (pointer: coarse), (max-height: 500px) and (pointer: coarse) {
+      #adminMobileBlockOverlay {
+        display: flex !important;
+      }
+    }
+  </style>
+
+  <div id="adminMobileBlockOverlay" class="fixed inset-0 z-[999999] bg-[#0c090a] text-foreground hidden flex-col items-center justify-center p-6 text-center overflow-y-auto">
+    <div class="max-w-md w-full p-6 sm:p-8 rounded-sm border border-[var(--gold)]/30 bg-[#140f11] shadow-2xl space-y-5 relative overflow-hidden my-auto">
+      <!-- Glow background decoration -->
+      <div class="absolute -top-24 -left-24 w-48 h-48 bg-[var(--wine)]/20 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-24 -right-24 w-48 h-48 bg-[var(--gold)]/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <!-- Icon & Logo -->
+      <div class="flex flex-col items-center space-y-2 relative z-10">
+        <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[var(--wine)]/20 border border-[var(--gold)]/40 flex items-center justify-center text-[var(--gold)] shadow-inner">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-monitor-off"><path d="M17 17H4a2 2 0 0 1-2-2V5c0-1.5 1-2 2-2h9"></path><line x1="2" x2="22" y1="22" y2="2"></line><path d="M8 21h8"></path><path d="M12 17v4"></path><path d="M22 15V8c0-1-.5-1.7-1.3-2"></path></svg>
+        </div>
+        <div class="font-serif font-bold text-lg sm:text-xl text-[var(--gold)] tracking-wide uppercase">Amis du Vin Admin</div>
+      </div>
+
+      <!-- Title & Message -->
+      <div class="space-y-2.5 relative z-10">
+        <h2 class="font-heading text-lg sm:text-2xl text-foreground font-semibold">Môi trường Điện thoại Không hỗ trợ Admin</h2>
+        <p class="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+          Hệ thống Quản trị CMS Amis du Vin chứa các bảng dữ liệu chuyên sâu và bộ công cụ đòi hỏi màn hình rộng để đảm bảo trải nghiệm quản lý tối ưu nhất.
+        </p>
+        <p class="text-[11px] sm:text-xs text-[var(--gold)]/90 font-medium italic">
+          Vui lòng truy cập trên Máy tính cá nhân (PC / Laptop) để sử dụng trang quản trị.
+        </p>
+      </div>
+
+      <!-- Action Button -->
+      <div class="pt-1 relative z-10">
+        <a href="/" class="btn-wine w-full py-3 rounded-sm text-xs font-semibold uppercase tracking-widest inline-flex items-center justify-center gap-2 shadow-lg">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>
+          <span>Quay lại trang Landing Page</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function enforceAdminDesktopOnly() {
+      function checkMobile() {
+        var overlay = document.getElementById('adminMobileBlockOverlay');
+        if (!overlay) return;
+
+        var isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        var isCoarse = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+        var isSmallWidth = window.innerWidth <= 960;
+        var isSmallHeight = window.innerHeight <= 520;
+
+        if (isMobileUA || (isCoarse && isSmallWidth) || (isCoarse && isSmallHeight) || isSmallWidth) {
+          overlay.style.setProperty('display', 'flex', 'important');
+        } else {
+          overlay.style.setProperty('display', 'none', 'important');
+        }
+      }
+
+      window.addEventListener('DOMContentLoaded', checkMobile);
+      window.addEventListener('resize', checkMobile);
+      window.addEventListener('orientationchange', checkMobile);
+      checkMobile();
+    })();
+  </script>
+
   <!-- Modular Admin Sidebar -->
   <?php require __DIR__ . '/admin_sidebar.php'; ?>
 

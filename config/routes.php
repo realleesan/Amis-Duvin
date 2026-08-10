@@ -102,6 +102,9 @@ Router::post(admin_url('workshops/update'), [AdminWorkshopController::class, 'up
 Router::get(admin_url('content'), [AdminContentController::class, 'index'], [
     AuthMiddleware::class => ['admin', 'marketing']
 ]);
+Router::post(admin_url('content/reset'), [AdminContentController::class, 'resetSection'], [
+    AuthMiddleware::class => ['admin', 'marketing']
+]);
 Router::post(admin_url('content/hero'), [AdminContentController::class, 'updateHero'], [
     AuthMiddleware::class => ['admin', 'marketing']
 ]);

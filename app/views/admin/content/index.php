@@ -8,9 +8,20 @@ ob_start();
 <div class="space-y-8">
   <!-- Header & Quick Section Filter -->
   <div class="border-b border-border/40 pb-6 space-y-4">
-    <div>
-      <h2 class="font-heading text-2xl sm:text-3xl text-foreground">Quản lý Nội dung Landing Page</h2>
-      <p class="text-sm text-muted-foreground mt-1">Cấu hình linh hoạt văn bản, khẩu hiệu và hình ảnh các section trên trang web</p>
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div>
+        <h2 class="font-heading text-2xl sm:text-3xl text-foreground">Quản lý Nội dung Landing Page</h2>
+        <p class="text-sm text-muted-foreground mt-1">Cấu hình linh hoạt văn bản, khẩu hiệu và hình ảnh các section trên trang web</p>
+      </div>
+
+      <!-- Global Restore All Button -->
+      <form action="<?= admin_url('content/reset') ?>" method="POST" onsubmit="return confirm('⚠️ CẢNH BÁO: Bạn có chắc chắn muốn KHÔI PHỤC TOÀN BỘ dữ liệu mẫu chuẩn ban đầu cho toàn bộ Landing Page?\n\nTất cả nội dung chỉnh sửa hiện tại ở mọi Section sẽ được thay thế bằng dữ liệu gốc mẫu!');">
+        <input type="hidden" name="section" value="all">
+        <button type="submit" class="px-4 py-2 rounded-sm bg-rose-500/15 text-rose-400 border border-rose-500/30 hover:bg-rose-500/25 transition-colors text-xs font-semibold inline-flex items-center gap-2 shadow-sm" title="Khôi phục lại toàn bộ dữ liệu mẫu chuẩn ban đầu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-ccw"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+          <span>Khôi phục TOÀN BỘ nội dung gốc</span>
+        </button>
+      </form>
     </div>
 
     <!-- Top Section Quick Selector Bar -->
@@ -113,7 +124,16 @@ ob_start();
           <span class="text-[10px] uppercase tracking-widest text-[var(--gold)]">Module 1.2</span>
           <h3 class="font-heading text-xl text-foreground">Cấu hình Section Hero (Đầu trang)</h3>
         </div>
-        <span class="text-xs text-muted-foreground">Dynamic Content</span>
+        <div class="flex items-center gap-3">
+          <form action="<?= admin_url('content/reset') ?>" method="POST" class="inline" onsubmit="return confirm('Bạn có chắc chắn muốn khôi phục dữ liệu mẫu gốc cho Banner Hero?');">
+            <input type="hidden" name="section" value="hero">
+            <button type="submit" class="px-3 py-1.5 rounded text-xs font-medium bg-amber-500/10 text-amber-400 border border-amber-500/25 hover:bg-amber-500/20 transition-colors flex items-center gap-1.5" title="Khôi phục dữ liệu mẫu Banner Hero">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-ccw"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+              <span>Khôi phục gốc Hero</span>
+            </button>
+          </form>
+          <span class="text-xs text-muted-foreground hidden sm:inline">Dynamic Content</span>
+        </div>
       </div>
 
       <form action="<?= admin_url('content/hero') ?>" method="POST" class="space-y-5">
@@ -179,10 +199,19 @@ ob_start();
           <span class="text-[10px] uppercase tracking-widest text-[var(--gold)]">Module 2.1</span>
           <h3 class="font-heading text-xl text-foreground">Cấu hình Lợi ích Cốt lõi (Core Benefits)</h3>
         </div>
-        <button type="button" onclick="openCreateBenefitModal()" class="btn-wine inline-flex items-center gap-2 px-4 py-2 rounded-sm text-xs uppercase tracking-widest font-medium shadow-sm">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus w-3.5 h-3.5"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
-          <span>Thêm Lợi ích mới</span>
-        </button>
+        <div class="flex items-center gap-2">
+          <form action="<?= admin_url('content/reset') ?>" method="POST" class="inline" onsubmit="return confirm('Bạn có chắc chắn muốn khôi phục dữ liệu mẫu gốc cho Lợi ích cốt lõi?');">
+            <input type="hidden" name="section" value="benefits">
+            <button type="submit" class="px-3 py-1.5 rounded text-xs font-medium bg-amber-500/10 text-amber-400 border border-amber-500/25 hover:bg-amber-500/20 transition-colors flex items-center gap-1.5" title="Khôi phục dữ liệu mẫu Lợi ích">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-ccw"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+              <span>Khôi phục gốc</span>
+            </button>
+          </form>
+          <button type="button" onclick="openCreateBenefitModal()" class="btn-wine inline-flex items-center gap-2 px-4 py-2 rounded-sm text-xs uppercase tracking-widest font-medium shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus w-3.5 h-3.5"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+            <span>Thêm Lợi ích mới</span>
+          </button>
+        </div>
       </div>
 
       <div class="grid md:grid-cols-3 gap-6">
@@ -229,7 +258,16 @@ ob_start();
           <span class="text-[10px] uppercase tracking-widest text-[var(--gold)]">Module 3.1</span>
           <h3 class="font-heading text-xl text-foreground">Cấu hình Section Giới thiệu Dịch vụ (Service Intro)</h3>
         </div>
-        <span class="text-xs text-muted-foreground">Dynamic Content</span>
+        <div class="flex items-center gap-3">
+          <form action="<?= admin_url('content/reset') ?>" method="POST" class="inline" onsubmit="return confirm('Bạn có chắc chắn muốn khôi phục dữ liệu mẫu gốc cho phần Giới thiệu Dịch vụ?');">
+            <input type="hidden" name="section" value="service_intro">
+            <button type="submit" class="px-3 py-1.5 rounded text-xs font-medium bg-amber-500/10 text-amber-400 border border-amber-500/25 hover:bg-amber-500/20 transition-colors flex items-center gap-1.5" title="Khôi phục dữ liệu mẫu Giới thiệu">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-ccw"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+              <span>Khôi phục gốc Giới thiệu</span>
+            </button>
+          </form>
+          <span class="text-xs text-muted-foreground hidden sm:inline">Dynamic Content</span>
+        </div>
       </div>
 
       <form action="<?= admin_url('content/service-intro') ?>" method="POST" class="space-y-5">
@@ -313,10 +351,19 @@ ob_start();
           <span class="text-[10px] uppercase tracking-widest text-[var(--gold)]">Module 3.2</span>
           <h3 class="font-heading text-xl text-foreground">Danh sách Gói tiệc Food &amp; Wine Pairing</h3>
         </div>
-        <button type="button" onclick="openCreatePairingModal()" class="btn-wine inline-flex items-center gap-2 px-4 py-2 rounded-sm text-xs uppercase tracking-widest font-medium shadow-sm">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus w-3.5 h-3.5"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
-          <span>Thêm Gói tiệc Pairing mới</span>
-        </button>
+        <div class="flex items-center gap-2">
+          <form action="<?= admin_url('content/reset') ?>" method="POST" class="inline" onsubmit="return confirm('Bạn có chắc chắn muốn khôi phục dữ liệu mẫu gốc cho Các Gói Tiệc Wine Pairing?');">
+            <input type="hidden" name="section" value="pairings">
+            <button type="submit" class="px-3 py-1.5 rounded text-xs font-medium bg-amber-500/10 text-amber-400 border border-amber-500/25 hover:bg-amber-500/20 transition-colors flex items-center gap-1.5" title="Khôi phục dữ liệu mẫu Gói Pairing">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-ccw"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+              <span>Khôi phục gốc</span>
+            </button>
+          </form>
+          <button type="button" onclick="openCreatePairingModal()" class="btn-wine inline-flex items-center gap-2 px-4 py-2 rounded-sm text-xs uppercase tracking-widest font-medium shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus w-3.5 h-3.5"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+            <span>Thêm Gói tiệc Pairing mới</span>
+          </button>
+        </div>
       </div>
 
       <div class="grid sm:grid-cols-2 gap-6">
@@ -450,10 +497,19 @@ ob_start();
           <span class="text-[10px] uppercase tracking-widest text-[var(--gold)]">Module 3.3</span>
           <h3 class="font-heading text-xl text-foreground">Danh sách Các Gói Workshop &amp; Khóa học Trải nghiệm</h3>
         </div>
-        <button type="button" onclick="openCreateWorkshopCmsModal()" class="btn-wine inline-flex items-center gap-2 px-4 py-2 rounded-sm text-xs uppercase tracking-widest font-medium shadow-sm">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus w-3.5 h-3.5"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
-          <span>Thêm Gói Workshop mới</span>
-        </button>
+        <div class="flex items-center gap-2">
+          <form action="<?= admin_url('content/reset') ?>" method="POST" class="inline" onsubmit="return confirm('Bạn có chắc chắn muốn khôi phục dữ liệu mẫu gốc cho Các Gói Workshop Vang?');">
+            <input type="hidden" name="section" value="workshops">
+            <button type="submit" class="px-3 py-1.5 rounded text-xs font-medium bg-amber-500/10 text-amber-400 border border-amber-500/25 hover:bg-amber-500/20 transition-colors flex items-center gap-1.5" title="Khôi phục dữ liệu mẫu Workshop">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-ccw"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+              <span>Khôi phục gốc</span>
+            </button>
+          </form>
+          <button type="button" onclick="openCreateWorkshopCmsModal()" class="btn-wine inline-flex items-center gap-2 px-4 py-2 rounded-sm text-xs uppercase tracking-widest font-medium shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus w-3.5 h-3.5"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+            <span>Thêm Gói Workshop mới</span>
+          </button>
+        </div>
       </div>
 
       <div class="grid sm:grid-cols-2 gap-6">
@@ -577,10 +633,19 @@ ob_start();
           <h3 class="font-heading text-xl text-foreground">Quản lý Đánh giá Khách hàng (Testimonials)</h3>
         </div>
         
-        <button type="button" onclick="openCreateTestimonialModal()" class="btn-wine inline-flex items-center gap-2 px-4 py-2 rounded-sm text-xs uppercase tracking-widest font-medium shadow-sm">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus w-3.5 h-3.5"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
-          <span>Thêm Đánh giá mới</span>
-        </button>
+        <div class="flex items-center gap-2">
+          <form action="<?= admin_url('content/reset') ?>" method="POST" class="inline" onsubmit="return confirm('Bạn có chắc chắn muốn khôi phục dữ liệu mẫu gốc cho Đánh giá khách hàng?');">
+            <input type="hidden" name="section" value="testimonials">
+            <button type="submit" class="px-3 py-1.5 rounded text-xs font-medium bg-amber-500/10 text-amber-400 border border-amber-500/25 hover:bg-amber-500/20 transition-colors flex items-center gap-1.5" title="Khôi phục dữ liệu mẫu Đánh giá">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-ccw"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+              <span>Khôi phục gốc</span>
+            </button>
+          </form>
+          <button type="button" onclick="openCreateTestimonialModal()" class="btn-wine inline-flex items-center gap-2 px-4 py-2 rounded-sm text-xs uppercase tracking-widest font-medium shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus w-3.5 h-3.5"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+            <span>Thêm Đánh giá mới</span>
+          </button>
+        </div>
       </div>
 
       <div class="grid sm:grid-cols-2 gap-6">
@@ -673,10 +738,19 @@ ob_start();
           <h3 class="font-heading text-xl text-foreground">Quản lý Câu hỏi Thường gặp (FAQ Accordion)</h3>
         </div>
 
-        <button type="button" onclick="openCreateFaqModal()" class="btn-wine inline-flex items-center gap-2 px-4 py-2 rounded-sm text-xs uppercase tracking-widest font-medium shadow-sm">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus w-3.5 h-3.5"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
-          <span>Thêm FAQ mới</span>
-        </button>
+        <div class="flex items-center gap-2">
+          <form action="<?= admin_url('content/reset') ?>" method="POST" class="inline" onsubmit="return confirm('Bạn có chắc chắn muốn khôi phục dữ liệu mẫu gốc cho Câu hỏi FAQ?');">
+            <input type="hidden" name="section" value="faqs">
+            <button type="submit" class="px-3 py-1.5 rounded text-xs font-medium bg-amber-500/10 text-amber-400 border border-amber-500/25 hover:bg-amber-500/20 transition-colors flex items-center gap-1.5" title="Khôi phục dữ liệu mẫu FAQ">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-ccw"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+              <span>Khôi phục gốc</span>
+            </button>
+          </form>
+          <button type="button" onclick="openCreateFaqModal()" class="btn-wine inline-flex items-center gap-2 px-4 py-2 rounded-sm text-xs uppercase tracking-widest font-medium shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus w-3.5 h-3.5"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+            <span>Thêm FAQ mới</span>
+          </button>
+        </div>
       </div>
 
       <div class="space-y-4">
