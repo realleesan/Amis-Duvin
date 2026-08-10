@@ -1,6 +1,0 @@
-{
-  "type": "googlecalendar",
-  "scopes": [
-    "email"
-  ]
-}
