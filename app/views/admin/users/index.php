@@ -9,8 +9,8 @@ ob_start();
   <!-- Header & Add Button -->
   <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border/40 pb-6">
     <div>
-      <h2 class="font-heading text-2xl sm:text-3xl text-foreground">Quản lý Nhân sự &amp; Tài khoản CMS</h2>
-      <p class="text-sm text-muted-foreground mt-1">Phân quyền vai trò truy cập Admin, CSKH và Marketing</p>
+      <h2 class="font-heading-editorial text-2xl sm:text-3xl text-foreground font-bold tracking-wide">Quản lý Nhân sự &amp; Tài khoản CMS</h2>
+      <p class="font-body-modern text-sm text-muted-foreground mt-1">Phân quyền vai trò truy cập Admin, CSKH và Marketing</p>
     </div>
 
     <div class="flex items-center gap-2">

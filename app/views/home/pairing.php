@@ -73,9 +73,11 @@ if (empty($pairings)) {
   <div class="relative max-w-7xl mx-auto px-5 sm:px-8">
     <div class="reveal is-visible">
       <div class="text-center max-w-2xl mx-auto mb-14">
-        <p class="text-[var(--gold)] text-xs uppercase tracking-[0.35em] mb-4">Danh sách gói tiệc</p>
-        <h2 class="font-heading text-3xl sm:text-5xl text-foreground mb-5">Food &amp; Wine Pairing</h2>
-        <p class="text-sm sm:text-base text-muted-foreground">Bốn trải nghiệm kết hợp ẩm thực và rượu vang, từ tinh hoa tiêu chuẩn đến đỉnh cao thượng lưu.</p>
+        <span class="editorial-tag inline-block font-body-modern text-[11px] uppercase tracking-[0.25em] font-semibold text-[var(--gold)] border border-champagneGold/40 bg-champagneGold/10 px-3.5 py-1 mb-4 rounded-sm">
+          Danh sách gói tiệc
+        </span>
+        <h2 class="font-heading-editorial text-3xl sm:text-5xl text-foreground mb-4 font-bold tracking-wide">Food &amp; Wine Pairing</h2>
+        <p class="font-body-modern text-sm sm:text-base text-muted-foreground leading-relaxed">Bốn trải nghiệm kết hợp ẩm thực và rượu vang, từ tinh hoa tiêu chuẩn đến đỉnh cao thượng lưu.</p>
       </div>
     </div>
 
@@ -84,23 +86,23 @@ if (empty($pairings)) {
       <?php foreach ($pairings as $pairing): ?>
         <?php $jsonData = htmlspecialchars(json_encode($pairing), ENT_QUOTES, 'UTF-8'); ?>
         <div class="reveal is-visible">
-          <div role="button" tabindex="0" onclick="openPairingModal(<?= $jsonData ?>)" class="card-lift group h-full rounded-sm border border-border bg-card overflow-hidden flex flex-col cursor-pointer">
+          <div role="button" tabindex="0" onclick="openPairingModal(<?= $jsonData ?>)" class="card-lift group h-full rounded-sm border-thin-gold bg-card/60 overflow-hidden flex flex-col cursor-pointer transition-all duration-300 hover:border-champagneGold/60 shadow-sm backdrop-blur-sm">
             <div class="relative aspect-[4/3] overflow-hidden bg-card">
-              <img src="<?= htmlspecialchars($pairing['image']) ?>" loading="lazy" class="w-full h-full object-cover select-none" alt="<?= htmlspecialchars($pairing['title']) ?>">
-              <div class="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent pointer-events-none"></div>
-              <?php if (str_contains(strtolower($pairing['level']), 'premium')): ?>
-                <span class="absolute top-4 left-4 text-[10px] uppercase tracking-[0.18em] px-3 py-1.5 rounded-full backdrop-blur-sm bg-[var(--gold)]/15 text-[var(--gold)] border border-[var(--gold)]/40"><?= htmlspecialchars($pairing['level']) ?></span>
+              <img src="<?= htmlspecialchars($pairing['image']) ?>" loading="lazy" class="w-full h-full object-cover select-none transition-transform duration-700 group-hover:scale-105" alt="<?= htmlspecialchars($pairing['title']) ?>">
+              <div class="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent pointer-events-none"></div>
+              <?php if (str_contains(strtolower($pairing['level']), 'premium') || str_contains(strtolower($pairing['level']), 'grand') || str_contains(strtolower($pairing['level']), 'bespoke')): ?>
+                <span class="editorial-tag absolute top-4 left-4 text-[10px] uppercase tracking-[0.2em] font-semibold px-3 py-1 rounded-sm bg-[var(--wine)] text-white border border-champagneGold/40"><?= htmlspecialchars($pairing['level']) ?></span>
               <?php else: ?>
-                <span class="absolute top-4 left-4 text-[10px] uppercase tracking-[0.18em] px-3 py-1.5 rounded-full backdrop-blur-sm bg-black/50 text-white border border-white/20"><?= htmlspecialchars($pairing['level']) ?></span>
+                <span class="editorial-tag absolute top-4 left-4 text-[10px] uppercase tracking-[0.2em] font-semibold px-3 py-1 rounded-sm bg-[var(--gold)]/20 text-[var(--gold)] border border-champagneGold/40 backdrop-blur-md"><?= htmlspecialchars($pairing['level']) ?></span>
               <?php endif; ?>
             </div>
             <div class="p-6 flex flex-col flex-1">
-              <h3 class="font-heading text-xl sm:text-2xl text-foreground mb-3"><?= htmlspecialchars($pairing['title']) ?></h3>
-              <p class="text-sm text-muted-foreground leading-relaxed mb-6 flex-1"><?= htmlspecialchars($pairing['subtitle']) ?></p>
-              <div class="flex items-center justify-between">
-                <span class="text-sm font-medium text-[var(--wine)]"><?= htmlspecialchars($pairing['price_text']) ?></span>
-                <button type="button" onclick="event.stopPropagation(); openPairingModal(<?= $jsonData ?>)" class="btn-invert inline-flex items-center gap-2 px-5 py-2.5 rounded-sm text-xs uppercase tracking-[0.15em] font-medium">
-                  Xem chi tiết 
+              <h3 class="font-heading-editorial text-xl sm:text-2xl text-foreground mb-3 font-semibold tracking-wide"><?= htmlspecialchars($pairing['title']) ?></h3>
+              <p class="font-body-modern text-sm text-muted-foreground leading-relaxed mb-6 flex-1"><?= htmlspecialchars($pairing['subtitle']) ?></p>
+              <div class="flex items-center justify-between pt-4 border-t border-champagneGold/20">
+                <span class="font-body-modern text-sm sm:text-base font-bold text-[var(--gold)]"><?= htmlspecialchars($pairing['price_text']) ?></span>
+                <button type="button" onclick="event.stopPropagation(); openPairingModal(<?= $jsonData ?>)" class="bg-[var(--wine)] hover:bg-[var(--wine-deep)] text-white inline-flex items-center gap-2 px-5 py-2.5 rounded-sm text-xs uppercase tracking-[0.18em] font-semibold transition-all border border-champagneGold/30">
+                  <span>Xem chi tiết</span>
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right w-3.5 h-3.5"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
                 </button>
               </div>

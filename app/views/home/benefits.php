@@ -27,20 +27,22 @@ if (empty($benefits)) {
   <div class="relative max-w-7xl mx-auto px-5 sm:px-8">
     <div class="reveal is-visible">
       <div class="text-center max-w-2xl mx-auto mb-14">
-        <p class="text-[var(--gold)] text-xs uppercase tracking-[0.35em] mb-4">Về Amis du Vin</p>
-        <h2 class="font-heading text-3xl sm:text-5xl text-foreground mb-5">Lợi ích cốt lõi</h2>
+        <span class="editorial-tag inline-block font-body-modern text-[11px] uppercase tracking-[0.25em] font-semibold text-[var(--gold)] border border-champagneGold/40 bg-champagneGold/10 px-3.5 py-1 mb-4 rounded-sm">
+          Về Amis du Vin
+        </span>
+        <h2 class="font-heading-editorial text-3xl sm:text-5xl text-foreground font-bold tracking-wide">Lợi ích Cốt lõi</h2>
       </div>
     </div>
     <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6 lg:gap-8">
       <?php foreach ($benefits as $b): ?>
         <div class="reveal is-visible">
-          <div class="card-lift h-full rounded-sm border border-border bg-card p-8 text-center">
-            <!-- Icon circle synchronized with Booking section border border-border bg-card text-[var(--wine)] -->
-            <div class="w-14 h-14 rounded-full border border-border bg-card flex items-center justify-center mx-auto mb-6 text-[var(--wine)] shadow-sm">
+          <div class="card-lift h-full rounded-sm border-thin-gold bg-card/60 p-8 text-center backdrop-blur-sm transition-all duration-300 hover:border-champagneGold/60 shadow-sm">
+            <!-- Minimal Line Icon Frame -->
+            <div class="w-14 h-14 rounded-full border-thin-gold bg-champagneGold/10 flex items-center justify-center mx-auto mb-6 text-[var(--gold)] shadow-sm">
               <?= $b['icon_svg'] ?>
             </div>
-            <h3 class="font-heading text-xl text-foreground mb-3"><?= htmlspecialchars($b['title']) ?></h3>
-            <p class="text-sm text-muted-foreground leading-relaxed"><?= htmlspecialchars($b['description']) ?></p>
+            <h3 class="font-heading-editorial text-xl text-foreground mb-3 font-semibold"><?= htmlspecialchars($b['title']) ?></h3>
+            <p class="font-body-modern text-sm text-muted-foreground leading-relaxed"><?= htmlspecialchars($b['description']) ?></p>
           </div>
         </div>
       <?php endforeach; ?>

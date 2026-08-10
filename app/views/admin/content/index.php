@@ -10,8 +10,8 @@ ob_start();
   <div class="border-b border-border/40 pb-6 space-y-4">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
       <div>
-        <h2 class="font-heading text-2xl sm:text-3xl text-foreground">Quản lý Nội dung Landing Page</h2>
-        <p class="text-sm text-muted-foreground mt-1">Cấu hình linh hoạt văn bản, khẩu hiệu và hình ảnh các section trên trang web</p>
+        <h2 class="font-heading-editorial text-2xl sm:text-3xl text-foreground font-bold tracking-wide">Quản lý Nội dung Landing Page</h2>
+        <p class="font-body-modern text-sm text-muted-foreground mt-1">Cấu hình linh hoạt văn bản, khẩu hiệu và hình ảnh các section trên trang web</p>
       </div>
 
       <!-- Global Restore All Button -->

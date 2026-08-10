@@ -109,7 +109,7 @@
   <?php if (!empty($hero['bg_image'])): ?>
     <link rel="preload" as="image" href="<?= htmlspecialchars($hero['bg_image']) ?>">
   <?php endif; ?>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Sacramento&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600;1,700&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   
   <script>
     (function () {
@@ -144,6 +144,11 @@
           colors: {
             background: 'hsl(var(--background))',
             foreground: 'hsl(var(--foreground))',
+            burgundy: '#B62025',
+            champagneGold: '#C9A96A',
+            ivoryWhite: '#F7F4EF',
+            warmBeige: '#DCCDB8',
+            charcoalBlack: '#222222',
             card: {
               DEFAULT: 'hsl(var(--card))',
               foreground: 'hsl(var(--card-foreground))'
@@ -181,7 +186,9 @@
             body: ['var(--font-body)'],
             display: ['var(--font-heading)'],
             serif: ['var(--font-serif)'],
-            signature: ['var(--font-signature)']
+            signature: ['var(--font-signature)'],
+            cormorant: ['Cormorant Garamond', 'Georgia', 'serif'],
+            manrope: ['Manrope', 'ui-sans-serif', 'system-ui', 'sans-serif']
           }
         }
       }

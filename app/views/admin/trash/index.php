@@ -8,10 +8,10 @@ ob_start();
   <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-border/40">
     <div>
       <div class="flex items-center gap-2">
-        <h1 class="text-2xl font-bold font-serif tracking-tight text-foreground">Thùng rác</h1>
+        <h1 class="text-2xl font-bold font-heading-editorial tracking-wide text-foreground">Thùng rác Hệ thống</h1>
         <span class="px-2 py-0.5 text-[10px] uppercase font-mono tracking-wider font-semibold rounded bg-rose-500/10 text-rose-400 border border-rose-500/20">Admin Only</span>
       </div>
-      <p class="text-xs text-muted-foreground mt-1">Quản lý, khôi phục hoặc xóa vĩnh viễn các dữ liệu đã bị xóa tạm khỏi hệ thống.</p>
+      <p class="font-body-modern text-xs text-muted-foreground mt-1">Quản lý, khôi phục hoặc xóa vĩnh viễn các dữ liệu đã bị xóa tạm khỏi hệ thống.</p>
     </div>
   </div>
 

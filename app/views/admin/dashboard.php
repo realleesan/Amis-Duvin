@@ -9,8 +9,8 @@ ob_start();
   <!-- Page Header -->
   <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
     <div>
-      <h2 class="font-heading text-2xl sm:text-3xl text-foreground">Tổng quan Hệ thống &amp; Thống kê Marketing</h2>
-      <p class="text-sm text-muted-foreground mt-1">Xin chào <strong><?= htmlspecialchars($user['full_name'] ?? 'Quản trị viên') ?></strong>, dưới đây là chỉ số vận hành và đo lường truy cập theo thời gian thực.</p>
+      <h2 class="font-heading-editorial text-2xl sm:text-3xl text-foreground font-bold tracking-wide">Tổng quan Hệ thống &amp; Thống kê Marketing</h2>
+      <p class="font-body-modern text-sm text-muted-foreground mt-1">Xin chào <strong><?= htmlspecialchars($user['full_name'] ?? 'Quản trị viên') ?></strong>, dưới đây là chỉ số vận hành và đo lường truy cập theo thời gian thực.</p>
     </div>
     <div class="flex items-center gap-2 shrink-0">
       <a href="<?= admin_url('notifications') ?>" class="admin-btn-gold px-3.5 py-2 rounded text-xs font-semibold flex items-center gap-2">

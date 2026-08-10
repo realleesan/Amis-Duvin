@@ -8,8 +8,8 @@ ob_start();
   <!-- Header Title -->
   <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
     <div>
-      <h1 class="text-xl font-bold tracking-tight text-foreground font-heading">Quản lý Thông báo &amp; Nhật ký Biến động</h1>
-      <p class="text-xs text-muted-foreground mt-0.5">Theo dõi lịch sử đơn đặt tiệc, chỉnh sửa nội dung CMS, thao tác nhân sự và nhật ký hệ thống.</p>
+      <h1 class="text-xl font-bold tracking-wide text-foreground font-heading-editorial">Quản lý Thông báo &amp; Nhật ký Biến động</h1>
+      <p class="font-body-modern text-xs text-muted-foreground mt-0.5">Theo dõi lịch sử đơn đặt tiệc, chỉnh sửa nội dung CMS, thao tác nhân sự và nhật ký hệ thống.</p>
     </div>
     <div class="flex items-center gap-2">
       <button type="button" onclick="markAllNotificationsRead()" class="admin-btn-gold px-3 py-1.5 rounded text-xs font-semibold flex items-center gap-1.5">

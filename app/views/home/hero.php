@@ -14,21 +14,28 @@ $heroBgImage = $hero['bg_image'] ?? 'https://media.base44.com/images/public/6a62
     <div class="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent"></div>
   </div>
   <div class="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 w-full pt-28 pb-20">
-    <div class="reveal is-visible">
-      <p class="text-[var(--gold)] text-xs sm:text-sm uppercase tracking-[0.4em] mb-6"><?= htmlspecialchars($heroTagline) ?></p>
+    <div class="reveal is-visible mb-6">
+      <span class="editorial-tag inline-block font-body-modern text-[11px] uppercase tracking-[0.25em] font-semibold text-[var(--gold)] border border-[var(--gold)]/40 bg-[var(--gold)]/10 px-3.5 py-1.5 rounded-sm">
+        <?= htmlspecialchars($heroTagline) ?>
+      </span>
     </div>
     <div class="reveal is-visible">
-      <h1 class="font-heading text-4xl sm:text-6xl lg:text-7xl text-white leading-[1.05] max-w-4xl mb-7">
+      <h1 class="font-heading-editorial text-4xl sm:text-6xl lg:text-7xl text-white leading-[1.08] max-w-4xl mb-7 font-bold tracking-wide">
         <?= htmlspecialchars($heroTitleMain) ?>
-        <span class="block text-2xl sm:text-3xl lg:text-4xl font-serif-display italic font-normal text-white/90 mt-4"><?= htmlspecialchars($heroTitleSub) ?></span>
+        <span class="block text-2xl sm:text-3xl lg:text-4xl font-heading-editorial italic font-normal text-[var(--gold-light)] mt-4 tracking-normal"><?= htmlspecialchars($heroTitleSub) ?></span>
       </h1>
     </div>
     <div class="reveal is-visible">
-      <p class="text-base sm:text-lg text-white/70 max-w-xl mb-10 leading-relaxed"><?= htmlspecialchars($heroDescription) ?></p>
+      <p class="font-body-modern text-base sm:text-lg text-white/80 max-w-xl mb-10 leading-relaxed font-normal"><?= htmlspecialchars($heroDescription) ?></p>
     </div>
     <div class="reveal is-visible">
       <div class="flex flex-col sm:flex-row gap-4">
-        <button class="btn-invert px-8 py-4 rounded-sm text-sm uppercase tracking-[0.18em] font-medium min-h-[52px]" onclick="scrollToId('register')">Đặt tiệc ngay</button>
+        <button class="btn-brand-burgundy px-8 py-4 rounded-sm text-xs sm:text-sm uppercase tracking-[0.2em] font-semibold min-h-[52px] shadow-lg" onclick="scrollToId('register')">
+          Đặt tiệc riêng tư ngay
+        </button>
+        <button class="btn-brand-gold-outline px-7 py-4 rounded-sm text-xs sm:text-sm uppercase tracking-[0.2em] font-semibold min-h-[52px]" onclick="scrollToId('pairing')">
+          Khám phá các Gói Tiệc
+        </button>
       </div>
     </div>
   </div>

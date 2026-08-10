@@ -6,6 +6,7 @@
   <meta name="robots" content="noindex, nofollow, noarchive">
   <title><?= htmlspecialchars($title ?? 'Admin CMS — Amis du Vin') ?></title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600;1,700&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/global.css">
   <script>
     (function() {
@@ -39,6 +40,11 @@
           colors: {
             background: 'hsl(var(--background))',
             foreground: 'hsl(var(--foreground))',
+            burgundy: '#B62025',
+            champagneGold: '#C9A96A',
+            ivoryWhite: '#F7F4EF',
+            warmBeige: '#DCCDB8',
+            charcoalBlack: '#222222',
             card: {
               DEFAULT: 'hsl(var(--card))',
               foreground: 'hsl(var(--card-foreground))'
@@ -75,7 +81,9 @@
             heading: ['var(--font-heading)'],
             serifDisplay: ['var(--font-serif)'],
             sans: ['var(--font-body)'],
-            signature: ['var(--font-signature)']
+            signature: ['var(--font-signature)'],
+            cormorant: ['Cormorant Garamond', 'Georgia', 'serif'],
+            manrope: ['Manrope', 'ui-sans-serif', 'system-ui', 'sans-serif']
           }
         }
       }

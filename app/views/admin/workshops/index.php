@@ -6,9 +6,9 @@ ob_start();
 
 <div class="space-y-6">
   <!-- Top Navigation Header -->
-  <div class="border-b border-border/40 pb-4">
-    <h2 class="font-heading text-2xl sm:text-3xl text-foreground">Quản lý Workshop &amp; Lịch Trải nghiệm</h2>
-    <p class="text-sm text-muted-foreground mt-1">Quản lý danh sách khách hàng đăng ký trải nghiệm Workshop.</p>
+  <div class="border-b border-[var(--gold)]/20 pb-4">
+    <h2 class="font-heading-editorial text-2xl sm:text-3xl text-foreground font-bold tracking-wide">Quản lý Workshop &amp; Lịch Trải nghiệm</h2>
+    <p class="font-body-modern text-sm text-muted-foreground mt-1">Quản lý danh sách khách hàng đăng ký trải nghiệm Workshop.</p>
   </div>
 
   <!-- REGISTRATIONS MANAGEMENT -->

@@ -5,22 +5,22 @@
     </button>
 
     <!-- Desktop Navigation -->
-    <nav class="hidden md:flex items-center gap-7">
-      <button class="nav-link relative text-sm tracking-wide py-2 group transition-colors text-white/80 hover:text-white" onclick="scrollToId('about')">
+    <nav class="hidden md:flex items-center gap-7 font-body-modern">
+      <button class="nav-link relative text-sm tracking-wide font-medium py-2 group transition-colors text-white/80 hover:text-white" onclick="scrollToId('about')">
         Về chúng tôi
-        <span class="absolute left-0 -bottom-0.5 h-px w-0 bg-[var(--wine)] transition-all duration-300 group-hover:w-full"></span>
+        <span class="absolute left-0 -bottom-0.5 h-px w-0 bg-[var(--gold)] transition-all duration-300 group-hover:w-full"></span>
       </button>
-      <button class="nav-link relative text-sm tracking-wide py-2 group transition-colors text-white/80 hover:text-white" onclick="scrollToId('pairing')">
+      <button class="nav-link relative text-sm tracking-wide font-medium py-2 group transition-colors text-white/80 hover:text-white" onclick="scrollToId('pairing')">
         Food &amp; Wine Pairing
-        <span class="absolute left-0 -bottom-0.5 h-px w-0 bg-[var(--wine)] transition-all duration-300 group-hover:w-full"></span>
+        <span class="absolute left-0 -bottom-0.5 h-px w-0 bg-[var(--gold)] transition-all duration-300 group-hover:w-full"></span>
       </button>
-      <button class="nav-link relative text-sm tracking-wide py-2 group transition-colors text-white/80 hover:text-white" onclick="scrollToId('workshops')">
+      <button class="nav-link relative text-sm tracking-wide font-medium py-2 group transition-colors text-white/80 hover:text-white" onclick="scrollToId('workshops')">
         Dịch vụ khác
-        <span class="absolute left-0 -bottom-0.5 h-px w-0 bg-[var(--wine)] transition-all duration-300 group-hover:w-full"></span>
+        <span class="absolute left-0 -bottom-0.5 h-px w-0 bg-[var(--gold)] transition-all duration-300 group-hover:w-full"></span>
       </button>
-      <button class="nav-link relative text-sm tracking-wide py-2 group transition-colors text-white/80 hover:text-white" onclick="scrollToId('map')">
+      <button class="nav-link relative text-sm tracking-wide font-medium py-2 group transition-colors text-white/80 hover:text-white" onclick="scrollToId('map')">
         Liên hệ
-        <span class="absolute left-0 -bottom-0.5 h-px w-0 bg-[var(--wine)] transition-all duration-300 group-hover:w-full"></span>
+        <span class="absolute left-0 -bottom-0.5 h-px w-0 bg-[var(--gold)] transition-all duration-300 group-hover:w-full"></span>
       </button>
 
       <!-- Theme Toggle Button -->
@@ -29,7 +29,7 @@
         <svg id="moonIcon" class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
       </button>
 
-      <button class="btn-invert px-6 py-2.5 rounded-sm text-xs uppercase tracking-[0.18em] font-medium" onclick="scrollToId('register')">Đặt tiệc ngay</button>
+      <button class="btn-brand-burgundy px-6 py-2.5 rounded-sm text-xs uppercase tracking-[0.18em] font-semibold shadow-md" onclick="scrollToId('register')">Đặt tiệc ngay</button>
     </nav>
 
     <!-- Mobile Navigation Toggle -->

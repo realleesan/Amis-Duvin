@@ -58,37 +58,39 @@ if (empty($testimonials)) {
   <div class="max-w-7xl mx-auto px-5 sm:px-8">
     <div class="reveal is-visible">
       <div class="text-center max-w-2xl mx-auto mb-14">
-        <p class="text-[var(--gold)] text-xs uppercase tracking-[0.35em] mb-4">Khách hàng nói gì</p>
-        <h2 class="font-heading text-3xl sm:text-5xl text-foreground mb-5">Dẫn chứng tin cậy</h2>
+        <span class="editorial-tag inline-block font-body-modern text-[11px] uppercase tracking-[0.25em] font-semibold text-[var(--gold)] border border-champagneGold/40 bg-champagneGold/10 px-3.5 py-1 mb-4 rounded-sm">
+          Khách hàng nói gì
+        </span>
+        <h2 class="font-heading-editorial text-3xl sm:text-5xl text-foreground mb-4 font-bold tracking-wide">Dẫn chứng Tin cậy</h2>
       </div>
     </div>
     
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
       <?php foreach ($testimonials as $t): ?>
         <div class="reveal is-visible">
-          <div class="card-lift h-full rounded-sm border border-border bg-background p-7 flex flex-col">
+          <div class="card-lift h-full rounded-sm border-thin-gold bg-background/80 p-7 flex flex-col backdrop-blur-sm shadow-sm transition-all duration-300 hover:border-champagneGold/60">
             <div class="flex items-center gap-4 mb-5">
               <?php if (!empty($t['avatar'])): ?>
-                <span class="inline-block relative w-14 h-14 rounded-full shrink-0 overflow-hidden">
-                  <img src="<?= htmlspecialchars($t['avatar']) ?>" loading="lazy" class="w-full h-full object-cover" alt="<?= htmlspecialchars($t['name']) ?>">
+                <span class="inline-block relative w-14 h-14 rounded-full shrink-0 overflow-hidden border border-champagneGold/40 p-0.5">
+                  <img src="<?= htmlspecialchars($t['avatar']) ?>" loading="lazy" class="w-full h-full object-cover rounded-full" alt="<?= htmlspecialchars($t['name']) ?>">
                 </span>
               <?php else: ?>
-                <div class="w-14 h-14 rounded-full bg-[var(--wine)]/10 border border-[var(--wine)]/25 flex items-center justify-center font-heading text-base text-[var(--wine)] shrink-0">
+                <div class="w-14 h-14 rounded-full bg-[var(--wine)]/15 border border-champagneGold/40 flex items-center justify-center font-heading-editorial text-base font-bold text-[var(--gold)] shrink-0">
                   <?= htmlspecialchars($t['avatar_initials'] ?? 'AV') ?>
                 </div>
               <?php endif; ?>
               
               <div class="min-w-0">
-                <p class="font-heading text-sm text-foreground truncate"><?= htmlspecialchars($t['name']) ?></p>
-                <p class="text-xs text-muted-foreground truncate"><?= htmlspecialchars($t['role']) ?></p>
+                <p class="font-heading-editorial text-base text-foreground font-semibold truncate"><?= htmlspecialchars($t['name']) ?></p>
+                <p class="font-body-modern text-xs text-muted-foreground truncate"><?= htmlspecialchars($t['role']) ?></p>
               </div>
             </div>
             
-            <span class="inline-flex items-center self-start gap-1.5 text-[10px] uppercase tracking-[0.12em] px-2.5 py-1 rounded-full border border-[var(--gold)]/30 bg-[var(--gold)]/10 text-[var(--gold)] mb-4">
+            <span class="editorial-tag inline-flex items-center self-start text-[10px] uppercase tracking-[0.15em] font-semibold px-2.5 py-1 rounded-sm border border-champagneGold/40 bg-champagneGold/10 text-[var(--gold)] mb-4">
               <?= htmlspecialchars($t['package_tag']) ?>
             </span>
             
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-quote w-7 h-7 text-[var(--wine)]/25 mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-quote w-7 h-7 text-[var(--wine)]/30 mb-3">
               <path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"></path>
               <path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"></path>
             </svg>
@@ -100,7 +102,7 @@ if (empty($testimonials)) {
               <?php endfor; ?>
             </div>
             
-            <p class="text-sm text-foreground/80 leading-relaxed flex-1"><?= htmlspecialchars($t['content']) ?></p>
+            <p class="font-body-modern text-sm text-foreground/85 leading-relaxed flex-1 italic"><?= htmlspecialchars($t['content']) ?></p>
           </div>
         </div>
       <?php endforeach; ?>

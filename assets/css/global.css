@@ -1,80 +1,92 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Sacramento&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600;1,700&family=Manrope:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  /* Light — warm elegant */
-  --background: 36 9% 96%;
-  --foreground: 24 10% 13%;
+  /* Light — Modern Luxury Ivory & Warm Beige */
+  --background: 38 33% 95%; /* #F7F4EF — Ivory White */
+  --foreground: 0 0% 13%;   /* #222222 — Charcoal Black */
   --card: 0 0% 100%;
-  --card-foreground: 24 10% 13%;
+  --card-foreground: 0 0% 13%;
   --popover: 0 0% 100%;
-  --popover-foreground: 24 10% 13%;
-  --primary: 348 98% 35%;
+  --popover-foreground: 0 0% 13%;
+  --primary: 358 70% 42%;   /* #B62025 — Burgundy Red */
   --primary-foreground: 0 0% 100%;
-  --secondary: 36 8% 92%;
-  --secondary-foreground: 24 10% 16%;
-  --muted: 36 8% 92%;
-  --muted-foreground: 24 5% 41%;
-  --accent: 38 40% 95%;
-  --accent-foreground: 24 10% 16%;
-  --destructive: 348 98% 35%;
+  --secondary: 35 34% 79%;  /* #DCCDB8 — Warm Beige */
+  --secondary-foreground: 0 0% 13%;
+  --muted: 38 25% 90%;
+  --muted-foreground: 0 0% 40%;
+  --accent: 40 47% 60%;     /* #C9A96A — Champagne Gold */
+  --accent-foreground: 0 0% 13%;
+  --destructive: 358 70% 42%;
   --destructive-foreground: 0 0% 100%;
-  --border: 30 6% 86%;
-  --input: 30 6% 86%;
-  --ring: 348 98% 35%;
+  --border: 35 34% 79%;
+  --input: 35 34% 79%;
+  --ring: 358 70% 42%;
   --radius: 0.25rem;
 
-  --wine: #b20225;
-  --wine-deep: #80021a;
-  --wine-glow: rgba(178, 2, 37, 0.16);
-  --gold: #a07f3e;
+  /* Brand Signature Color Tokens (Social Guideline Strict Compliance) */
+  --wine: #B62025;          /* Burgundy Signature #B62025 */
+  --wine-deep: #6E1F2A;     /* Dark Crimson #6E1F2A */
+  --wine-glow: rgba(182, 32, 37, 0.18);
+  --gold: #C9A96A;          /* Champagne Gold #C9A96A */
+  --gold-light: #DFCA9B;
+  --gold-glow: rgba(201, 169, 106, 0.25);
+  --ivory: #F7F4EF;         /* Ivory White #F7F4EF */
+  --warm-beige: #DCCDB8;    /* Warm Beige #DCCDB8 */
+  --charcoal: #222222;      /* Charcoal Black #222222 */
 
-  /* theme-aware surface vars */
-  --glass-bg: rgba(255, 255, 255, 0.78);
-  --glass-border: rgba(0, 0, 0, 0.06);
+  /* Surface vars */
+  --glass-bg: rgba(247, 244, 239, 0.85);
+  --glass-border: rgba(201, 169, 106, 0.15);
   --input-bg: #ffffff;
-  --input-border: rgba(0, 0, 0, 0.12);
-  --disabled-bg: #d8d4cf;
-  --disabled-fg: #9a948c;
-  --slider-track: rgba(0, 0, 0, 0.14);
+  --input-border: rgba(34, 34, 34, 0.15);
+  --disabled-bg: #dccdb8;
+  --disabled-fg: #888888;
+  --slider-track: rgba(34, 34, 34, 0.15);
   --slider-thumb-border: #ffffff;
 
-  --font-heading: 'Playfair Display', Georgia, serif;
+  /* Typography Tokens */
+  --font-heading: 'Cormorant Garamond', Georgia, serif;
   --font-serif: 'Cormorant Garamond', Georgia, serif;
-  --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
-  --font-signature: 'Sacramento', cursive;
+  --font-body: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --font-signature: 'Cormorant Garamond', Georgia, serif;
 }
 
 .dark {
-  /* Dark — luxury charcoal */
-  --background: 0 0% 5%;
-  --foreground: 40 30% 92%;
-  --card: 0 0% 9%;
-  --card-foreground: 40 30% 92%;
-  --popover: 0 0% 8%;
-  --popover-foreground: 40 30% 92%;
-  --primary: 348 96% 50%;
-  --primary-foreground: 40 30% 96%;
-  --secondary: 0 0% 14%;
-  --secondary-foreground: 40 30% 92%;
-  --muted: 0 0% 13%;
-  --muted-foreground: 40 10% 62%;
-  --accent: 0 0% 16%;
-  --accent-foreground: 40 30% 92%;
+  /* Dark — Modern Luxury Charcoal Black & Burgundy */
+  --background: 0 0% 13%;   /* #222222 — Charcoal Black */
+  --foreground: 38 33% 95%; /* #F7F4EF — Ivory White */
+  --card: 352 18% 10%;      /* Deep Charcoal Warm Surface #1d1416 */
+  --card-foreground: 38 33% 95%;
+  --popover: 0 0% 11%;
+  --popover-foreground: 38 33% 95%;
+  --primary: 358 70% 42%;   /* #B62025 — Burgundy Red */
+  --primary-foreground: 38 33% 95%;
+  --secondary: 0 0% 18%;
+  --secondary-foreground: 38 33% 95%;
+  --muted: 0 0% 17%;
+  --muted-foreground: 38 15% 68%;
+  --accent: 40 47% 60%;     /* #C9A96A — Champagne Gold */
+  --accent-foreground: 38 33% 95%;
   --destructive: 0 72% 51%;
   --destructive-foreground: 0 0% 98%;
-  --border: 0 0% 18%;
-  --input: 0 0% 16%;
-  --ring: 348 96% 50%;
+  --border: 0 0% 20%;
+  --input: 0 0% 18%;
+  --ring: 358 70% 42%;
 
-  --wine: #b20225;
-  --wine-deep: #80021a;
-  --wine-glow: rgba(178, 2, 37, 0.35);
-  --gold: #c2a565;
+  --wine: #B62025;          /* Burgundy Signature #B62025 */
+  --wine-deep: #6E1F2A;     /* Dark Crimson #6E1F2A */
+  --wine-glow: rgba(182, 32, 37, 0.35);
+  --gold: #C9A96A;          /* Champagne Gold #C9A96A */
+  --gold-light: #DFCA9B;
+  --gold-glow: rgba(201, 169, 106, 0.3);
+  --ivory: #F7F4EF;
+  --warm-beige: #DCCDB8;
+  --charcoal: #222222;
 
-  --glass-bg: rgba(13, 13, 13, 0.6);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --input-bg: rgba(255, 255, 255, 0.04);
-  --input-border: rgba(255, 255, 255, 0.12);
+  --glass-bg: rgba(34, 34, 34, 0.75);
+  --glass-border: rgba(201, 169, 106, 0.2);
+  --input-bg: rgba(255, 255, 255, 0.05);
+  --input-border: rgba(201, 169, 106, 0.2);
   --disabled-bg: #3a3a3a;
   --disabled-fg: #777777;
   --slider-track: rgba(255, 255, 255, 0.15);
@@ -139,17 +151,42 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   cursor: not-allowed;
 }
 
-/* CTA đảo màu (CRO) — wine đặc → outline wine khi hover */
+/* Brand Button Styles (No harsh white borders) */
+.btn-brand-burgundy {
+  background-color: var(--wine) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(201, 169, 106, 0.4) !important;
+  transition: all 0.35s ease;
+}
+.btn-brand-burgundy:hover {
+  background-color: var(--wine-deep) !important;
+  border-color: rgba(201, 169, 106, 0.7) !important;
+  transform: translateY(-1px);
+}
+
+.btn-brand-gold-outline {
+  background-color: rgba(201, 169, 106, 0.08) !important;
+  color: var(--gold) !important;
+  border: 1px solid rgba(201, 169, 106, 0.5) !important;
+  transition: all 0.35s ease;
+}
+.btn-brand-gold-outline:hover {
+  background-color: rgba(201, 169, 106, 0.22) !important;
+  border-color: var(--gold) !important;
+  color: #ffffff !important;
+}
+
 .btn-invert {
-  background: var(--wine);
-  color: #fff;
-  border: 1px solid var(--wine);
+  background: var(--wine) !important;
+  color: #fff !important;
+  border: 1px solid rgba(201, 169, 106, 0.4) !important;
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 8px 24px -8px var(--wine-glow);
 }
 .btn-invert:hover {
-  background: transparent;
-  color: var(--wine);
+  background: var(--wine-deep) !important;
+  border-color: var(--gold) !important;
+  color: #fff !important;
   transform: translateY(-2px);
   box-shadow: 0 14px 32px -8px var(--wine-glow);
 }
@@ -163,15 +200,15 @@ h1, h2, h3, h4, h5, h6, .font-heading {
 }
 
 .btn-ghost {
-  border: 1px solid hsl(var(--border));
-  color: hsl(var(--foreground));
+  border: 1px solid rgba(201, 169, 106, 0.4) !important;
+  color: var(--gold) !important;
+  background: rgba(201, 169, 106, 0.08) !important;
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  background: transparent;
 }
 .btn-ghost:hover {
-  border-color: var(--wine);
-  color: #fff;
-  background: var(--wine);
+  border-color: var(--gold) !important;
+  color: #fff !important;
+  background: var(--wine) !important;
 }
 
 /* Remove harsh default browser focus outlines */
@@ -204,44 +241,152 @@ aside nav::-webkit-scrollbar-thumb:hover {
   background: rgba(194, 165, 101, 0.5);
 }
 
+/* Admin Sidebar Active Navigation Item — Burgundy Red Background with Gold Indicator */
 .admin-active-nav {
-  background-color: rgba(255, 255, 255, 0.06) !important;
-  color: #c2a565 !important;
-  border-left: 3px solid #c2a565 !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
-  border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+  background-color: #B62025 !important;
+  color: #ffffff !important;
+  border-left: 4px solid #C9A96A !important;
+  border-top: 1px solid rgba(201, 169, 106, 0.3) !important;
+  border-right: 1px solid rgba(201, 169, 106, 0.3) !important;
+  border-bottom: 1px solid rgba(201, 169, 106, 0.3) !important;
   font-weight: 600 !important;
+  box-shadow: 0 4px 14px rgba(182, 32, 37, 0.35) !important;
+}
+.admin-active-nav svg {
+  color: #C9A96A !important;
+}
+.admin-active-nav span {
+  color: #ffffff !important;
 }
 
 .admin-btn-gold {
-  background-color: rgba(194, 165, 101, 0.12);
-  color: #c2a565;
-  border: 1px solid rgba(194, 165, 101, 0.3);
+  background-color: rgba(201, 169, 106, 0.12);
+  color: #C9A96A;
+  border: 1px solid rgba(201, 169, 106, 0.35);
   transition: all 0.2s ease;
 }
 .admin-btn-gold:hover {
-  background-color: rgba(194, 165, 101, 0.22);
-  border-color: rgba(194, 165, 101, 0.5);
-  color: #e8d5a8;
+  background-color: rgba(201, 169, 106, 0.25);
+  border-color: rgba(201, 169, 106, 0.6);
+  color: #DFCA9B;
 }
 
+/* Form Input Styles — High Contrast & Clear Borders */
 .input-elegant {
-  background: var(--input-bg);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: var(--input-bg);
+  border: 1.5px solid var(--input-border);
   color: hsl(var(--foreground));
   transition: all 0.3s ease;
 }
-.dark .input-elegant {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+
+/* Light Mode Input Safeguards (Crisp White BG, Clear #DCCDB8 Border, Charcoal Text) */
+html:not(.dark) .input-elegant,
+html:not(.dark) input.input-elegant,
+html:not(.dark) textarea.input-elegant,
+html:not(.dark) select.input-elegant,
+html:not(.dark) input[type="text"],
+html:not(.dark) input[type="email"],
+html:not(.dark) input[type="tel"],
+html:not(.dark) input[type="date"],
+html:not(.dark) input[type="number"] {
+  background-color: #ffffff !important;
+  border: 1.5px solid #dccdb8 !important;
+  color: #222222 !important;
+  box-shadow: 0 1px 3px rgba(34, 34, 34, 0.05);
 }
-.input-elegant::placeholder { color: hsl(var(--muted-foreground)); opacity: 0.6; }
-.input-elegant:focus {
-  border-color: var(--wine) !important;
-  background: rgba(255, 255, 255, 0.05);
-  box-shadow: 0 0 0 2px var(--wine-glow) !important;
+
+html:not(.dark) .input-elegant::placeholder,
+html:not(.dark) input::placeholder,
+html:not(.dark) textarea::placeholder {
+  color: #666666 !important;
+  opacity: 0.85 !important;
+}
+
+html:not(.dark) .input-elegant:focus,
+html:not(.dark) input.input-elegant:focus,
+html:not(.dark) textarea.input-elegant:focus,
+html:not(.dark) select.input-elegant:focus {
+  border-color: #B62025 !important;
+  background-color: #ffffff !important;
+  box-shadow: 0 0 0 3px rgba(182, 32, 37, 0.18) !important;
   outline: none !important;
+}
+
+/* Dark Mode Input Safeguards */
+.dark .input-elegant,
+.dark input.input-elegant,
+.dark textarea.input-elegant,
+.dark select.input-elegant {
+  background-color: rgba(20, 15, 17, 0.85) !important;
+  border: 1.5px solid rgba(201, 169, 106, 0.35) !important;
+  color: #F7F4EF !important;
+}
+
+.dark .input-elegant:focus,
+.dark input.input-elegant:focus,
+.dark textarea.input-elegant:focus,
+.dark select.input-elegant:focus {
+  border-color: #C9A96A !important;
+  box-shadow: 0 0 0 3px rgba(201, 169, 106, 0.25) !important;
+  outline: none !important;
+}
+
+/* Light Mode Comprehensive Optimization (Anti-Glare & High Contrast) */
+html:not(.dark) {
+  --background: 38 33% 95%; /* #F7F4EF — Warm Ivory White */
+  --foreground: 0 0% 13%;   /* #222222 — Charcoal Black */
+  --card: 0 0% 100%;        /* Crisp White #FFFFFF */
+  --card-foreground: 0 0% 13%;
+  --muted-foreground: 0 0% 35%;
+  --border: 35 34% 79%;     /* #DCCDB8 — Warm Beige Border */
+}
+
+html:not(.dark) body {
+  background-color: #F7F4EF !important;
+  color: #222222 !important;
+}
+
+/* Light Mode Cards, Modals, Forms & Section Borders */
+html:not(.dark) .card-lift,
+html:not(.dark) .bg-card,
+html:not(.dark) .faq-item,
+html:not(.dark) .workshop-flip-card > div,
+html:not(.dark) #bookingForm,
+html:not(.dark) .modal-content,
+html:not(.dark) [class*="modal"] {
+  border-color: #dccdb8 !important;
+  background-color: #ffffff;
+  color: #222222;
+  box-shadow: 0 4px 20px -4px rgba(34, 34, 34, 0.06);
+}
+
+html:not(.dark) .card-lift:hover,
+html:not(.dark) .faq-item:hover {
+  border-color: #C9A96A !important;
+  box-shadow: 0 8px 30px rgba(201, 169, 106, 0.18) !important;
+}
+
+/* Light Mode Header Navigation Text & Navbar Background */
+html:not(.dark) #mainHeader .nav-link {
+  color: #222222 !important;
+  font-weight: 600 !important;
+}
+
+html:not(.dark) #mainHeader .nav-link:hover {
+  color: #B62025 !important;
+}
+
+html:not(.dark) #mainHeader #themeToggleBtn,
+html:not(.dark) #mainHeader #mobileMenuBtn,
+html:not(.dark) #mainHeader #mobileThemeToggleBtn {
+  color: #222222 !important;
+}
+
+html:not(.dark) #mainHeader.glass,
+html:not(.dark) #mainHeader {
+  background-color: rgba(247, 244, 239, 0.96) !important;
+  border-bottom: 1px solid #dccdb8 !important;
+  box-shadow: 0 4px 20px -4px rgba(34, 34, 34, 0.08);
 }
 
 .hairline {
@@ -657,6 +802,74 @@ html:not(.dark) .flatpickr-calendar .flatpickr-day.today.selected {
   background: #f4efe6 !important;
   color: #5c4314 !important;
   border: 1px solid #a07f3e !important;
+}
+
+/* Brand Guideline Utility Classes (Editorial Minimalism) */
+.font-heading-editorial {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.font-body-modern {
+  font-family: var(--font-body);
+}
+
+.bg-brand-ivory {
+  background-color: var(--ivory) !important;
+}
+
+.bg-warm-beige {
+  background-color: var(--warm-beige) !important;
+}
+
+.bg-charcoal {
+  background-color: var(--charcoal) !important;
+}
+
+.bg-burgundy {
+  background-color: var(--wine) !important;
+}
+
+.text-burgundy {
+  color: var(--wine) !important;
+}
+
+.text-champagne-gold {
+  color: var(--gold) !important;
+}
+
+.border-thin-gold {
+  border: 1px solid rgba(201, 169, 106, 0.3) !important;
+}
+
+.border-thin-burgundy {
+  border: 1px solid rgba(182, 32, 37, 0.3) !important;
+}
+
+.editorial-tag {
+  font-family: var(--font-body);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  padding: 4px 10px;
+  border-radius: 2px;
+  border: 1px solid rgba(201, 169, 106, 0.4);
+  background: rgba(201, 169, 106, 0.1);
+  color: var(--gold);
+}
+
+/* Dark Mode Luxury Borders Safeguard (Eliminates harsh white card borders) */
+.dark .card-lift,
+.dark .bg-card,
+.dark .faq-item,
+.dark .workshop-flip-card > div {
+  border-color: rgba(201, 169, 106, 0.25) !important;
+}
+
+.dark .card-lift:hover,
+.dark .faq-item:hover {
+  border-color: rgba(201, 169, 106, 0.55) !important;
 }
 
 

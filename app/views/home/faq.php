@@ -43,22 +43,24 @@ if (empty($faqs)) {
   <div class="max-w-3xl mx-auto px-5 sm:px-8">
     <div class="reveal is-visible">
       <div class="text-center mb-12">
-        <p class="text-[var(--gold)] text-xs uppercase tracking-[0.35em] mb-4">Câu hỏi thường gặp</p>
-        <h2 class="font-heading text-3xl sm:text-5xl text-foreground">FAQ</h2>
+        <span class="editorial-tag inline-block font-body-modern text-[11px] uppercase tracking-[0.25em] font-semibold text-[var(--gold)] border border-champagneGold/40 bg-champagneGold/10 px-3.5 py-1 mb-4 rounded-sm">
+          Giải đáp thắc mắc
+        </span>
+        <h2 class="font-heading-editorial text-3xl sm:text-5xl text-foreground font-bold tracking-wide">Câu Hỏi Thường Gặp (FAQ)</h2>
       </div>
     </div>
     <div class="space-y-3">
       <?php foreach ($faqs as $faq): ?>
         <div class="reveal is-visible">
-          <div class="faq-item rounded-sm border bg-card transition-colors duration-300 border-border">
+          <div class="faq-item rounded-sm border bg-card/60 transition-colors duration-300 border-champagneGold/20 hover:border-champagneGold/50">
             <button type="button" class="faq-toggle w-full flex items-center justify-between gap-4 text-left px-5 sm:px-6 py-5 min-h-[64px]" aria-expanded="false">
-              <span class="font-heading text-base sm:text-lg text-foreground"><?= htmlspecialchars($faq['question']) ?></span>
-              <span class="faq-icon shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-colors bg-foreground/5 text-foreground/60">
+              <span class="font-heading-editorial text-base sm:text-xl text-foreground font-semibold tracking-wide"><?= htmlspecialchars($faq['question']) ?></span>
+              <span class="faq-icon shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-colors bg-champagneGold/10 text-[var(--gold)] border border-champagneGold/30">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus w-4 h-4"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
               </span>
             </button>
             <div class="faq-content hidden overflow-hidden transition-all duration-300">
-              <p class="px-5 sm:px-6 pb-5 text-sm text-muted-foreground leading-relaxed"><?= htmlspecialchars($faq['answer']) ?></p>
+              <p class="px-5 sm:px-6 pb-5 font-body-modern text-sm text-muted-foreground leading-relaxed"><?= htmlspecialchars($faq['answer']) ?></p>
             </div>
           </div>
         </div>

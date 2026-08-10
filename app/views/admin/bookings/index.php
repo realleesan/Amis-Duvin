@@ -8,9 +8,9 @@ ob_start();
 
 <div class="space-y-6">
   <!-- Header Title Section -->
-  <div class="border-b border-border/40 pb-5">
-    <h2 class="font-heading text-2xl sm:text-3xl text-foreground">Danh sách Đơn Đặt tiệc</h2>
-    <p class="text-sm text-muted-foreground mt-1">Quản lý lead khách hàng, chốt cọc 30% và đồng bộ Google Sheets</p>
+  <div class="border-b border-[var(--gold)]/20 pb-5">
+    <h2 class="font-heading-editorial text-2xl sm:text-3xl text-foreground font-bold tracking-wide">Danh sách Đơn Đặt tiệc</h2>
+    <p class="font-body-modern text-sm text-muted-foreground mt-1">Quản lý lead khách hàng, chốt cọc 30% và đồng bộ Google Sheets</p>
   </div>
 
   <!-- Toolbar Controls Bar: Filters on Left, Actions on Right -->

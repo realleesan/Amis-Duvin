@@ -140,9 +140,11 @@ $allWorkshopsForJs = array_merge($featuredWorkshops, $topicWorkshops);
     <!-- Header -->
     <div class="reveal is-visible">
       <div class="text-center max-w-2xl mx-auto mb-14">
-        <p class="text-[var(--gold)] text-xs uppercase tracking-[0.35em] mb-4">Dịch vụ phụ</p>
-        <h2 class="font-heading text-3xl sm:text-5xl text-foreground mb-5">Chọn Workshop phù hợp với bạn</h2>
-        <p class="text-sm sm:text-base text-muted-foreground">Hai buổi gần nhất nổi bật — chạm vào thẻ để xem thông tin chi tiết.</p>
+        <span class="editorial-tag inline-block font-body-modern text-[11px] uppercase tracking-[0.25em] font-semibold text-[var(--gold)] border border-champagneGold/40 bg-champagneGold/10 px-3.5 py-1 mb-4 rounded-sm">
+          Trải nghiệm Thưởng vang
+        </span>
+        <h2 class="font-heading-editorial text-3xl sm:text-5xl text-foreground mb-4 font-bold tracking-wide">Chọn Workshop phù hợp với bạn</h2>
+        <p class="font-body-modern text-sm sm:text-base text-muted-foreground leading-relaxed">Hai buổi gần nhất nổi bật — chạm vào thẻ để xem thông tin chi tiết.</p>
       </div>
     </div>
 
@@ -161,22 +163,22 @@ $allWorkshopsForJs = array_merge($featuredWorkshops, $topicWorkshops);
             <div class="workshop-flip-card relative w-full h-full transition-transform duration-700 [transform-style:preserve-3d] cursor-pointer" onclick="toggleWorkshopCardFlip(this, event)">
               
               <!-- Front Face -->
-              <div class="absolute inset-0 [backface-visibility:hidden] rounded-sm border border-border overflow-hidden bg-card">
+              <div class="absolute inset-0 [backface-visibility:hidden] rounded-sm border-thin-gold overflow-hidden bg-card shadow-sm">
                 <span class="inline-block absolute inset-0 w-full h-full transition-transform duration-[1.2s] group-hover:scale-105">
                   <img src="<?= htmlspecialchars($ws['image']) ?>" loading="lazy" class="w-full h-full inset-0 absolute object-cover" alt="<?= htmlspecialchars($ws['title']) ?>">
                 </span>
                 <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/25"></div>
                 <div class="relative h-full p-6 sm:p-7 flex flex-col text-white">
                   <div class="flex items-start justify-between mb-5">
-                    <span class="font-heading text-3xl text-gradient-gold"><?= $numStr ?></span>
+                    <span class="font-heading-editorial text-3xl text-gradient-gold font-bold"><?= $numStr ?></span>
                     <?php if ($isFull): ?>
-                      <span class="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.15em] px-2.5 py-1 rounded-full border backdrop-blur-sm text-white/70 border-white/25 bg-white/10"><span class="w-1.5 h-1.5 rounded-full bg-current"></span>Đã đầy</span>
+                      <span class="editorial-tag inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.15em] px-2.5 py-1 rounded-sm border backdrop-blur-sm text-white/70 border-white/20 bg-black/40"><span class="w-1.5 h-1.5 rounded-full bg-current"></span>Đã đầy</span>
                     <?php else: ?>
-                      <span class="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.15em] px-2.5 py-1 rounded-full border backdrop-blur-sm text-emerald-300 border-emerald-400/40 bg-emerald-500/20"><span class="w-1.5 h-1.5 rounded-full bg-current"></span>Còn nhận đăng ký</span>
+                      <span class="editorial-tag inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.15em] px-2.5 py-1 rounded-sm border backdrop-blur-sm text-emerald-300 border-emerald-400/40 bg-emerald-500/20 font-semibold"><span class="w-1.5 h-1.5 rounded-full bg-current"></span>Còn nhận đăng ký</span>
                     <?php endif; ?>
                   </div>
                   
-                  <h3 class="font-heading text-xl text-white mb-4 leading-tight min-h-[3.5rem] drop-shadow-md"><?= htmlspecialchars($ws['title']) ?></h3>
+                  <h3 class="font-heading-editorial text-xl sm:text-2xl text-white mb-4 leading-tight min-h-[3.5rem] drop-shadow-md font-semibold tracking-wide"><?= htmlspecialchars($ws['title']) ?></h3>
                   
                   <div class="space-y-2 mb-4">
                     <div class="flex items-center gap-2 text-xs text-white/80">
@@ -322,9 +324,9 @@ $allWorkshopsForJs = array_merge($featuredWorkshops, $topicWorkshops);
                       </div>
 
                       <?php if ($tIsFull): ?>
-                        <button type="button" onclick="event.stopPropagation(); openWorkshopReservationModal(<?= $tWsJson ?>, event);" class="w-full py-3 rounded-sm text-xs uppercase tracking-[0.18em] font-medium min-h-[44px] btn-ghost text-muted-foreground">Giữ chỗ cho lần tới</button>
+                        <button type="button" onclick="event.stopPropagation(); openWorkshopReservationModal(<?= $tWsJson ?>, event);" class="w-full py-3 rounded-sm text-xs uppercase tracking-[0.18em] font-semibold min-h-[44px] btn-brand-gold-outline">Giữ chỗ cho lần tới</button>
                       <?php else: ?>
-                        <button type="button" onclick="event.stopPropagation(); openWorkshopReservationModal(<?= $tWsJson ?>, event);" class="w-full py-3 rounded-sm text-xs uppercase tracking-[0.18em] font-medium min-h-[44px] btn-invert">Giữ chỗ</button>
+                        <button type="button" onclick="event.stopPropagation(); openWorkshopReservationModal(<?= $tWsJson ?>, event);" class="w-full py-3 rounded-sm text-xs uppercase tracking-[0.18em] font-semibold min-h-[44px] btn-brand-burgundy">Giữ chỗ</button>
                       <?php endif; ?>
                     </div>
                   </div>
