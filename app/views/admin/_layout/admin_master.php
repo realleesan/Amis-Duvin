@@ -40,11 +40,13 @@
           colors: {
             background: 'hsl(var(--background))',
             foreground: 'hsl(var(--foreground))',
-            burgundy: '#B62025',
-            champagneGold: '#C9A96A',
-            ivoryWhite: '#F7F4EF',
-            warmBeige: '#DCCDB8',
-            charcoalBlack: '#222222',
+            burgundy: '#b20225',
+            champagneGold: '#c2a565',
+            wine: '#b20225',
+            gold: '#a07f3e',
+            ivoryWhite: '#F6F5F3',
+            warmBeige: '#ECEAE6',
+            charcoalBlack: '#23201E',
             card: {
               DEFAULT: 'hsl(var(--card))',
               foreground: 'hsl(var(--card-foreground))'

@@ -1,47 +1,47 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600;1,700&display=swap');
 
 :root {
-  /* Light — Modern Luxury Ivory & Warm Beige */
-  --background: 38 33% 95%; /* #F7F4EF — Ivory White */
-  --foreground: 0 0% 13%;   /* #222222 — Charcoal Black */
+  /* Light — warm elegant (Node 0b4619c) */
+  --background: 36 9% 96%;   /* #F6F5F3 — Warm Off-White / Beige */
+  --foreground: 24 10% 13%;  /* #23201E — Deep Dark Warm Charcoal */
   --card: 0 0% 100%;
-  --card-foreground: 0 0% 13%;
+  --card-foreground: 24 10% 13%;
   --popover: 0 0% 100%;
-  --popover-foreground: 0 0% 13%;
-  --primary: 358 70% 42%;   /* #B62025 — Burgundy Red */
+  --popover-foreground: 24 10% 13%;
+  --primary: 348 98% 35%;    /* #b20225 — Burgundy Red */
   --primary-foreground: 0 0% 100%;
-  --secondary: 35 34% 79%;  /* #DCCDB8 — Warm Beige */
-  --secondary-foreground: 0 0% 13%;
-  --muted: 38 25% 90%;
-  --muted-foreground: 0 0% 40%;
-  --accent: 40 47% 60%;     /* #C9A96A — Champagne Gold */
-  --accent-foreground: 0 0% 13%;
-  --destructive: 358 70% 42%;
+  --secondary: 36 8% 92%;    /* #ECEAE6 — Warm Beige */
+  --secondary-foreground: 24 10% 16%;
+  --muted: 36 8% 92%;
+  --muted-foreground: 24 5% 41%;
+  --accent: 38 40% 95%;     /* #a07f3e — Classic Gold */
+  --accent-foreground: 24 10% 16%;
+  --destructive: 348 98% 35%;
   --destructive-foreground: 0 0% 100%;
-  --border: 35 34% 79%;
-  --input: 35 34% 79%;
-  --ring: 358 70% 42%;
+  --border: 30 6% 86%;
+  --input: 30 6% 86%;
+  --ring: 348 98% 35%;
   --radius: 0.25rem;
 
-  /* Brand Signature Color Tokens (Social Guideline Strict Compliance) */
-  --wine: #B62025;          /* Burgundy Signature #B62025 */
-  --wine-deep: #6E1F2A;     /* Dark Crimson #6E1F2A */
-  --wine-glow: rgba(182, 32, 37, 0.18);
-  --gold: #C9A96A;          /* Champagne Gold #C9A96A */
-  --gold-light: #DFCA9B;
-  --gold-glow: rgba(201, 169, 106, 0.25);
-  --ivory: #F7F4EF;         /* Ivory White #F7F4EF */
-  --warm-beige: #DCCDB8;    /* Warm Beige #DCCDB8 */
-  --charcoal: #222222;      /* Charcoal Black #222222 */
+  /* Brand Signature Color Tokens (Node 0b4619c) */
+  --wine: #b20225;          /* Burgundy Signature #b20225 */
+  --wine-deep: #80021a;     /* Dark Crimson #80021a */
+  --wine-glow: rgba(178, 2, 37, 0.16);
+  --gold: #a07f3e;          /* Rich Classic Gold #a07f3e */
+  --gold-light: #c2a565;
+  --gold-glow: rgba(160, 127, 62, 0.25);
+  --ivory: #F6F5F3;         /* Ivory White #F6F5F3 */
+  --warm-beige: #ECEAE6;    /* Warm Beige #ECEAE6 */
+  --charcoal: #23201E;      /* Charcoal Black #23201E */
 
   /* Surface vars */
-  --glass-bg: rgba(247, 244, 239, 0.85);
-  --glass-border: rgba(201, 169, 106, 0.15);
+  --glass-bg: rgba(255, 255, 255, 0.78);
+  --glass-border: rgba(0, 0, 0, 0.06);
   --input-bg: #ffffff;
-  --input-border: rgba(34, 34, 34, 0.15);
-  --disabled-bg: #dccdb8;
-  --disabled-fg: #888888;
-  --slider-track: rgba(34, 34, 34, 0.15);
+  --input-border: rgba(0, 0, 0, 0.12);
+  --disabled-bg: #d8d4cf;
+  --disabled-fg: #9a948c;
+  --slider-track: rgba(0, 0, 0, 0.14);
   --slider-thumb-border: #ffffff;
 
   /* Typography Tokens: Heading = Playfair Display, Body = Montserrat */
@@ -52,41 +52,41 @@
 }
 
 .dark {
-  /* Dark — Modern Luxury Charcoal Black & Burgundy */
-  --background: 0 0% 13%;   /* #222222 — Charcoal Black */
-  --foreground: 38 33% 95%; /* #F7F4EF — Ivory White */
-  --card: 352 18% 10%;      /* Deep Charcoal Warm Surface #1d1416 */
-  --card-foreground: 38 33% 95%;
-  --popover: 0 0% 11%;
-  --popover-foreground: 38 33% 95%;
-  --primary: 358 70% 42%;   /* #B62025 — Burgundy Red */
-  --primary-foreground: 38 33% 95%;
-  --secondary: 0 0% 18%;
-  --secondary-foreground: 38 33% 95%;
-  --muted: 0 0% 17%;
-  --muted-foreground: 38 15% 68%;
-  --accent: 40 47% 60%;     /* #C9A96A — Champagne Gold */
-  --accent-foreground: 38 33% 95%;
+  /* Dark — luxury charcoal (Node 0b4619c) */
+  --background: 0 0% 5%;     /* #0D0D0D — Deep Dark Luxury Charcoal/Black */
+  --foreground: 40 30% 92%;  /* #F2EFE9 — Warm Light Off-White Text */
+  --card: 0 0% 9%;           /* #171717 — Dark Surface Card */
+  --card-foreground: 40 30% 92%;
+  --popover: 0 0% 8%;
+  --popover-foreground: 40 30% 92%;
+  --primary: 348 96% 50%;    /* #b20225 */
+  --primary-foreground: 40 30% 96%;
+  --secondary: 0 0% 14%;
+  --secondary-foreground: 40 30% 92%;
+  --muted: 0 0% 13%;
+  --muted-foreground: 40 10% 62%;
+  --accent: 0 0% 16%;
+  --accent-foreground: 40 30% 92%;
   --destructive: 0 72% 51%;
   --destructive-foreground: 0 0% 98%;
-  --border: 0 0% 20%;
-  --input: 0 0% 18%;
-  --ring: 358 70% 42%;
+  --border: 0 0% 18%;        /* #2E2E2E */
+  --input: 0 0% 16%;
+  --ring: 348 96% 50%;
 
-  --wine: #B62025;          /* Burgundy Signature #B62025 */
-  --wine-deep: #6E1F2A;     /* Dark Crimson #6E1F2A */
-  --wine-glow: rgba(182, 32, 37, 0.35);
-  --gold: #C9A96A;          /* Champagne Gold #C9A96A */
-  --gold-light: #DFCA9B;
-  --gold-glow: rgba(201, 169, 106, 0.3);
-  --ivory: #F7F4EF;
-  --warm-beige: #DCCDB8;
-  --charcoal: #222222;
+  --wine: #b20225;          /* Burgundy Signature #b20225 */
+  --wine-deep: #80021a;     /* Dark Crimson #80021a */
+  --wine-glow: rgba(178, 2, 37, 0.35);
+  --gold: #c2a565;          /* Champagne Soft Gold #c2a565 */
+  --gold-light: #dfca9b;
+  --gold-glow: rgba(194, 165, 101, 0.3);
+  --ivory: #F2EFE9;
+  --warm-beige: #D8D4CF;
+  --charcoal: #0D0D0D;
 
-  --glass-bg: rgba(34, 34, 34, 0.75);
-  --glass-border: rgba(201, 169, 106, 0.2);
-  --input-bg: rgba(255, 255, 255, 0.05);
-  --input-border: rgba(201, 169, 106, 0.2);
+  --glass-bg: rgba(13, 13, 13, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --input-bg: rgba(255, 255, 255, 0.04);
+  --input-border: rgba(255, 255, 255, 0.12);
   --disabled-bg: #3a3a3a;
   --disabled-fg: #777777;
   --slider-track: rgba(255, 255, 255, 0.15);
