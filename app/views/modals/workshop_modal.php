@@ -82,7 +82,7 @@
       <button type="submit" id="btnWsModalSubmit" class="btn-invert w-full py-4 rounded-sm text-sm uppercase tracking-[0.2em] font-medium min-h-[52px] flex items-center justify-center gap-2">
         Giữ chỗ
       </button>
-      <p class="text-center text-[11px] text-muted-foreground mt-4">Thông tin của bạn được bảo mật tuyệt đối theo chính sách của Amis du Vin.</p>
+      <p class="text-center text-[11px] text-muted-foreground mt-4">Thông tin của bạn được bảo mật tuyệt đối theo chính sách của Amis Duvin.</p>
     </form>
   </div>
 </div>

@@ -1,5 +1,5 @@
 <?php
-$title = 'Quản lý Workshop & Khóa học — Admin CMS Amis du Vin';
+$title = 'Quản lý Workshop & Khóa học — Admin CMS Amis Duvin';
 $activeNav = 'workshops';
 ob_start();
 ?>
@@ -330,7 +330,7 @@ ob_start();
         </div>
         <div>
           <label class="block text-xs font-medium mb-1">Địa điểm</label>
-          <input type="text" id="wpLocation" name="location" placeholder="Hầm rượu Amis du Vin" class="input-elegant w-full px-3 py-2 rounded text-xs">
+          <input type="text" id="wpLocation" name="location" placeholder="Hầm rượu Amis Duvin" class="input-elegant w-full px-3 py-2 rounded text-xs">
         </div>
       </div>
 
@@ -415,7 +415,7 @@ function openCreateWorkshopModal() {
   document.getElementById('wpWinesCount').value = '5';
   document.getElementById('wpMaxParticipants').value = '12';
   document.getElementById('wpSchedule').value = 'Thứ 7 hàng tuần (15:00 - 17:30)';
-  document.getElementById('wpLocation').value = 'Hầm rượu riêng Amis du Vin';
+  document.getElementById('wpLocation').value = 'Hầm rượu riêng Amis Duvin';
   document.getElementById('wpImage').value = '';
   document.getElementById('wpDescription').value = '';
   document.getElementById('wpStatus').value = 'active';

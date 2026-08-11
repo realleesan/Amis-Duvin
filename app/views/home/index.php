@@ -2,7 +2,7 @@
 // Module 1: Hero Section
 require __DIR__ . '/hero.php';
 
-// Module 2: Về Amis du Vin (Lợi ích cốt lõi)
+// Module 2: Về Amis Duvin (Lợi ích cốt lõi)
 require __DIR__ . '/benefits.php';
 
 // Module 3: Giới thiệu Dịch vụ & Các gói Food & Wine Pairing

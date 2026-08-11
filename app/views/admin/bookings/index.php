@@ -1,5 +1,5 @@
 <?php
-$title = 'Quản lý Đơn Đặt tiệc — Admin CMS Amis du Vin';
+$title = 'Quản lý Đơn Đặt tiệc — Admin CMS Amis Duvin';
 $activeNav = 'bookings';
 
 ob_start();

@@ -1,5 +1,5 @@
 <?php
-$title = 'Tổng quan — Admin CMS Amis du Vin';
+$title = 'Tổng quan — Admin CMS Amis Duvin';
 $activeNav = 'dashboard';
 
 ob_start();

@@ -78,7 +78,7 @@ class BookingController extends BaseController
 
             $this->json([
                 'success' => true,
-                'message' => 'Đặt tiệc thành công! Bộ phận CSKH Amis du Vin sẽ liên hệ xác nhận trong thời gian sớm nhất.',
+                'message' => 'Đặt tiệc thành công! Bộ phận CSKH Amis Duvin sẽ liên hệ xác nhận trong thời gian sớm nhất.',
                 'booking_id' => $id
             ]);
             return;

@@ -1,5 +1,5 @@
 <?php
-$title = 'Cấu hình Google Sheets — Admin CMS Amis du Vin';
+$title = 'Cấu hình Google Sheets — Admin CMS Amis Duvin';
 $activeNav = 'sheets';
 
 ob_start();

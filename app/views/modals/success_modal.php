@@ -12,7 +12,7 @@
     <p class="text-[10px] uppercase tracking-[0.25em] text-[var(--gold)] mb-2">Thông báo</p>
     <h3 class="font-heading text-2xl text-foreground mb-3">Đăng ký Đặt tiệc Thành công!</h3>
     <p class="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-7">
-      Cảm ơn Quý khách đã lựa chọn Amis du Vin. Chuyên viên chăm sóc khách hàng sẽ liên hệ xác nhận lịch trực tiếp qua Điện thoại/Zalo trong thời gian sớm nhất.
+      Cảm ơn Quý khách đã lựa chọn Amis Duvin. Chuyên viên chăm sóc khách hàng sẽ liên hệ xác nhận lịch trực tiếp qua Điện thoại/Zalo trong thời gian sớm nhất.
     </p>
 
     <button onclick="closeSuccessModal()" type="button" class="btn-wine w-full py-3.5 rounded-sm text-xs uppercase tracking-[0.2em] font-medium transition-transform active:scale-[0.98]">

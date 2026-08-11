@@ -3,7 +3,7 @@
     <div class="grid md:grid-cols-3 gap-10 mb-12">
       <div>
         <div class="mb-5">
-          <img src="https://media.base44.com/images/public/6a623336361c483b3f15558c/de2b27acb_LogoAmisDuVin.png" alt="Amis du Vin" class="h-16 sm:h-20 w-auto object-contain rounded-sm">
+          <img src="https://media.base44.com/images/public/6a623336361c483b3f15558c/de2b27acb_LogoAmisDuVin.png" alt="Amis Duvin" class="h-16 sm:h-20 w-auto object-contain rounded-sm">
         </div>
         <p class="text-sm text-muted-foreground leading-relaxed max-w-xs">Không gian kết nối văn hóa, nghệ thuật và ẩm thực rượu vang — trải nghiệm tinh tế tại Hà Nội.</p>
       </div>
@@ -30,7 +30,7 @@
       </div>
       <div>
         <h4 class="text-xs uppercase tracking-[0.25em] text-[var(--gold)] mb-5">Theo dõi</h4>
-        <p class="text-sm text-muted-foreground mb-5">Kết nối với Amis du Vin trên các nền tảng.</p>
+        <p class="text-sm text-muted-foreground mb-5">Kết nối với Amis Duvin trên các nền tảng.</p>
         <div class="flex gap-3">
           <a href="https://www.facebook.com/profile.php?id=61581094990311" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="w-11 h-11 rounded-full border border-border flex items-center justify-center text-foreground/65 hover:border-[var(--wine)] hover:text-[var(--wine)] transition-all duration-300">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook w-5 h-5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
@@ -46,7 +46,7 @@
     </div>
     <div class="hairline mb-6"></div>
     <div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
-      <p class="text-xs text-muted-foreground">© 2026 Amis du Vin. Rượu vang &amp; những người bạn.</p>
+      <p class="text-xs text-muted-foreground">© 2026 Amis Duvin. Rượu vang &amp; những người bạn.</p>
       <div class="flex flex-wrap items-center justify-center sm:justify-end gap-4">
         <button type="button" onclick="openPrivacyPolicyModal()" class="text-[11px] text-muted-foreground/70 hover:text-[var(--wine)] transition-colors">Bảo mật thông tin</button>
         <span class="text-muted-foreground/30">•</span>

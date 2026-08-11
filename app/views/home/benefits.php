@@ -28,7 +28,7 @@ if (empty($benefits)) {
     <div class="reveal is-visible">
       <div class="text-center max-w-2xl mx-auto mb-14">
         <span class="editorial-tag inline-block font-body-modern text-[11px] uppercase tracking-[0.25em] font-semibold text-[var(--gold)] border border-champagneGold/40 bg-champagneGold/10 px-3.5 py-1 mb-4 rounded-sm">
-          Về Amis du Vin
+          Về Amis Duvin
         </span>
         <h2 class="font-heading-editorial text-3xl sm:text-5xl text-foreground font-bold tracking-wide">Lợi ích Cốt lõi</h2>
       </div>
@@ -50,7 +50,7 @@ if (empty($benefits)) {
     <div class="reveal is-visible">
       <div class="flex items-center justify-center gap-4 mt-12">
         <span class="hairline w-12"></span>
-        <p class="text-center text-xs sm:text-sm uppercase tracking-[0.2em] text-foreground/55">Amis du Vin — Một thương hiệu thuộc hệ sinh thái Vang Huy Phong</p>
+        <p class="text-center text-xs sm:text-sm uppercase tracking-[0.2em] text-foreground/55">Amis Duvin — Một thương hiệu thuộc hệ sinh thái Vang Huy Phong</p>
         <span class="hairline w-12"></span>
       </div>
     </div>

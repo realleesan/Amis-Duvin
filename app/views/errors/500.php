@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>500 Internal Server Error — Amis du Vin</title>
+  <title>500 Internal Server Error — Amis Duvin</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="/assets/css/global.css">
 </head>
@@ -12,7 +12,7 @@
 
   <div class="max-w-lg w-full text-center space-y-6 relative z-10">
     <a href="/" class="inline-block mb-4">
-      <img src="https://media.base44.com/images/public/6a623336361c483b3f15558c/de2b27acb_LogoAmisDuVin.png" alt="Amis du Vin" class="h-20 w-auto mx-auto object-contain">
+      <img src="https://media.base44.com/images/public/6a623336361c483b3f15558c/de2b27acb_LogoAmisDuVin.png" alt="Amis Duvin" class="h-20 w-auto mx-auto object-contain">
     </a>
 
     <span class="block font-heading text-8xl font-bold text-rose-500 tracking-widest tabular-nums">500</span>
@@ -20,7 +20,7 @@
     <div class="space-y-2">
       <h1 class="font-heading text-2xl sm:text-3xl text-foreground">Sự cố Máy chủ</h1>
       <p class="text-sm text-muted-foreground leading-relaxed max-w-md mx-auto">
-        Hệ thống đang gặp sự cố gián đoạn tạm thời. Đội ngũ kỹ thuật của Amis du Vin đang xử lý. Vui lòng thử lại sau ít phút.
+        Hệ thống đang gặp sự cố gián đoạn tạm thời. Đội ngũ kỹ thuật của Amis Duvin đang xử lý. Vui lòng thử lại sau ít phút.
       </p>
     </div>
 

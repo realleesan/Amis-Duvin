@@ -1,5 +1,5 @@
 <?php 
-$title = 'Thùng rác hệ thống — Amis du Vin CMS';
+$title = 'Thùng rác hệ thống — Amis Duvin CMS';
 ob_start();
 ?>
 

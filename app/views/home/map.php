@@ -3,7 +3,7 @@
     <div class="grid lg:grid-cols-3 gap-8 lg:gap-12 items-center">
       <div>
         <p class="text-[var(--gold)] text-xs uppercase tracking-[0.35em] mb-3">Địa điểm</p>
-        <h2 class="font-heading text-3xl sm:text-4xl text-foreground mb-4">Nhà hàng Amis du Vin</h2>
+        <h2 class="font-heading text-3xl sm:text-4xl text-foreground mb-4">Nhà hàng Amis Duvin</h2>
         <div class="hairline w-16 mb-5"></div>
         <div class="flex items-start gap-2.5 text-sm text-foreground/75 mb-6">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin w-4 h-4 text-[var(--wine)] shrink-0 mt-0.5"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>
@@ -29,7 +29,7 @@
         </a>
       </div>
       <div class="lg:col-span-2 rounded-sm overflow-hidden border border-border h-[300px] sm:h-[380px] shadow-[0_20px_50px_-25px_rgba(33,30,25,0.3)]">
-        <iframe src="https://www.google.com/maps?q=58B+V%C3%B5+V%C4%83n+D%C5%A9ng,+%C4%90%E1%BB%91ng+%C4%90a,+H%C3%A0+N%E1%BB%99i&amp;output=embed" class="w-full h-full" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Bản đồ — Amis du Vin, 58B Võ Văn Dũng, Đống Đa, Hà Nội" style="border: 0px;"></iframe>
+        <iframe src="https://www.google.com/maps?q=58B+V%C3%B5+V%C4%83n+D%C5%A9ng,+%C4%90%E1%BB%91ng+%C4%90a,+H%C3%A0+N%E1%BB%99i&amp;output=embed" class="w-full h-full" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Bản đồ — Amis Duvin, 58B Võ Văn Dũng, Đống Đa, Hà Nội" style="border: 0px;"></iframe>
       </div>
     </div>
   </div>

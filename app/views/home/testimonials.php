@@ -45,7 +45,7 @@ if (empty($testimonials)) {
             'id' => 5,
             'name' => 'Anh Nguyễn Quốc Bảo',
             'role' => 'Nhà đầu tư',
-            'package_tag' => 'Amis du Vin Gala Night',
+            'package_tag' => 'Amis Duvin Gala Night',
             'avatar' => 'https://media.base44.com/images/public/6a623336361c483b3f15558c/c14ed7531_generated_image.png/v1/fill/w_56,h_56,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/c14ed7531_generated_image.webp',
             'avatar_initials' => null,
             'rating' => 5,

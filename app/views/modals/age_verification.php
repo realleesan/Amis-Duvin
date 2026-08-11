@@ -2,7 +2,7 @@
 <div id="ageVerificationModal" class="modal-overlay">
   <div class="relative w-full max-w-lg text-center animate-scale-in bg-card border border-border rounded-sm px-7 py-10 sm:px-12 shadow-[0_40px_80px_-30px_rgba(33,30,25,0.5)] my-auto">
     <div class="flex justify-center mb-6">
-      <img src="https://media.base44.com/images/public/6a623336361c483b3f15558c/de2b27acb_LogoAmisDuVin.png" alt="Amis du Vin" class="h-16 sm:h-20 w-auto object-contain rounded-sm">
+      <img src="https://media.base44.com/images/public/6a623336361c483b3f15558c/de2b27acb_LogoAmisDuVin.png" alt="Amis Duvin" class="h-16 sm:h-20 w-auto object-contain rounded-sm">
     </div>
     
     <p class="text-[10px] uppercase tracking-[0.35em] text-[var(--gold)] mb-3">Xác minh độ tuổi</p>
@@ -11,7 +11,7 @@
     </h2>
     
     <p class="text-xs sm:text-sm text-muted-foreground max-w-sm mx-auto mb-8 leading-relaxed">
-      Theo quy định của pháp luật về đồ uống có cồn, Quý khách cần xác nhận độ tuổi trước khi truy cập không gian Amis du Vin.
+      Theo quy định của pháp luật về đồ uống có cồn, Quý khách cần xác nhận độ tuổi trước khi truy cập không gian Amis Duvin.
     </p>
 
     <!-- 02 Clear Buttons: YES & NO -->

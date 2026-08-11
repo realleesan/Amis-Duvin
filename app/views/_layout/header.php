@@ -1,7 +1,7 @@
 <header id="mainHeader" class="fixed top-0 inset-x-0 z-50 transition-all duration-500 bg-transparent py-5">
   <div class="max-w-7xl mx-auto px-5 sm:px-8 flex items-center justify-between">
-    <button class="flex items-center group transition-transform duration-300 hover:scale-[1.03]" aria-label="Amis du Vin" onclick="scrollToId('hero')">
-      <img src="https://media.base44.com/images/public/6a623336361c483b3f15558c/de2b27acb_LogoAmisDuVin.png" alt="Amis du Vin" class="h-9 sm:h-10 w-auto object-contain rounded-sm">
+    <button class="flex items-center group transition-transform duration-300 hover:scale-[1.03]" aria-label="Amis Duvin" onclick="scrollToId('hero')">
+      <img src="https://media.base44.com/images/public/6a623336361c483b3f15558c/de2b27acb_LogoAmisDuVin.png" alt="Amis Duvin" class="h-9 sm:h-10 w-auto object-contain rounded-sm">
     </button>
 
     <!-- Desktop Navigation -->

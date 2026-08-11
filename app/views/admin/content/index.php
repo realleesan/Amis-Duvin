@@ -1,5 +1,5 @@
 <?php
-$title = 'Quản lý Nội dung Landing Page — Admin CMS Amis du Vin';
+$title = 'Quản lý Nội dung Landing Page — Admin CMS Amis Duvin';
 $activeNav = 'content';
 
 ob_start();
@@ -882,7 +882,7 @@ ob_start();
 
       <div>
         <label for="createFaqAnswer" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Câu trả lời chi tiết *</label>
-        <textarea id="createFaqAnswer" name="answer" rows="4" required autocomplete="off" placeholder="Có, Amis du Vin có bãi đỗ xe ô tô miễn phí ngay trước sảnh..." class="input-elegant w-full p-3 rounded-sm text-sm leading-relaxed"></textarea>
+        <textarea id="createFaqAnswer" name="answer" rows="4" required autocomplete="off" placeholder="Có, Amis Duvin có bãi đỗ xe ô tô miễn phí ngay trước sảnh..." class="input-elegant w-full p-3 rounded-sm text-sm leading-relaxed"></textarea>
       </div>
 
       <div class="pt-2 flex gap-3">
@@ -1041,7 +1041,7 @@ ob_start();
         </div>
         <div>
           <label for="createWsLocation" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Địa điểm</label>
-          <input type="text" id="createWsLocation" name="location" autocomplete="off" value="Hầm rượu riêng Amis du Vin" class="input-elegant w-full px-3 py-2.5 rounded-sm text-xs">
+          <input type="text" id="createWsLocation" name="location" autocomplete="off" value="Hầm rượu riêng Amis Duvin" class="input-elegant w-full px-3 py-2.5 rounded-sm text-xs">
         </div>
       </div>
 

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow, noarchive">
-  <title>Đăng nhập Admin CMS — Amis du Vin</title>
+  <title>Đăng nhập Admin CMS — Amis Duvin</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -69,7 +69,7 @@
 
     <div class="relative z-10 text-center space-y-4">
       <div class="flex justify-center mb-2">
-        <img src="https://media.base44.com/images/public/6a623336361c483b3f15558c/de2b27acb_LogoAmisDuVin.png" alt="Amis du Vin" class="h-16 w-auto object-contain">
+        <img src="https://media.base44.com/images/public/6a623336361c483b3f15558c/de2b27acb_LogoAmisDuVin.png" alt="Amis Duvin" class="h-16 w-auto object-contain">
       </div>
 
       <p class="text-[10px] uppercase tracking-[0.35em] text-[var(--gold)] font-medium">Hệ thống Quản trị CMS</p>
@@ -108,7 +108,7 @@
       </form>
 
       <div class="pt-4 border-t border-border/40 text-[11px] text-muted-foreground">
-        <p>Amis du Vin Admin Panel &copy; 2026</p>
+        <p>Amis Duvin Admin Panel &copy; 2026</p>
       </div>
     </div>
   </div>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow, noarchive">
-  <title><?= htmlspecialchars($title ?? 'Admin CMS — Amis du Vin') ?></title>
+  <title><?= htmlspecialchars($title ?? 'Admin CMS — Amis Duvin') ?></title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/global.css">
@@ -114,14 +114,14 @@
         <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[var(--wine)]/20 border border-[var(--gold)]/40 flex items-center justify-center text-[var(--gold)] shadow-inner">
           <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-monitor-off"><path d="M17 17H4a2 2 0 0 1-2-2V5c0-1.5 1-2 2-2h9"></path><line x1="2" x2="22" y1="22" y2="2"></line><path d="M8 21h8"></path><path d="M12 17v4"></path><path d="M22 15V8c0-1-.5-1.7-1.3-2"></path></svg>
         </div>
-        <div class="font-serif font-bold text-lg sm:text-xl text-[var(--gold)] tracking-wide uppercase">Amis du Vin Admin</div>
+        <div class="font-serif font-bold text-lg sm:text-xl text-[var(--gold)] tracking-wide uppercase">Amis Duvin Admin</div>
       </div>
 
       <!-- Title & Message -->
       <div class="space-y-2.5 relative z-10">
         <h2 class="font-heading text-lg sm:text-2xl text-foreground font-semibold">Môi trường Điện thoại Không hỗ trợ Admin</h2>
         <p class="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-          Hệ thống Quản trị CMS Amis du Vin chứa các bảng dữ liệu chuyên sâu và bộ công cụ đòi hỏi màn hình rộng để đảm bảo trải nghiệm quản lý tối ưu nhất.
+          Hệ thống Quản trị CMS Amis Duvin chứa các bảng dữ liệu chuyên sâu và bộ công cụ đòi hỏi màn hình rộng để đảm bảo trải nghiệm quản lý tối ưu nhất.
         </p>
         <p class="text-[11px] sm:text-xs text-[var(--gold)]/90 font-medium italic">
           Vui lòng truy cập trên Máy tính cá nhân (PC / Laptop) để sử dụng trang quản trị.

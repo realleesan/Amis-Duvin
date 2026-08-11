@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <?php
-    $metaTitle = htmlspecialchars($seo['meta_title'] ?? $title ?? 'Amis du Vin — Rượu vang và những người bạn');
-    $metaDesc = htmlspecialchars($seo['meta_description'] ?? 'Amis du Vin — Không gian Tiệc riêng tư & Tinh hoa ẩm thực Rượu vang tại Hà Nội.');
-    $metaKey = htmlspecialchars($seo['meta_keywords'] ?? 'Amis du Vin, Rượu vang Hà Nội, Tiệc riêng tư, Food and Wine Pairing');
+    $metaTitle = htmlspecialchars($seo['meta_title'] ?? $title ?? 'Amis Duvin — Rượu vang và những người bạn');
+    $metaDesc = htmlspecialchars($seo['meta_description'] ?? 'Amis Duvin — Không gian Tiệc riêng tư & Tinh hoa ẩm thực Rượu vang tại Hà Nội.');
+    $metaKey = htmlspecialchars($seo['meta_keywords'] ?? 'Amis Duvin, Rượu vang Hà Nội, Tiệc riêng tư, Food and Wine Pairing');
     $ogImg = htmlspecialchars($seo['og_image'] ?? 'https://media.base44.com/images/public/6a623336361c483b3f15558c/1d3f75363_generated_b7d85214.png/v1/fill/w_1171,h_927,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/1d3f75363_generated_b7d85214.webp');
     $canonicalUrl = htmlspecialchars($seo['canonical_url'] ?? 'https://amis.duvin.vn/');
   ?>
@@ -36,7 +36,7 @@
         [
           '@type' => 'Restaurant',
           '@id' => 'https://amis.duvin.vn/#restaurant',
-          'name' => 'Amis du Vin',
+          'name' => 'Amis Duvin',
           'image' => $seo['og_image'] ?? $ogImg,
           'url' => 'https://amis.duvin.vn/',
           'telephone' => '091 968 65 40',
@@ -65,7 +65,7 @@
         [
           '@type' => 'Organization',
           '@id' => 'https://amis.duvin.vn/#organization',
-          'name' => 'Amis du Vin',
+          'name' => 'Amis Duvin',
           'url' => 'https://amis.duvin.vn/',
           'logo' => 'https://media.base44.com/images/public/6a623336361c483b3f15558c/de2b27acb_LogoAmisDuVin.png',
           'parentOrganization' => [

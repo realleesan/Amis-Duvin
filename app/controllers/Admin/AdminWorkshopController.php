@@ -143,7 +143,7 @@ class AdminWorkshopController extends BaseController
             'price' => $price,
             'duration' => trim($_POST['duration'] ?? '2 giờ'),
             'schedule' => trim($_POST['schedule'] ?? ''),
-            'location' => trim($_POST['location'] ?? 'Amis du Vin Cellar'),
+            'location' => trim($_POST['location'] ?? 'Amis Duvin Cellar'),
             'max_participants' => max(1, (int)($_POST['max_participants'] ?? 12)),
             'wines_count' => (int)($_POST['wines_count'] ?? 5),
             'image' => trim($_POST['image'] ?? ''),

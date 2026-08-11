@@ -5,9 +5,9 @@ $userFullName = (is_array($user ?? null) && isset($user['full_name'])) ? $user['
 <!-- Admin Sidebar Component -->
 <aside class="w-64 bg-card border-r border-border/40 flex flex-col shrink-0 h-screen">
   <div class="p-6 border-b border-border/40 flex items-center gap-3">
-    <img src="https://media.base44.com/images/public/6a623336361c483b3f15558c/de2b27acb_LogoAmisDuVin.png" alt="Amis du Vin" class="h-10 w-auto object-contain">
+    <img src="https://media.base44.com/images/public/6a623336361c483b3f15558c/de2b27acb_LogoAmisDuVin.png" alt="Amis Duvin" class="h-10 w-auto object-contain">
     <div>
-      <h1 class="font-heading text-sm text-foreground">Amis du Vin</h1>
+      <h1 class="font-heading text-sm text-foreground">Amis Duvin</h1>
       <p class="text-[10px] text-[var(--gold)] uppercase tracking-widest font-medium">CMS Admin</p>
     </div>
   </div>

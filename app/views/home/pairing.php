@@ -52,7 +52,7 @@ if (empty($pairings)) {
         [
             'id' => 4,
             'slug' => 'amis-du-vin-gala-night',
-            'title' => 'Amis du Vin Gala Night',
+            'title' => 'Amis Duvin Gala Night',
             'level' => 'Premium Level',
             'subtitle' => 'Đêm tiệc thượng lưu tráng lệ với thực đơn Sommelier thiết kế, không gian riêng tư đẳng cấp.',
             'price_text' => 'Từ 5.000.000đ/khách',

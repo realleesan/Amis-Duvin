@@ -1,7 +1,7 @@
 0. Age: Age.png - age.md
    Xác thực độ tuổi 18+
 1. Header: Header.png - header.md
-   Amis du Vin
+   Amis Duvin
    Về chúng tôi
    Food & Wine Pairing
    Dịch vụ khác
@@ -15,7 +15,7 @@
    Đặt tiệc ngay
    Cuộn xuống
 3. Section Về chúng tôi: Profits.png - profits.md
-   Về Amis du Vin
+   Về Amis Duvin
    Lợi ích cốt lõi
    Hiểu vang dễ dàng
    Kiến thức rượu vang được truyền đạt gần gũi, thực tế — ai cũng tự tin thưởng thức và chọn vang cho mọi dịp.
@@ -23,7 +23,7 @@
    Được dẫn dắt trực tiếp bởi Sommelier Alex Thịnh với hơn 24 năm kinh nghiệm tại các nhà hàng, khách sạn 5 sao.
    Kết nối trong không gian thân mật
    Không gian nhỏ, ấm cúng — nơi mỗi buổi tiệc trở thành câu chuyện kết nối giữa người, vang và ẩm thực.
-   Amis du Vin — Một thương hiệu thuộc hệ sinh thái Vang Huy Phong
+   Amis Duvin — Một thương hiệu thuộc hệ sinh thái Vang Huy Phong
 4. Section Food n Wine Pairing: Pairing.png - pairing.md
    Dịch vụ tiệc riêng
    Food & Wine Pairing
@@ -43,8 +43,8 @@
    Trải nghiệm thử rượu độc quyền trong hầm rượu riêng, dành cho những người sành vang đích thực.
    Từ 3.500.000đ/khách
    Xem chi tiết
-   Amis du Vin Gala NightPremium Level
-   Amis du Vin Gala Night
+   Amis Duvin Gala NightPremium Level
+   Amis Duvin Gala Night
    Đêm tiệc thượng lưu tráng lệ với thực đơn Sommelier thiết kế, không gian riêng tư đẳng cấp.
    Từ 5.000.000đ/khách
    Xem chi tiết
@@ -81,12 +81,12 @@
    Anh Nguyễn Quốc Bảo
    Anh Nguyễn Quốc Bảo
    Nhà đầu tư
-   Amis du Vin Gala Night
+   Amis Duvin Gala Night
    “Đẳng cấp và tinh tế. Đêm Gala thật sự vượt mong đợi — điểm đến xứng đáng cho giới doanh nhân.”
 7. Section câu hỏi thường gặp: Faqs.png - faqs.md
    Câu hỏi thường gặp
    FAQ
-   Amis du Vin có phục vụ tiệc riêng tư theo yêu cầu không?
+   Amis Duvin có phục vụ tiệc riêng tư theo yêu cầu không?
    Có. Chúng tôi thiết kế thực đơn và lựa chọn rượu vang riêng cho từng bữa tiệc, phù hợp sở thích, ngân sách và dịp lễ của Quý khách.
    Mỗi buổi tiệc phục vụ tối đa bao nhiêu khách?
    Tôi cần đặt trước bao lâu?
@@ -97,7 +97,7 @@
 8. Section Đặt tiệc: Booking.png - booking.md
    Đặt tiệc riêng
    Đăng ký đặt tiệc
-   Để lại thông tin, Amis du Vin sẽ liên hệ xác nhận qua Zalo & Email.
+   Để lại thông tin, Amis Duvin sẽ liên hệ xác nhận qua Zalo & Email.
    Họ và tên
    Nguyễn Văn An
    Số điện thoại
@@ -113,7 +113,7 @@
    Ghi chú (tuỳ chọn)
    Yêu cầu đặc biệt, dị ứng, chế độ ăn, dịp lễ...
    Đặt tiệc ngay
-   Thông tin của bạn được bảo mật tuyệt đối theo chính sách của Amis du Vin.
+   Thông tin của bạn được bảo mật tuyệt đối theo chính sách của Amis Duvin.
    An tâm khi đặt tiệc
    Thông tin đặt tiệc
    Chi phí dự kiến
@@ -126,22 +126,22 @@
    Hoàn 100% nếu hủy trước 72 giờ. Trong vòng 72 giờ, giữ 50% chi phí đặt cọc.
 9. Section địa điểm: Address.png - address.md
    Địa điểm
-   Nhà hàng Amis du Vin
+   Nhà hàng Amis Duvin
    58B Võ Văn Dũng, phường Đống Đa, Hà Nội
    Giờ hoạt động: 10:00 – 23:00 (T2 – CN). Tiệc riêng theo lịch hẹn.
    Có chỗ gửi xe: Sân gửi xe miễn phí ngay trong ngõ, đủ ô tô & xe máy.
    Điểm nhận diện: Cách Nhà thi đấu Đống Đa ~300m, gần ngã tư Võ Văn Dũng – Nguyễn Lương Bằng.
    Mở Google Maps
 10. Footer: Footer.png - footer.md
-    Amis du Vin
+    Amis Duvin
     Không gian kết nối văn hóa, nghệ thuật và ẩm thực rượu vang — trải nghiệm tinh tế tại Hà Nội.
     Liên hệ
     58B Võ Văn Dũng, Đống Đa, Hà Nội
     091 968 65 40
     alexthinh.vn@gmail.com
     Theo dõi
-    Kết nối với Amis du Vin trên các nền tảng.
+    Kết nối với Amis Duvin trên các nền tảng.
     Zalo
-    © 2026 Amis du Vin. Rượu vang & những người bạn.
+    © 2026 Amis Duvin. Rượu vang & những người bạn.
     Cam kết bảo mật thông tin
     Uống có trách nhiệm — 18+

@@ -1,5 +1,5 @@
 <?php
-$title = 'Quản lý Thông báo & Nhật ký Biến động — Amis du Vin';
+$title = 'Quản lý Thông báo & Nhật ký Biến động — Amis Duvin';
 $activeNav = 'notifications';
 ob_start();
 ?>

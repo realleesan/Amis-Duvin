@@ -55,7 +55,7 @@ class HomeController extends BaseController
         $seo = $seoModel->getSeoSettings();
 
         $this->view('home/index', [
-            'title' => $seo['meta_title'] ?? 'Amis du Vin — Nghệ thuật Thưởng thức Vang & Food Pairing',
+            'title' => $seo['meta_title'] ?? 'Amis Duvin — Nghệ thuật Thưởng thức Vang & Food Pairing',
             'seo' => $seo,
             'workshops' => $workshops,
             'featuredWorkshops' => $featuredWorkshops,

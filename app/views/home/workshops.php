@@ -114,7 +114,7 @@ if (empty($topicWorkshops)) {
         [
             'id' => 8,
             'slug' => 'amis-du-vin-gala',
-            'title' => 'Amis du Vin Gala',
+            'title' => 'Amis Duvin Gala',
             'level' => 'Thượng lưu',
             'price' => 2000000.00,
             'price_text' => '2.000.000 VNĐ',

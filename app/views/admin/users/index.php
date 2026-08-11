@@ -1,5 +1,5 @@
 <?php
-$title = 'Quản lý Nhân sự & Phân quyền — Admin CMS Amis du Vin';
+$title = 'Quản lý Nhân sự & Phân quyền — Admin CMS Amis Duvin';
 $activeNav = 'users';
 
 ob_start();

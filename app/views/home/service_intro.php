@@ -1,5 +1,5 @@
 <?php
-$introTagline = $serviceIntro['tagline'] ?? 'Dịch vụ tiệc riêng Amis du Vin';
+$introTagline = $serviceIntro['tagline'] ?? 'Dịch vụ tiệc riêng Amis Duvin';
 $introTitleMain = $serviceIntro['title_main'] ?? 'Không gian Tiệc riêng tư';
 $introTitleSub = $serviceIntro['title_sub'] ?? '& Tinh hoa ẩm thực Rượu vang';
 $introDescription = $serviceIntro['description'] ?? 'Khái quát về mô hình tiệc riêng tư (Private Party) — sự kết hợp đỉnh cao giữa văn hóa rượu vang hảo hạng và nghệ thuật ẩm thực tinh tế (Food & Wine Pairing), mang đến không gian biệt lập, đẳng cấp cho các buổi tiếp khách, kỷ niệm hay giao lưu doanh nhân.';

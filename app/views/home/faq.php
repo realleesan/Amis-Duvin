@@ -3,7 +3,7 @@ if (empty($faqs)) {
     $faqs = [
         [
             'id' => 1,
-            'question' => 'Amis du Vin có phục vụ tiệc riêng tư theo yêu cầu không?',
+            'question' => 'Amis Duvin có phục vụ tiệc riêng tư theo yêu cầu không?',
             'answer' => 'Có. Chúng tôi thiết kế thực đơn và lựa chọn rượu vang riêng cho từng bữa tiệc, phù hợp sở thích, ngân sách và dịp lễ của Quý khách.'
         ],
         [

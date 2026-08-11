@@ -86,7 +86,7 @@ Hotline
 ---
 
 Premium Level
-Amis du Vin Gala Night
+Amis Duvin Gala Night
 Đêm tiệc thượng lưu tráng lệ với thực đơn Sommelier thiết kế, không gian riêng tư đẳng cấp.
 
 Chi phí dự kiến
