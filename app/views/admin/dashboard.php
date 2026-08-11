@@ -164,17 +164,31 @@ ob_start();
   </div>
 
   <!-- Quick Actions Panel -->
+  <?php $userRole = $user['role'] ?? 'guest'; ?>
   <div class="grid lg:grid-cols-2 gap-6">
     <!-- CSKH Quick Actions -->
     <div class="rounded-sm border border-border bg-card p-6 space-y-4">
       <div class="flex items-center justify-between border-b border-border pb-4">
-        <h3 class="font-heading text-lg text-foreground">Xử lý Đơn Đặt tiệc (CSKH)</h3>
-        <span class="text-xs uppercase tracking-widest text-[var(--gold)]">Master Data</span>
+        <div>
+          <h3 class="font-heading text-lg text-foreground">Xử lý Đơn Đặt tiệc (CSKH)</h3>
+          <span class="text-[10px] uppercase tracking-widest text-[var(--gold)] font-mono">Master Data</span>
+        </div>
+        <?php if (in_array($userRole, ['admin', 'cskh'], true)): ?>
+          <span class="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-widest px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-semibold font-mono">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            Có quyền truy cập
+          </span>
+        <?php else: ?>
+          <span class="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-widest px-2.5 py-1 rounded bg-rose-500/10 text-rose-400 border border-rose-500/30 font-semibold font-mono">
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lock"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            Yêu cầu CSKH / Admin
+          </span>
+        <?php endif; ?>
       </div>
       <p class="text-sm text-muted-foreground leading-relaxed">
         Quản lý chi tiết các đơn đặt tiệc trong vòng 5 ngày tới, kiểm tra trần giới hạn 2 đoàn/ca (tối đa 24 khách/ca), cập nhật tiền cọc 30% và đồng bộ tự động sang Google Sheets.
       </p>
-      <a href="<?= admin_url('bookings') ?>" class="btn-wine inline-flex items-center gap-2 px-6 py-3 rounded-sm text-xs uppercase tracking-widest font-medium">
+      <a href="<?= admin_url('bookings') ?>" class="btn-wine inline-flex items-center gap-2 px-6 py-3 rounded-sm text-xs uppercase tracking-widest font-medium shadow-sm">
         <span>Vào trang quản lý đơn</span>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right w-4 h-4"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
       </a>
@@ -183,13 +197,26 @@ ob_start();
     <!-- Marketing Quick Actions -->
     <div class="rounded-sm border border-border bg-card p-6 space-y-4">
       <div class="flex items-center justify-between border-b border-border pb-4">
-        <h3 class="font-heading text-lg text-foreground">Quản lý Nội dung (Marketing)</h3>
-        <span class="text-xs uppercase tracking-widest text-[var(--gold)]">Dynamic CMS</span>
+        <div>
+          <h3 class="font-heading text-lg text-foreground">Quản lý Nội dung (Marketing)</h3>
+          <span class="text-[10px] uppercase tracking-widest text-[var(--gold)] font-mono">Dynamic CMS</span>
+        </div>
+        <?php if (in_array($userRole, ['admin', 'marketing'], true)): ?>
+          <span class="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-widest px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-semibold font-mono">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            Có quyền truy cập
+          </span>
+        <?php else: ?>
+          <span class="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-widest px-2.5 py-1 rounded bg-rose-500/10 text-rose-400 border border-rose-500/30 font-semibold font-mono">
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lock"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            Yêu cầu Marketing / Admin
+          </span>
+        <?php endif; ?>
       </div>
       <p class="text-sm text-muted-foreground leading-relaxed">
         Tùy chỉnh linh hoạt văn bản, khẩu hiệu, thông điệp, hình ảnh của các Section: Hero, 3 Lợi ích cốt lõi, Giới thiệu dịch vụ, 4 Gói tiệc Food &amp; Wine Pairing.
       </p>
-      <a href="<?= admin_url('content') ?>" class="btn-invert inline-flex items-center gap-2 px-6 py-3 rounded-sm text-xs uppercase tracking-widest font-medium">
+      <a href="<?= admin_url('content') ?>" class="btn-invert inline-flex items-center gap-2 px-6 py-3 rounded-sm text-xs uppercase tracking-widest font-medium shadow-sm">
         <span>Chỉnh sửa nội dung</span>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-edit w-4 h-4"><path d="M12 20h9"></path><path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z"></path></svg>
       </a>

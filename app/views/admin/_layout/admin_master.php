@@ -177,11 +177,16 @@
 
     <!-- Main Content Body -->
     <main class="flex-1 p-6 sm:p-8 overflow-y-auto">
-      <?php if (!empty($message)): ?>
+      <?php 
+        $flashMsg = $message ?? $_GET['msg'] ?? $_GET['message'] ?? null;
+        $flashErr = $error ?? $_GET['err'] ?? $_GET['error'] ?? null;
+      ?>
+
+      <?php if (!empty($flashMsg)): ?>
         <div id="adminFlashAlert" class="mb-6 p-4 rounded-sm bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-sm flex items-center justify-between gap-3 shadow-sm transition-all duration-300">
-          <div class="flex items-center gap-2 min-w-0">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle-2 w-4 h-4 shrink-0"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
-            <span class="truncate"><?= htmlspecialchars($message) ?></span>
+          <div class="flex items-center gap-2.5 min-w-0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle-2 w-4 h-4 shrink-0"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
+            <span class="font-medium text-xs sm:text-sm leading-relaxed"><?= htmlspecialchars($flashMsg) ?></span>
           </div>
           <button type="button" onclick="dismissAdminFlashAlert()" class="p-1 rounded text-emerald-400/70 hover:text-emerald-400 hover:bg-emerald-500/15 transition-colors" title="Đóng thông báo">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x w-4 h-4"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
@@ -189,13 +194,13 @@
         </div>
       <?php endif; ?>
 
-      <?php if (!empty($error)): ?>
-        <div id="adminFlashAlert" class="mb-6 p-4 rounded-sm bg-rose-500/10 border border-rose-500/30 text-rose-400 text-sm flex items-center justify-between gap-3 shadow-sm transition-all duration-300">
-          <div class="flex items-center gap-2 min-w-0">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-alert-circle w-4 h-4 shrink-0"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
-            <span class="truncate"><?= htmlspecialchars($error) ?></span>
+      <?php if (!empty($flashErr)): ?>
+        <div id="adminFlashAlert" class="mb-6 p-4 rounded-sm bg-rose-500/15 border border-rose-500/40 text-rose-300 text-sm flex items-center justify-between gap-3 shadow-md transition-all duration-300">
+          <div class="flex items-center gap-2.5 min-w-0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-alert w-4 h-4 shrink-0 text-rose-400"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="M12 8v4"></path><path d="M12 16h.01"></path></svg>
+            <span class="font-semibold text-xs sm:text-sm leading-relaxed"><?= htmlspecialchars($flashErr) ?></span>
           </div>
-          <button type="button" onclick="dismissAdminFlashAlert()" class="p-1 rounded text-rose-400/70 hover:text-rose-400 hover:bg-rose-500/15 transition-colors" title="Đóng thông báo">
+          <button type="button" onclick="dismissAdminFlashAlert()" class="p-1 rounded text-rose-400/70 hover:text-rose-300 hover:bg-rose-500/20 transition-colors" title="Đóng thông báo">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x w-4 h-4"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
           </button>
         </div>
@@ -229,15 +234,17 @@
     document.addEventListener('DOMContentLoaded', function() {
       const alertEl = document.getElementById('adminFlashAlert');
       if (alertEl) {
-        setTimeout(dismissAdminFlashAlert, 4000);
+        setTimeout(dismissAdminFlashAlert, 4500);
       }
 
-      // Auto clean URL params 'msg' and 'err' for clean URL & prevent duplicate alerts on refresh
+      // Auto clean URL params 'msg', 'err', 'error', 'message' for clean URL & prevent duplicate alerts on refresh
       try {
         const url = new URL(window.location.href);
-        if (url.searchParams.has('msg') || url.searchParams.has('err')) {
+        if (url.searchParams.has('msg') || url.searchParams.has('err') || url.searchParams.has('error') || url.searchParams.has('message')) {
           url.searchParams.delete('msg');
           url.searchParams.delete('err');
+          url.searchParams.delete('error');
+          url.searchParams.delete('message');
           window.history.replaceState({}, document.title, url.toString());
         }
       } catch(e) {}

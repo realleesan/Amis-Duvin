@@ -92,7 +92,16 @@ class AuthService
         self::requireAuth();
         $user = self::user();
         if (!$user || !in_array($user['role'], $allowedRoles, true)) {
-            header('Location: ' . admin_url() . '?error=' . urlencode('Bạn không có quyền truy cập chức năng này!'));
+            $roleLabels = [
+                'admin' => 'Admin Quản trị viên',
+                'cskh' => 'CSKH Vận hành',
+                'marketing' => 'Marketing CMS'
+            ];
+            $currentRole = $roleLabels[$user['role'] ?? ''] ?? ($user['role'] ?? 'Khách');
+            $allowedRolesStr = implode(' hoặc ', array_map(fn($r) => $roleLabels[$r] ?? $r, $allowedRoles));
+            
+            $errorMsg = "Tài khoản của bạn ({$currentRole}) không có quyền truy cập chức năng này! Yêu cầu quyền: {$allowedRolesStr}.";
+            header('Location: ' . admin_url() . '?error=' . urlencode($errorMsg));
             exit;
         }
     }
