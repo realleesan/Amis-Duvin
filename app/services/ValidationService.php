@@ -39,12 +39,12 @@ class ValidationService
                 $dateStr = sprintf('%04d-%02d-%02d', $m[3], $m[2], $m[1]);
             }
 
-            $todayTimestamp = strtotime(date('Y-m-d'));
-            $maxAllowedTimestamp = strtotime(date('Y-m-d', strtotime('+5 days')));
+            $minAdvanceDays = 5;
+            $minAllowedTimestamp = strtotime("+{$minAdvanceDays} days 00:00:00");
             $inputTimestamp = strtotime($dateStr);
 
-            if (!$inputTimestamp || $inputTimestamp < $todayTimestamp || $inputTimestamp > $maxAllowedTimestamp) {
-                $errors['date'] = 'Theo quy định, Quý khách chỉ có thể đặt tiệc trong vòng 5 ngày tới (từ ' . date('d/m/Y', $todayTimestamp) . ' đến ' . date('d/m/Y', $maxAllowedTimestamp) . ')';
+            if (!$inputTimestamp || $inputTimestamp < $minAllowedTimestamp) {
+                $errors['date'] = "Theo quy định, Quý khách cần đặt tiệc trước ít nhất {$minAdvanceDays} ngày (từ ngày " . date('d/m/Y', $minAllowedTimestamp) . " trở đi).";
             }
         }
 

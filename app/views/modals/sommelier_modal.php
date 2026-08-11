@@ -16,7 +16,7 @@
       </div>
       <div class="flex items-center gap-3 sm:gap-4">
         <div class="flex items-center gap-2 sm:gap-2.5">
-          <a href="https://www.facebook.com/profile.php?id=61581094990311" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-border flex items-center justify-center text-foreground/75 hover:border-[var(--wine)] hover:text-[var(--wine)] transition-all duration-300">
+          <a href="https://www.facebook.com/nguyen.alex.589" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-border flex items-center justify-center text-foreground/75 hover:border-[var(--wine)] hover:text-[var(--wine)] transition-all duration-300">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook w-4 h-4"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
           </a>
           <a href="https://zalo.me/0919686540" target="_blank" rel="noopener noreferrer" aria-label="Zalo" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-border flex items-center justify-center text-foreground/75 hover:border-[var(--wine)] hover:text-[var(--wine)] transition-all duration-300">
@@ -43,7 +43,6 @@
       <!-- Khối A: Nghệ thuật & Ngoại giao (Slider) -->
       <section>
         <div class="mb-2">
-          <p class="text-[var(--gold)] text-[10px] uppercase tracking-[0.3em] mb-2">Khối A</p>
           <h3 class="font-heading text-2xl sm:text-3xl text-foreground">Nghệ thuật &amp; Ngoại giao</h3>
           <div class="hairline w-16 mt-4"></div>
         </div>
@@ -118,7 +117,6 @@
       <!-- Khối B: Bảo chứng Học thuật -->
       <section>
         <div class="mb-2">
-          <p class="text-[var(--gold)] text-[10px] uppercase tracking-[0.3em] mb-2">Khối B</p>
           <h3 class="font-heading text-2xl sm:text-3xl text-foreground">Bảo chứng Học thuật</h3>
           <div class="hairline w-16 mt-4"></div>
         </div>

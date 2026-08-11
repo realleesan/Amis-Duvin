@@ -29,25 +29,25 @@ ob_start();
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
       <div class="rounded-sm border border-border bg-card p-5 space-y-2">
         <p class="text-xs uppercase tracking-widest text-muted-foreground">Tổng Đơn đặt tiệc</p>
-        <p class="font-heading text-3xl text-foreground tabular-nums"><?= number_format($totalBookings) ?></p>
+        <p class="font-montserrat font-bold text-3xl text-foreground tabular-nums"><?= number_format($totalBookings) ?></p>
         <span class="text-[11px] text-muted-foreground">Tích lũy từ hệ thống</span>
       </div>
 
       <div class="rounded-sm border border-border bg-card p-5 space-y-2">
         <p class="text-xs uppercase tracking-widest text-[var(--gold)]">Chờ CSKH xác nhận</p>
-        <p class="font-heading text-3xl text-[var(--gold)] tabular-nums"><?= number_format($pendingBookings) ?></p>
+        <p class="font-montserrat font-bold text-3xl text-[var(--gold)] tabular-nums"><?= number_format($pendingBookings) ?></p>
         <span class="text-[11px] text-muted-foreground">Đơn mới cần xử lý</span>
       </div>
 
       <div class="rounded-sm border border-border bg-card p-5 space-y-2">
         <p class="text-xs uppercase tracking-widest text-emerald-400">Đã chốt cọc 30%</p>
-        <p class="font-heading text-3xl text-emerald-400 tabular-nums"><?= number_format($confirmedBookings) ?></p>
+        <p class="font-montserrat font-bold text-3xl text-emerald-400 tabular-nums"><?= number_format($confirmedBookings) ?></p>
         <span class="text-[11px] text-muted-foreground">Đã chuyển khoản giữ chỗ</span>
       </div>
 
       <div class="rounded-sm border border-border bg-card p-5 space-y-2">
         <p class="text-xs uppercase tracking-widest text-[var(--wine)]">Tổng số khách hàng</p>
-        <p class="font-heading text-3xl text-foreground tabular-nums"><?= number_format($totalGuests) ?></p>
+        <p class="font-montserrat font-bold text-3xl text-foreground tabular-nums"><?= number_format($totalGuests) ?></p>
         <span class="text-[11px] text-muted-foreground">Tổng lượng khách đặt chỗ</span>
       </div>
     </div>

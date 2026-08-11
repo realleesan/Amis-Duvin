@@ -42,8 +42,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  window.addEventListener('scroll', updateHeaderScroll, { passive: true });
+  // Scroll To Top functionality
+  window.scrollToTop = function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  function handleScrollToTopButton() {
+    const btn = document.getElementById('btnScrollToTop');
+    if (!btn) return;
+    if (window.scrollY > 300) {
+      btn.classList.remove('opacity-0', 'translate-y-6', 'pointer-events-none');
+      btn.classList.add('opacity-100', 'translate-y-0');
+    } else {
+      btn.classList.add('opacity-0', 'translate-y-6', 'pointer-events-none');
+      btn.classList.remove('opacity-100', 'translate-y-0');
+    }
+  }
+
+  window.addEventListener('scroll', () => {
+    updateHeaderScroll();
+    handleScrollToTopButton();
+  }, { passive: true });
   updateHeaderScroll();
+  handleScrollToTopButton();
 
   // 2. Dark / Light Theme Toggle
   function syncThemeUI() {
@@ -166,34 +187,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // 5. FAQ Accordion
+  // 5. FAQ Accordion (Smooth Expand & Collapse)
   document.querySelectorAll('.faq-toggle').forEach(btn => {
     btn.addEventListener('click', () => {
       const item = btn.closest('.faq-item');
       if (!item) return;
-      const content = item.querySelector('.faq-content');
-      const icon = item.querySelector('.faq-icon');
-
-      const isHidden = content.classList.contains('hidden');
+      const isOpen = item.classList.contains('active');
 
       document.querySelectorAll('.faq-item').forEach(other => {
-        const otherContent = other.querySelector('.faq-content');
-        const otherIcon = other.querySelector('.faq-icon');
-        if (otherContent) otherContent.classList.add('hidden');
-        if (otherIcon) {
-          otherIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus w-4 h-4"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>`;
-          otherIcon.classList.remove('bg-[var(--wine)]', 'text-white');
-          otherIcon.classList.add('bg-foreground/5', 'text-foreground/60');
-        }
+        other.classList.remove('active');
+        const otherBtn = other.querySelector('.faq-toggle');
+        if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
       });
 
-      if (isHidden && content) {
-        content.classList.remove('hidden');
-        if (icon) {
-          icon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-minus w-4 h-4"><path d="M5 12h14"></path></svg>`;
-          icon.classList.remove('bg-foreground/5', 'text-foreground/60');
-          icon.classList.add('bg-[var(--wine)]', 'text-white');
-        }
+      if (!isOpen) {
+        item.classList.add('active');
+        btn.setAttribute('aria-expanded', 'true');
       }
     });
   });
@@ -254,10 +263,15 @@ document.addEventListener('DOMContentLoaded', () => {
       if (Array.isArray(menuItems)) {
         menuItems.forEach(item => {
           const li = document.createElement('li');
-          li.className = "flex items-start justify-between gap-3 text-sm border-b border-border pb-2.5 last:border-0";
+          li.className = "grid grid-cols-12 gap-3 items-start py-3 border-b border-border/40 text-xs sm:text-sm last:border-0";
+          let courseStr = (item.course || '').replace(/^Khởi vị/g, 'Khai vị');
           li.innerHTML = `
-            <span class="text-foreground/85">${item.course || ''}</span>
-            <span class="text-[var(--wine)] font-medium text-right shrink-0 max-w-[45%]">${item.wine || ''}</span>
+            <div class="col-span-7 sm:col-span-8 text-foreground/90 font-medium leading-relaxed">
+              ${courseStr}
+            </div>
+            <div class="col-span-5 sm:col-span-4 text-[var(--wine)] font-semibold text-right leading-relaxed">
+              ${item.wine || ''}
+            </div>
           `;
           menuContainer.appendChild(li);
         });
@@ -518,8 +532,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (badge) {
         const isFull = (wsData.status === 'full' || (wsData.remaining_spots !== undefined && wsData.remaining_spots <= 0));
         if (isFull) {
-          badge.className = 'inline-flex items-center text-[10px] uppercase tracking-[0.15em] px-2.5 py-1 rounded-full border backdrop-blur-sm text-white/70 border-white/25 bg-white/10';
-          badge.textContent = 'Đã đầy';
+          badge.className = 'inline-flex items-center text-[10px] uppercase tracking-[0.15em] px-2.5 py-1 rounded-sm border backdrop-blur-sm text-white/70 border-white/20 bg-black/40';
+          badge.textContent = 'Hết chỗ';
         } else {
           badge.className = 'inline-flex items-center text-[10px] uppercase tracking-[0.15em] px-2.5 py-1 rounded-full border backdrop-blur-sm text-emerald-300 border-emerald-400/40 bg-emerald-500/20';
           badge.textContent = 'Còn nhận đăng ký';

@@ -20,31 +20,34 @@
       <p id="pairingModalSubtitle" class="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-6">Sự kết hợp kinh điển...</p>
       
       <div class="grid grid-cols-3 gap-2 sm:gap-3 mb-6">
-        <div class="rounded-sm border border-border bg-background px-2 py-3 text-center min-w-0 flex flex-col justify-center items-center">
+        <div class="rounded-sm border border-border bg-background px-1 sm:px-2 py-2.5 text-center min-w-0 flex flex-col justify-center items-center">
           <span class="text-[var(--gold)] flex justify-center mb-1">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-coins w-3.5 h-3.5"><circle cx="8" cy="8" r="6"></circle><path d="M18.09 10.37A6 6 0 1 1 10.34 18"></path><path d="M7 6h1v4"></path><path d="m16.71 13.88.7.71-2.82 2.82"></path></svg>
           </span>
-          <p class="text-[9px] uppercase tracking-wide text-muted-foreground mb-0.5">Chi phí dự kiến</p>
-          <p id="pairingModalPrice" class="text-[11px] sm:text-xs text-foreground font-semibold leading-tight tracking-tight break-words">Từ 1.500.000đ/khách</p>
+          <p class="text-[9px] uppercase tracking-wide text-muted-foreground mb-0.5">Mức giá</p>
+          <p id="pairingModalPrice" class="text-[10px] sm:text-[11px] font-semibold text-foreground leading-snug tracking-tight text-center">Từ 1.500.000đ/khách</p>
         </div>
-        <div class="rounded-sm border border-border bg-background px-2 py-3 text-center min-w-0 flex flex-col justify-center items-center">
+        <div class="rounded-sm border border-border bg-background px-1 sm:px-2 py-2.5 text-center min-w-0 flex flex-col justify-center items-center">
           <span class="text-[var(--gold)] flex justify-center mb-1">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock w-3.5 h-3.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
           </span>
           <p class="text-[9px] uppercase tracking-wide text-muted-foreground mb-0.5">Thời lượng</p>
-          <p id="pairingModalDuration" class="text-[11px] sm:text-xs text-foreground font-semibold leading-tight tracking-tight">2.5 giờ</p>
+          <p id="pairingModalDuration" class="text-[10px] sm:text-[11px] font-semibold text-foreground leading-snug tracking-tight">2.5 giờ</p>
         </div>
-        <div class="rounded-sm border border-border bg-background px-2 py-3 text-center min-w-0 flex flex-col justify-center items-center">
+        <div class="rounded-sm border border-border bg-background px-1 sm:px-2 py-2.5 text-center min-w-0 flex flex-col justify-center items-center">
           <span class="text-[var(--gold)] flex justify-center mb-1">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users w-3.5 h-3.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
           </span>
           <p class="text-[9px] uppercase tracking-wide text-muted-foreground mb-0.5">Sức chứa</p>
-          <p id="pairingModalCapacity" class="text-[11px] sm:text-xs text-foreground font-semibold leading-tight tracking-tight">8–20 khách</p>
+          <p id="pairingModalCapacity" class="text-[10px] sm:text-[11px] font-semibold text-foreground leading-snug tracking-tight">8–20 khách</p>
         </div>
       </div>
 
-      <h4 class="text-[10px] uppercase tracking-[0.25em] text-[var(--gold)] mb-3">Thực đơn &amp; Rượu vang</h4>
-      <ul id="pairingModalMenu" class="space-y-2.5 mb-7">
+      <div class="flex items-center justify-between text-[10px] uppercase tracking-[0.2em] font-semibold text-[var(--gold)] border-b border-champagneGold/30 pb-2.5 mb-2">
+        <span>Thực đơn</span>
+        <span class="text-right">Rượu vang</span>
+      </div>
+      <ul id="pairingModalMenu" class="mb-7">
         <!-- Dynamic menu items -->
       </ul>
 

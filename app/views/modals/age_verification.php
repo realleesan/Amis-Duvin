@@ -14,14 +14,14 @@
       Theo quy định của pháp luật về đồ uống có cồn, Quý khách cần xác nhận độ tuổi trước khi truy cập không gian Amis Duvin.
     </p>
 
-    <!-- 02 Clear Buttons: YES & NO -->
+    <!-- 02 Clear Buttons: Trên 18 tuổi & Dưới 18 tuổi -->
     <div class="space-y-3 sm:space-y-0 sm:flex sm:gap-4 justify-center">
-      <button id="btnAgeYes" type="button" class="w-full sm:w-1/2 py-4 rounded-sm text-xs sm:text-sm uppercase tracking-[0.18em] font-medium bg-[#B20225] text-[#F6F5F4] hover:bg-[#8e011d] transition-all min-h-[52px] shadow-lg">
-        YES — Trên 18 tuổi
+      <button id="btnAgeYes" type="button" class="w-full sm:w-1/2 py-4 rounded-sm text-xs sm:text-sm uppercase tracking-[0.18em] font-semibold bg-[#B20225] text-[#F6F5F4] hover:bg-[#8e011d] transition-all min-h-[52px] shadow-lg">
+        Trên 18 tuổi
       </button>
       
-      <button id="btnAgeNo" type="button" class="w-full sm:w-1/2 py-4 rounded-sm text-xs sm:text-sm uppercase tracking-[0.18em] font-medium bg-[#171717] text-[#F6F5F4] border border-border hover:bg-black transition-all min-h-[52px]">
-        NO — Dưới 18 tuổi
+      <button id="btnAgeNo" type="button" class="w-full sm:w-1/2 py-4 rounded-sm text-xs sm:text-sm uppercase tracking-[0.18em] font-semibold bg-[#171717] text-[#F6F5F4] border border-border hover:bg-black transition-all min-h-[52px]">
+        Dưới 18 tuổi
       </button>
     </div>
   </div>

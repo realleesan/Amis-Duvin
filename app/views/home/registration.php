@@ -1,7 +1,10 @@
 <?php
-$todayDate = date('Y-m-d');
-$maxBookingDate = date('Y-m-d', strtotime('+5 days'));
+$minAdvanceDays = 5;
+$defaultBookingDate = date('d/m/Y', strtotime("+{$minAdvanceDays} days"));
 ?>
+<script>
+  window.MIN_BOOKING_ADVANCE_DAYS = <?= $minAdvanceDays ?>;
+</script>
 <section id="register" class="scroll-anchor relative py-24 sm:py-32 bg-background overflow-hidden">
   <div class="absolute inset-0 bg-wine-radial opacity-70"></div>
   <div class="relative max-w-6xl mx-auto px-5 sm:px-8">
@@ -62,12 +65,12 @@ $maxBookingDate = date('Y-m-d', strtotime('+5 days'));
             </div>
 
             <div class="mb-5">
-              <label for="bookingDate" class="block text-xs uppercase tracking-[0.15em] text-foreground/60 mb-2">Ngày đặt tiệc (Trong 5 ngày) <span class="text-rose-500">*</span></label>
+              <label for="bookingDate" class="block text-xs uppercase tracking-[0.15em] text-foreground/60 mb-2">Ngày đặt (Trước &ge; <?= $minAdvanceDays ?> ngày) <span class="text-rose-500">*</span></label>
               <div class="relative">
                 <span class="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar w-4 h-4"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg>
                 </span>
-                <input type="text" id="bookingDate" name="booking_date" required placeholder="dd/mm/yyyy" class="input-elegant w-full bg-card text-foreground pl-11 pr-10 py-4 rounded-sm text-sm font-medium cursor-pointer" value="<?= date('d/m/Y') ?>">
+                <input type="text" id="bookingDate" name="booking_date" required placeholder="dd/mm/yyyy" class="input-elegant w-full bg-card text-foreground pl-11 pr-10 py-4 rounded-sm text-sm font-medium cursor-pointer" value="<?= $defaultBookingDate ?>">
                 <span class="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none flex items-center justify-center">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus w-4 h-4"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
                 </span>
@@ -117,7 +120,7 @@ $maxBookingDate = date('Y-m-d', strtotime('+5 days'));
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-coins w-4 h-4"><circle cx="8" cy="8" r="6"></circle><path d="M18.09 10.37A6 6 0 1 1 10.34 18"></path><path d="M7 6h1v4"></path><path d="m16.71 13.88.7.71-2.82 2.82"></path></svg>
             </span>
             <div>
-              <p class="text-sm font-medium text-foreground mb-1">Chi phí dự kiến</p>
+              <p class="text-sm font-medium text-foreground mb-1">Mức giá</p>
               <p class="text-xs text-muted-foreground leading-relaxed">Từ 1.500.000đ/khách — báo giá chi tiết sau khi chốt thực đơn với CSKH.</p>
             </div>
           </div>
@@ -128,7 +131,7 @@ $maxBookingDate = date('Y-m-d', strtotime('+5 days'));
             </span>
             <div>
               <p class="text-sm font-medium text-foreground mb-1">Phương thức thanh toán</p>
-              <p class="text-xs text-muted-foreground leading-relaxed">Chuyển khoản ngân hàng, QR VNPay hoặc tiền mặt. Bắt buộc đặt cọc 30% để giữ chỗ.</p>
+              <p class="text-xs text-muted-foreground leading-relaxed">Chuyển khoản ngân hàng, QR VNPay hoặc tiền mặt. Đặt cọc 30% để giữ chỗ.</p>
             </div>
           </div>
 
@@ -157,8 +160,8 @@ $maxBookingDate = date('Y-m-d', strtotime('+5 days'));
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-check w-4 h-4"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>
             </span>
             <div>
-              <p class="text-sm font-medium text-foreground mb-1">Đặt chỗ &amp; Hoàn hủy cọc</p>
-              <p class="text-xs text-muted-foreground leading-relaxed mb-1.5">Đặt tiệc trong vòng 5 ngày tới. Báo hủy trước 48-72 giờ được hoàn 100% cọc.</p>
+              <p class="text-sm font-medium text-foreground mb-1">Hoàn hủy cọc</p>
+              <p class="text-xs text-muted-foreground leading-relaxed mb-1.5">Quý khách được hoàn 100% tiền cọc nếu thông báo hủy tiệc trước ít nhất 48 giờ; trường hợp thông báo hủy trong vòng 24 giờ (01 ngày) trước giờ tổ chức tiệc, tiền cọc sẽ không được hoàn lại.</p>
               <button type="button" onclick="openRefundPolicyModal()" class="text-xs font-semibold text-[var(--wine)] hover:underline">Xem quy định chi tiết &rarr;</button>
             </div>
           </div>

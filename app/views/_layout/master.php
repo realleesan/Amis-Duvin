@@ -222,6 +222,11 @@
   <?php require __DIR__ . '/../modals/success_modal.php'; ?>
   <?php require __DIR__ . '/../modals/workshop_success_modal.php'; ?>
 
+  <!-- Floating Scroll To Top Button -->
+  <button id="btnScrollToTop" onclick="scrollToTop()" aria-label="Cuộn lên đầu trang" title="Cuộn lên đầu trang" class="fixed bottom-6 right-6 z-[90] w-11 h-11 sm:w-12 sm:h-12 rounded-full border border-champagneGold/40 bg-[#F7F4EF]/90 dark:bg-[#140F11]/90 text-foreground backdrop-blur-md shadow-xl flex items-center justify-center transition-all duration-300 opacity-0 translate-y-6 pointer-events-none hover:scale-110 hover:border-[var(--gold)] hover:bg-[var(--wine)] hover:text-white dark:hover:bg-[var(--wine)] dark:hover:text-white active:scale-95">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up w-5 h-5 sm:w-6 sm:h-6"><path d="m18 15-6-6-6 6"></path><path d="M12 21V9"></path></svg>
+  </button>
+
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/vn.js"></script>

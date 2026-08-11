@@ -32,14 +32,11 @@
         <h4 class="text-xs uppercase tracking-[0.25em] text-[var(--gold)] mb-5">Theo dõi</h4>
         <p class="text-sm text-muted-foreground mb-5">Kết nối với Amis Duvin trên các nền tảng.</p>
         <div class="flex gap-3">
-          <a href="https://www.facebook.com/profile.php?id=61581094990311" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="w-11 h-11 rounded-full border border-border flex items-center justify-center text-foreground/65 hover:border-[var(--wine)] hover:text-[var(--wine)] transition-all duration-300">
+          <a href="https://www.facebook.com/profile.php?id=61592854114808" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="w-11 h-11 rounded-full border border-border flex items-center justify-center text-foreground/65 hover:border-[var(--wine)] hover:text-[var(--wine)] transition-all duration-300">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook w-5 h-5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
           </a>
           <a href="https://zalo.me/0919686540" target="_blank" rel="noopener noreferrer" aria-label="Zalo" class="w-11 h-11 rounded-full border border-border flex items-center justify-center text-foreground/65 hover:border-[var(--wine)] hover:text-[var(--wine)] transition-all duration-300">
             <span class="text-xs font-bold">Zalo</span>
-          </a>
-          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="Youtube" class="w-11 h-11 rounded-full border border-border flex items-center justify-center text-foreground/65 hover:border-[var(--wine)] hover:text-[var(--wine)] transition-all duration-300">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-youtube w-5 h-5"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"></path><path d="m10 15 5-3-5-3z"></path></svg>
           </a>
         </div>
       </div>

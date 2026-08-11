@@ -104,13 +104,13 @@ class AdminBookingController extends BaseController
             $bookingDate = sprintf('%04d-%02d-%02d', $m[3], $m[2], $m[1]);
         }
 
-        // 5-day notice check (Within 5 days from today: Today -> Today + 5 days)
-        $todayTimestamp = strtotime(date('Y-m-d'));
-        $maxAllowedTimestamp = strtotime(date('Y-m-d', strtotime('+5 days')));
+        // Advance notice check (At least 5 days in advance)
+        $minAdvanceDays = 5;
+        $minAllowedTimestamp = strtotime("+{$minAdvanceDays} days 00:00:00");
         $chosenTimestamp = strtotime($bookingDate);
 
-        if (!$chosenTimestamp || $chosenTimestamp < $todayTimestamp || $chosenTimestamp > $maxAllowedTimestamp) {
-            header('Location: ' . admin_url('bookings') . '?err=' . urlencode('Theo quy định, chỉ có thể đặt tiệc trong vòng 05 ngày tới (từ ' . date('d/m/Y', $todayTimestamp) . ' đến ' . date('d/m/Y', $maxAllowedTimestamp) . ').'));
+        if (!$chosenTimestamp || $chosenTimestamp < $minAllowedTimestamp) {
+            header('Location: ' . admin_url('bookings') . '?err=' . urlencode("Theo quy định, chỉ có thể đặt tiệc trước ít nhất {$minAdvanceDays} ngày (từ ngày " . date('d/m/Y', $minAllowedTimestamp) . " trở đi)."));
             exit;
         }
 

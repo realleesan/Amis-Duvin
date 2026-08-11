@@ -12,7 +12,7 @@ if (empty($pairings)) {
             'capacity' => '8–20 khách',
             'image' => 'https://media.base44.com/images/public/6a623336361c483b3f15558c/e6d25f6b5_generated_78290a91.png/v1/fill/w_535,h_402,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/e6d25f6b5_generated_78290a91.webp',
             'menu_items' => [
-                ['course' => 'Khởi vị — Carpaccio bò, parmigiano', 'wine' => 'Pinot Noir'],
+                ['course' => 'Khai vị — Carpaccio bò, parmigiano', 'wine' => 'Pinot Noir'],
                 ['course' => 'Món chính — Ngừ sốt tiêu, bơ thảo mộc', 'wine' => 'Cabernet Sauvignon'],
                 ['course' => 'Tráng miệng — Tart chocolate đen', 'wine' => 'Port Tawny']
             ]
@@ -28,7 +28,7 @@ if (empty($pairings)) {
             'capacity' => '8–20 khách',
             'image' => 'https://media.base44.com/images/public/6a623336361c483b3f15558c/4f229480d_generated_ffd34238.png/v1/fill/w_535,h_402,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/4f229480d_generated_ffd34238.webp',
             'menu_items' => [
-                ['course' => 'Khởi vị — Sashimi cá hồi Na Uy', 'wine' => 'Chardonnay'],
+                ['course' => 'Khai vị — Sashimi cá hồi Na Uy', 'wine' => 'Chardonnay'],
                 ['course' => 'Món chính — Bò bít tết Wagyu', 'wine' => 'Malbec'],
                 ['course' => 'Tráng miệng — Crème brûlée vani', 'wine' => 'Sauternes']
             ]
@@ -38,14 +38,14 @@ if (empty($pairings)) {
             'slug' => 'private-cellar',
             'title' => 'Private Cellar',
             'level' => 'Premium Level',
-            'subtitle' => 'Trải nghiệm thử rượu độc quyền trong hầm rượu riêng, dành cho những người sành vang đích thực.',
+            'subtitle' => 'Trải nghiệm thử rượu tại không gian độc quyền trong hầm rượu riêng, dành cho những người sành vang',
             'price_text' => 'Từ 3.500.000đ/khách',
             'duration' => '3.5 giờ',
             'capacity' => '6–12 khách',
             'image' => 'https://media.base44.com/images/public/6a623336361c483b3f15558c/0a280a9c0_generated_bbd5d622.png/v1/fill/w_535,h_402,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/0a280a9c0_generated_bbd5d622.webp',
             'menu_items' => [
-                ['course' => 'Nếm thử 5 dòng vang hầm riêng', 'wine' => 'Vertical Tasting'],
-                ['course' => 'Phô mai nhập khẩu & pâté', 'wine' => 'Bordeaux Grand Cru'],
+                ['course' => 'Khai vị — Nếm thử 5 dòng vang hầm riêng', 'wine' => 'Vertical Tasting'],
+                ['course' => 'Món kèm — Phô mai nhập khẩu & pâté', 'wine' => 'Bordeaux Grand Cru'],
                 ['course' => 'Món chính — Thỏ nấu rượu vang', 'wine' => 'Burgundy Pinot']
             ]
         ],
@@ -54,13 +54,13 @@ if (empty($pairings)) {
             'slug' => 'amis-du-vin-gala-night',
             'title' => 'Amis Duvin Gala Night',
             'level' => 'Premium Level',
-            'subtitle' => 'Đêm tiệc thượng lưu tráng lệ với thực đơn Sommelier thiết kế, không gian riêng tư đẳng cấp.',
+            'subtitle' => 'Đêm tiệc thượng lưu với thực đơn do Sommelier thiết kế riêng, trong không gian private sang trọng.',
             'price_text' => 'Từ 5.000.000đ/khách',
             'duration' => '4 giờ',
             'capacity' => '15–40 khách',
             'image' => 'https://media.base44.com/images/public/6a623336361c483b3f15558c/af384a896_generated_47deb67b.png/v1/fill/w_535,h_402,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/af384a896_generated_47deb67b.webp',
             'menu_items' => [
-                ['course' => 'Aperitif & lộ trình vang 7 món', 'wine' => 'Champagne'],
+                ['course' => 'Khai vị — Aperitif & lộ trình vang 7 món', 'wine' => 'Champagne'],
                 ['course' => 'Món chính — Cừu nướng thảo mộc', 'wine' => 'Barolo Riserva'],
                 ['course' => 'Tráng miệng — Soufflé chocolate', 'wine' => 'Tokaji Aszú']
             ]
@@ -77,7 +77,7 @@ if (empty($pairings)) {
           Danh sách gói tiệc
         </span>
         <h2 class="font-heading-editorial text-3xl sm:text-5xl text-foreground mb-4 font-bold tracking-wide">Food &amp; Wine Pairing</h2>
-        <p class="font-body-modern text-sm sm:text-base text-muted-foreground leading-relaxed">Bốn trải nghiệm kết hợp ẩm thực và rượu vang, từ tinh hoa tiêu chuẩn đến đỉnh cao thượng lưu.</p>
+        <p class="font-body-modern text-sm sm:text-base text-muted-foreground leading-relaxed">Chúng tôi mong được đồng hành cùng bạn trên hành trình ấy.</p>
       </div>
     </div>
 
@@ -88,7 +88,7 @@ if (empty($pairings)) {
         <div class="reveal is-visible">
           <div role="button" tabindex="0" onclick="openPairingModal(<?= $jsonData ?>)" class="card-lift group h-full rounded-sm border-thin-gold bg-card/60 overflow-hidden flex flex-col cursor-pointer transition-all duration-300 hover:border-champagneGold/60 shadow-sm backdrop-blur-sm">
             <div class="relative aspect-[4/3] overflow-hidden bg-card">
-              <img src="<?= htmlspecialchars($pairing['image']) ?>" loading="lazy" class="w-full h-full object-cover select-none transition-transform duration-700 group-hover:scale-105" alt="<?= htmlspecialchars($pairing['title']) ?>">
+              <img src="<?= htmlspecialchars($pairing['image']) ?>" loading="lazy" class="w-full h-full object-cover select-none" alt="<?= htmlspecialchars($pairing['title']) ?>">
               <div class="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent pointer-events-none"></div>
               <?php if (str_contains(strtolower($pairing['level']), 'premium') || str_contains(strtolower($pairing['level']), 'grand') || str_contains(strtolower($pairing['level']), 'bespoke')): ?>
                 <span class="editorial-tag absolute top-4 left-4 text-[10px] uppercase tracking-[0.2em] font-semibold px-3 py-1 rounded-sm bg-[var(--wine)] text-white border border-champagneGold/40"><?= htmlspecialchars($pairing['level']) ?></span>
@@ -101,7 +101,7 @@ if (empty($pairings)) {
               <p class="font-body-modern text-xs sm:text-sm text-muted-foreground leading-relaxed mb-5 lg:mb-6 flex-1"><?= htmlspecialchars($pairing['subtitle']) ?></p>
               <div class="flex items-center justify-between gap-2 lg:gap-4 pt-3.5 lg:pt-4 border-t border-champagneGold/20 mt-auto">
                 <div class="flex flex-col min-w-0">
-                  <span class="text-[10px] uppercase tracking-wider text-muted-foreground">Giá gói từ</span>
+                  <span class="text-[10px] uppercase tracking-wider text-muted-foreground">Mức giá</span>
                   <span class="font-body-modern text-xs sm:text-sm lg:text-base font-bold text-[var(--gold)] whitespace-nowrap"><?= htmlspecialchars($pairing['price_text']) ?></span>
                 </div>
                 <button type="button" onclick="event.stopPropagation(); openPairingModal(<?= $jsonData ?>)" class="btn-brand-burgundy inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 lg:px-5 py-2 lg:py-2.5 rounded-sm text-[11px] lg:text-xs uppercase tracking-[0.1em] lg:tracking-[0.15em] font-semibold whitespace-nowrap shrink-0 transition-all border border-champagneGold/30 shadow-sm active:scale-95">
@@ -147,7 +147,7 @@ if (empty($pairings)) {
                 <p class="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-5 flex-1"><?= htmlspecialchars($pairing['subtitle']) ?></p>
                 <div class="flex flex-col gap-3 pt-3.5 border-t border-champagneGold/20 mt-auto">
                   <div class="flex items-center justify-between gap-2">
-                    <span class="text-[11px] uppercase tracking-wider text-muted-foreground">Giá gói từ</span>
+                    <span class="text-[11px] uppercase tracking-wider text-muted-foreground">Mức giá</span>
                     <span class="font-body-modern text-sm font-bold text-[var(--gold)] whitespace-nowrap"><?= htmlspecialchars($pairing['price_text']) ?></span>
                   </div>
                   <button type="button" onclick="event.stopPropagation(); openPairingModal(<?= $jsonData ?>)" class="w-full btn-brand-burgundy inline-flex items-center justify-center gap-2 py-2.5 rounded-sm text-xs uppercase tracking-[0.15em] font-semibold whitespace-nowrap transition-all border border-champagneGold/30 shadow-sm active:scale-95">

@@ -61,7 +61,7 @@ if (empty($testimonials)) {
         <span class="editorial-tag inline-block font-body-modern text-[11px] uppercase tracking-[0.25em] font-semibold text-[var(--gold)] border border-champagneGold/40 bg-champagneGold/10 px-3.5 py-1 mb-4 rounded-sm">
           Khách hàng nói gì
         </span>
-        <h2 class="font-heading-editorial text-3xl sm:text-5xl text-foreground mb-4 font-bold tracking-wide">Dẫn chứng Tin cậy</h2>
+        <h2 class="font-heading-editorial text-3xl sm:text-5xl text-foreground mb-4 font-bold tracking-wide">Trải nghiệm thực tế từ những vị khách tinh hoa</h2>
       </div>
     </div>
     

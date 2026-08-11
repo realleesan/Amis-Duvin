@@ -143,8 +143,8 @@ $allWorkshopsForJs = array_merge($featuredWorkshops, $topicWorkshops);
         <span class="editorial-tag inline-block font-body-modern text-[11px] uppercase tracking-[0.25em] font-semibold text-[var(--gold)] border border-champagneGold/40 bg-champagneGold/10 px-3.5 py-1 mb-4 rounded-sm">
           Trải nghiệm Thưởng vang
         </span>
-        <h2 class="font-heading-editorial text-3xl sm:text-5xl text-foreground mb-4 font-bold tracking-wide">Chọn Workshop phù hợp với bạn</h2>
-        <p class="font-body-modern text-sm sm:text-base text-muted-foreground leading-relaxed">Hai buổi gần nhất nổi bật — chạm vào thẻ để xem thông tin chi tiết.</p>
+        <h2 class="font-heading-editorial text-3xl sm:text-5xl text-foreground mb-4 font-bold tracking-wide">Workshop rượu vang</h2>
+        <p class="font-body-modern text-sm sm:text-base text-muted-foreground leading-relaxed max-w-2xl mx-auto">Khám phá các buổi workshop rượu vang đa dạng từ cơ bản đến chuyên sâu tại Amis Duvin, giúp bạn tự tin làm chủ mọi bàn tiệc</p>
       </div>
     </div>
 
@@ -172,7 +172,7 @@ $allWorkshopsForJs = array_merge($featuredWorkshops, $topicWorkshops);
                   <div class="flex items-start justify-between mb-5">
                     <span class="font-heading-editorial text-3xl text-gradient-gold font-bold"><?= $numStr ?></span>
                     <?php if ($isFull): ?>
-                      <span class="editorial-tag inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.15em] px-2.5 py-1 rounded-sm border backdrop-blur-sm text-white/70 border-white/20 bg-black/40"><span class="w-1.5 h-1.5 rounded-full bg-current"></span>Đã đầy</span>
+                      <span class="editorial-tag inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.15em] px-2.5 py-1 rounded-sm border backdrop-blur-sm text-white/70 border-white/20 bg-black/40"><span class="w-1.5 h-1.5 rounded-full bg-current"></span>Hết chỗ</span>
                     <?php else: ?>
                       <span class="editorial-tag inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.15em] px-2.5 py-1 rounded-sm border backdrop-blur-sm text-emerald-300 border-emerald-400/40 bg-emerald-500/20 font-semibold"><span class="w-1.5 h-1.5 rounded-full bg-current"></span>Còn nhận đăng ký</span>
                     <?php endif; ?>
@@ -211,7 +211,7 @@ $allWorkshopsForJs = array_merge($featuredWorkshops, $topicWorkshops);
                 <div class="flex items-center justify-between gap-2 mb-5">
                   <p class="text-[10px] uppercase tracking-[0.15em] text-[var(--gold)] whitespace-nowrap shrink-0">Thông tin Workshop</p>
                   <?php if ($isFull): ?>
-                    <span class="inline-flex items-center text-[10px] uppercase tracking-[0.1em] px-2.5 py-1 rounded-full border text-white/70 border-white/20 bg-white/5 shrink-0 whitespace-nowrap">Đã đầy</span>
+                    <span class="inline-flex items-center text-[10px] uppercase tracking-[0.1em] px-2.5 py-1 rounded-full border text-white/70 border-white/20 bg-white/5 shrink-0 whitespace-nowrap">Hết chỗ</span>
                   <?php else: ?>
                     <span class="inline-flex items-center text-[10px] uppercase tracking-[0.1em] px-2.5 py-1 rounded-full border text-emerald-400 border-emerald-500/30 bg-emerald-500/10 shrink-0 whitespace-nowrap">Còn nhận đăng ký</span>
                   <?php endif; ?>
@@ -268,7 +268,7 @@ $allWorkshopsForJs = array_merge($featuredWorkshops, $topicWorkshops);
     <!-- 2. Topic Workshops 3D Coverflow Circular Loop Section ("Các chủ đề tiếp theo") -->
     <div class="reveal is-visible">
       <div class="relative">
-        <p class="text-center text-xs uppercase tracking-[0.25em] text-[var(--gold)] mb-8">Các chủ đề tiếp theo</p>
+        <p class="text-center text-xs uppercase tracking-[0.25em] text-[var(--gold)] mb-8">Các workshop khác</p>
         
         <div class="relative select-none">
           <div id="topicCoverflowTrack" class="relative h-[450px] [perspective:1400px]">
@@ -294,7 +294,7 @@ $allWorkshopsForJs = array_merge($featuredWorkshops, $topicWorkshops);
                       <div class="absolute inset-0 bg-gradient-to-t from-card via-black/40 to-transparent"></div>
                       <span class="absolute top-3 left-3 font-heading text-2xl text-gradient-gold"><?= $tNumStr ?></span>
                       <?php if ($tIsFull): ?>
-                        <span class="absolute top-3 right-3 inline-flex items-center text-[9px] uppercase tracking-[0.15em] px-2 py-0.5 rounded-full border backdrop-blur-sm text-white/70 border-white/25 bg-white/10">Đã đầy</span>
+                        <span class="absolute top-3 right-3 inline-flex items-center text-[9px] uppercase tracking-[0.15em] px-2 py-0.5 rounded-full border backdrop-blur-sm text-white/70 border-white/25 bg-white/10">Hết chỗ</span>
                       <?php else: ?>
                         <span class="absolute top-3 right-3 inline-flex items-center text-[9px] uppercase tracking-[0.15em] px-2 py-0.5 rounded-full border backdrop-blur-sm text-emerald-300 border-emerald-400/40 bg-emerald-500/20">Còn nhận đăng ký</span>
                       <?php endif; ?>
@@ -336,7 +336,7 @@ $allWorkshopsForJs = array_merge($featuredWorkshops, $topicWorkshops);
                     <div class="flex items-center justify-between gap-2 mb-4">
                       <p class="text-[9px] sm:text-[10px] uppercase tracking-[0.12em] text-[var(--gold)] whitespace-nowrap shrink-0">Thông tin Workshop</p>
                       <?php if ($tIsFull): ?>
-                        <span class="inline-flex items-center text-[9px] uppercase tracking-[0.1em] px-2 py-0.5 rounded-full border text-white/70 border-white/20 bg-white/5 shrink-0 whitespace-nowrap">Đã đầy</span>
+                        <span class="inline-flex items-center text-[9px] uppercase tracking-[0.1em] px-2 py-0.5 rounded-full border text-white/70 border-white/20 bg-white/5 shrink-0 whitespace-nowrap">Hết chỗ</span>
                       <?php else: ?>
                         <span class="inline-flex items-center text-[9px] uppercase tracking-[0.1em] px-2 py-0.5 rounded-full border text-emerald-400 border-emerald-500/30 bg-emerald-500/10 shrink-0 whitespace-nowrap">Còn nhận đăng ký</span>
                       <?php endif; ?>

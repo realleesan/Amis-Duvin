@@ -217,8 +217,8 @@ ob_start();
 
       <div class="grid grid-cols-2 gap-4">
         <div>
-          <label for="manualBookingDatePicker" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Ngày tiệc (5 ngày tới) *</label>
-          <input type="text" id="manualBookingDatePicker" name="booking_date" required autocomplete="off" placeholder="dd/mm/yyyy" value="<?= date('d/m/Y') ?>" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm font-mono cursor-pointer">
+          <label for="manualBookingDatePicker" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Ngày tiệc (Đặt trước &ge; 5 ngày) *</label>
+          <input type="text" id="manualBookingDatePicker" name="booking_date" required autocomplete="off" placeholder="dd/mm/yyyy" value="<?= date('d/m/Y', strtotime('+5 days')) ?>" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm font-mono cursor-pointer">
         </div>
 
         <div>

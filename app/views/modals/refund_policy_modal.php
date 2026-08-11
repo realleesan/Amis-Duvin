@@ -15,7 +15,7 @@
       <div class="space-y-4">
         <div>
           <h4 class="text-foreground font-heading text-base mb-1">1. Quy định Thời gian Đặt tiệc</h4>
-          <p>Quý khách chỉ có thể đặt tiệc <strong class="text-white">trong vòng 05 ngày tới</strong> tính từ ngày hiện tại để nhà hàng sắp xếp ca phục vụ và chuẩn bị nguồn nguyên liệu hảo hạng.</p>
+          <p>Quý khách vui lòng đặt lịch tiệc <strong class="text-white">trước ít nhất 05 ngày</strong> (hoặc theo số ngày đặt trước quy định của nhà hàng) để Sommelier và Bếp có đủ thời gian chuẩn bị thực đơn và nguyên liệu hảo hạng nhất.</p>
         </div>
         
         <div>
@@ -24,15 +24,16 @@
         </div>
 
         <div>
-          <h4 class="text-foreground font-heading text-base mb-1">3. Quy định Đặt cọc Giữ chỗ</h4>
-          <p>Bắt buộc đặt cọc <strong class="text-white">30% tổng chi phí dự kiến</strong> sau khi chốt thực đơn với bộ phận CSKH để xác nhận giữ chỗ chính thức.</p>
+          <h4 class="text-foreground font-heading text-base mb-1">3. Phương thức Thanh toán &amp; Đặt cọc</h4>
+          <p>Nhà hàng chấp nhận thanh toán qua <strong class="text-white">Chuyển khoản ngân hàng, QR VNPay hoặc Tiền mặt</strong>. Quý khách vui lòng đặt cọc <strong class="text-white">30% tiền tiệc</strong> để giữ chỗ chính thức.</p>
         </div>
 
         <div>
           <h4 class="text-foreground font-heading text-base mb-1">4. Chính sách Hoàn / Hủy cọc</h4>
-          <ul class="list-disc pl-5 space-y-2 mt-1">
-            <li><strong class="text-foreground">Báo hủy trước 02 ngày (48 – 72 giờ)</strong>: Quý khách được hoàn lại <span class="text-white font-semibold">100% tiền đặt cọc</span>.</li>
-            <li><strong class="text-foreground">Báo hủy trước 01 ngày (dưới 24 – 48 giờ)</strong>: Giữ lại <span class="text-white font-semibold">100% tiền cọc</span> để bù đắp chi phí chuẩn bị nguyên liệu tươi sống cho bữa tiệc.</li>
+          <p class="mb-2">Quý khách được hoàn 100% tiền cọc nếu thông báo hủy tiệc trước ít nhất 48 giờ; trường hợp thông báo hủy trong vòng 24 giờ (01 ngày) trước giờ tổ chức tiệc, tiền cọc sẽ không được hoàn lại.</p>
+          <ul class="list-disc pl-5 space-y-2">
+            <li><strong class="text-foreground">Thông báo hủy tiệc trước ít nhất 48 giờ</strong>: Quý khách được hoàn lại <span class="text-white font-semibold">100% tiền đặt cọc</span>.</li>
+            <li><strong class="text-foreground">Thông báo hủy tiệc trong vòng 24 giờ (01 ngày) trước giờ tiệc</strong>: Tiền cọc sẽ <span class="text-white font-semibold">không được hoàn lại</span> để bù đắp chi phí chuẩn bị nguồn nguyên liệu tươi sống và rượu vang cho bữa tiệc.</li>
           </ul>
         </div>
       </div>

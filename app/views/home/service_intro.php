@@ -2,8 +2,8 @@
 $introTagline = $serviceIntro['tagline'] ?? 'Dịch vụ tiệc riêng Amis Duvin';
 $introTitleMain = $serviceIntro['title_main'] ?? 'Không gian Tiệc riêng tư';
 $introTitleSub = $serviceIntro['title_sub'] ?? '& Tinh hoa ẩm thực Rượu vang';
-$introDescription = $serviceIntro['description'] ?? 'Khái quát về mô hình tiệc riêng tư (Private Party) — sự kết hợp đỉnh cao giữa văn hóa rượu vang hảo hạng và nghệ thuật ẩm thực tinh tế (Food & Wine Pairing), mang đến không gian biệt lập, đẳng cấp cho các buổi tiếp khách, kỷ niệm hay giao lưu doanh nhân.';
-$introHighlightNote = $serviceIntro['highlight_note'] ?? 'Bốn trải nghiệm kết hợp ẩm thực và rượu vang, từ tinh hoa tiêu chuẩn đến đỉnh cao thượng lưu.';
+$introDescription = $serviceIntro['description'] ?? "Có những cuộc gặp gỡ chỉ kéo dài vài giờ, nhưng để lại ký ức nhiều năm.\nCó những ly vang không chỉ để thưởng thức, mà để mở ra những cuộc trò chuyện, những kết nối và những cảm xúc đẹp.\nAmis Duvin được tạo nên từ niềm tin rằng mỗi người đều xứng đáng có những khoảnh khắc sống thật chậm, thật tinh tế và thật trọn vẹn.";
+$introHighlightNote = $serviceIntro['highlight_note'] ?? 'Chúng tôi mong được đồng hành cùng bạn trên hành trình ấy.';
 $introCardTag = $serviceIntro['card_tag'] ?? 'Private Party Experience';
 $introCardTitle = $serviceIntro['card_title'] ?? 'Không gian Biệt lập & Đẳng cấp';
 $introCardSubtitle = $serviceIntro['card_subtitle'] ?? 'Thiết kế thực đơn riêng bởi Chef & Sommelier chuyên nghiệp.';
@@ -26,9 +26,9 @@ $introCardImage = $serviceIntro['card_image'] ?? 'https://media.base44.com/image
           <div class="hairline w-24 my-6 bg-[var(--gold)]/50"></div>
         </div>
 
-        <p class="font-body-modern text-base sm:text-lg text-foreground/85 leading-relaxed font-normal">
-          <?= htmlspecialchars($introDescription) ?>
-        </p>
+        <div class="font-body-modern text-base sm:text-lg text-foreground/85 leading-relaxed font-normal space-y-3">
+          <?= nl2br(htmlspecialchars($introDescription)) ?>
+        </div>
 
         <p class="font-body-modern text-sm sm:text-base text-muted-foreground leading-relaxed border-l-2 border-[var(--wine)] pl-4 py-1.5 italic bg-[var(--gold)]/5 rounded-r-sm">
           <?= htmlspecialchars($introHighlightNote) ?>
@@ -44,7 +44,7 @@ $introCardImage = $serviceIntro['card_image'] ?? 'https://media.base44.com/image
 
       <!-- Right Column: Visual Feature Card -->
       <div class="reveal is-visible lg:col-span-5">
-        <div class="relative rounded-sm border-thin-gold bg-card p-3 shadow-2xl group">
+        <div class="relative rounded-sm border-thin-gold shadow-2xl group overflow-hidden">
           <div class="relative aspect-[4/5] overflow-hidden rounded-sm">
             <img src="<?= htmlspecialchars($introCardImage) ?>" alt="<?= htmlspecialchars($introCardTitle) ?>" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
             <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent"></div>

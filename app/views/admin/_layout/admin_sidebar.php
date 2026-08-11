@@ -16,7 +16,7 @@ $userFullName = (is_array($user ?? null) && isset($user['full_name'])) ? $user['
   <nav class="flex-1 p-4 space-y-1 text-sm font-medium overflow-y-auto min-h-0">
     <a href="<?= admin_url() ?>" class="flex items-center gap-3 px-4 py-3 rounded-sm transition-colors <?= ($activeNav ?? '') === 'dashboard' ? 'admin-active-nav' : 'text-foreground/75 hover:bg-muted hover:text-foreground' ?>">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-dashboard w-4 h-4"><rect width="7" height="9" x="3" y="3" rx="1"></rect><rect width="7" height="5" x="14" y="3" rx="1"></rect><rect width="7" height="9" x="14" y="12" rx="1"></rect><rect width="7" height="5" x="3" y="16" rx="1"></rect></svg>
-      <span>Tổng quan (Dashboard)</span>
+      <span>Tổng quan</span>
     </a>
 
     <a href="<?= admin_url('notifications') ?>" class="flex items-center justify-between px-4 py-3 rounded-sm transition-colors <?= ($activeNav ?? '') === 'notifications' ? 'admin-active-nav' : 'text-foreground/75 hover:bg-muted hover:text-foreground' ?>">
@@ -32,7 +32,7 @@ $userFullName = (is_array($user ?? null) && isset($user['full_name'])) ? $user['
     <?php if (empty($userRole) || in_array($userRole, ['admin', 'cskh'], true)): ?>
       <a href="<?= admin_url('bookings') ?>" class="flex items-center gap-3 px-4 py-3 rounded-sm transition-colors <?= ($activeNav ?? '') === 'bookings' ? 'admin-active-nav' : 'text-foreground/75 hover:bg-muted hover:text-foreground' ?>">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar-check w-4 h-4"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path><path d="m9 16 2 2 4-4"></path></svg>
-        <span>Quản lý Đặt tiệc (CSKH)</span>
+        <span>Quản lý Đặt tiệc</span>
       </a>
 
       <a href="<?= admin_url('workshops') ?>" class="flex items-center gap-3 px-4 py-3 rounded-sm transition-colors <?= ($activeNav ?? '') === 'workshops' ? 'admin-active-nav' : 'text-foreground/75 hover:bg-muted hover:text-foreground' ?>">
@@ -50,7 +50,7 @@ $userFullName = (is_array($user ?? null) && isset($user['full_name'])) ? $user['
         <button type="button" onclick="toggleContentSubmenu(event)" class="w-full flex items-center justify-between px-4 py-3 rounded-sm transition-colors <?= $isContentActive ? 'admin-active-nav' : 'text-foreground/75 hover:bg-muted hover:text-foreground' ?>">
           <div class="flex items-center gap-3">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text w-4 h-4"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
-            <span>Nội dung Landing Page</span>
+            <span>Quản lý nội dung</span>
           </div>
           <svg id="contentSubmenuChevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down w-3.5 h-3.5 transition-transform duration-200 <?= $isContentActive ? 'rotate-180 text-[var(--gold)]' : '' ?>"><path d="m6 9 6 6 6-6"></path></svg>
         </button>

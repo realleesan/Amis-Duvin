@@ -25,18 +25,19 @@ document.addEventListener('DOMContentLoaded', () => {
     if (flatpickr.l10ns && flatpickr.l10ns.vn) {
       flatpickr.localize(flatpickr.l10ns.vn);
     }
-    const today = new Date();
-    const maxDate = new Date();
-    maxDate.setDate(today.getDate() + 5);
+    // Lead time logic: MIN_BOOKING_ADVANCE_DAYS (e.g. 5 days in advance).
+    // Configurable via window.MIN_BOOKING_ADVANCE_DAYS or defaults to 5.
+    const advanceDays = (typeof window.MIN_BOOKING_ADVANCE_DAYS !== 'undefined') ? parseInt(window.MIN_BOOKING_ADVANCE_DAYS, 10) : 5;
+    const minBookingDate = new Date();
+    minBookingDate.setDate(minBookingDate.getDate() + advanceDays);
 
     flatpickr(dateInput, {
       disableMobile: true,
       dateFormat: 'd/m/Y',
-      minDate: 'today',
-      maxDate: maxDate,
+      minDate: minBookingDate,
       allowInput: true,
       monthSelectorType: 'dropdown',
-      defaultDate: 'today',
+      defaultDate: minBookingDate,
       onReady: function(selectedDates, dateStr, instance) {
         var container = instance.calendarContainer;
         if (container) {
@@ -83,12 +84,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Validate 5-day booking window (today to today + 5 days)
       if (dateInput && dateInput.value) {
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-
-        const maxDate = new Date();
-        maxDate.setDate(today.getDate() + 5);
-        maxDate.setHours(23, 59, 59, 999);
+        const advanceDays = typeof window.MIN_BOOKING_ADVANCE_DAYS !== 'undefined' ? parseInt(window.MIN_BOOKING_ADVANCE_DAYS, 10) : 5;
+        const minAllowedDate = new Date();
+        minAllowedDate.setDate(minAllowedDate.getDate() + advanceDays);
+        minAllowedDate.setHours(0, 0, 0, 0);
 
         let selectedDate;
         const parts = dateInput.value.split('/');
@@ -97,10 +96,10 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
           selectedDate = new Date(dateInput.value);
         }
-        selectedDate.setHours(12, 0, 0, 0);
+        selectedDate.setHours(0, 0, 0, 0);
 
-        if (selectedDate < today || selectedDate > maxDate) {
-          alert('Theo quy định, Quý khách chỉ có thể đặt tiệc trong vòng 5 ngày tới!');
+        if (selectedDate < minAllowedDate) {
+          alert(`Theo quy định, Quý khách cần đặt tiệc trước ít nhất ${advanceDays} ngày!`);
           return;
         }
       }

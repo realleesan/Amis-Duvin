@@ -56,13 +56,27 @@
 
     <span class="text-muted-foreground/30">•</span>
 
-    <div class="text-xs text-muted-foreground font-mono">
-      <?= date('d/m/Y H:i') ?>
+    <div id="adminRealtimeClock" class="text-xs text-muted-foreground font-mono">
+      <?= date('d/m/Y H:i:s') ?>
     </div>
   </div>
 </header>
 
 <script>
+function updateAdminRealtimeClock() {
+  const el = document.getElementById('adminRealtimeClock');
+  if (!el) return;
+  const now = new Date();
+  const d = String(now.getDate()).padStart(2, '0');
+  const m = String(now.getMonth() + 1).padStart(2, '0');
+  const y = now.getFullYear();
+  const h = String(now.getHours()).padStart(2, '0');
+  const i = String(now.getMinutes()).padStart(2, '0');
+  const s = String(now.getSeconds()).padStart(2, '0');
+  el.textContent = `${d}/${m}/${y} ${h}:${i}:${s}`;
+}
+setInterval(updateAdminRealtimeClock, 1000);
+updateAdminRealtimeClock();
 function fetchHeaderNotifications() {
   fetch('<?= admin_url('api/notifications/unread') ?>')
     .then(r => r.json())
