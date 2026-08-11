@@ -538,6 +538,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const filterInput = document.getElementById('filterWsDatePicker');
     if (filterInput) {
       flatpickr(filterInput, {
+        disableMobile: true,
         dateFormat: 'd/m/Y',
         allowInput: true,
         monthSelectorType: 'dropdown',

@@ -307,6 +307,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Filter date picker: visual dropdown calendar + strict dd/mm/yyyy display
     flatpickr('#filterDatePicker', {
+      disableMobile: true,
       dateFormat: 'd/m/Y',
       allowInput: true,
       monthSelectorType: 'dropdown',
@@ -340,6 +341,7 @@ document.addEventListener('DOMContentLoaded', function() {
     maxDate.setDate(today.getDate() + 5);
 
     flatpickr('#manualBookingDatePicker', {
+      disableMobile: true,
       dateFormat: 'd/m/Y',
       minDate: 'today',
       maxDate: maxDate,

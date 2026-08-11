@@ -606,6 +606,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   font-family: var(--font-body) !important;
   padding: 12px 14px !important;
   width: 325px !important;
+  max-width: 94vw !important;
   box-sizing: border-box !important;
 }
 

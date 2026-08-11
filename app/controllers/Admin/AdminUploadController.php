@@ -9,11 +9,16 @@ class AdminUploadController extends BaseController
 {
     public function uploadImage(): void
     {
+        // Clear any previous buffered output to guarantee clean JSON response
+        if (ob_get_length()) {
+            ob_clean();
+        }
+
         header('Content-Type: application/json; charset=utf-8');
 
         if (!AuthService::check()) {
             http_response_code(401);
-            echo json_encode(['success' => false, 'message' => 'Phiên đăng nhập đã hết hạn.']);
+            echo json_encode(['success' => false, 'message' => 'Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.']);
             exit;
         }
 
@@ -42,7 +47,8 @@ class AdminUploadController extends BaseController
 
         // Target Directory: uploads/YYYY/MM/
         $yearMonth = date('Y/m');
-        $uploadDir = BASE_PATH . '/uploads/' . $yearMonth;
+        $basePath = defined('BASE_PATH') ? BASE_PATH : dirname(__DIR__, 3);
+        $uploadDir = $basePath . '/uploads/' . $yearMonth;
 
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0755, true);
@@ -62,7 +68,7 @@ class AdminUploadController extends BaseController
         }
 
         http_response_code(500);
-        echo json_encode(['success' => false, 'message' => 'Không thể lưu tệp ảnh lên máy chủ.']);
+        echo json_encode(['success' => false, 'message' => 'Không thể lưu tệp ảnh lên máy chủ. Vui lòng kiểm tra quyền thư mục uploads.']);
         exit;
     }
 }

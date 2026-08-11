@@ -1,5 +1,9 @@
 <?php
 
+if (!defined('BASE_PATH')) {
+    define('BASE_PATH', __DIR__);
+}
+
 // Handle static assets for PHP built-in web server
 if (php_sapi_name() === 'cli-server') {
     $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);

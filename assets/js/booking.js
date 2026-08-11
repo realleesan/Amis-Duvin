@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     maxDate.setDate(today.getDate() + 5);
 
     flatpickr(dateInput, {
+      disableMobile: true,
       dateFormat: 'd/m/Y',
       minDate: 'today',
       maxDate: maxDate,

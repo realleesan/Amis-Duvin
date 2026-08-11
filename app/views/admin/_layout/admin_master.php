@@ -317,7 +317,15 @@
           body: formData
         });
 
-        const data = await res.json();
+        const rawText = await res.text();
+        let data;
+        try {
+          data = JSON.parse(rawText);
+        } catch (parseErr) {
+          console.error('Server upload response is non-JSON HTML:', rawText);
+          throw new Error('Máy chủ phản hồi không đúng định dạng JSON.');
+        }
+
         if (res.ok && data.success) {
           if (targetInput) {
             targetInput.value = data.url;
@@ -329,12 +337,12 @@
             setTimeout(() => { statusSpan.textContent = ''; }, 3000);
           }
         } else {
-          alert(data.message || 'Lỗi khi tải ảnh lên.');
+          alert('⚠️ Lỗi: ' + (data.message || 'Lỗi khi tải ảnh lên.'));
           if (statusSpan) statusSpan.textContent = '';
         }
       } catch (err) {
         console.error('Image upload error:', err);
-        alert('Lỗi kết nối khi tải ảnh lên.');
+        alert('⚠️ Lỗi khi tải ảnh lên: ' + err.message);
         if (statusSpan) statusSpan.textContent = '';
       } finally {
         fileInput.value = '';
