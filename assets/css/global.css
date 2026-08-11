@@ -8,7 +8,7 @@
   --card-foreground: 24 10% 13%;
   --popover: 0 0% 100%;
   --popover-foreground: 24 10% 13%;
-  --primary: 348 98% 35%;    /* #b20225 — Burgundy Red */
+  --primary: 358 70% 42%;    /* #B62025 — Burgundy Red */
   --primary-foreground: 0 0% 100%;
   --secondary: 36 8% 92%;    /* #ECEAE6 — Warm Beige */
   --secondary-foreground: 24 10% 16%;
@@ -16,17 +16,17 @@
   --muted-foreground: 24 5% 41%;
   --accent: 38 40% 95%;     /* #a07f3e — Classic Gold */
   --accent-foreground: 24 10% 16%;
-  --destructive: 348 98% 35%;
+  --destructive: 358 70% 42%;
   --destructive-foreground: 0 0% 100%;
   --border: 30 6% 86%;
   --input: 30 6% 86%;
-  --ring: 348 98% 35%;
+  --ring: 358 70% 42%;
   --radius: 0.25rem;
 
   /* Brand Signature Color Tokens (Node 0b4619c) */
-  --wine: #b20225;          /* Burgundy Signature #b20225 */
-  --wine-deep: #80021a;     /* Dark Crimson #80021a */
-  --wine-glow: rgba(178, 2, 37, 0.16);
+  --wine: #B62025;          /* Burgundy Signature #B62025 */
+  --wine-deep: #8A1216;     /* Dark Crimson #8A1216 */
+  --wine-glow: rgba(182, 32, 37, 0.2);
   --gold: #a07f3e;          /* Rich Classic Gold #a07f3e */
   --gold-light: #c2a565;
   --gold-glow: rgba(160, 127, 62, 0.25);
@@ -59,7 +59,7 @@
   --card-foreground: 40 30% 92%;
   --popover: 0 0% 8%;
   --popover-foreground: 40 30% 92%;
-  --primary: 348 96% 50%;    /* #b20225 */
+  --primary: 358 70% 42%;    /* #B62025 */
   --primary-foreground: 40 30% 96%;
   --secondary: 0 0% 14%;
   --secondary-foreground: 40 30% 92%;
@@ -71,11 +71,11 @@
   --destructive-foreground: 0 0% 98%;
   --border: 0 0% 18%;        /* #2E2E2E */
   --input: 0 0% 16%;
-  --ring: 348 96% 50%;
+  --ring: 358 70% 42%;
 
-  --wine: #b20225;          /* Burgundy Signature #b20225 */
-  --wine-deep: #80021a;     /* Dark Crimson #80021a */
-  --wine-glow: rgba(178, 2, 37, 0.35);
+  --wine: #B62025;          /* Burgundy Signature #B62025 */
+  --wine-deep: #8A1216;     /* Dark Crimson #8A1216 */
+  --wine-glow: rgba(182, 32, 37, 0.35);
   --gold: #c2a565;          /* Champagne Soft Gold #c2a565 */
   --gold-light: #dfca9b;
   --gold-glow: rgba(194, 165, 101, 0.3);

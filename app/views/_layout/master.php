@@ -144,9 +144,9 @@
           colors: {
             background: 'hsl(var(--background))',
             foreground: 'hsl(var(--foreground))',
-            burgundy: '#b20225',
+            burgundy: '#B62025',
             champagneGold: '#c2a565',
-            wine: '#b20225',
+            wine: '#B62025',
             gold: '#a07f3e',
             ivoryWhite: '#F6F5F3',
             warmBeige: '#ECEAE6',
