@@ -52,7 +52,7 @@ class AuthService
     {
         self::startSecureSession();
 
-        if (empty($_SESSION['user_id'])) {
+        if (empty($_SESSION['user_id']) || empty($_SESSION['user_role']) || empty($_SESSION['username'])) {
             return false;
         }
 
@@ -72,10 +72,10 @@ class AuthService
     {
         if (!self::check()) return null;
         return [
-            'id' => $_SESSION['user_id'],
-            'username' => $_SESSION['username'],
-            'role' => $_SESSION['user_role'],
-            'full_name' => $_SESSION['full_name']
+            'id' => $_SESSION['user_id'] ?? null,
+            'username' => $_SESSION['username'] ?? '',
+            'role' => $_SESSION['user_role'] ?? $_SESSION['role'] ?? 'guest',
+            'full_name' => $_SESSION['full_name'] ?? 'Quản trị viên'
         ];
     }
 

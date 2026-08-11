@@ -109,7 +109,7 @@
   <?php if (!empty($hero['bg_image'])): ?>
     <link rel="preload" as="image" href="<?= htmlspecialchars($hero['bg_image']) ?>">
   <?php endif; ?>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600;1,700&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600;1,700&display=swap" rel="stylesheet">
   
   <script>
     (function () {
@@ -182,13 +182,15 @@
             ring: 'hsl(var(--ring))'
           },
           fontFamily: {
-            heading: ['var(--font-heading)'],
-            body: ['var(--font-body)'],
-            display: ['var(--font-heading)'],
-            serif: ['var(--font-serif)'],
-            signature: ['var(--font-signature)'],
-            cormorant: ['Cormorant Garamond', 'Georgia', 'serif'],
-            manrope: ['Manrope', 'ui-sans-serif', 'system-ui', 'sans-serif']
+            heading: ['Playfair Display', 'Georgia', 'serif'],
+            body: ['Montserrat', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            display: ['Playfair Display', 'Georgia', 'serif'],
+            serif: ['Playfair Display', 'Georgia', 'serif'],
+            signature: ['Playfair Display', 'Georgia', 'serif'],
+            playfair: ['Playfair Display', 'Georgia', 'serif'],
+            montserrat: ['Montserrat', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            cormorant: ['Playfair Display', 'Georgia', 'serif'],
+            manrope: ['Montserrat', 'ui-sans-serif', 'system-ui', 'sans-serif']
           }
         }
       }
