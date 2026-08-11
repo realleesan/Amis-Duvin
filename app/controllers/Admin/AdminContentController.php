@@ -213,10 +213,23 @@ class AdminContentController extends BaseController
             exit;
         }
 
+        // Auto-link pairing_id from pairings table
+        $pairingId = null;
+        if (!empty($packageTag)) {
+            $pairings = (new PairingModel())->getActivePairings();
+            foreach ($pairings as $p) {
+                if ($packageTag === 'Gói ' . $p['title'] || $packageTag === $p['title']) {
+                    $pairingId = (int)$p['id'];
+                    break;
+                }
+            }
+        }
+
         $db = (new TestimonialModel())->getDb();
         if ($db) {
-            $stmt = $db->prepare("INSERT INTO testimonials (name, role, package_tag, rating, content, avatar) VALUES (:name, :role, :package_tag, :rating, :content, :avatar)");
+            $stmt = $db->prepare("INSERT INTO testimonials (pairing_id, name, role, package_tag, rating, content, avatar) VALUES (:pairing_id, :name, :role, :package_tag, :rating, :content, :avatar)");
             $stmt->execute([
+                'pairing_id' => $pairingId,
                 'name' => $name,
                 'role' => $role,
                 'package_tag' => $packageTag,
@@ -242,10 +255,23 @@ class AdminContentController extends BaseController
         $content = trim($_POST['content'] ?? $_POST['quote'] ?? '');
         $avatar = trim($_POST['avatar'] ?? '');
 
+        // Auto-link pairing_id from pairings table
+        $pairingId = null;
+        if (!empty($packageTag)) {
+            $pairings = (new PairingModel())->getActivePairings();
+            foreach ($pairings as $p) {
+                if ($packageTag === 'Gói ' . $p['title'] || $packageTag === $p['title']) {
+                    $pairingId = (int)$p['id'];
+                    break;
+                }
+            }
+        }
+
         $db = (new TestimonialModel())->getDb();
         if ($db && $id > 0) {
-            $stmt = $db->prepare("UPDATE testimonials SET name = :name, role = :role, package_tag = :package_tag, rating = :rating, content = :content, avatar = :avatar WHERE id = :id");
+            $stmt = $db->prepare("UPDATE testimonials SET pairing_id = :pairing_id, name = :name, role = :role, package_tag = :package_tag, rating = :rating, content = :content, avatar = :avatar WHERE id = :id");
             $stmt->execute([
+                'pairing_id' => $pairingId,
                 'name' => $name,
                 'role' => $role,
                 'package_tag' => $packageTag,

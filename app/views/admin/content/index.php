@@ -683,8 +683,44 @@ ob_start();
 
               <div class="grid grid-cols-2 gap-3">
                 <div>
-                  <label for="testimonialTag_<?= $t['id'] ?>" class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Tag Gói dịch vụ</label>
-                  <input type="text" id="testimonialTag_<?= $t['id'] ?>" name="package_tag" autocomplete="off" value="<?= htmlspecialchars($t['package_tag'] ?? 'Gói Signature Pairing') ?>" class="input-elegant w-full px-3 py-2 rounded-sm text-xs">
+                  <label for="testimonialTag_<?= $t['id'] ?>" class="block text-[11px] uppercase tracking-widest text-muted-foreground mb-1">Gói dịch vụ / Workshop liên kết</label>
+                  <select id="testimonialTag_<?= $t['id'] ?>" name="package_tag" class="input-elegant w-full px-3 py-2 rounded-sm text-xs font-medium">
+                    <optgroup label="Gói tiệc Pairing">
+                      <?php foreach ($pairings as $p): ?>
+                        <?php 
+                          $tagOption = str_starts_with($p['title'], 'Gói') ? $p['title'] : 'Gói ' . $p['title'];
+                          $isSelected = ($t['package_tag'] === $tagOption || $t['package_tag'] === $p['title'] || (int)($t['pairing_id'] ?? 0) === (int)$p['id']);
+                        ?>
+                        <option value="<?= htmlspecialchars($tagOption) ?>" <?= $isSelected ? 'selected' : '' ?>>
+                          <?= htmlspecialchars($tagOption) ?>
+                        </option>
+                      <?php endforeach; ?>
+                    </optgroup>
+                    <?php if (!empty($workshops)): ?>
+                    <optgroup label="Workshop &amp; Khóa học">
+                      <?php foreach ($workshops as $ws): ?>
+                        <?php 
+                          $wsTagOption = str_starts_with($ws['title'], 'Workshop') ? $ws['title'] : 'Workshop ' . $ws['title'];
+                          $isWsSelected = ($t['package_tag'] === $wsTagOption || $t['package_tag'] === $ws['title']);
+                        ?>
+                        <option value="<?= htmlspecialchars($wsTagOption) ?>" <?= $isWsSelected ? 'selected' : '' ?>>
+                          <?= htmlspecialchars($wsTagOption) ?>
+                        </option>
+                      <?php endforeach; ?>
+                    </optgroup>
+                    <?php endif; ?>
+                    <?php 
+                      $knownTags = array_merge(
+                        array_map(fn($p) => str_starts_with($p['title'], 'Gói') ? $p['title'] : 'Gói ' . $p['title'], $pairings),
+                        array_column($pairings, 'title'),
+                        array_map(fn($ws) => str_starts_with($ws['title'], 'Workshop') ? $ws['title'] : 'Workshop ' . $ws['title'], $workshops ?? []),
+                        array_column($workshops ?? [], 'title')
+                      );
+                    ?>
+                    <?php if (!empty($t['package_tag']) && !in_array($t['package_tag'], $knownTags, true)): ?>
+                      <option value="<?= htmlspecialchars($t['package_tag']) ?>" selected><?= htmlspecialchars($t['package_tag']) ?></option>
+                    <?php endif; ?>
+                  </select>
                 </div>
 
                 <div>
@@ -817,8 +853,27 @@ ob_start();
 
       <div class="grid grid-cols-2 gap-4">
         <div>
-          <label for="createTestimonialPackageTag" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Tag Gói tiệc</label>
-          <input type="text" id="createTestimonialPackageTag" name="package_tag" autocomplete="off" value="Gói Signature Pairing" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm">
+          <label for="createTestimonialPackageTag" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Chọn Gói tiệc / Workshop *</label>
+          <select id="createTestimonialPackageTag" name="package_tag" required class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm font-medium">
+            <optgroup label="Gói tiệc Pairing">
+              <?php foreach ($pairings as $p): ?>
+                <?php $tagValue = str_starts_with($p['title'], 'Gói') ? $p['title'] : 'Gói ' . $p['title']; ?>
+                <option value="<?= htmlspecialchars($tagValue) ?>">
+                  <?= htmlspecialchars($tagValue) ?>
+                </option>
+              <?php endforeach; ?>
+            </optgroup>
+            <?php if (!empty($workshops)): ?>
+            <optgroup label="Workshop &amp; Khóa học">
+              <?php foreach ($workshops as $ws): ?>
+                <?php $wsTagValue = str_starts_with($ws['title'], 'Workshop') ? $ws['title'] : 'Workshop ' . $ws['title']; ?>
+                <option value="<?= htmlspecialchars($wsTagValue) ?>">
+                  <?= htmlspecialchars($wsTagValue) ?>
+                </option>
+              <?php endforeach; ?>
+            </optgroup>
+            <?php endif; ?>
+          </select>
         </div>
 
         <div>
