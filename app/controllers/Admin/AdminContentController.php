@@ -131,21 +131,49 @@ class AdminContentController extends BaseController
         $level = trim($_POST['level'] ?? '');
         $image = trim($_POST['image'] ?? '');
 
-        // Support structured courses and wines array inputs
-        $courses = $_POST['courses'] ?? null;
-        $wines = $_POST['wines'] ?? null;
-        if (is_array($courses)) {
-            $menuItemsArr = [];
-            foreach ($courses as $idx => $course) {
-                $c = trim($course);
-                $w = trim($wines[$idx] ?? '');
-                if ($c !== '' || $w !== '') {
-                    $menuItemsArr[] = ['course' => $c, 'wine' => $w];
+        // Support new structured courses and wines per section
+        $sections = ['khai_vi' => 'Khai vị', 'mon_chinh' => 'Món chính', 'trang_mieng' => 'Tráng miệng'];
+        $menuItems = [
+            'khai_vi' => ['items' => [], 'wines' => []],
+            'mon_chinh' => ['items' => [], 'wines' => []],
+            'trang_mieng' => ['items' => [], 'wines' => []]
+        ];
+        $hasNewFormat = false;
+        foreach ($sections as $key => $label) {
+            $courses = $_POST["courses_{$key}"] ?? null;
+            $wines = $_POST["wines_{$key}"] ?? null;
+            if (is_array($courses)) {
+                $hasNewFormat = true;
+                foreach ($courses as $idx => $course) {
+                    $c = trim($course);
+                    $w = trim($wines[$idx] ?? '');
+                    if ($c !== '' || $w !== '') {
+                        $menuItems[$key]['items'][] = $c;
+                        if ($w !== '') {
+                            $menuItems[$key]['wines'][] = $w;
+                        }
+                    }
                 }
             }
-            $menuItems = json_encode($menuItemsArr, JSON_UNESCAPED_UNICODE);
+        }
+        if (!$hasNewFormat) {
+            $courses = $_POST['courses'] ?? null;
+            $wines = $_POST['wines'] ?? null;
+            if (is_array($courses)) {
+                $menuItemsArr = [];
+                foreach ($courses as $idx => $course) {
+                    $c = trim($course);
+                    $w = trim($wines[$idx] ?? '');
+                    if ($c !== '' || $w !== '') {
+                        $menuItemsArr[] = ['course' => $c, 'wine' => $w];
+                    }
+                }
+                $menuItems = $menuItemsArr;
+            } else {
+                $menuItems = trim($_POST['menu_items'] ?? '');
+            }
         } else {
-            $menuItems = trim($_POST['menu_items'] ?? '');
+            $menuItems = json_encode($menuItems, JSON_UNESCAPED_UNICODE);
         }
 
         $db = (new PairingModel())->getDb();
@@ -473,15 +501,41 @@ class AdminContentController extends BaseController
         $priceText = trim($_POST['price_text'] ?? 'Từ 1.500.000đ/khách');
         $image = trim($_POST['image'] ?? '');
 
-        $courses = $_POST['courses'] ?? null;
-        $wines = $_POST['wines'] ?? null;
+        $sections = ['khai_vi' => 'Khai vị', 'mon_chinh' => 'Món chính', 'trang_mieng' => 'Tráng miệng'];
+        $menuItems = [
+            'khai_vi' => ['items' => [], 'wines' => []],
+            'mon_chinh' => ['items' => [], 'wines' => []],
+            'trang_mieng' => ['items' => [], 'wines' => []]
+        ];
         $menuItemsArr = [];
-        if (is_array($courses)) {
-            foreach ($courses as $idx => $course) {
-                $c = trim($course);
-                $w = trim($wines[$idx] ?? '');
-                if ($c !== '' || $w !== '') {
-                    $menuItemsArr[] = ['course' => $c, 'wine' => $w];
+        $hasNewFormat = false;
+        foreach ($sections as $key => $label) {
+            $courses = $_POST["courses_{$key}"] ?? null;
+            $wines = $_POST["wines_{$key}"] ?? null;
+            if (is_array($courses)) {
+                $hasNewFormat = true;
+                foreach ($courses as $idx => $course) {
+                    $c = trim($course);
+                    $w = trim($wines[$idx] ?? '');
+                    if ($c !== '' || $w !== '') {
+                        $menuItems[$key]['items'][] = $c;
+                        if ($w !== '') {
+                            $menuItems[$key]['wines'][] = $w;
+                        }
+                    }
+                }
+            }
+        }
+        if (!$hasNewFormat) {
+            $courses = $_POST['courses'] ?? null;
+            $wines = $_POST['wines'] ?? null;
+            if (is_array($courses)) {
+                foreach ($courses as $idx => $course) {
+                    $c = trim($course);
+                    $w = trim($wines[$idx] ?? '');
+                    if ($c !== '' || $w !== '') {
+                        $menuItemsArr[] = ['course' => $c, 'wine' => $w];
+                    }
                 }
             }
         }
@@ -492,13 +546,14 @@ class AdminContentController extends BaseController
         }
 
         $pairingModel = new PairingModel();
+        $finalMenuItems = $hasNewFormat ? json_encode($menuItems, JSON_UNESCAPED_UNICODE) : $menuItemsArr;
         $pairingModel->createPairing([
             'title' => $title,
             'level' => $level,
             'subtitle' => $subtitle,
             'price_text' => $priceText,
             'image' => $image,
-            'menu_items' => $menuItemsArr
+            'menu_items' => $finalMenuItems
         ]);
 
         $currentUser = AuthService::user();

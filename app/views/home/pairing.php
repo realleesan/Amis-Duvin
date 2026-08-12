@@ -12,9 +12,9 @@ if (empty($pairings)) {
             'capacity' => '8–20 khách',
             'image' => 'https://media.base44.com/images/public/6a623336361c483b3f15558c/e6d25f6b5_generated_78290a91.png/v1/fill/w_535,h_402,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/e6d25f6b5_generated_78290a91.webp',
             'menu_items' => [
-                ['course' => 'Khai vị — Carpaccio bò, parmigiano', 'wine' => 'Pinot Noir'],
-                ['course' => 'Món chính — Ngừ sốt tiêu, bơ thảo mộc', 'wine' => 'Cabernet Sauvignon'],
-                ['course' => 'Tráng miệng — Tart chocolate đen', 'wine' => 'Port Tawny']
+                'khai_vi' => ['items' => ['Carpaccio bò, parmigiano'], 'wines' => ['Pinot Noir']],
+                'mon_chinh' => ['items' => ['Ngừ sốt tiêu, bơ thảo mộc'], 'wines' => ['Cabernet Sauvignon']],
+                'trang_mieng' => ['items' => ['Tart chocolate đen'], 'wines' => ['Port Tawny']]
             ]
         ],
         [
@@ -28,9 +28,9 @@ if (empty($pairings)) {
             'capacity' => '8–20 khách',
             'image' => 'https://media.base44.com/images/public/6a623336361c483b3f15558c/4f229480d_generated_ffd34238.png/v1/fill/w_535,h_402,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/4f229480d_generated_ffd34238.webp',
             'menu_items' => [
-                ['course' => 'Khai vị — Sashimi cá hồi Na Uy', 'wine' => 'Chardonnay'],
-                ['course' => 'Món chính — Bò bít tết Wagyu', 'wine' => 'Malbec'],
-                ['course' => 'Tráng miệng — Crème brûlée vani', 'wine' => 'Sauternes']
+                'khai_vi' => ['items' => ['Sashimi cá hồi Na Uy'], 'wines' => ['Chardonnay']],
+                'mon_chinh' => ['items' => ['Bò bít tết Wagyu'], 'wines' => ['Malbec']],
+                'trang_mieng' => ['items' => ['Crème brûlée vani'], 'wines' => ['Sauternes']]
             ]
         ],
         [
@@ -44,9 +44,9 @@ if (empty($pairings)) {
             'capacity' => '6–12 khách',
             'image' => 'https://media.base44.com/images/public/6a623336361c483b3f15558c/0a280a9c0_generated_bbd5d622.png/v1/fill/w_535,h_402,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/0a280a9c0_generated_bbd5d622.webp',
             'menu_items' => [
-                ['course' => 'Khai vị — Nếm thử 5 dòng vang hầm riêng', 'wine' => 'Vertical Tasting'],
-                ['course' => 'Món kèm — Phô mai nhập khẩu & pâté', 'wine' => 'Bordeaux Grand Cru'],
-                ['course' => 'Món chính — Thỏ nấu rượu vang', 'wine' => 'Burgundy Pinot']
+                'khai_vi' => ['items' => ['Nếm thử 5 dòng vang hầm riêng'], 'wines' => ['Vertical Tasting']],
+                'mon_chinh' => ['items' => ['Phô mai nhập khẩu & pâté', 'Thỏ nấu rượu vang'], 'wines' => ['Bordeaux Grand Cru', 'Burgundy Pinot']],
+                'trang_mieng' => ['items' => [], 'wines' => []]
             ]
         ],
         [
@@ -60,9 +60,9 @@ if (empty($pairings)) {
             'capacity' => '15–40 khách',
             'image' => 'https://media.base44.com/images/public/6a623336361c483b3f15558c/af384a896_generated_47deb67b.png/v1/fill/w_535,h_402,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/af384a896_generated_47deb67b.webp',
             'menu_items' => [
-                ['course' => 'Khai vị — Aperitif & lộ trình vang 7 món', 'wine' => 'Champagne'],
-                ['course' => 'Món chính — Cừu nướng thảo mộc', 'wine' => 'Barolo Riserva'],
-                ['course' => 'Tráng miệng — Soufflé chocolate', 'wine' => 'Tokaji Aszú']
+                'khai_vi' => ['items' => ['Aperitif & lộ trình vang 7 món'], 'wines' => ['Champagne']],
+                'mon_chinh' => ['items' => ['Cừu nướng thảo mộc'], 'wines' => ['Barolo Riserva']],
+                'trang_mieng' => ['items' => ['Soufflé chocolate'], 'wines' => ['Tokaji Aszú']]
             ]
         ]
     ];

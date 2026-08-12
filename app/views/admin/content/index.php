@@ -409,55 +409,73 @@ ob_start();
                 <textarea id="pairingSubtitle_<?= $p['id'] ?>" name="subtitle" rows="2" autocomplete="off" class="input-elegant w-full p-2.5 rounded-sm text-xs leading-relaxed"><?= htmlspecialchars($p['subtitle']) ?></textarea>
               </div>
 
-              <div>
-                <div class="flex items-center justify-between mb-2">
-                  <span class="block text-[11px] uppercase tracking-widest text-muted-foreground">Thực đơn &amp; Rượu Vang đi kèm</span>
-                  <button type="button" onclick="addMenuItemRow(<?= $p['id'] ?>)" class="admin-btn-gold px-2.5 py-1 rounded text-[10px] uppercase tracking-wider font-semibold flex items-center gap-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus w-3 h-3"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
-                    <span>Thêm món</span>
-                  </button>
-                </div>
+              <?php
+                $menuData = [];
+                if (!empty($p['menu_items'])) {
+                    if (is_array($p['menu_items'])) {
+                        $menuData = $p['menu_items'];
+                    } else {
+                        $decoded = json_decode($p['menu_items'], true);
+                        if (is_array($decoded)) {
+                            $menuData = $decoded;
+                        }
+                    }
+                }
+                if (empty($menuData) || !isset($menuData['khai_vi'])) {
+                    $menuData = [
+                        'khai_vi' => ['items' => [''], 'wines' => ['']],
+                        'mon_chinh' => ['items' => [''], 'wines' => ['']],
+                        'trang_mieng' => ['items' => [''], 'wines' => ['']]
+                    ];
+                }
+                $sections = [
+                    'khai_vi' => 'Khai vị',
+                    'mon_chinh' => 'Món chính',
+                    'trang_mieng' => 'Tráng miệng'
+                ];
+              ?>
 
-                <?php
-                  $menuList = [];
-                  if (!empty($p['menu_items'])) {
-                      if (is_array($p['menu_items'])) {
-                          $menuList = $p['menu_items'];
-                      } else {
-                          $decoded = json_decode($p['menu_items'], true);
-                          if (is_array($decoded)) {
-                              $menuList = $decoded;
-                          }
-                      }
-                  }
-                  if (empty($menuList)) {
-                      $menuList = [['course' => '', 'wine' => '']];
-                  }
-                ?>
-
-                <div id="menuItemsContainer_<?= $p['id'] ?>" class="space-y-2.5">
-                  <?php foreach ($menuList as $mIdx => $mItem): ?>
-                    <div class="menu-item-row bg-muted/20 border border-border/40 p-2.5 rounded-sm space-y-2">
-                      <div class="flex items-center justify-between text-[10px] text-muted-foreground uppercase tracking-widest font-mono">
-                        <span>Món #<span class="item-number"><?= $mIdx + 1 ?></span></span>
-                        <button type="button" onclick="removeMenuItemRow(this)" class="text-muted-foreground hover:text-rose-400 p-0.5 transition-colors" title="Xóa món này">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2 w-3.5 h-3.5"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
-                        </button>
-                      </div>
-
-                      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                        <div>
-                          <label for="course_<?= $p['id'] ?>_<?= $mIdx ?>" class="block text-[10px] text-muted-foreground mb-0.5">Tên món ăn</label>
-                          <input type="text" id="course_<?= $p['id'] ?>_<?= $mIdx ?>" name="courses[]" autocomplete="off" value="<?= htmlspecialchars($mItem['course'] ?? '') ?>" placeholder="VD: Khởi vị — Carpaccio bò" class="input-elegant w-full px-2.5 py-1.5 rounded-sm text-xs font-medium">
-                        </div>
-                        <div>
-                          <label for="wine_<?= $p['id'] ?>_<?= $mIdx ?>" class="block text-[10px] text-muted-foreground mb-0.5">Rượu Vang đi kèm</label>
-                          <input type="text" id="wine_<?= $p['id'] ?>_<?= $mIdx ?>" name="wines[]" autocomplete="off" value="<?= htmlspecialchars($mItem['wine'] ?? '') ?>" placeholder="VD: Pinot Noir" class="input-elegant w-full px-2.5 py-1.5 rounded-sm text-xs font-mono text-[var(--gold)]">
-                        </div>
-                      </div>
+              <div class="space-y-4">
+                <?php foreach ($sections as $secKey => $secLabel): ?>
+                  <div class="bg-muted/10 border border-border/30 rounded-sm p-3">
+                    <div class="flex items-center justify-between mb-2">
+                      <span class="block text-[11px] uppercase tracking-widest text-muted-foreground font-semibold"><?= $secLabel ?></span>
+                      <button type="button" onclick="addMenuItemRow(<?= $p['id'] ?>, '<?= $secKey ?>')" class="admin-btn-gold px-2.5 py-1 rounded text-[10px] uppercase tracking-wider font-semibold flex items-center gap-1">
+                        <svg xmlns="http://www.w3.org/24" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus w-3 h-3"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+                        <span>Thêm món</span>
+                      </button>
                     </div>
-                  <?php endforeach; ?>
-                </div>
+                    <div id="menuItemsContainer_<?= $secKey ?>_<?= $p['id'] ?>" class="space-y-2">
+                      <?php
+                        $secItems = $menuData[$secKey]['items'] ?? [''];
+                        $secWines = $menuData[$secKey]['wines'] ?? [''];
+                        $count = max(count($secItems), count($secWines));
+                        for ($i = 0; $i < $count; $i++):
+                          $item = $secItems[$i] ?? '';
+                          $wine = $secWines[$i] ?? '';
+                      ?>
+                      <div class="menu-item-row bg-muted/20 border border-border/40 p-2.5 rounded-sm space-y-2">
+                        <div class="flex items-center justify-between text-[10px] text-muted-foreground uppercase tracking-widest font-mono">
+                          <span>Món #<span class="item-number"><?= $i + 1 ?></span></span>
+                          <button type="button" onclick="removeMenuItemRow(this)" class="text-muted-foreground hover:text-rose-400 p-0.5 transition-colors" title="Xóa món này">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2 w-3.5 h-3.5"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
+                          </button>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                          <div>
+                            <label class="block text-[10px] text-muted-foreground mb-0.5">Tên món ăn</label>
+                            <input type="text" name="courses_<?= $secKey ?>[]" autocomplete="off" value="<?= htmlspecialchars($item) ?>" placeholder="VD: Carpaccio bò, parmigiano" class="input-elegant w-full px-2.5 py-1.5 rounded-sm text-xs font-medium">
+                          </div>
+                          <div>
+                            <label class="block text-[10px] text-muted-foreground mb-0.5">Rượu Vang đi kèm</label>
+                            <input type="text" name="wines_<?= $secKey ?>[]" autocomplete="off" value="<?= htmlspecialchars($wine) ?>" placeholder="VD: Pinot Noir" class="input-elegant w-full px-2.5 py-1.5 rounded-sm text-xs font-mono text-[var(--gold)]">
+                          </div>
+                        </div>
+                      </div>
+                      <?php endfor; ?>
+                    </div>
+                  </div>
+                <?php endforeach; ?>
               </div>
 
               <div class="grid grid-cols-2 gap-3">
@@ -1053,11 +1071,46 @@ ob_start();
               </label>
               <span class="upload-status text-[11px] text-muted-foreground italic"></span>
             </div>
-            <p class="text-[10px] text-muted-foreground/70 leading-relaxed mt-1.5">
-               <strong>Ảnh Gói tiệc Pairing</strong>: Khuyến nghị <strong>800 × 600 px</strong> (tỉ lệ 4:3) · JPG/WebP · Tối đa 3MB · Ảnh ngang, sắc nét, gam màu sang trọng
-            </p>
+             <p class="text-[10px] text-muted-foreground/70 leading-relaxed mt-1.5">
+                <strong>Ảnh Gói tiệc Pairing</strong>: Khuyến nghị <strong>800 × 600 px</strong> (tỉ lệ 4:3) · JPG/WebP · Tối đa 3MB · Ảnh ngang, sắc nét, gam màu sang trọng
+             </p>
+           </div>
+         </div>
+       </div>
+
+       <div class="space-y-3">
+        <?php
+          $createSections = [
+              'khai_vi' => 'Khai vị',
+              'mon_chinh' => 'Món chính',
+              'trang_mieng' => 'Tráng miệng'
+          ];
+        ?>
+        <?php foreach ($createSections as $secKey => $secLabel): ?>
+          <div class="bg-muted/10 border border-border/30 rounded-sm p-3">
+            <div class="flex items-center justify-between mb-2">
+              <span class="block text-[11px] uppercase tracking-widest text-muted-foreground font-semibold"><?= $secLabel ?></span>
+              <button type="button" onclick="addCreateMenuItemRow('<?= $secKey ?>')" class="admin-btn-gold px-2.5 py-1 rounded text-[10px] uppercase tracking-wider font-semibold flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus w-3 h-3"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+                <span>Thêm món</span>
+              </button>
+            </div>
+            <div id="createMenuItemsContainer_<?= $secKey ?>" class="space-y-2">
+              <div class="menu-item-row bg-muted/20 border border-border/40 p-2.5 rounded-sm space-y-2">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <div>
+                    <label class="block text-[10px] text-muted-foreground mb-0.5">Tên món ăn</label>
+                    <input type="text" name="courses_<?= $secKey ?>[]" autocomplete="off" placeholder="VD: Carpaccio bò, parmigiano" class="input-elegant w-full px-2.5 py-1.5 rounded-sm text-xs font-medium">
+                  </div>
+                  <div>
+                    <label class="block text-[10px] text-muted-foreground mb-0.5">Rượu Vang đi kèm</label>
+                    <input type="text" name="wines_<?= $secKey ?>[]" autocomplete="off" placeholder="VD: Pinot Noir" class="input-elegant w-full px-2.5 py-1.5 rounded-sm text-xs font-mono text-[var(--gold)]">
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        <?php endforeach; ?>
       </div>
 
       <div class="pt-2 flex gap-3">
@@ -1197,8 +1250,8 @@ function closeCreateFaqModal() {
   document.getElementById('createFaqModal').classList.remove('active');
 }
 
-function addMenuItemRow(pairingId) {
-  const container = document.getElementById('menuItemsContainer_' + pairingId);
+function addMenuItemRow(pairingId, sectionKey) {
+  const container = document.getElementById('menuItemsContainer_' + sectionKey + '_' + pairingId);
   if (!container) return;
 
   const count = container.querySelectorAll('.menu-item-row').length + 1;
@@ -1214,11 +1267,40 @@ function addMenuItemRow(pairingId) {
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
       <div>
         <label class="block text-[10px] text-muted-foreground mb-0.5">Tên món ăn</label>
-        <input type="text" name="courses[]" autocomplete="off" placeholder="VD: Món chính — Thăn bò Úc áp chảo" class="input-elegant w-full px-2.5 py-1.5 rounded-sm text-xs font-medium">
+        <input type="text" name="courses_${sectionKey}[]" autocomplete="off" placeholder="VD: Carpaccio bò, parmigiano" class="input-elegant w-full px-2.5 py-1.5 rounded-sm text-xs font-medium">
       </div>
       <div>
         <label class="block text-[10px] text-muted-foreground mb-0.5">Rượu Vang đi kèm</label>
-        <input type="text" name="wines[]" autocomplete="off" placeholder="VD: Syrah" class="input-elegant w-full px-2.5 py-1.5 rounded-sm text-xs font-mono text-[var(--gold)]">
+        <input type="text" name="wines_${sectionKey}[]" autocomplete="off" placeholder="VD: Pinot Noir" class="input-elegant w-full px-2.5 py-1.5 rounded-sm text-xs font-mono text-[var(--gold)]">
+      </div>
+    </div>
+  `;
+  container.appendChild(div);
+  reindexMenuItems(container);
+}
+
+function addCreateMenuItemRow(sectionKey) {
+  const container = document.getElementById('createMenuItemsContainer_' + sectionKey);
+  if (!container) return;
+
+  const count = container.querySelectorAll('.menu-item-row').length + 1;
+  const div = document.createElement('div');
+  div.className = 'menu-item-row bg-muted/20 border border-border/40 p-2.5 rounded-sm space-y-2 animate-fade-in';
+  div.innerHTML = `
+    <div class="flex items-center justify-between text-[10px] text-muted-foreground uppercase tracking-widest font-mono">
+      <span>Món #<span class="item-number">${count}</span></span>
+      <button type="button" onclick="removeMenuItemRow(this)" class="text-muted-foreground hover:text-rose-400 p-0.5 transition-colors" title="Xóa món này">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2 w-3.5 h-3.5"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
+      </button>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+      <div>
+        <label class="block text-[10px] text-muted-foreground mb-0.5">Tên món ăn</label>
+        <input type="text" name="courses_${sectionKey}[]" autocomplete="off" placeholder="VD: Carpaccio bò, parmigiano" class="input-elegant w-full px-2.5 py-1.5 rounded-sm text-xs font-medium">
+      </div>
+      <div>
+        <label class="block text-[10px] text-muted-foreground mb-0.5">Rượu Vang đi kèm</label>
+        <input type="text" name="wines_${sectionKey}[]" autocomplete="off" placeholder="VD: Pinot Noir" class="input-elegant w-full px-2.5 py-1.5 rounded-sm text-xs font-mono text-[var(--gold)]">
       </div>
     </div>
   `;

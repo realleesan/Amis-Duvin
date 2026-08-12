@@ -260,21 +260,64 @@ document.addEventListener('DOMContentLoaded', () => {
       if (typeof menuItems === 'string') {
         try { menuItems = JSON.parse(menuItems); } catch(e) { menuItems = []; }
       }
+
+      const sectionLabels = {
+        'khai_vi': 'Khai vị',
+        'mon_chinh': 'Món chính',
+        'trang_mieng': 'Tráng miệng'
+      };
+
       if (Array.isArray(menuItems)) {
-        menuItems.forEach(item => {
-          const li = document.createElement('li');
-          li.className = "grid grid-cols-12 gap-3 items-start py-3 border-b border-border/40 text-xs sm:text-sm last:border-0";
-          let courseStr = (item.course || '').replace(/^Khởi vị/g, 'Khai vị');
-          li.innerHTML = `
-            <div class="col-span-7 sm:col-span-8 text-foreground/90 font-medium leading-relaxed">
-              ${courseStr}
-            </div>
-            <div class="col-span-5 sm:col-span-4 text-[var(--wine)] font-semibold text-right leading-relaxed">
-              ${item.wine || ''}
-            </div>
-          `;
-          menuContainer.appendChild(li);
-        });
+        const li = document.createElement('li');
+        li.className = "grid grid-cols-12 gap-3 items-start py-3 border-b border-border/40 text-xs sm:text-sm last:border-0";
+        let courseStr = (menuItems[0]?.course || '').replace(/^Khởi vị/g, 'Khai vị');
+        li.innerHTML = `
+          <div class="col-span-7 sm:col-span-8 text-foreground/90 font-medium leading-relaxed">
+            ${courseStr}
+          </div>
+          <div class="col-span-5 sm:col-span-4 text-[var(--wine)] font-semibold text-right leading-relaxed">
+            ${menuItems[0]?.wine || ''}
+          </div>
+        `;
+        menuContainer.appendChild(li);
+      } else if (typeof menuItems === 'object' && menuItems !== null) {
+        const sectionOrder = ['khai_vi', 'mon_chinh', 'trang_mieng'];
+        for (const secKey of sectionOrder) {
+          const section = menuItems[secKey];
+          if (!section) continue;
+          const items = section.items || [];
+          const wines = section.wines || [];
+          if (!items.length && !wines.length) continue;
+
+          const header = document.createElement('li');
+          header.className = "text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-semibold pt-3 pb-1 border-t border-border/30 first:border-t-0";
+          header.textContent = sectionLabels[secKey] || secKey;
+          menuContainer.appendChild(header);
+
+          const maxLen = Math.max(items.length, wines.length);
+          for (let i = 0; i < maxLen; i++) {
+            const li = document.createElement('li');
+            li.className = "grid grid-cols-12 gap-3 items-start py-2.5 border-b border-border/30 text-xs sm:text-sm last:border-0";
+            const itemText = items[i] || '';
+            const wineText = wines[i] || '';
+            li.innerHTML = `
+              <div class="col-span-7 sm:col-span-8 text-foreground/90 font-medium leading-relaxed">
+                ${itemText}
+              </div>
+              <div class="col-span-5 sm:col-span-4 text-[var(--wine)] font-semibold text-right leading-relaxed">
+                ${wineText}
+              </div>
+            `;
+            menuContainer.appendChild(li);
+          }
+        }
+      }
+
+      if (!menuContainer.children.length) {
+        const empty = document.createElement('li');
+        empty.className = "text-xs text-muted-foreground italic py-3 text-center";
+        empty.textContent = 'Chưa cập nhật thực đơn';
+        menuContainer.appendChild(empty);
       }
     }
 

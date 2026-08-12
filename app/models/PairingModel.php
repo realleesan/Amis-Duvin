@@ -8,6 +8,45 @@ class PairingModel extends BaseModel
 {
     protected string $table = 'pairings';
 
+    private function normalizeMenuItems(array $decoded): array
+    {
+        if (isset($decoded['khai_vi']) || isset($decoded['mon_chinh']) || isset($decoded['trang_mieng'])) {
+            return $decoded;
+        }
+
+        $result = [
+            'khai_vi' => ['items' => [], 'wines' => []],
+            'mon_chinh' => ['items' => [], 'wines' => []],
+            'trang_mieng' => ['items' => [], 'wines' => []]
+        ];
+
+        foreach ($decoded as $item) {
+            if (!is_array($item) || empty($item['course'])) continue;
+            $course = $item['course'];
+            $wine = $item['wine'] ?? '';
+
+            if (preg_match('/^(?:Khởi\s+vị|Khai\s+vị)/u', $course)) {
+                $section = 'khai_vi';
+            } elseif (preg_match('/^Món\s+(?:chính|kèm)/u', $course)) {
+                $section = 'mon_chinh';
+            } elseif (preg_match('/^Tráng\s+miệng/u', $course)) {
+                $section = 'trang_mieng';
+            } else {
+                continue;
+            }
+
+            $itemName = preg_replace('/^[^—–-]+[—–-]\s*/u', '', $course);
+            if ($itemName !== '') {
+                $result[$section]['items'][] = $itemName;
+                if ($wine !== '') {
+                    $result[$section]['wines'][] = $wine;
+                }
+            }
+        }
+
+        return $result;
+    }
+
     public function getActivePairings(): array
     {
         if (!$this->db) return [];
@@ -16,7 +55,8 @@ class PairingModel extends BaseModel
 
         foreach ($results as &$item) {
             if (isset($item['menu_items']) && is_string($item['menu_items'])) {
-                $item['menu_items'] = json_decode($item['menu_items'], true) ?? [];
+                $decoded = json_decode($item['menu_items'], true) ?? [];
+                $item['menu_items'] = is_array($decoded) ? $this->normalizeMenuItems($decoded) : [];
             }
         }
         return $results;
@@ -29,7 +69,8 @@ class PairingModel extends BaseModel
         $stmt->execute(['slug' => $slug]);
         $result = $stmt->fetch();
         if ($result && isset($result['menu_items']) && is_string($result['menu_items'])) {
-            $result['menu_items'] = json_decode($result['menu_items'], true) ?? [];
+            $decoded = json_decode($result['menu_items'], true) ?? [];
+            $result['menu_items'] = is_array($decoded) ? $this->normalizeMenuItems($decoded) : [];
         }
         return $result ?: null;
     }
