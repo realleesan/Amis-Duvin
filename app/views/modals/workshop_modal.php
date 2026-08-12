@@ -2,7 +2,7 @@
 <div id="workshopModal" class="modal-overlay">
   <div class="relative w-full max-w-lg max-h-[90vh] flex flex-col bg-card border border-border rounded-sm shadow-2xl animate-scale-in my-auto">
     <!-- Sticky Modal Header -->
-    <div class="shrink-0 glass px-6 sm:px-8 py-5 flex items-center justify-between border-b border-border">
+    <div class="shrink-0 bg-card px-6 sm:px-8 py-5 flex items-center justify-between border-b border-border">
       <div>
         <p class="text-[10px] uppercase tracking-[0.25em] text-[var(--gold)] mb-1">Giữ chỗ Workshop</p>
         <h3 class="font-heading text-lg text-foreground">Đăng ký tham gia</h3>

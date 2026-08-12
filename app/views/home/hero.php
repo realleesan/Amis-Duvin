@@ -6,12 +6,12 @@ $heroDescription = $hero['description'] ?? 'Trải nghiệm tiệc riêng tư k�
 $heroBgImage = $hero['bg_image'] ?? 'https://media.base44.com/images/public/6a623336361c483b3f15558c/1d3f75363_generated_b7d85214.png/v1/fill/w_1171,h_927,al_c,q_90,usm_0.66_1.00_0.01,enc_webp,quality_auto/1d3f75363_generated_b7d85214.webp';
 ?>
 <section id="hero" class="relative min-h-screen flex items-center overflow-hidden">
-  <div class="absolute inset-0">
+  <div class="absolute inset-0 transform-gpu pointer-events-none">
     <span class="inline-block absolute inset-0 w-full h-full">
-      <img src="<?= htmlspecialchars($heroBgImage) ?>" loading="lazy" class="w-full h-full inset-0 absolute object-cover" alt="<?= htmlspecialchars($heroTitleMain) ?>">
+      <img src="<?= htmlspecialchars($heroBgImage) ?>" loading="eager" fetchpriority="high" class="w-full h-full inset-0 absolute object-cover" alt="<?= htmlspecialchars($heroTitleMain) ?>">
     </span>
-    <div class="absolute inset-0 bg-gradient-to-b from-black/75 via-black/45 to-background"></div>
-    <div class="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-[#0D0D0D]"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-black/75 to-transparent"></div>
   </div>
   <div class="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 w-full pt-28 pb-20">
     <div class="reveal is-visible mb-6">
@@ -30,11 +30,11 @@ $heroBgImage = $hero['bg_image'] ?? 'https://media.base44.com/images/public/6a62
     </div>
     <div class="reveal is-visible">
       <div class="flex flex-col sm:flex-row gap-4">
-        <button class="btn-brand-burgundy px-8 py-4 rounded-sm text-xs sm:text-sm uppercase tracking-[0.2em] font-semibold min-h-[52px] shadow-lg" onclick="scrollToId('register')">
-          Đặt tiệc riêng tư ngay
+        <button class="btn-brand-burgundy px-8 py-4 rounded-sm text-xs sm:text-sm uppercase tracking-[0.2em] font-semibold min-h-[52px] shadow-lg whitespace-nowrap" onclick="scrollToId('register')">
+          Đặt&nbsp;tiệc riêng&nbsp;tư&nbsp;ngay
         </button>
-        <button class="btn-brand-gold-outline px-7 py-4 rounded-sm text-xs sm:text-sm uppercase tracking-[0.2em] font-semibold min-h-[52px]" onclick="scrollToId('pairing')">
-          Khám phá các Gói Tiệc
+        <button class="btn-brand-gold-outline px-7 py-4 rounded-sm text-xs sm:text-sm uppercase tracking-[0.2em] font-semibold min-h-[52px] whitespace-nowrap" onclick="scrollToId('pairing')">
+          Khám&nbsp;phá các&nbsp;Gói&nbsp;Tiệc
         </button>
       </div>
     </div>

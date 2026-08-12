@@ -1,7 +1,7 @@
 <!-- Privacy Policy Modal -->
 <div id="privacyPolicyModal" class="modal-overlay">
   <div class="relative w-full max-w-2xl max-h-[90vh] flex flex-col bg-card border border-border rounded-sm shadow-2xl animate-scale-in my-auto">
-    <div class="shrink-0 glass px-6 sm:px-8 py-5 flex items-center justify-between border-b border-border">
+    <div class="shrink-0 bg-card px-6 sm:px-8 py-5 flex items-center justify-between border-b border-border">
       <div>
         <p class="text-[10px] uppercase tracking-[0.25em] text-[var(--gold)] mb-1">Chính sách Amis Duvin</p>
         <h3 class="font-heading text-lg text-foreground">Bảo mật Thông tin Cá nhân</h3>

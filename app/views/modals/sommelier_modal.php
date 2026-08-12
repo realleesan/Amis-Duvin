@@ -35,7 +35,7 @@
     <!-- Modal Body with hidden scrollbar (no-scrollbar utility) -->
     <div class="flex-1 overflow-y-auto no-scrollbar px-5 sm:px-8 lg:px-12 py-10 space-y-16">
       <!-- Quote -->
-      <div class="max-w-2xl">
+      <div class="w-full">
         <p class="font-serif-display italic text-xl sm:text-2xl text-foreground/80 leading-relaxed">“Mỗi chai vang là một câu chuyện — và tôi là người kể câu chuyện ấy trên những bàn tiệc tinh hoa.”</p>
         <p class="text-sm text-muted-foreground mt-4">— Sommelier Alex Thịnh</p>
       </div>
@@ -46,7 +46,7 @@
           <h3 class="font-heading text-2xl sm:text-3xl text-foreground">Nghệ thuật &amp; Ngoại giao</h3>
           <div class="hairline w-16 mt-4"></div>
         </div>
-        <p class="text-sm text-muted-foreground leading-relaxed mb-7 max-w-2xl">Người kết nối giới tinh hoa trong các buổi tiệc Private &amp; Fine Dining — nơi vang trở thành cầu nối giữa văn hóa, nghệ thuật và ngoại giao thương gia.</p>
+        <p class="text-sm text-muted-foreground leading-relaxed mb-7 w-full">Người kết nối giới tinh hoa trong các buổi tiệc Private &amp; Fine Dining — nơi vang trở thành cầu nối giữa văn hóa, nghệ thuật và ngoại giao thương gia.</p>
 
         <!-- Image Slider Component -->
         <div class="relative overflow-hidden rounded-sm border border-border">
@@ -120,7 +120,7 @@
           <h3 class="font-heading text-2xl sm:text-3xl text-foreground">Bảo chứng Học thuật</h3>
           <div class="hairline w-16 mt-4"></div>
         </div>
-        <p class="text-sm text-muted-foreground leading-relaxed mb-7 max-w-2xl">Những bảo chứng học thuật và giải thưởng quốc tế — minh chứng cho hành trình tận tâm với nghệ thuật vang. Di chuột để xem, bấm để phóng to chi tiết.</p>
+        <p class="text-sm text-muted-foreground leading-relaxed mb-7 w-full">Những bảo chứng học thuật và giải thưởng quốc tế — minh chứng cho hành trình tận tâm với nghệ thuật vang. Di chuột để xem, bấm để phóng to chi tiết.</p>
         
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
           <!-- Cert 1 -->

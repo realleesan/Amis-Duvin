@@ -111,9 +111,19 @@ body {
   transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-h1, h2, h3, h4, h5, h6, .font-heading {
+h1, h2, h3, h4, h5, h6,
+.font-heading,
+.font-heading-editorial,
+.editorial-tag {
   font-family: var(--font-heading);
   letter-spacing: -0.01em;
+  text-wrap: balance;
+  -webkit-text-wrap: balance;
+}
+
+p,
+.font-body-modern {
+  text-wrap: pretty;
 }
 
 ::selection {

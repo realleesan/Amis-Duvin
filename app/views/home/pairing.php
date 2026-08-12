@@ -105,7 +105,7 @@ if (empty($pairings)) {
                   <span class="font-body-modern text-xs sm:text-sm lg:text-base font-bold text-[var(--gold)] whitespace-nowrap"><?= htmlspecialchars($pairing['price_text']) ?></span>
                 </div>
                 <button type="button" onclick="event.stopPropagation(); openPairingModal(<?= $jsonData ?>)" class="btn-brand-burgundy inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 lg:px-5 py-2 lg:py-2.5 rounded-sm text-[11px] lg:text-xs uppercase tracking-[0.1em] lg:tracking-[0.15em] font-semibold whitespace-nowrap shrink-0 transition-all border border-champagneGold/30 shadow-sm active:scale-95">
-                  <span>Xem chi tiết</span>
+                  <span>Xem&nbsp;chi&nbsp;tiết</span>
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right w-3.5 h-3.5"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
                 </button>
               </div>
@@ -151,7 +151,7 @@ if (empty($pairings)) {
                     <span class="font-body-modern text-sm font-bold text-[var(--gold)] whitespace-nowrap"><?= htmlspecialchars($pairing['price_text']) ?></span>
                   </div>
                   <button type="button" onclick="event.stopPropagation(); openPairingModal(<?= $jsonData ?>)" class="w-full btn-brand-burgundy inline-flex items-center justify-center gap-2 py-2.5 rounded-sm text-xs uppercase tracking-[0.15em] font-semibold whitespace-nowrap transition-all border border-champagneGold/30 shadow-sm active:scale-95">
-                    <span>Xem chi tiết</span>
+                    <span>Xem&nbsp;chi&nbsp;tiết</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right w-3.5 h-3.5"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
                   </button>
                 </div>

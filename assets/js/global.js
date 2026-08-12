@@ -690,6 +690,40 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  // Touch Swipe Gesture Support for Topic Coverflow Track ("Các workshop khác") on mobile & small devices
+  const topicTrack = document.getElementById('topicCoverflowTrack');
+  if (topicTrack) {
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchEndX = 0;
+    let touchEndY = 0;
+
+    topicTrack.addEventListener('touchstart', (e) => {
+      if (e.touches && e.touches.length > 0) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }
+    }, { passive: true });
+
+    topicTrack.addEventListener('touchend', (e) => {
+      if (e.changedTouches && e.changedTouches.length > 0) {
+        touchEndX = e.changedTouches[0].clientX;
+        touchEndY = e.changedTouches[0].clientY;
+
+        const diffX = touchEndX - touchStartX;
+        const diffY = touchEndY - touchStartY;
+
+        if (Math.abs(diffX) > 35 && Math.abs(diffX) > Math.abs(diffY)) {
+          if (diffX < 0) {
+            if (typeof window.nextTopicSlide === 'function') window.nextTopicSlide();
+          } else {
+            if (typeof window.prevTopicSlide === 'function') window.prevTopicSlide();
+          }
+        }
+      }
+    }, { passive: true });
+  }
+
   setTimeout(() => {
     window.updateTopicCoverflow();
   }, 100);
