@@ -34,7 +34,7 @@ $introCardImage = $serviceIntro['card_image'] ?? 'https://media.base44.com/image
           <?= htmlspecialchars($introHighlightNote) ?>
         </p>
 
-        <div class="pt-4">
+        <div class="pt-4 flex justify-center lg:justify-start">
           <button onclick="scrollToId('pairing')" class="bg-[var(--wine)] hover:bg-[var(--wine-deep)] text-white px-8 py-4 rounded-sm text-xs sm:text-sm uppercase tracking-[0.2em] font-semibold inline-flex items-center gap-3 shadow-lg border border-champagneGold/30 transition-all transform hover:-translate-y-0.5 group whitespace-nowrap">
             <span>Khám&nbsp;phá các&nbsp;gói&nbsp;tiệc</span>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-down w-4 h-4 transition-transform group-hover:translate-y-1"><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg>

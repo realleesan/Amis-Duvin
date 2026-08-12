@@ -102,6 +102,9 @@ ob_start();
                   </label>
                   <span class="upload-status text-[11px] text-muted-foreground italic"></span>
                 </div>
+                <p class="text-[10px] text-muted-foreground/70 leading-relaxed mt-1.5">
+                   <strong>OG Image SEO</strong>: Khuyến nghị <strong>1200 × 630 px</strong> (tỉ lệ 1.91:1) · JPG/PNG · Tối đa 2MB · Hiển thị khi chia sẻ mạng xã hội
+                </p>
               </div>
             </div>
           </div>
@@ -172,6 +175,9 @@ ob_start();
                   </label>
                   <span class="upload-status text-[11px] text-muted-foreground italic"></span>
                 </div>
+                <p class="text-[10px] text-muted-foreground/70 leading-relaxed mt-1.5">
+                   <strong>Hero Banner</strong>: Khuyến nghị <strong>1920 × 1080 px trở lên</strong> (tỉ lệ 16:9) · JPG/WebP · Tối đa 5MB · Ảnh nền toàn màn hình, ưu tiên ảnh ngang sắc nét
+                </p>
               </div>
             </div>
           </div>
@@ -329,6 +335,9 @@ ob_start();
                   </label>
                   <span class="upload-status text-[11px] text-muted-foreground italic"></span>
                 </div>
+                <p class="text-[10px] text-muted-foreground/70 leading-relaxed mt-1.5">
+                   <strong>Card Giới thiệu Dịch vụ</strong>: Khuyến nghị <strong>800 × 1000 px</strong> (tỉ lệ 4:5, dọc) · JPG/WebP · Tối đa 3MB · Hiển thị cạnh đoạn text section giới thiệu
+                </p>
               </div>
             </div>
           </div>
@@ -474,6 +483,9 @@ ob_start();
                         </label>
                         <span class="upload-status text-[10px] text-muted-foreground italic"></span>
                       </div>
+                      <p class="text-[10px] text-muted-foreground/70 leading-relaxed mt-1">
+                         <strong>Ảnh Gói tiệc</strong>: <strong>800 × 600 px</strong> (4:3) · JPG/WebP · Max 3MB
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -590,6 +602,9 @@ ob_start();
                       </label>
                       <span class="upload-status text-[10px] text-muted-foreground italic"></span>
                     </div>
+                    <p class="text-[10px] text-muted-foreground/70 leading-relaxed mt-1">
+                       <strong>Ảnh Workshop</strong>: <strong>800 × 600 px</strong> (4:3) · JPG/WebP · Max 3MB
+                    </p>
                   </div>
                 </div>
               </div>
@@ -751,6 +766,9 @@ ob_start();
                       </label>
                       <span class="upload-status text-[10px] text-muted-foreground italic"></span>
                     </div>
+                    <p class="text-[10px] text-muted-foreground/70 leading-relaxed mt-1">
+                       <strong>Avatar Đánh giá</strong>: <strong>200 × 200 px</strong> (1:1, vuông) · JPG/PNG · Max 500KB · Mặt người, ưu tiên ảnh rõ nét
+                    </p>
                   </div>
                 </div>
               </div>
@@ -904,6 +922,9 @@ ob_start();
               </label>
               <span class="upload-status text-[11px] text-muted-foreground italic"></span>
             </div>
+            <p class="text-[10px] text-muted-foreground/70 leading-relaxed mt-1.5">
+               <strong>Avatar Đánh giá</strong>: Khuyến nghị <strong>200 × 200 px</strong> (tỉ lệ 1:1, vuông) · JPG/PNG · Tối đa 500KB · Ưu tiên ảnh chân dung rõ mặt
+            </p>
           </div>
         </div>
       </div>
@@ -1032,6 +1053,9 @@ ob_start();
               </label>
               <span class="upload-status text-[11px] text-muted-foreground italic"></span>
             </div>
+            <p class="text-[10px] text-muted-foreground/70 leading-relaxed mt-1.5">
+               <strong>Ảnh Gói tiệc Pairing</strong>: Khuyến nghị <strong>800 × 600 px</strong> (tỉ lệ 4:3) · JPG/WebP · Tối đa 3MB · Ảnh ngang, sắc nét, gam màu sang trọng
+            </p>
           </div>
         </div>
       </div>
@@ -1117,6 +1141,9 @@ ob_start();
               </label>
               <span class="upload-status text-[11px] text-muted-foreground italic"></span>
             </div>
+            <p class="text-[10px] text-muted-foreground/70 leading-relaxed mt-1.5">
+               <strong>Ảnh bìa Workshop</strong>: Khuyến nghị <strong>800 × 600 px</strong> (tỉ lệ 4:3) · JPG/WebP · Tối đa 3MB · Ảnh ngang, gam màu tối, có chiều sâu
+            </p>
           </div>
         </div>
       </div>

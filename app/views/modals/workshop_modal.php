@@ -82,7 +82,10 @@
       <button type="submit" id="btnWsModalSubmit" class="btn-invert w-full py-4 rounded-sm text-sm uppercase tracking-[0.2em] font-medium min-h-[52px] flex items-center justify-center gap-2">
         Giữ chỗ
       </button>
-      <p class="text-center text-[11px] text-muted-foreground mt-4">Thông tin của bạn được bảo mật tuyệt đối theo chính sách của Amis Duvin.</p>
+      <div class="flex items-center justify-center gap-2 mt-5 text-[11px] text-muted-foreground">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lock w-3.5 h-3.5 text-[var(--gold)] shrink-0"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        <span>Thông tin của bạn được bảo mật tuyệt đối theo <button type="button" onclick="openPrivacyPolicyModal()" class="underline hover:text-[var(--gold)]">chính sách của Amis Duvin</button>.</span>
+      </div>
     </form>
   </div>
 </div>

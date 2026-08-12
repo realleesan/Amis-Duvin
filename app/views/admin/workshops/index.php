@@ -351,6 +351,9 @@ ob_start();
               </label>
               <span class="upload-status text-[11px] text-muted-foreground italic"></span>
             </div>
+            <p class="text-[10px] text-muted-foreground/70 leading-relaxed mt-1.5">
+               <strong>Ảnh bìa Workshop</strong>: Khuyến nghị <strong>800 × 600 px</strong> (tỉ lệ 4:3) · JPG/WebP · Tối đa 3MB · Ảnh ngang, gam màu tối, có chiều sâu
+            </p>
           </div>
         </div>
       </div>

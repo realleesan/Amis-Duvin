@@ -23,10 +23,12 @@
             <span><strong class="text-foreground">Điểm nhận diện:</strong> Cách Nhà thi đấu Đống Đa ~300m, gần ngã tư Võ Văn Dũng – Nguyễn Lương Bằng.</span>
           </li>
         </ul>
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=58B+V%C3%B5+V%C4%83n+D%C5%A9ng,+%C4%90%E1%BB%91ng+%C4%90a,+H%C3%A0+N%E1%BB%99i" target="_blank" rel="noopener noreferrer" class="btn-invert inline-flex items-center gap-2 px-6 py-3.5 rounded-sm text-xs uppercase tracking-[0.15em] font-medium min-h-[48px]">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-navigation w-4 h-4"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg>
-          Mở Google Maps
-        </a>
+        <div class="flex justify-center lg:justify-start">
+          <a href="https://www.google.com/maps/search/?api=1&amp;query=58B+V%C3%B5+V%C4%83n+D%C5%A9ng,+%C4%90%E1%BB%91ng+%C4%90a,+H%C3%A0+N%E1%BB%99i" target="_blank" rel="noopener noreferrer" class="btn-invert inline-flex items-center gap-2 px-6 py-3.5 rounded-sm text-xs uppercase tracking-[0.15em] font-medium min-h-[48px]">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-navigation w-4 h-4"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg>
+            Mở Google Maps
+          </a>
+        </div>
       </div>
       <div class="lg:col-span-2 rounded-sm overflow-hidden border border-border h-[300px] sm:h-[380px] shadow-[0_20px_50px_-25px_rgba(33,30,25,0.3)]">
         <iframe src="https://www.google.com/maps?q=58B+V%C3%B5+V%C4%83n+D%C5%A9ng,+%C4%90%E1%BB%91ng+%C4%90a,+H%C3%A0+N%E1%BB%99i&amp;output=embed" class="w-full h-full" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Bản đồ — Amis Duvin, 58B Võ Văn Dũng, Đống Đa, Hà Nội" style="border: 0px;"></iframe>

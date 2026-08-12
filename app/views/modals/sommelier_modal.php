@@ -105,7 +105,7 @@
           </button>
 
           <!-- Slider Dots -->
-          <div id="sommelierSliderDots" class="absolute bottom-4 right-5 flex gap-2">
+          <div id="sommelierSliderDots" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
             <button onclick="goToSommelierSlide(0)" class="h-1.5 rounded-full transition-all duration-300 w-6 bg-[var(--wine)]" aria-label="Slide 1"></button>
             <button onclick="goToSommelierSlide(1)" class="h-1.5 rounded-full transition-all duration-300 w-1.5 bg-white/50" aria-label="Slide 2"></button>
             <button onclick="goToSommelierSlide(2)" class="h-1.5 rounded-full transition-all duration-300 w-1.5 bg-white/50" aria-label="Slide 3"></button>
@@ -245,9 +245,8 @@
 
     <!-- Modal Sticky Footer Button -->
     <div class="shrink-0 border-t border-border bg-card px-5 sm:px-8 py-4">
-      <button onclick="closeSommelierModal(); scrollToId('register');" class="btn-wine w-full py-4 rounded-sm text-sm uppercase tracking-[0.2em] font-medium min-h-[52px] flex items-center justify-center gap-2">
+      <button onclick="closeSommelierModal(); scrollToId('register');" class="btn-wine w-full py-4 rounded-sm text-sm uppercase tracking-[0.2em] font-medium min-h-[52px] flex items-center justify-center">
         Đăng ký Party cùng Sommelier Alex Thịnh
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right w-4 h-4"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
       </button>
     </div>
   </div>
