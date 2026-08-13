@@ -12,7 +12,7 @@ class Database
     private function __construct() {}
     private function __clone() {}
 
-    public static function getInstance(): PDO
+    public static function getInstance(): ?PDO
     {
         if (self::$instance === null) {
             $config = require __DIR__ . '/../config/database.php';
