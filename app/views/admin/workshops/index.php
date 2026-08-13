@@ -344,7 +344,7 @@ ob_start();
           <div class="flex-1 space-y-1.5">
             <input type="text" id="wpImage" name="image" autocomplete="off" placeholder="URL hoặc chọn từ máy..." class="input-elegant w-full px-3.5 py-2 rounded-sm text-xs font-medium" oninput="updateImagePreview(this, 'preview_wpImage')">
             <div class="flex items-center gap-2">
-              <label class="px-2.5 py-1 rounded bg-muted hover:bg-muted/80 border border-border/50 text-[11px] text-foreground font-medium cursor-pointer inline-flex items-center gap-1.5 transition-colors">
+              <label class="px-2.5 py-1 rounded bg-muted hover:bg-muted/80 border border-border/50 text-[11px] text-foreground font-medium cursor-pointer relative inline-flex items-center gap-1.5 transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>
                 <span>Tải ảnh từ máy</span>
                 <input type="file" accept="image/*" class="sr-only" onchange="handleAdminImageUpload(this, 'wpImage', 'preview_wpImage')">

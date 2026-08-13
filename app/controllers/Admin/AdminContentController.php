@@ -16,6 +16,13 @@ use App\Services\NotificationService;
 
 class AdminContentController extends BaseController
 {
+    private function redirectWithSection(string $message, string $type = 'msg'): void
+    {
+        $sec = $_POST['sec'] ?? 'all';
+        header('Location: ' . admin_url('content') . '?sec=' . urlencode($sec) . '&' . $type . '=' . urlencode($message));
+        exit;
+    }
+
     public function index(): void
     {
         AuthService::requireRole(['admin', 'marketing']);
@@ -82,8 +89,7 @@ class AdminContentController extends BaseController
             $currentUser
         );
 
-        header('Location: ' . admin_url('content') . '?msg=' . urlencode('Đã cập nhật Section Hero thành công!'));
-        exit;
+        $this->redirectWithSection('Đã cập nhật Section Hero thành công!');
     }
 
     public function updateServiceIntro(): void
@@ -116,8 +122,7 @@ class AdminContentController extends BaseController
             ]);
         }
 
-        header('Location: ' . admin_url('content') . '?msg=' . urlencode('Đã cập nhật Section Giới thiệu Dịch vụ thành công!'));
-        exit;
+        $this->redirectWithSection('Đã cập nhật Section Giới thiệu Dịch vụ thành công!');
     }
 
     public function updatePairing(): void
@@ -198,8 +203,7 @@ class AdminContentController extends BaseController
             $currentUser
         );
 
-        header('Location: ' . admin_url('content') . '?msg=' . urlencode('Đã cập nhật Gói tiệc Pairing thành công!'));
-        exit;
+        $this->redirectWithSection('Đã cập nhật Gói tiệc Pairing thành công!');
     }
 
     public function updateBenefit(): void
@@ -220,8 +224,7 @@ class AdminContentController extends BaseController
             ]);
         }
 
-        header('Location: ' . admin_url('content') . '?msg=' . urlencode('Đã cập nhật Lợi ích cốt lõi thành công!'));
-        exit;
+        $this->redirectWithSection('Đã cập nhật Lợi ích cốt lõi thành công!');
     }
 
     // Testimonials CRUD
@@ -237,8 +240,7 @@ class AdminContentController extends BaseController
         $avatar = trim($_POST['avatar'] ?? '');
 
         if (empty($name) || empty($content)) {
-            header('Location: ' . admin_url('content') . '?err=' . urlencode('Vui lòng nhập tên khách hàng và nội dung đánh giá.'));
-            exit;
+            $this->redirectWithSection('Vui lòng nhập tên khách hàng và nội dung đánh giá.', 'err');
         }
 
         // Auto-link pairing_id from pairings table
@@ -267,8 +269,7 @@ class AdminContentController extends BaseController
             ]);
         }
 
-        header('Location: ' . admin_url('content') . '?msg=' . urlencode('Đã thêm Đánh giá mới thành công!'));
-        exit;
+        $this->redirectWithSection('Đã thêm Đánh giá mới thành công!');
     }
 
     public function updateTestimonial(): void
@@ -310,8 +311,7 @@ class AdminContentController extends BaseController
             ]);
         }
 
-        header('Location: ' . admin_url('content') . '?msg=' . urlencode('Đã cập nhật Đánh giá khách hàng thành công!'));
-        exit;
+        $this->redirectWithSection('Đã cập nhật Đánh giá khách hàng thành công!');
     }
 
     public function deleteTestimonial(): void
@@ -325,8 +325,7 @@ class AdminContentController extends BaseController
             $stmt->execute(['id' => $id]);
         }
 
-        header('Location: ' . admin_url('content') . '?msg=' . urlencode('Đã xóa Đánh giá khách hàng thành công!'));
-        exit;
+        $this->redirectWithSection('Đã xóa Đánh giá khách hàng thành công!');
     }
 
     // FAQ CRUD
@@ -338,8 +337,7 @@ class AdminContentController extends BaseController
         $answer = trim($_POST['answer'] ?? '');
 
         if (empty($question) || empty($answer)) {
-            header('Location: ' . admin_url('content') . '?err=' . urlencode('Vui lòng nhập cả câu hỏi và câu trả lời FAQ.'));
-            exit;
+            $this->redirectWithSection('Vui lòng nhập cả câu hỏi và câu trả lời FAQ.', 'err');
         }
 
         $db = (new FaqModel())->getDb();
@@ -351,8 +349,7 @@ class AdminContentController extends BaseController
             ]);
         }
 
-        header('Location: ' . admin_url('content') . '?msg=' . urlencode('Đã thêm Câu hỏi FAQ mới thành công!'));
-        exit;
+        $this->redirectWithSection('Đã thêm Câu hỏi FAQ mới thành công!');
     }
 
     public function updateFaq(): void
@@ -373,8 +370,7 @@ class AdminContentController extends BaseController
             ]);
         }
 
-        header('Location: ' . admin_url('content') . '?msg=' . urlencode('Đã cập nhật câu hỏi FAQ thành công!'));
-        exit;
+        $this->redirectWithSection('Đã cập nhật câu hỏi FAQ thành công!');
     }
 
     public function deleteFaq(): void
@@ -388,8 +384,7 @@ class AdminContentController extends BaseController
             $stmt->execute(['id' => $id]);
         }
 
-        header('Location: ' . admin_url('content') . '?msg=' . urlencode('Đã xóa câu hỏi FAQ thành công!'));
-        exit;
+        $this->redirectWithSection('Đã xóa câu hỏi FAQ thành công!');
     }
 
     public function updateSeo(): void
@@ -405,8 +400,7 @@ class AdminContentController extends BaseController
         $seoModel = new SeoModel();
         $seoModel->updateSeoSettings($metaTitle, $metaDescription, $metaKeywords, $ogImage, $canonicalUrl);
 
-        header('Location: ' . admin_url('content') . '?msg=' . urlencode('Đã cập nhật cấu hình SEO & Meta Tags thành công!'));
-        exit;
+        $this->redirectWithSection('Đã cập nhật cấu hình SEO & Meta Tags thành công!');
     }
 
     public function updateWorkshop(): void
@@ -418,8 +412,7 @@ class AdminContentController extends BaseController
         $price = (float)($_POST['price'] ?? 0);
 
         if ($id <= 0 || empty($title) || $price <= 0) {
-            header('Location: ' . admin_url('content') . '?err=' . urlencode('Vui lòng nhập thông tin Workshop hợp lệ.'));
-            exit;
+            $this->redirectWithSection('Vui lòng nhập thông tin Workshop hợp lệ.', 'err');
         }
 
         $data = [
@@ -448,12 +441,10 @@ class AdminContentController extends BaseController
                 admin_url('content'),
                 $currentUser
             );
-            header('Location: ' . admin_url('content') . '?msg=' . urlencode('Đã cập nhật thông tin Workshop thành công!'));
-            exit;
+            $this->redirectWithSection('Đã cập nhật thông tin Workshop thành công!');
         }
 
-        header('Location: ' . admin_url('content') . '?err=' . urlencode('Lỗi cập nhật Workshop.'));
-        exit;
+        $this->redirectWithSection('Lỗi cập nhật Workshop.', 'err');
     }
 
     public function createBenefit(): void

@@ -290,18 +290,19 @@ document.addEventListener('DOMContentLoaded', () => {
           if (!items.length && !wines.length) continue;
 
           const header = document.createElement('li');
-          header.className = "text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-semibold pt-3 pb-1 border-t border-border/30 first:border-t-0";
-          header.textContent = sectionLabels[secKey] || secKey;
+          header.className = "text-[11px] uppercase tracking-[0.25em] text-[var(--gold)] font-bold pt-4 pb-1.5 border-t border-champagneGold/30 first:border-t-0 flex items-center gap-2";
+          header.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-[var(--gold)] shrink-0"></span>${sectionLabels[secKey] || secKey}`;
           menuContainer.appendChild(header);
 
           const maxLen = Math.max(items.length, wines.length);
           for (let i = 0; i < maxLen; i++) {
             const li = document.createElement('li');
-            li.className = "grid grid-cols-12 gap-3 items-start py-2.5 border-b border-border/30 text-xs sm:text-sm last:border-0";
+            li.className = "grid grid-cols-12 gap-3 items-start py-2.5 pl-4 border-b border-border/30 text-xs sm:text-sm last:border-0 relative";
             const itemText = items[i] || '';
             const wineText = wines[i] || '';
             li.innerHTML = `
-              <div class="col-span-7 sm:col-span-8 text-foreground/90 font-medium leading-relaxed">
+              <div class="col-span-7 sm:col-span-8 text-foreground/90 font-medium leading-relaxed relative">
+                <span class="absolute -left-4 top-[0.65rem] w-1 h-1 rounded-full bg-[var(--gold)]/60 shrink-0"></span>
                 ${itemText}
               </div>
               <div class="col-span-5 sm:col-span-4 text-[var(--wine)] font-semibold text-right leading-relaxed">

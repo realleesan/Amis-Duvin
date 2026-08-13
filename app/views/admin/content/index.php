@@ -62,6 +62,7 @@ ob_start();
       </div>
 
       <form action="<?= admin_url('content/seo') ?>" method="POST" class="space-y-5">
+        <input type="hidden" name="sec" value="<?= htmlspecialchars($activeSection ?? 'all') ?>">
         <div class="grid sm:grid-cols-2 gap-5">
           <div>
             <label for="seoMetaTitle" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Meta Title (Tiêu đề SEO Trang chủ) *</label>
@@ -95,7 +96,7 @@ ob_start();
               <div class="flex-1 space-y-1.5">
                 <input type="text" id="seoOgImage" name="og_image" required value="<?= htmlspecialchars($seo['og_image'] ?? '') ?>" placeholder="URL ảnh hoặc chọn từ máy..." class="input-elegant w-full px-3.5 py-2 rounded-sm text-xs font-medium" oninput="updateImagePreview(this, 'preview_seoOgImage')">
                 <div class="flex items-center gap-2">
-                  <label class="px-2.5 py-1 rounded bg-muted hover:bg-muted/80 border border-border/50 text-[11px] text-foreground font-medium cursor-pointer inline-flex items-center gap-1.5 transition-colors">
+                  <label class="px-2.5 py-1 rounded bg-muted hover:bg-muted/80 border border-border/50 text-[11px] text-foreground font-medium cursor-pointer relative inline-flex items-center gap-1.5 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>
                     <span>Tải ảnh từ máy</span>
                     <input type="file" accept="image/*" class="sr-only" onchange="handleAdminImageUpload(this, 'seoOgImage', 'preview_seoOgImage')">
@@ -140,6 +141,7 @@ ob_start();
       </div>
 
       <form action="<?= admin_url('content/hero') ?>" method="POST" class="space-y-5">
+        <input type="hidden" name="sec" value="<?= htmlspecialchars($activeSection ?? 'all') ?>">
         <div class="grid sm:grid-cols-2 gap-5">
           <div>
             <label for="heroTagline" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Tagline (Khẩu hiệu nhỏ)</label>
@@ -168,7 +170,7 @@ ob_start();
               <div class="flex-1 space-y-1.5">
                 <input type="text" id="heroBgImage" name="bg_image" autocomplete="off" value="<?= htmlspecialchars($hero['bg_image'] ?? '') ?>" placeholder="URL ảnh hoặc chọn từ máy..." class="input-elegant w-full px-3.5 py-2 rounded-sm text-xs font-medium" oninput="updateImagePreview(this, 'preview_heroBgImage')">
                 <div class="flex items-center gap-2">
-                  <label class="px-2.5 py-1 rounded bg-muted hover:bg-muted/80 border border-border/50 text-[11px] text-foreground font-medium cursor-pointer inline-flex items-center gap-1.5 transition-colors">
+                  <label class="px-2.5 py-1 rounded bg-muted hover:bg-muted/80 border border-border/50 text-[11px] text-foreground font-medium cursor-pointer relative inline-flex items-center gap-1.5 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>
                     <span>Tải ảnh từ máy</span>
                     <input type="file" accept="image/*" class="sr-only" onchange="handleAdminImageUpload(this, 'heroBgImage', 'preview_heroBgImage')">
@@ -226,6 +228,7 @@ ob_start();
             <div class="flex items-center justify-between">
               <h4 class="font-heading text-base text-foreground font-semibold"><?= htmlspecialchars($b['title']) ?></h4>
               <form action="<?= admin_url('content/benefit/delete') ?>" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa Lợi ích này?');" class="inline">
+        <input type="hidden" name="sec" value="<?= htmlspecialchars($activeSection ?? 'all') ?>">
                 <input type="hidden" name="id" value="<?= $b['id'] ?>">
                 <button type="submit" class="p-1 rounded text-muted-foreground hover:text-rose-400 hover:bg-muted transition-colors" title="Xóa Lợi ích này">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2 w-4 h-4"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
@@ -234,6 +237,7 @@ ob_start();
             </div>
 
             <form action="<?= admin_url('content/benefit') ?>" method="POST" class="space-y-3">
+        <input type="hidden" name="sec" value="<?= htmlspecialchars($activeSection ?? 'all') ?>">
               <input type="hidden" name="id" value="<?= $b['id'] ?>">
 
               <div>
@@ -277,6 +281,7 @@ ob_start();
       </div>
 
       <form action="<?= admin_url('content/service-intro') ?>" method="POST" class="space-y-5">
+        <input type="hidden" name="sec" value="<?= htmlspecialchars($activeSection ?? 'all') ?>">
         <div class="grid sm:grid-cols-3 gap-5">
           <div>
             <label for="serviceTagline" class="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Tagline Dịch vụ</label>
@@ -328,7 +333,7 @@ ob_start();
               <div class="flex-1 space-y-1.5">
                 <input type="text" id="serviceCardImage" name="card_image" autocomplete="off" value="<?= htmlspecialchars($serviceIntro['card_image'] ?? '') ?>" placeholder="URL ảnh hoặc chọn từ máy..." class="input-elegant w-full px-3.5 py-2 rounded-sm text-xs font-medium" oninput="updateImagePreview(this, 'preview_serviceCardImage')">
                 <div class="flex items-center gap-2">
-                  <label class="px-2.5 py-1 rounded bg-muted hover:bg-muted/80 border border-border/50 text-[11px] text-foreground font-medium cursor-pointer inline-flex items-center gap-1.5 transition-colors">
+                  <label class="px-2.5 py-1 rounded bg-muted hover:bg-muted/80 border border-border/50 text-[11px] text-foreground font-medium cursor-pointer relative inline-flex items-center gap-1.5 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>
                     <span>Tải ảnh từ máy</span>
                     <input type="file" accept="image/*" class="sr-only" onchange="handleAdminImageUpload(this, 'serviceCardImage', 'preview_serviceCardImage')">
@@ -382,7 +387,8 @@ ob_start();
               <span><?= htmlspecialchars($p['title']) ?></span>
               <div class="flex items-center gap-2">
                 <span class="text-xs text-[var(--gold)] font-mono font-normal"><?= htmlspecialchars($p['price_text']) ?></span>
-                <form action="<?= admin_url('content/pairing/delete') ?>" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa Gói tiệc Pairing này?');" class="inline">
+                 <form action="<?= admin_url('content/pairing/delete') ?>" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa Gói tiệc Pairing này?');" class="inline">
+                   <input type="hidden" name="sec" value="<?= htmlspecialchars($activeSection ?? 'all') ?>">
                   <input type="hidden" name="id" value="<?= $p['id'] ?>">
                   <button type="submit" class="p-1 rounded text-muted-foreground hover:text-rose-400 hover:bg-muted transition-colors" title="Xóa gói tiệc này">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2 w-4 h-4"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
@@ -392,6 +398,7 @@ ob_start();
             </h4>
 
             <form action="<?= admin_url('content/pairing') ?>" method="POST" class="space-y-3">
+        <input type="hidden" name="sec" value="<?= htmlspecialchars($activeSection ?? 'all') ?>">
               <input type="hidden" name="id" value="<?= $p['id'] ?>">
 
               <div>
@@ -549,7 +556,8 @@ ob_start();
               <span><?= htmlspecialchars($ws['title']) ?></span>
               <div class="flex items-center gap-2">
                 <span class="text-xs text-[var(--gold)] font-mono font-normal"><?= number_format($ws['price']) ?>đ/khách</span>
-                <form action="<?= admin_url('content/workshop/delete') ?>" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa Gói Workshop này?');" class="inline">
+                 <form action="<?= admin_url('content/workshop/delete') ?>" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa Gói Workshop này?');" class="inline">
+                   <input type="hidden" name="sec" value="<?= htmlspecialchars($activeSection ?? 'all') ?>">
                   <input type="hidden" name="id" value="<?= $ws['id'] ?>">
                   <button type="submit" class="p-1 rounded text-muted-foreground hover:text-rose-400 hover:bg-muted transition-colors" title="Xóa gói Workshop này">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2 w-4 h-4"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
@@ -559,6 +567,7 @@ ob_start();
             </h4>
 
             <form action="<?= admin_url('content/workshop') ?>" method="POST" class="space-y-3">
+        <input type="hidden" name="sec" value="<?= htmlspecialchars($activeSection ?? 'all') ?>">
               <input type="hidden" name="id" value="<?= $ws['id'] ?>">
 
               <div>
@@ -690,7 +699,8 @@ ob_start();
                 <span class="text-xs text-[var(--gold)]">★ <?= (int)($t['rating'] ?? 5) ?>/5</span>
 
                 <!-- Delete Testimonial Form -->
-                <form action="<?= admin_url('content/testimonial/delete') ?>" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa đánh giá này?');" class="inline">
+                 <form action="<?= admin_url('content/testimonial/delete') ?>" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa đánh giá này?');" class="inline">
+                   <input type="hidden" name="sec" value="<?= htmlspecialchars($activeSection ?? 'all') ?>">
                   <input type="hidden" name="id" value="<?= $t['id'] ?>">
                   <button type="submit" class="p-1 rounded text-muted-foreground hover:text-rose-400 hover:bg-muted transition-colors" title="Xóa đánh giá này">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2 w-4 h-4"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
@@ -700,6 +710,7 @@ ob_start();
             </div>
 
             <form action="<?= admin_url('content/testimonial') ?>" method="POST" class="space-y-3">
+        <input type="hidden" name="sec" value="<?= htmlspecialchars($activeSection ?? 'all') ?>">
               <input type="hidden" name="id" value="<?= $t['id'] ?>">
 
               <div class="grid grid-cols-2 gap-3">
@@ -831,6 +842,7 @@ ob_start();
             <div class="flex items-center justify-between">
               <span class="text-xs uppercase tracking-widest text-[var(--gold)] font-mono">FAQ #<?= $f['id'] ?></span>
               <form action="<?= admin_url('content/faq/delete') ?>" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa câu hỏi FAQ này?');" class="inline">
+        <input type="hidden" name="sec" value="<?= htmlspecialchars($activeSection ?? 'all') ?>">
                 <input type="hidden" name="id" value="<?= $f['id'] ?>">
                 <button type="submit" class="p-1 rounded text-muted-foreground hover:text-rose-400 hover:bg-muted transition-colors" title="Xóa câu hỏi FAQ này">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2 w-4 h-4"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
@@ -839,6 +851,7 @@ ob_start();
             </div>
 
             <form action="<?= admin_url('content/faq') ?>" method="POST" class="space-y-3">
+        <input type="hidden" name="sec" value="<?= htmlspecialchars($activeSection ?? 'all') ?>">
               <input type="hidden" name="id" value="<?= $f['id'] ?>">
 
               <div>
@@ -874,7 +887,8 @@ ob_start();
 
     <h3 class="font-heading text-xl text-foreground mb-4">Thêm Đánh giá Khách hàng mới</h3>
 
-    <form action="<?= admin_url('content/testimonial/create') ?>" method="POST" class="space-y-4">
+      <form action="<?= admin_url('content/testimonial/create') ?>" method="POST" class="space-y-4">
+        <input type="hidden" name="sec" value="<?= htmlspecialchars($activeSection ?? 'all') ?>">
       <div class="grid grid-cols-2 gap-4">
         <div>
           <label for="createTestimonialName" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Tên khách hàng *</label>
@@ -933,7 +947,7 @@ ob_start();
           <div class="flex-1 space-y-1.5">
             <input type="text" id="createTestimonialAvatar" name="avatar" autocomplete="off" placeholder="URL hoặc chọn từ máy..." class="input-elegant w-full px-3.5 py-2 rounded-sm text-xs font-medium" oninput="updateImagePreview(this, 'preview_createTestimonialAvatar')">
             <div class="flex items-center gap-2">
-              <label class="px-2.5 py-1 rounded bg-muted hover:bg-muted/80 border border-border/50 text-[11px] text-foreground font-medium cursor-pointer inline-flex items-center gap-1.5 transition-colors">
+              <label class="px-2.5 py-1 rounded bg-muted hover:bg-muted/80 border border-border/50 text-[11px] text-foreground font-medium cursor-pointer relative inline-flex items-center gap-1.5 transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>
                 <span>Tải ảnh từ máy</span>
                 <input type="file" accept="image/*" class="sr-only" onchange="handleAdminImageUpload(this, 'createTestimonialAvatar', 'preview_createTestimonialAvatar')">
@@ -968,7 +982,8 @@ ob_start();
 
     <h3 class="font-heading text-xl text-foreground mb-4">Thêm Câu hỏi FAQ mới</h3>
 
-    <form action="<?= admin_url('content/faq/create') ?>" method="POST" class="space-y-4">
+      <form action="<?= admin_url('content/faq/create') ?>" method="POST" class="space-y-4">
+        <input type="hidden" name="sec" value="<?= htmlspecialchars($activeSection ?? 'all') ?>">
       <div>
         <label for="createFaqQuestion" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Câu hỏi *</label>
         <input type="text" id="createFaqQuestion" name="question" required autocomplete="off" placeholder="Nhà hàng có chỗ đỗ xe ô tô không?" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm font-semibold">
@@ -1000,7 +1015,8 @@ ob_start();
 
     <h3 class="font-heading text-xl text-foreground mb-4">Thêm Lợi ích Cốt lõi mới</h3>
 
-    <form action="<?= admin_url('content/benefit/create') ?>" method="POST" class="space-y-4">
+      <form action="<?= admin_url('content/benefit/create') ?>" method="POST" class="space-y-4">
+        <input type="hidden" name="sec" value="<?= htmlspecialchars($activeSection ?? 'all') ?>">
       <div>
         <label for="createBenefitTitle" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Tiêu đề Lợi ích *</label>
         <input type="text" id="createBenefitTitle" name="title" required autocomplete="off" placeholder="VD: Hiểu vang dễ dàng" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm font-medium">
@@ -1032,7 +1048,8 @@ ob_start();
 
     <h3 class="font-heading text-xl text-foreground mb-4">Thêm Gói tiệc Pairing mới</h3>
 
-    <form action="<?= admin_url('content/pairing/create') ?>" method="POST" class="space-y-4">
+      <form action="<?= admin_url('content/pairing/create') ?>" method="POST" class="space-y-4">
+        <input type="hidden" name="sec" value="<?= htmlspecialchars($activeSection ?? 'all') ?>">
       <div>
         <label for="createPairingTitle" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Tên Gói tiệc *</label>
         <input type="text" id="createPairingTitle" name="title" required autocomplete="off" placeholder="VD: Private Cellar Pairing" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm font-medium">
@@ -1064,7 +1081,7 @@ ob_start();
           <div class="flex-1 space-y-1.5">
             <input type="text" id="createPairingImage" name="image" autocomplete="off" placeholder="URL hoặc chọn từ máy..." class="input-elegant w-full px-3.5 py-2 rounded-sm text-xs font-medium" oninput="updateImagePreview(this, 'preview_createPairingImage')">
             <div class="flex items-center gap-2">
-              <label class="px-2.5 py-1 rounded bg-muted hover:bg-muted/80 border border-border/50 text-[11px] text-foreground font-medium cursor-pointer inline-flex items-center gap-1.5 transition-colors">
+              <label class="px-2.5 py-1 rounded bg-muted hover:bg-muted/80 border border-border/50 text-[11px] text-foreground font-medium cursor-pointer relative inline-flex items-center gap-1.5 transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>
                 <span>Tải ảnh từ máy</span>
                 <input type="file" accept="image/*" class="sr-only" onchange="handleAdminImageUpload(this, 'createPairingImage', 'preview_createPairingImage')">
@@ -1134,7 +1151,8 @@ ob_start();
 
     <h3 class="font-heading text-xl text-foreground mb-4">Thêm Gói Workshop mới</h3>
 
-    <form action="<?= admin_url('content/workshop/create') ?>" method="POST" class="space-y-4">
+      <form action="<?= admin_url('content/workshop/create') ?>" method="POST" class="space-y-4">
+        <input type="hidden" name="sec" value="<?= htmlspecialchars($activeSection ?? 'all') ?>">
       <div>
         <label for="createWsTitle" class="block text-xs uppercase tracking-widest text-muted-foreground mb-1">Tên Workshop *</label>
         <input type="text" id="createWsTitle" name="title" required autocomplete="off" placeholder="VD: Workshop Vang Pháp & Phô mai" class="input-elegant w-full px-3 py-2.5 rounded-sm text-sm font-medium">
@@ -1187,7 +1205,7 @@ ob_start();
           <div class="flex-1 space-y-1.5">
             <input type="text" id="createWsImage" name="image" autocomplete="off" placeholder="URL hoặc chọn từ máy..." class="input-elegant w-full px-3.5 py-2 rounded-sm text-xs font-medium" oninput="updateImagePreview(this, 'preview_createWsImage')">
             <div class="flex items-center gap-2">
-              <label class="px-2.5 py-1 rounded bg-muted hover:bg-muted/80 border border-border/50 text-[11px] text-foreground font-medium cursor-pointer inline-flex items-center gap-1.5 transition-colors">
+              <label class="px-2.5 py-1 rounded bg-muted hover:bg-muted/80 border border-border/50 text-[11px] text-foreground font-medium cursor-pointer relative inline-flex items-center gap-1.5 transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>
                 <span>Tải ảnh từ máy</span>
                 <input type="file" accept="image/*" class="sr-only" onchange="handleAdminImageUpload(this, 'createWsImage', 'preview_createWsImage')">
