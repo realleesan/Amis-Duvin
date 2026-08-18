@@ -108,6 +108,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+}
+
+body.theme-transitioning {
   transition: background-color 0.4s ease, color 0.4s ease;
 }
 
@@ -117,13 +120,12 @@ h1, h2, h3, h4, h5, h6,
 .editorial-tag {
   font-family: var(--font-heading);
   letter-spacing: -0.01em;
-  text-wrap: balance;
-  -webkit-text-wrap: balance;
 }
 
 p,
 .font-body-modern {
-  text-wrap: pretty;
+  word-break: normal;
+  overflow-wrap: break-word;
 }
 
 ::selection {
@@ -137,9 +139,14 @@ p,
 
 .glass {
   background: var(--glass-bg);
-  backdrop-filter: blur(16px) saturate(150%);
   -webkit-backdrop-filter: blur(16px) saturate(150%);
+  backdrop-filter: blur(16px) saturate(150%);
   border-bottom: 1px solid var(--glass-border);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  will-change: transform, -webkit-backdrop-filter, backdrop-filter;
 }
 
 .btn-wine {
@@ -377,38 +384,75 @@ html:not(.dark) .faq-item:hover {
 }
 
 /* Light Mode Header Navigation Text & Navbar Background when Scrolled (.glass) */
+/* Header glass and scrolled styles (Hardware-accelerated for macOS / Safari) */
+#mainHeader {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  will-change: transform, background-color, padding;
+}
+
+#mainHeader.scrolled,
+#mainHeader.glass {
+  background-color: rgba(13, 13, 13, 0.85) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  backdrop-filter: blur(12px) !important;
+  border-bottom: 1px solid rgba(160, 127, 62, 0.25) !important;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3) !important;
+  padding-top: 0.75rem !important;
+  padding-bottom: 0.75rem !important;
+}
+
+#mainHeader.scrolled .nav-link,
+#mainHeader.glass .nav-link {
+  color: rgba(242, 239, 233, 0.85);
+}
+
+#mainHeader.scrolled .nav-link:hover,
+#mainHeader.glass .nav-link:hover {
+  color: #ffffff;
+}
+
+#mainHeader.scrolled #themeToggleBtn,
+#mainHeader.glass #themeToggleBtn,
+#mainHeader.scrolled #mobileMenuBtn,
+#mainHeader.glass #mobileMenuBtn,
+#mainHeader.scrolled #mobileThemeToggleBtn,
+#mainHeader.glass #mobileThemeToggleBtn {
+  color: #ffffff;
+}
+
+html:not(.dark) #mainHeader.scrolled,
+html:not(.dark) #mainHeader.glass {
+  background-color: rgba(246, 245, 243, 0.88) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  backdrop-filter: blur(12px) !important;
+  border-bottom: 1px solid rgba(160, 127, 62, 0.25) !important;
+  box-shadow: 0 4px 20px -4px rgba(34, 34, 34, 0.1) !important;
+}
+
+html:not(.dark) #mainHeader.scrolled .nav-link,
 html:not(.dark) #mainHeader.glass .nav-link {
   color: #222222 !important;
   font-weight: 600 !important;
 }
 
+html:not(.dark) #mainHeader.scrolled .nav-link:hover,
 html:not(.dark) #mainHeader.glass .nav-link:hover {
   color: #B62025 !important;
 }
 
+html:not(.dark) #mainHeader.scrolled #themeToggleBtn,
 html:not(.dark) #mainHeader.glass #themeToggleBtn,
+html:not(.dark) #mainHeader.scrolled #mobileMenuBtn,
 html:not(.dark) #mainHeader.glass #mobileMenuBtn,
+html:not(.dark) #mainHeader.scrolled #mobileThemeToggleBtn,
 html:not(.dark) #mainHeader.glass #mobileThemeToggleBtn {
   color: #222222 !important;
 }
 
-.glass {
-  background-color: rgba(13, 13, 13, 0.75) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
-  border-bottom: 1px solid rgba(160, 127, 62, 0.25) !important;
-  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3) !important;
-}
-
-html:not(.dark) #mainHeader.glass {
-  background-color: rgba(246, 245, 243, 0.8) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
-  border-bottom: 1px solid rgba(160, 127, 62, 0.25) !important;
-  box-shadow: 0 4px 20px -4px rgba(34, 34, 34, 0.1) !important;
-}
-
-html:not(.dark) #mainHeader:not(.glass) {
+html:not(.dark) #mainHeader:not(.scrolled):not(.glass) {
   background-color: transparent !important;
   border-bottom: none !important;
   box-shadow: none !important;
@@ -477,7 +521,11 @@ html:not(.dark) #mainHeader:not(.glass) {
 
 .no-scrollbar { 
   -ms-overflow-style: none !important; 
-  scrollbar-width: none !important; 
+}
+@supports (scrollbar-width: none) {
+  .no-scrollbar {
+    scrollbar-width: none !important;
+  }
 }
 .no-scrollbar::-webkit-scrollbar { 
   display: none !important; 
@@ -554,13 +602,13 @@ html:not(.dark) #mainHeader:not(.glass) {
   transform: scale(1.05);
 }
 
-/* Modals */
+/* Modals (Hardware-accelerated for Safari / macOS) */
 .modal-overlay {
   position: fixed;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   z-index: 9999;
   display: flex;
   align-items: center;
@@ -569,12 +617,17 @@ html:not(.dark) #mainHeader:not(.glass) {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  will-change: opacity;
 }
 
 html:not(.dark) .modal-overlay {
   background-color: rgba(246, 245, 243, 0.65);
-  backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
 }
 
 .modal-overlay.active {

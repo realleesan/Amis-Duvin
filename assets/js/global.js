@@ -1,45 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Header scroll effect (glass & text color)
+  // 1. Header scroll effect (Hardware-accelerated & Debounced for Macbook/Safari)
   const header = document.getElementById('mainHeader');
-  const navLinks = document.querySelectorAll('.nav-link');
-  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
   const themeToggleBtns = document.querySelectorAll('.theme-toggle-btn');
+  let lastHeaderScrolledState = null;
+  let lastScrollTopBtnState = null;
+  let scrollTicking = false;
 
   function updateHeaderScroll() {
-    const isScrolled = window.scrollY > 40;
     if (!header) return;
+    const isScrolled = window.scrollY > 40;
+    if (isScrolled === lastHeaderScrolledState) return;
+    lastHeaderScrolledState = isScrolled;
 
-    if (isScrolled) {
-      header.classList.remove('bg-transparent', 'py-5');
-      header.classList.add('glass', 'py-3');
-      navLinks.forEach(link => {
-        link.classList.remove('text-white/80', 'hover:text-white');
-        link.classList.add('text-foreground/70', 'hover:text-foreground');
-      });
-      themeToggleBtns.forEach(btn => {
-        btn.classList.remove('text-white');
-        btn.classList.add('text-foreground');
-      });
-      if (mobileMenuBtn) {
-        mobileMenuBtn.classList.remove('text-white');
-        mobileMenuBtn.classList.add('text-foreground');
-      }
-    } else {
-      header.classList.remove('glass', 'py-3');
-      header.classList.add('bg-transparent', 'py-5');
-      navLinks.forEach(link => {
-        link.classList.remove('text-foreground/70', 'hover:text-foreground');
-        link.classList.add('text-white/80', 'hover:text-white');
-      });
-      themeToggleBtns.forEach(btn => {
-        btn.classList.remove('text-foreground');
-        btn.classList.add('text-white');
-      });
-      if (mobileMenuBtn) {
-        mobileMenuBtn.classList.remove('text-foreground');
-        mobileMenuBtn.classList.add('text-white');
-      }
-    }
+    header.classList.toggle('scrolled', isScrolled);
+    header.classList.toggle('glass', isScrolled);
+    header.classList.toggle('bg-transparent', !isScrolled);
+    header.classList.toggle('py-5', !isScrolled);
   }
 
   // Scroll To Top functionality
@@ -50,7 +26,11 @@ document.addEventListener('DOMContentLoaded', () => {
   function handleScrollToTopButton() {
     const btn = document.getElementById('btnScrollToTop');
     if (!btn) return;
-    if (window.scrollY > 300) {
+    const isVisible = window.scrollY > 300;
+    if (isVisible === lastScrollTopBtnState) return;
+    lastScrollTopBtnState = isVisible;
+
+    if (isVisible) {
       btn.classList.remove('opacity-0', 'translate-y-6', 'pointer-events-none');
       btn.classList.add('opacity-100', 'translate-y-0');
     } else {
@@ -60,13 +40,20 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   window.addEventListener('scroll', () => {
-    updateHeaderScroll();
-    handleScrollToTopButton();
+    if (!scrollTicking) {
+      window.requestAnimationFrame(() => {
+        updateHeaderScroll();
+        handleScrollToTopButton();
+        scrollTicking = false;
+      });
+      scrollTicking = true;
+    }
   }, { passive: true });
+
   updateHeaderScroll();
   handleScrollToTopButton();
 
-  // 2. Dark / Light Theme Toggle
+  // 2. Dark / Light Theme Toggle with smooth transition guard
   function syncThemeUI() {
     const isDark = document.documentElement.classList.contains('dark');
     document.querySelectorAll('#sunIcon, .sunIconMobile').forEach(el => {
@@ -79,11 +66,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   themeToggleBtns.forEach(btn => {
     btn.addEventListener('click', () => {
+      document.body.classList.add('theme-transitioning');
       const isDark = document.documentElement.classList.toggle('dark');
       try {
         localStorage.setItem('adv-theme', isDark ? 'dark' : 'light');
       } catch (e) {}
       syncThemeUI();
+      setTimeout(() => {
+        document.body.classList.remove('theme-transitioning');
+      }, 450);
     });
   });
 
